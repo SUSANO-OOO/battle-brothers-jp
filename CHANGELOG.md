@@ -53,3 +53,6 @@
 - Independently reviewed and adopted all 300 translations from the third Vanilla event tranche with 57 corrections, no exclusions, and no unresolved player-facing text.
 - Proved the `Fishes` title and `Hoggart's Heirloom` item name reach existing return-only display boundaries without changing persisted identity, and resolved one ambiguous upstream shadow sentence from its immediate event context while preserving the source-defect note.
 - Built and fully static-QA-verified the reviewed-4,178 development tranche; all 31 repository-owned checks pass and the 13-entry archive matches source exactly.
+- Completed the fourth 300-unit Vanilla event tranche with 299 independently reviewed translations, 84 draft corrections, one exact internal achievement-ID exclusion, and no unresolved player-facing units.
+- Added and independently re-audited exact raw item-name scopes for three Legends dog identity consumers plus one clone-only obituary cause. Normal display remains localized while item/dog identity, Statistics, persistence, and saves remain raw.
+- Built and fully static-QA-verified the reviewed-4,477 development tranche; all 31 repository-owned checks pass, required glyph coverage is 2,182/2,182, and the 13-entry archive matches source exactly.

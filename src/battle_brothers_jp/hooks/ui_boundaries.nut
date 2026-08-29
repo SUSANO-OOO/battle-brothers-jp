@@ -159,7 +159,8 @@ local obituaryDisplayCauses = {
     ["Got a better paying offer"] = true,
     ["Handed over to authorities"] = true,
     ["Hanged for attempted murder"] = true,
-    ["Left to claim their birthright"] = true
+    ["Left to claim their birthright"] = true,
+    ["Murdered by his fellow brothers"] = true
 };
 local function translateObituaryDTO(_data)
 {

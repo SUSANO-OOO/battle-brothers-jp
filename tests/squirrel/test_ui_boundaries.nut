@@ -20,6 +20,7 @@ local groupNames = {
     ["Handed over to authorities"] = "当局へ引き渡された",
     ["Hanged for attempted murder"] = "殺人未遂で絞首刑に処された",
     ["Left to claim their birthright"] = "生まれながらの権利を求めて去った",
+    ["Murdered by his fellow brothers"] = "同じ傭兵団の仲間たちに殺された",
     ["Brigands have stolen the %s from his lordship. He wants it back."] = "盗賊が領主の%sを盗んだ。領主は取り戻すことを望んでいる。"
 };
 
@@ -336,8 +337,9 @@ local obituarySource = {
         {Name = "Cedric", KilledBy = "Handed over to authorities", Kills = 1},
         {Name = "Dora", KilledBy = "Hanged for attempted murder", Kills = 0},
         {Name = "Edric", KilledBy = "Left to claim their birthright", Kills = 0},
-        {Name = "Fara", KilledBy = "Hohenburg", Kills = 0},
-        {Name = "Gernot", KilledBy = 7},
+        {Name = "Fara", KilledBy = "Murdered by his fellow brothers", Kills = 0},
+        {Name = "Gernot", KilledBy = "Hohenburg", Kills = 0},
+        {Name = "Hilde", KilledBy = 7},
         "malformed"
     ],
     Page = 2
@@ -359,16 +361,18 @@ assertEqual(obituaryResult.Fallen[1].KilledBy, "もっと割のいい仕事を�
 assertEqual(obituaryResult.Fallen[2].KilledBy, "当局へ引き渡された");
 assertEqual(obituaryResult.Fallen[3].KilledBy, "殺人未遂で絞首刑に処された");
 assertEqual(obituaryResult.Fallen[4].KilledBy, "生まれながらの権利を求めて去った");
-assertEqual(obituaryResult.Fallen[5].KilledBy, "Hohenburg");
-assertEqual(obituaryResult.Fallen[6].KilledBy, 7);
-assertEqual(obituaryResult.Fallen[7], "malformed");
+assertEqual(obituaryResult.Fallen[5].KilledBy, "同じ傭兵団の仲間たちに殺された");
+assertEqual(obituaryResult.Fallen[6].KilledBy, "Hohenburg");
+assertEqual(obituaryResult.Fallen[7].KilledBy, 7);
+assertEqual(obituaryResult.Fallen[8], "malformed");
 assertEqual(obituaryResult.Page, 2);
 assertEqual(obituarySource.Fallen[0].KilledBy, "Deserted the company");
 assertEqual(obituarySource.Fallen[1].KilledBy, "Got a better paying offer");
 assertEqual(obituarySource.Fallen[2].KilledBy, "Handed over to authorities");
 assertEqual(obituarySource.Fallen[3].KilledBy, "Hanged for attempted murder");
 assertEqual(obituarySource.Fallen[4].KilledBy, "Left to claim their birthright");
-assertEqual(obituarySource.Fallen[5].KilledBy, "Hohenburg");
+assertEqual(obituarySource.Fallen[5].KilledBy, "Murdered by his fellow brothers");
+assertEqual(obituarySource.Fallen[6].KilledBy, "Hohenburg");
 if (obituaryResult == obituarySource
     || obituaryResult.Fallen == obituarySource.Fallen
     || obituaryResult.Fallen[0] == obituarySource.Fallen[0]) throw "obituary DTO was not cloned";

@@ -1,6 +1,9 @@
 local hooks = {};
 local methodShapes = {
     ["scripts/items/item"] = ["getName"],
+    ["scripts/items/accessory/legend_accessory_dog"] = ["onActorDied"],
+    ["scripts/items/accessory/wardog_item"] = ["onActorDied"],
+    ["scripts/skills/actives/unleash_wardog"] = ["onUse"],
     ["scripts/skills/perks/perk_legend_specialist_poacher"] = ["onAnySkillUsed", "onTargetHit"],
     ["scripts/skills/backgrounds/character_background"] = ["getNameOnly"],
     ["scripts/skills/traits/legend_intensive_training_trait"] = ["getTooltip"],
@@ -31,7 +34,8 @@ local function registerHook(_target, _callback)
         local translated = {
             ["Broad Head Arrows"] = "幅広鏃の矢",
             ["Donkey"] = "ロバ",
-            ["Hohenburg"] = "ホーエンブルク"
+            ["Hohenburg"] = "ホーエンブルク",
+            ["Warrior the Warhound"] = "戦犬のウォリアー"
         };
         return _text in translated ? translated[_text] : _text;
     }
@@ -75,6 +79,68 @@ local nestedPoacher = hooks["scripts/skills/perks/perk_legend_specialist_poacher
 });
 assertEqual(nestedPoacher(), "Broad Head Arrows");
 assertEqual(::BattleBrothersJP.SemanticNameScopes.Item, 0);
+
+// The dog accessory is localized for inventory/UI display, but Legends must
+// copy the raw identity into the spawned tactical entity in all three audited
+// methods. The source item is never mutated.
+local warriorItem = {m = {Name = "Warrior the Warhound"}};
+local warriorGetter = hooks["scripts/items/item"].getName(function () {
+    return ::Rosetta.translate(this.m.Name);
+});
+warriorItem.getName <- warriorGetter;
+assertEqual(warriorItem.getName(), "戦犬のウォリアー");
+
+local unleashedDog = {Name = null};
+local unleashCalls = 0;
+local unleashWrapper = hooks["scripts/skills/actives/unleash_wardog"].onUse(function (_user, _tile) {
+    unleashCalls += 1;
+    assertEqual(_user, "user");
+    assertEqual(_tile, "tile");
+    unleashedDog.Name = warriorItem.getName();
+    return 31;
+});
+assertEqual(unleashWrapper("user", "tile"), 31);
+assertEqual(unleashCalls, 1);
+assertEqual(unleashedDog.Name, "Warrior the Warhound");
+
+local fallenWardog = {Name = null};
+local wardogDeathWrapper = hooks["scripts/items/accessory/wardog_item"].onActorDied(function (_killer) {
+    assertEqual(_killer, "killer");
+    fallenWardog.Name = warriorItem.getName();
+    return 37;
+});
+assertEqual(wardogDeathWrapper("killer"), 37);
+assertEqual(fallenWardog.Name, "Warrior the Warhound");
+
+local fallenLegendDog = {Name = null};
+local legendDogDeathWrapper = hooks["scripts/items/accessory/legend_accessory_dog"].onActorDied(function (_killer) {
+    assertEqual(_killer, "legend-killer");
+    fallenLegendDog.Name = warriorItem.getName();
+    return 41;
+});
+assertEqual(legendDogDeathWrapper("legend-killer"), 41);
+assertEqual(fallenLegendDog.Name, "Warrior the Warhound");
+assertEqual(warriorItem.m.Name, "Warrior the Warhound");
+assertEqual(warriorItem.getName(), "戦犬のウォリアー");
+
+// An exception must restore the counter and active language before escaping.
+local failingDogWrapper = hooks["scripts/skills/actives/unleash_wardog"].onUse(function (_user, _tile) {
+    assertEqual(warriorItem.getName(), "Warrior the Warhound");
+    throw "dog-sentinel";
+});
+local dogErrorCaught = false;
+try
+{
+    failingDogWrapper("user", "tile");
+}
+catch (error)
+{
+    dogErrorCaught = error == "dog-sentinel";
+}
+if (!dogErrorCaught) throw "dog semantic scope did not rethrow the original exception";
+assertEqual(::BattleBrothersJP.SemanticNameScopes.Item, 0);
+assertEqual(::Rosetta.active, "ja");
+assertEqual(warriorItem.getName(), "戦犬のウォリアー");
 
 local rosettaBackgroundGetter = function () {
     return ::Rosetta.translate("Donkey");

@@ -48,8 +48,9 @@ local function makeSemanticScopeWrapper(_scopeName)
     }
 }
 
-// Item display names stay translated. Only the two Poacher methods that match
-// the English ammo-name tokens "Piercing" and "Broad Head" receive raw names.
+// Item display names stay translated. Only audited consumers that use an item
+// display name as an English matcher or copy it into a persistent/runtime
+// identity receive the raw source name.
 mod.hookTree("scripts/items/item", function (q) {
     q.getName = @(__original) function (...) {
         if (scopes.Item == 0)
@@ -64,6 +65,21 @@ mod.hookTree("scripts/items/item", function (q) {
 mod.hook("scripts/skills/perks/perk_legend_specialist_poacher", function (q) {
     q.onAnySkillUsed = makeSemanticScopeWrapper("Item");
     q.onTargetHit = makeSemanticScopeWrapper("Item");
+});
+
+// Legends copies the item name into the spawned tactical dog in these exact
+// methods. Keep that identity raw while the accessory/inventory label remains
+// localized everywhere else.
+mod.hook("scripts/skills/actives/unleash_wardog", function (q) {
+    q.onUse = makeSemanticScopeWrapper("Item");
+});
+
+mod.hook("scripts/items/accessory/wardog_item", function (q) {
+    q.onActorDied = makeSemanticScopeWrapper("Item");
+});
+
+mod.hook("scripts/items/accessory/legend_accessory_dog", function (q) {
+    q.onActorDied = makeSemanticScopeWrapper("Item");
 });
 
 // Background display names stay translated. This exact tooltip method is the

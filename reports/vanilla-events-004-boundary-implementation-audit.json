@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "audit_id": "vanilla-events-004-boundary-implementation-audit",
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "status": "PASS",
+  "runtime_game_qa": "NOT_TESTED",
+  "blockers": [],
+  "required_changes": [],
+  "boundaries": [
+    {
+      "id": "WARRIOR_ITEM_TO_DOG_RAW_IDENTITY_SCOPES",
+      "status": "PASS",
+      "exact_targets": [
+        "scripts/skills/actives/unleash_wardog.onUse",
+        "scripts/items/accessory/wardog_item.onActorDied",
+        "scripts/items/accessory/legend_accessory_dog.onActorDied"
+      ],
+      "contract": "Only the three audited consumers see raw item.getName(); normal inventory and actor display remains localized, and raw item.m.Name plus spawned tactical dog identity remains unchanged.",
+      "verified": [
+        "exact installed Vanilla and Legends consumers",
+        "original called once",
+        "arguments and return values preserved",
+        "success and exception scope restoration",
+        "Rosetta.active restoration",
+        "source item identity not mutated",
+        "ordinary translated display restored after scope"
+      ]
+    },
+    {
+      "id": "OBITUARY_CAUSE_ALLOWLIST_EXTENSION",
+      "status": "PASS",
+      "exact_value": "Murdered by his fellow brothers",
+      "exact_target": "scripts/ui/screens/world/world_obituary_screen.convertFallenToUIData",
+      "contract": "Translate only the reviewed KilledBy value on a returned DTO clone; raw Statistics.Fallen and save input remain unchanged.",
+      "verified": [
+        "source DTO and nested source entry unchanged",
+        "unknown string retained without clone",
+        "malformed and non-string values fail closed"
+      ]
+    }
+  ],
+  "checks": {
+    "squirrel_compile": "PASS",
+    "semantic_name_safety_harness": "PASS",
+    "ui_boundaries_harness": "PASS",
+    "translation_only_hook_scope": "PASS",
+    "actual_game_path_write_absence": "PASS",
+    "qa_mod_unit_tests": "4/4 PASS"
+  },
+  "notes": [
+    "The semantic harness intentionally throws and catches dog-sentinel; the Squirrel VM emits a diagnostic while the harness exits 0 and prints SEMANTIC_NAME_SAFETY_TEST_OK.",
+    "This audit verifies repository-owned implementation and isolated harness behavior, not a game boot."
+  ],
+  "source_audit_sha256": "63C4C5E1AB7177ED91DD7B31B90A980668A382E54E84CB0C0BC32C521632717A",
+  "file_sha256": {
+    "src/battle_brothers_jp/hooks/semantic_name_safety.nut": "0B0AB019C5EA12A6B6437DDDDCDE77ED948F85FC8FFF85D3DB96ED83DB9DD578",
+    "src/battle_brothers_jp/hooks/ui_boundaries.nut": "6958BAB529B5CF2485CE449B94D694FD4A52865C840074BF04B1D66C5920CBBC",
+    "tests/squirrel/test_semantic_name_safety.nut": "4AA31DA2B758FC2BFB516760A4B095500D1F9AB1C8C12CB3AA0D9E6A7B3B4E99",
+    "tests/squirrel/test_ui_boundaries.nut": "BB2496EB77AE9E6A529AAC8BB3BB704B4CD4FDB5EBCA9C1C2FBA7A7692A8C509"
+  },
+  "actual_user_environment_write_count": 0
+}

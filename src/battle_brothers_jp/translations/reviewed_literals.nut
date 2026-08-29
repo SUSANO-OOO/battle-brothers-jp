@@ -12927,12 +12927,76 @@
         ja = "忠実な猟犬たちを屠って食わせるわけにはいかない。"
     }
     {
+        en = "I will pay you those 6,000 crowns, and both %bastard% and you will stay."
+        ja = "6,000クラウンを払おう。%bastard%もお前も残れ。"
+    }
+    {
+        en = "I will see to it you are paid no less than him."
+        ja = "お前にも、あいつと同じだけの報酬を払う。"
+    }
+    {
         en = "I won't put the life of my men at risk for this."
         ja = "このために団員の命を危険にさらすつもりはない。"
     }
     {
+        en = "I work alone."
+        ja = "俺は一人でやる。"
+    }
+    {
+        en = "I'd hire more men if only we could afford it."
+        ja = "余裕さえあれば、もっと団員を雇うのだが。"
+    }
+    {
+        en = "I'd rather not get involved in this."
+        ja = "これには関わりたくない。"
+    }
+    {
+        en = "I'll bring you the hides."
+        ja = "皮を持ってこよう。"
+    }
+    {
+        en = "I'll burn the letter."
+        ja = "手紙は燃やそう。"
+    }
+    {
+        en = "I'll call you 'Warrior'."
+        ja = "お前を「ウォリアー」と呼ぼう。"
+    }
+    {
+        en = "I'll drink it all!"
+        ja = "全部飲み干す！"
+    }
+    {
+        en = "I'll end this right here."
+        ja = "ここで終わらせる。"
+    }
+    {
+        en = "I'll go get my shovel!"
+        ja = "シャベルを取ってくる！"
+    }
+    {
         en = "I'll have to think it over."
         ja = "少し考えさせてくれ。"
+    }
+    {
+        en = "I'll just take a little."
+        ja = "少しだけ飲もう。"
+    }
+    {
+        en = "I'll keep it in mind."
+        ja = "覚えておこう。"
+    }
+    {
+        en = "I'll kill it myself."
+        ja = "俺が自分で殺す。"
+    }
+    {
+        en = "I'll leave you be."
+        ja = "放っておこう。"
+    }
+    {
+        en = "I'll pay the 200 crowns for that...some kind of gland?"
+        ja = "その……何かの腺を200クラウンで買おう。"
     }
     {
         en = "I'll pay you 500 crowns right now if you join us."
@@ -12943,16 +13007,124 @@
         ja = "長い道のりを省いてやろう。金目の物はここで全部置いていけ。"
     }
     {
+        en = "I'll show him the letter."
+        ja = "あいつに手紙を見せよう。"
+    }
+    {
+        en = "I'll take a look at our retinue!"
+        ja = "随員を見てみよう！"
+    }
+    {
+        en = "I'll take it."
+        ja = "それをもらおう。"
+    }
+    {
+        en = "I'll take the big heart for...550 crowns, is it?"
+        ja = "大きな心臓をもらおう……550クラウンだったか？"
+    }
+    {
+        en = "I'll tell you yours instead: You're about to give us all your valuables."
+        ja = "代わりにお前の運命を教えよう。今から金目の物をすべて俺たちへ渡すことになる。"
+    }
+    {
+        en = "I'm alright."
+        ja = "俺は大丈夫だ。"
+    }
+    {
+        en = "I'm getting tired just watching this."
+        ja = "見ているだけで疲れてきた。"
+    }
+    {
+        en = "I'm glad we found you on that fateful day."
+        ja = "あの運命の日にお前を見つけられてよかった。"
+    }
+    {
+        en = "I'm going with you."
+        ja = "俺も一緒に行く。"
+    }
+    {
+        en = "I'm in charge here! This is my company!"
+        ja = "ここで指揮を執るのは俺だ！　これは俺の傭兵団だ！"
+    }
+    {
+        en = "I'm intrigued, we'll buy the map."
+        ja = "興味が湧いた。その地図を買おう。"
+    }
+    {
+        en = "I'm not going to, and neither are you."
+        ja = "俺はやらない。お前にもやらせない。"
+    }
+    {
+        en = "I'm sure he won't say anything."
+        ja = "あいつは何も話さないだろう。"
+    }
+    {
+        en = "I've changed my mind."
+        ja = "気が変わった。"
+    }
+    {
+        en = "I've had enough for today."
+        ja = "今日はもう十分だ。"
+    }
+    {
+        en = "I've had quite enough betting for now, myself."
+        ja = "俺も今はもう賭け事は十分だ。"
+    }
+    {
+        en = "I've learned something today."
+        ja = "今日は一つ学んだ。"
+    }
+    {
+        en = "I've seen enough. We need to help him, now!"
+        ja = "もう十分見た。今すぐあいつを助けるぞ！"
+    }
+    {
+        en = "I've selected everyone I wish to. Now defeat those Oathbringers!"
+        ja = "必要な者は全員選んだ。さあ、オースブリンガーどもを倒せ！"
+    }
+    {
+        en = "I... don't... understand."
+        ja = "わ……わからない……。"
+    }
+    {
         en = "Idol of Fertility"
         ja = "豊穣の偶像"
+    }
+    {
+        en = "If he won't put down the drink I'll force him to. Get the whip."
+        ja = "酒を手放さないなら、無理にでもやめさせる。鞭を持ってこい。"
+    }
+    {
+        en = "If it bleeds, we can kill it."
+        ja = "血を流すなら、殺せる。"
+    }
+    {
+        en = "If it must be... go take care of it. Here are the crowns."
+        ja = "やむを得ないなら……行って片づけてこい。クラウンはここだ。"
+    }
+    {
+        en = "If only he was this happy about mercenary work, too."
+        ja = "傭兵稼業にも、これほど喜んで取り組んでくれればいいのだが。"
     }
     {
         en = "If there's one life that's more rough than that of being a sellsword, it is that of being a miner. Sadly, %name% returned to that life, going back into the mines to dig out metals and ores to fill some rich man's pockets. A recent earthquake collapsed many such mines. You're not sure if the ol' brother survived, but it's looking pretty grim."
         ja = "売剣より荒んだ暮らしが一つあるとすれば、鉱夫の暮らしだ。残念ながら%name%はそこへ戻り、金持ちの懐を肥やす金属や鉱石を掘るため再び坑道へ入った。近ごろの地震で、そのような鉱山がいくつも崩れた。あの古い仲間が生き延びたかはわからないが、望みは薄そうだ。"
     }
     {
+        en = "If you say so."
+        ja = "お前がそう言うなら。"
+    }
+    {
         en = "If you want it, come and take it!"
         ja = "欲しければ、取りに来い！"
+    }
+    {
+        en = "If you want to see more crowns, earn them."
+        ja = "もっとクラウンが欲しいなら、その分を稼げ。"
+    }
+    {
+        en = "If you're so scared to read, perhaps it is best we don't."
+        ja = "それほど読むのが怖いなら、やめておくのが一番だろう。"
     }
     {
         en = "Ifrits"
@@ -12961,6 +13133,10 @@
     {
         en = "Ignite"
         ja = "点火"
+    }
+    {
+        en = "Ignore it."
+        ja = "無視しろ。"
     }
     {
         en = "Ignores the bonus to Melee Defense granted by shields"
@@ -13007,12 +13183,60 @@
         ja = "せっかち"
     }
     {
+        en = "Impossible and yet... I want to see it!"
+        ja = "不可能だ。だが……見てみたい！"
+    }
+    {
+        en = "Impressed by a magnificent statue of old"
+        ja = "古代の壮麗な像に感銘を受けた"
+    }
+    {
+        en = "Impressed everyone with his swiftness"
+        ja = "素早さで皆を感心させた"
+    }
+    {
+        en = "Impressed everyone with his talents"
+        ja = "才能で皆を感心させた"
+    }
+    {
+        en = "Impressive."
+        ja = "見事だ。"
+    }
+    {
+        en = "Improved the company's cart"
+        ja = "傭兵団の荷車を改良した"
+    }
+    {
+        en = "In that case we're going to help him."
+        ja = "それなら、あいつを助けよう。"
+    }
+    {
+        en = "In the company of sellswords, no man is low or highborn."
+        ja = "傭兵団では、卑賤の生まれも高貴な生まれも関係ない。"
+    }
+    {
+        en = "In the mountains..."
+        ja = "山中にて……"
+    }
+    {
         en = "Incorporeal"
         ja = "非実体"
     }
     {
+        en = "Incredible."
+        ja = "信じられない。"
+    }
+    {
         en = "Indebted"
         ja = "債務奴隷"
+    }
+    {
+        en = "Indeed you do."
+        ja = "確かにそうだな。"
+    }
+    {
+        en = "Indeed."
+        ja = "そのとおりだ。"
     }
     {
         en = "Indomitable"
@@ -13023,12 +13247,24 @@
         ja = "使用者の現在の先制値が高いほど、追加ダメージが増える"
     }
     {
+        en = "Insane."
+        ja = "正気ではない。"
+    }
+    {
         en = "Insecure"
         ja = "自信不足"
     }
     {
+        en = "Inspect the stump."
+        ja = "切り株を調べろ。"
+    }
+    {
         en = "Inspired by nearby Leader"
         ja = "近くの指揮官に鼓舞されている"
+    }
+    {
+        en = "Interesting way to earn a living."
+        ja = "面白い稼ぎ方だ。"
     }
     {
         en = "Interesting."
@@ -13037,6 +13273,10 @@
     {
         en = "Iron Will"
         ja = "鉄の意志"
+    }
+    {
+        en = "Iron sharpens iron."
+        ja = "鉄は鉄によって研がれる。"
     }
     {
         en = "Irrational"
@@ -13055,20 +13295,164 @@
         ja = "使用時に消滅する"
     }
     {
+        en = "Is happy about the company's moral compass"
+        ja = "傭兵団の道義心を喜ばしく思っている"
+    }
+    {
+        en = "Is he alive?"
+        ja = "生きているのか？"
+    }
+    {
+        en = "Is he alright?"
+        ja = "あいつは大丈夫か？"
+    }
+    {
+        en = "Is his former self again"
+        ja = "かつての自分を取り戻した"
+    }
+    {
         en = "Is horrified that you ordered a captive tortured"
         ja = "捕虜への拷問を命じたことに戦慄した"
+    }
+    {
+        en = "Is it real?"
+        ja = "本物なのか？"
+    }
+    {
+        en = "Is no longer asthmatic"
+        ja = "喘息ではなくなった"
     }
     {
         en = "Is not affected by fresh injuries sustained during the current battle"
         ja = "現在の戦闘中に新たに負った負傷の影響を受けない"
     }
     {
+        en = "Is optimistic despite a recent setback"
+        ja = "先日の挫折にもかかわらず楽観している"
+    }
+    {
+        en = "Is paranoid about his comrades"
+        ja = "仲間たちを疑っている"
+    }
+    {
+        en = "Is pessimistic despite a recent victory"
+        ja = "先日の勝利にもかかわらず悲観している"
+    }
+    {
+        en = "Is upset about the company's evil reputation"
+        ja = "傭兵団の悪評に憤っている"
+    }
+    {
+        en = "It appears the company also has the meanest and baddest dogs."
+        ja = "どうやら、この傭兵団にはとびきり獰猛で恐ろしい犬もいるらしい。"
+    }
+    {
+        en = "It does now."
+        ja = "今は俺のものだ。"
+    }
+    {
+        en = "It gets old fast, trust me."
+        ja = "じきにうんざりするぞ。俺を信じろ。"
+    }
+    {
+        en = "It had to be done."
+        ja = "やらねばならなかった。"
+    }
+    {
+        en = "It had to be this way."
+        ja = "こうするしかなかった。"
+    }
+    {
+        en = "It is done, and it is good."
+        ja = "果たされた。これでよい。"
+    }
+    {
+        en = "It is what it allegedly is."
+        ja = "まあ、そういうことだったらしい。"
+    }
+    {
+        en = "It isn't our place to intervene here."
+        ja = "ここで介入するのは俺たちの役目ではない。"
+    }
+    {
+        en = "It looks like %fisherman% has something to say on the matter."
+        ja = "この件について、%fisherman%が何か言いたそうだ。"
+    }
+    {
+        en = "It seems that %butcher% wants to give you a hand."
+        ja = "%butcher%が手を貸したいようだ。"
+    }
+    {
+        en = "It sorta looked like a worm to me."
+        ja = "俺にはミミズみたいに見えたが。"
+    }
+    {
+        en = "It was just a bad dream."
+        ja = "ただの悪夢だ。"
+    }
+    {
+        en = "It was nothing, honest."
+        ja = "何でもないさ。本当だ。"
+    }
+    {
+        en = "It was quite the amusement."
+        ja = "なかなか愉快だった。"
+    }
+    {
         en = "It was unusual that a shepherd such as %name% ever found his way into a company of sellswords, but he did prove himself an able warrior. With injuries mounting, he eventually retired, returning to a meadow, staff in hand, and herding sheep until his final, peaceful days."
         ja = "%name%のような羊飼いが傭兵団へ流れ着いたこと自体が珍しかったが、彼は有能な戦士であることを証明した。負傷が重なると、ついに引退し、杖を手に牧草地へ戻った。そうして、安らかな最期の日々まで羊を追い続けた。"
     }
     {
+        en = "It's a horror show, truly."
+        ja = "まさに恐怖の見世物だ。"
+    }
+    {
+        en = "It's a small world, at least for outcasts."
+        ja = "世間は狭い。少なくとも、はみ出し者の間では。"
+    }
+    {
+        en = "It's all worth it."
+        ja = "すべて報われた。"
+    }
+    {
+        en = "It's already over for you."
+        ja = "お前はもう終わりだ。"
+    }
+    {
+        en = "It's alright to think of home now and again."
+        ja = "たまには故郷を思い出してもいい。"
+    }
+    {
+        en = "It's best to burn that granary down."
+        ja = "あの穀物庫は焼き払うのが一番だ。"
+    }
+    {
+        en = "It's better this way."
+        ja = "この方がいい。"
+    }
+    {
         en = "It's done."
         ja = "終わった。"
+    }
+    {
+        en = "It's fish tonight!"
+        ja = "今夜は魚だ！"
+    }
+    {
+        en = "It's for their own good."
+        ja = "あいつら自身のためだ。"
+    }
+    {
+        en = "It's just hearsay. You have nothing to fear."
+        ja = "ただの噂だ。何も恐れることはない。"
+    }
+    {
+        en = "It's just some animal. Get back to doing your jobs."
+        ja = "ただの動物だ。仕事へ戻れ。"
+    }
+    {
+        en = "It's just some animal..."
+        ja = "ただの動物だ……"
     }
     {
         en = "It's not worth dying over. Take that damn cargo and be gone."
@@ -13079,12 +13463,40 @@
         ja = "今さら調べるほどの価値はない。"
     }
     {
+        en = "It's not worth it."
+        ja = "割に合わない。"
+    }
+    {
+        en = "It's not worth upsetting the locals."
+        ja = "住民を怒らせてまでやる価値はない。"
+    }
+    {
+        en = "It's only a weapon, you fools."
+        ja = "ただの武器だ、この馬鹿ども。"
+    }
+    {
+        en = "It's pretty much what it looks like."
+        ja = "見てのとおりだ。"
+    }
+    {
         en = "It's said that %name% the eunuch departed from the company shortly after you did. He traveled the lands, broke and broken, wasting his scant crowns on ale and wenches. Insulted by a whore for his cockless nature, the drunken and enraged eunuch stabbed the woman in the eye with a goat horn. Still inebriated when the constable found him, the confused and bewildered eunuch was stripped, hanged, and mutilated by the townspeople before having his body fed to pigs."
         ja = "宦官の%name%は、あなたが去った直後に傭兵団を離れたという。無一文で傷ついたまま各地をさまよい、わずかなクラウンを酒と女に浪費した。娼婦に男根がないことを侮辱されると、酔って激昂した宦官は山羊の角で女の目を刺した。治安官に見つかった時もまだ酔っており、混乱したままの宦官は町の者たちに裸にされ、絞首刑にされ、死体を切り刻まれた末に豚の餌にされた。"
     }
     {
+        en = "It's the way of things."
+        ja = "世の中とはそういうものだ。"
+    }
+    {
+        en = "It's time to retire from mercenary life. (End Campaign)"
+        ja = "傭兵稼業から引退するときだ。（キャンペーンを終了）"
+    }
+    {
         en = "Jester's Hat"
         ja = "道化師の帽子"
+    }
+    {
+        en = "Join us at the campfire for tonight."
+        ja = "今夜は俺たちと焚き火を囲まないか。"
     }
     {
         en = "Juggler"
@@ -13095,20 +13507,116 @@
         ja = "曲芸師の仕事には、優れた反射神経と手と目の連携が必要だ。"
     }
     {
+        en = "Just a bad dream."
+        ja = "ただの悪夢だ。"
+    }
+    {
+        en = "Just doing my part."
+        ja = "自分の役目を果たしただけだ。"
+    }
+    {
+        en = "Just don't fall into the grave."
+        ja = "墓穴へ落ちるなよ。"
+    }
+    {
+        en = "Just don't spend too much time together."
+        ja = "二人きりであまり長く過ごすなよ。"
+    }
+    {
+        en = "Just don't try and throw them over your shoulder."
+        ja = "肩越しに投げ飛ばそうとはするなよ。"
+    }
+    {
+        en = "Just get in the wagon."
+        ja = "とにかく荷車へ乗れ。"
+    }
+    {
+        en = "Just go. We have no place for you."
+        ja = "行け。うちにお前の居場所はない。"
+    }
+    {
+        en = "Just ignore it."
+        ja = "無視しておけ。"
+    }
+    {
+        en = "Just keep it away from %anatomist%."
+        ja = "とにかく、そいつを%anatomist%に近づけるな。"
+    }
+    {
+        en = "Just leave them there."
+        ja = "死体はそのままにしておけ。"
+    }
+    {
+        en = "Just put it out of its misery."
+        ja = "苦しまないよう、とどめを刺してやれ。"
+    }
+    {
+        en = "Just read it and tell me what it says already."
+        ja = "いいからさっさと読んで、何が書いてあるか教えろ。"
+    }
+    {
+        en = "Just take it easy for a bit."
+        ja = "しばらく安静にしていろ。"
+    }
+    {
+        en = "Just what did they see?"
+        ja = "一体、あいつらには何が見えた？"
+    }
+    {
+        en = "Justice has been done."
+        ja = "裁きは下された。"
+    }
+    {
         en = "KILL!!! This character is in a mushroom-induced trance-like rage and only wants to crush and destroy anyone in his path, with little regard for their own safety. CRUSH!!! DESTROY!!!"
         ja = "殺せ!!! この団員はキノコで引き起こされた忘我の激情に陥り、自分の身など顧みず、立ちはだかる者をただ叩き潰し、破壊しようとしている。叩き潰せ!!! 破壊しろ!!!"
+    }
+    {
+        en = "Keep on running. We have no place for a deserter."
+        ja = "そのまま逃げ続けろ。脱走兵を迎える場所はない。"
+    }
+    {
+        en = "Keep this between us."
+        ja = "このことは俺たちだけの秘密だ。"
     }
     {
         en = "Keep your eyes peeled."
         ja = "目を凝らせ。"
     }
     {
+        en = "Kill him."
+        ja = "殺せ。"
+    }
+    {
+        en = "Kill it."
+        ja = "殺せ。"
+    }
+    {
         en = "Kill them all!"
         ja = "一人残らず殺せ！"
     }
     {
+        en = "Kill them with dignity."
+        ja = "尊厳ある死を与えろ。"
+    }
+    {
+        en = "Killed a Necrosavant on the road"
+        ja = "街道でネクロサヴァントを殺した"
+    }
+    {
+        en = "Killed a little boy by accident"
+        ja = "誤って少年を殺した"
+    }
+    {
         en = "Killed an evil spirit"
         ja = "悪霊を討った"
+    }
+    {
+        en = "Killed one of their men"
+        ja = "彼らの者を一人殺した"
+    }
+    {
+        en = "Killed some of their men"
+        ja = "彼らの者を何人か殺した"
     }
     {
         en = "Killer on the Run"
@@ -13117,6 +13625,10 @@
     {
         en = "Killing Frenzy!"
         ja = "殺戮の狂乱！"
+    }
+    {
+        en = "Killing men does make for great bedtime stories."
+        ja = "人殺しは、実にいい寝物語になる。"
     }
     {
         en = "Kinetic Blows"
@@ -13143,6 +13655,10 @@
         ja = "転倒させる"
     }
     {
+        en = "Know your place, you fools."
+        ja = "身の程を知れ、この馬鹿ども。"
+    }
+    {
         en = "Kraken"
         ja = "クラーケン"
     }
@@ -13157,6 +13673,26 @@
     {
         en = "Lash"
         ja = "打ち据える"
+    }
+    {
+        en = "Latrine duty for a month!"
+        ja = "一か月間、便所掃除だ！"
+    }
+    {
+        en = "Lead us to your house, kid."
+        ja = "家まで案内しろ、坊主。"
+    }
+    {
+        en = "Learn to mime, you creepy prick."
+        ja = "身振りだけで伝えろ、この気味の悪い野郎。"
+    }
+    {
+        en = "Learned how to better deal with the laity"
+        ja = "俗人への接し方を学んだ"
+    }
+    {
+        en = "Learned something about dealing with the peasantry"
+        ja = "農民への接し方を少し学んだ"
     }
     {
         en = "Leather Armor"
@@ -13187,12 +13723,44 @@
         ja = "継ぎ革の衣"
     }
     {
+        en = "Leave %dumbguy% alone."
+        ja = "%dumbguy%を放っておけ。"
+    }
+    {
         en = "Leave him be."
         ja = "彼は放っておけ。"
     }
     {
+        en = "Leave it."
+        ja = "放っておけ。"
+    }
+    {
+        en = "Leave that cow alone."
+        ja = "その牛を放っておけ。"
+    }
+    {
+        en = "Leave that farmer alone!"
+        ja = "その農民を放っておけ！"
+    }
+    {
         en = "Leave that thing alone."
         ja = "それには触るな。"
+    }
+    {
+        en = "Leave them be."
+        ja = "そっとしておこう。"
+    }
+    {
+        en = "Leave them to the sands."
+        ja = "砂に委ねよう。"
+    }
+    {
+        en = "Leave them."
+        ja = "そのままにしておこう。"
+    }
+    {
+        en = "Leave those poor folk alone."
+        ja = "あの哀れな者たちを放っておけ。"
     }
     {
         en = "Leaves a cloud of miasma on target tiles"
@@ -13203,24 +13771,280 @@
         ja = "ひとりの男を正しき道へ立ち返らせた"
     }
     {
+        en = "Let %gravedigger% the gravedigger handle it."
+        ja = "墓掘りの%gravedigger%に任せよう。"
+    }
+    {
+        en = "Let a captive Oathbringer escape"
+        ja = "捕らえたオースブリンガーを逃がした"
+    }
+    {
+        en = "Let him end himself if that's what he wants."
+        ja = "それが望みなら、自ら命を絶たせてやれ。"
+    }
+    {
+        en = "Let him go."
+        ja = "あいつを逃がそう。"
+    }
+    {
         en = "Let loose a cascade of three striking heads on your opponent. Will strike over or around shield cover."
         ja = "三つの鉄球を立て続けに敵へ叩き込む。盾の遮蔽を越え、または回り込んで命中する。"
+    }
+    {
+        en = "Let the hounds sort it out themselves."
+        ja = "猟犬同士で決着をつけさせろ。"
+    }
+    {
+        en = "Let them out."
+        ja = "外へ出してやろう。"
+    }
+    {
+        en = "Let these men go free at once!"
+        ja = "今すぐ、この者たちを解放しろ！"
+    }
+    {
+        en = "Let this be a lesson to you!"
+        ja = "これを教訓にしろ！"
+    }
+    {
+        en = "Let us end them with dignity"
+        ja = "尊厳ある死を与えよう"
+    }
+    {
+        en = "Let us help you get your cart on the road again."
+        ja = "荷車を街道へ戻すのを手伝おう。"
+    }
+    {
+        en = "Let us honor the dead!"
+        ja = "死者を弔おう！"
     }
     {
         en = "Let's be done with this, we have crowns to collect."
         ja = "さっさと片付けよう。受け取るべきクラウンがある。"
     }
     {
+        en = "Let's claim it for the company!"
+        ja = "傭兵団のものにしよう！"
+    }
+    {
+        en = "Let's come back later."
+        ja = "後で戻ってこよう。"
+    }
+    {
+        en = "Let's dig!"
+        ja = "掘るぞ！"
+    }
+    {
+        en = "Let's do it."
+        ja = "やろう。"
+    }
+    {
+        en = "Let's do this."
+        ja = "やるぞ。"
+    }
+    {
+        en = "Let's fetch %historian% the Historian, he'll know about buried treasure."
+        ja = "歴史家の%historian%を呼ぼう。埋もれた財宝について知っているはずだ。"
+    }
+    {
+        en = "Let's follow these footprints."
+        ja = "この足跡を追おう。"
+    }
+    {
+        en = "Let's free her."
+        ja = "彼女を解放しよう。"
+    }
+    {
+        en = "Let's get %witchhunter%. Vile spirits are his forte."
+        ja = "%witchhunter%を呼ぼう。邪悪な霊はあいつの専門だ。"
+    }
+    {
+        en = "Let's get back on the road then."
+        ja = "それでは街道へ戻ろう。"
+    }
+    {
+        en = "Let's get back on the road."
+        ja = "街道へ戻ろう。"
+    }
+    {
+        en = "Let's get back to camp..."
+        ja = "野営地へ戻ろう……"
+    }
+    {
+        en = "Let's get godly with the goriest!"
+        ja = "血みどろの神事といこう！"
+    }
+    {
+        en = "Let's get going."
+        ja = "出発しよう。"
+    }
+    {
+        en = "Let's get on on the road."
+        ja = "街道へ出よう。"
+    }
+    {
+        en = "Let's get out of here!"
+        ja = "ここを出るぞ！"
+    }
+    {
+        en = "Let's get out of here."
+        ja = "ここを出よう。"
+    }
+    {
+        en = "Let's get that brain-looking thing for 100 crowns."
+        ja = "脳みたいな物を100クラウンで買おう。"
+    }
+    {
+        en = "Let's get the hell out of here."
+        ja = "こんな場所からさっさと逃げよう。"
+    }
+    {
+        en = "Let's go get it."
+        ja = "取りに行こう。"
+    }
+    {
+        en = "Let's go hire some more men for the company!"
+        ja = "傭兵団の仲間をもっと雇いに行こう！"
+    }
+    {
+        en = "Let's go see it."
+        ja = "見に行こう。"
+    }
+    {
+        en = "Let's go. Nothing good can come of this."
+        ja = "行こう。ここにいても、ろくなことにはならない。"
+    }
+    {
+        en = "Let's have a look."
+        ja = "見てみよう。"
+    }
+    {
+        en = "Let's help these peasants."
+        ja = "この農民たちを助けよう。"
+    }
+    {
+        en = "Let's hunt!"
+        ja = "狩りだ！"
+    }
+    {
+        en = "Let's just get on the road then."
+        ja = "それでは街道へ出よう。"
+    }
+    {
+        en = "Let's just get out of here."
+        ja = "とにかく、ここを出よう。"
+    }
+    {
+        en = "Let's keep going."
+        ja = "先へ進もう。"
+    }
+    {
+        en = "Let's keep moving."
+        ja = "進み続けよう。"
+    }
+    {
+        en = "Let's leave for now."
+        ja = "今は立ち去ろう。"
+    }
+    {
+        en = "Let's make it ours."
+        ja = "俺たちのものにしよう。"
+    }
+    {
+        en = "Let's move to let these heroes of the realm pass."
+        ja = "道を空け、この領国の英雄たちを通してやろう。"
+    }
+    {
         en = "Let's not disturb what rests here."
         ja = "ここに眠るものを起こさない方がいい。"
+    }
+    {
+        en = "Let's not do that again."
+        ja = "もう二度とやるまい。"
+    }
+    {
+        en = "Let's not dwell on this."
+        ja = "このことはもう考えまい。"
+    }
+    {
+        en = "Let's play!"
+        ja = "勝負だ！"
+    }
+    {
+        en = "Let's roll again!"
+        ja = "もう一度振ろう！"
+    }
+    {
+        en = "Let's see how he does it."
+        ja = "どうやるのか見てみよう。"
+    }
+    {
+        en = "Let's see if he'll trade it all away for something else."
+        ja = "あいつが全財産を別の物と交換するか試してみよう。"
+    }
+    {
+        en = "Let's see if you lot can hit anything."
+        ja = "お前たちが的に当てられるか見せてもらおう。"
+    }
+    {
+        en = "Let's see that blade."
+        ja = "その刃を見せろ。"
+    }
+    {
+        en = "Let's see what he had."
+        ja = "あいつの持ち物を調べよう。"
+    }
+    {
+        en = "Let's see what he's up to."
+        ja = "何をしているのか見てみよう。"
     }
     {
         en = "Let's see what secrets are inside."
         ja = "中にどんな秘密があるか確かめよう。"
     }
     {
+        en = "Let's see what this is."
+        ja = "これが何なのか確かめよう。"
+    }
+    {
+        en = "Let's see what you can do!"
+        ja = "お前に何ができるか見せてもらおう！"
+    }
+    {
+        en = "Let's see where they're going."
+        ja = "どこへ向かうのか見てみよう。"
+    }
+    {
+        en = "Let's see who is strongest in battle."
+        ja = "実戦で誰が一番強いか見てみよう。"
+    }
+    {
+        en = "Let's see..."
+        ja = "さて……"
+    }
+    {
+        en = "Let's take a closer look."
+        ja = "もっと近くで見てみよう。"
+    }
+    {
         en = "Let's talk business."
         ja = "仕事の話をしよう。"
+    }
+    {
+        en = "Let's talk to the dangling man."
+        ja = "逆さ吊りの男と話そう。"
+    }
+    {
+        en = "Let's wait and see what happens."
+        ja = "どうなるか、しばらく様子を見よう。"
+    }
+    {
+        en = "Lets call him 'Warrior' then."
+        ja = "それなら「ウォリアー」と呼ぼう。"
+    }
+    {
+        en = "Life's not a knight's tale."
+        ja = "人生は騎士物語のようにはいかない。"
     }
     {
         en = "Lifesaver"
@@ -13253,6 +14077,10 @@
     {
         en = "Like many men, %name% was found in squalor. Ale on his lips, grime in his ears, piss and shit at least somewhere on his person. But he was an Oathtaker at heart, and by the providence of Young Anselm it was certainly no ordinary circumstance which brought him back into the faith. Of course, he'll still yet pair beer with belief, but now and again one must allow a man his vices, particularly if said man shares an interest in slaying Oathbringers."
         ja = "多くの男と同じように、%name%もみすぼらしい境遇で見つかった。唇にはエール、耳には垢、そして身体のどこかには小便か糞、あるいはその両方がついていた。だが心の奥では誓約者であり、若きアンセルムの導きによって信仰へ戻ったのも、決してありふれた巡り合わせではなかった。もちろん今後も信仰と一緒にビールをあおるだろうが、人には時として悪癖も許さねばならない。ましてその男が、オースブリンガーを討つことに同じ関心を抱いているならなおさらだ。"
+    }
+    {
+        en = "Like peas in a pod. Or pigs in a pen?"
+        ja = "莢の中の豆のようだ。いや、囲いの中の豚か？"
     }
     {
         en = "Lindwurm"
@@ -13299,6 +14127,14 @@
         ja = "リノトラックス"
     }
     {
+        en = "Listen to me, save yourselves for the battlefield!"
+        ja = "俺の言うことを聞け。力は戦場まで取っておけ！"
+    }
+    {
+        en = "Little pricks."
+        ja = "クソガキどもめ。"
+    }
+    {
         en = "Living Tree Shield"
         ja = "生ける樹の盾"
     }
@@ -13311,8 +14147,40 @@
         ja = "戦役を読み込む"
     }
     {
+        en = "Local entertainers spread the word about you"
+        ja = "地元の芸人たちがあなたの評判を広めた"
+    }
+    {
+        en = "Look at 'em fight over it."
+        ja = "あれを奪い合う様を見ろ。"
+    }
+    {
+        en = "Looks like %apprentice% wants to help you."
+        ja = "%apprentice%が手伝いたそうだ。"
+    }
+    {
+        en = "Looks like %fat% is volunteering."
+        ja = "%fat%が志願しているようだ。"
+    }
+    {
+        en = "Looks like %juggler% wants to help you."
+        ja = "%juggler%が手伝いたそうだ。"
+    }
+    {
+        en = "Looks like %killer% wants to help you."
+        ja = "%killer%が手伝いたそうだ。"
+    }
+    {
+        en = "Looks like %wildmanfull% wants to go for it."
+        ja = "%wildmanfull%がやりたそうだ。"
+    }
+    {
         en = "Looks like a job for the new guy. Go take a look, %recruit%!"
         ja = "新入り向きの仕事だな。%recruit%、見てこい！"
+    }
+    {
+        en = "Looks like our minstrel has something to say."
+        ja = "うちの吟遊詩人が何か言いたそうだ。"
     }
     {
         en = "Looted Reinforced Mail"
@@ -13323,12 +14191,52 @@
         ja = "伝承の守り手"
     }
     {
+        en = "Lose some pounds, would you?"
+        ja = "少し痩せたらどうだ？"
+    }
+    {
+        en = "Lost a battle and was taken a captive"
+        ja = "戦いに敗れ、捕虜になった"
+    }
+    {
+        en = "Lost a fighting tournament"
+        ja = "格闘大会で敗れた"
+    }
+    {
         en = "Lost composure and resorted to violence"
+        ja = "平静を失い、暴力に訴えた"
+    }
+    {
+        en = "Lost confidence in himself"
+        ja = "自信を失った"
+    }
+    {
+        en = "Lost confidence in the company's solidarity"
+        ja = "傭兵団の結束への信頼を失った"
+    }
+    {
+        en = "Lost confidence in your leadership"
+        ja = "あなたの統率力への信頼を失った"
+    }
+    {
+        en = "Lost his composure and resorted to violence"
         ja = "平静を失い、暴力に訴えた"
     }
     {
         en = "Lost his previous company to webknechts"
         ja = "以前の傭兵団をウェブクネヒトに全滅させられた"
+    }
+    {
+        en = "Luck smiles upon us today."
+        ja = "今日は運が俺たちに微笑んでいる。"
+    }
+    {
+        en = "Lucky guy."
+        ja = "幸運な奴だ。"
+    }
+    {
+        en = "Lucky you."
+        ja = "運がよかったな。"
     }
     {
         en = "Lumberjack"
@@ -13341,6 +14249,10 @@
     {
         en = "Mace, Two-Handed"
         ja = "メイス（両手持ち）"
+    }
+    {
+        en = "Made a profit peddling wares"
+        ja = "品物を売り歩き、利益を上げた"
     }
     {
         en = "Mail Coif"
@@ -13357,6 +14269,14 @@
     {
         en = "Mail with Lamellar Plating"
         ja = "ラメラー装甲付き鎖帷子"
+    }
+    {
+        en = "Make it happen."
+        ja = "実行しろ。"
+    }
+    {
+        en = "Man has certainly made an impression."
+        ja = "あの男は確かに強烈な印象を残した。"
     }
     {
         en = "Managed to drive off unholds all by himself"
@@ -13383,12 +14303,92 @@
         ja = "石工仕事には独特の魅力がある。なかでも、寸分なく切り出された石や、空を背景にしてさえ目が形を捉えきれないほど途方もない塔には格別の魅力がある。石工の%name%は昔の稼業に戻り、%companyname%で稼いだ金をすべてつぎ込んで、評判のよい仕事場を構えた。その石室は冬には暖かさを、夏には涼しさを保つことで名を馳せている。"
     }
     {
+        en = "Masterfully done!"
+        ja = "見事な腕前だ！"
+    }
+    {
+        en = "May the Gilder's path for us both be as good as you hope."
+        ja = "ギルダーが我ら二人に示す道が、お前の望みどおり善きものでありますように。"
+    }
+    {
+        en = "May the darkness be ever infinite."
+        ja = "闇が永遠に果てなく続かんことを。"
+    }
+    {
+        en = "May the flies feast upon your decrepit flesh."
+        ja = "蠅どもがお前たちの朽ちた肉を貪らんことを。"
+    }
+    {
+        en = "May the man find his peace now."
+        ja = "あの男が今こそ安らぎを得られますように。"
+    }
+    {
+        en = "May the old gods not be watching me on this night."
+        ja = "今宵、古き神々が俺を見ていないことを祈ろう。"
+    }
+    {
+        en = "May the strongest man win."
+        ja = "最も強い男に勝利あれ。"
+    }
+    {
+        en = "May they rest in peace."
+        ja = "安らかに眠らんことを。"
+    }
+    {
+        en = "May they watch over us."
+        ja = "神々が我らを見守らんことを。"
+    }
+    {
+        en = "May you find peace in your travels, stranger."
+        ja = "旅路に安らぎがあらんことを、旅の者よ。"
+    }
+    {
+        en = "May you find peace on the roads, traveler."
+        ja = "街道で安らぎが得られますように、旅人よ。"
+    }
+    {
+        en = "May your path be ever gilded."
+        ja = "そなたの道が常にギルダーの光を帯びんことを。"
+    }
+    {
+        en = "Maybe I can use one of our nets to save that dog."
+        ja = "網を一つ使えば、あの犬を助けられるかもしれない。"
+    }
+    {
+        en = "Maybe I just need rest."
+        ja = "少し休めばいいのかもしれない。"
+    }
+    {
+        en = "Maybe he'll shape up to be a real mercenary after all."
+        ja = "案外、一人前の傭兵になるかもしれない。"
+    }
+    {
         en = "Maybe next time."
         ja = "また次の機会だ。"
     }
     {
+        en = "Maybe our houndmaster can help?"
+        ja = "犬使いなら助けられるか？"
+    }
+    {
+        en = "Maybe there's something useful in there."
+        ja = "中に役立つ物があるかもしれない。"
+    }
+    {
+        en = "Maybe two or three drinks, even."
+        ja = "いや、二、三杯でもいいか。"
+    }
+    {
         en = "Maybe use this instead? This character has quick hands and can still swap an item for free this turn."
         ja = "こっちならどうだ？ この団員は手さばきが素早く、このターンはまだ行動力を消費せずにアイテムを持ち替えられる。"
+    }
+    {
+        en = "Maybe we can fashion some fresh wrappings from what we've got?"
+        ja = "手持ちの材料で新しい包帯を作れないか？"
+    }
+    {
+        en = "Maybe we can make use of this man?"
+        ja = "この男にも使い道があるかもしれない。"
     }
     {
         en = "Medical Supplies"
@@ -13397,6 +14397,14 @@
     {
         en = "Medium Armor"
         ja = "中装鎧"
+    }
+    {
+        en = "Men, take everything we can use from the cart!"
+        ja = "お前たち、荷車から使える物をすべて運び出せ！"
+    }
+    {
+        en = "Men, we've got to help that dog!"
+        ja = "みんな、あの犬を助けるぞ！"
     }
     {
         en = "Mercenary work is a bloody business, which is probably why a butcher like %name% felt right at home in it. While an outstanding fighter, you hear that he still has problems with the war dogs in the party and has been repeatedly caught trying to slaughter them. Eventually, if not desperately, the company gave the man an adorable puppy to raise as his own. From what you know of, the little runt's glowy doe eyes converted the dog hater into a lover. Now he goes into an insatiable bloodlust whenever a wardog is harmed and his little mongrel grew up to be the fiercest beast in the company!"
@@ -13431,6 +14439,10 @@
         ja = "金属の髑髏"
     }
     {
+        en = "Might as well see."
+        ja = "見てみるとしよう。"
+    }
+    {
         en = "Militia"
         ja = "民兵"
     }
@@ -13445,6 +14457,10 @@
     {
         en = "Minstrel"
         ja = "吟遊詩人"
+    }
+    {
+        en = "Missed out on a good lay because of you"
+        ja = "あなたのせいで、いい女を抱き損ねた"
     }
     {
         en = "Monk"
@@ -13463,6 +14479,18 @@
         ja = "修道士は己の務めに強い精神力を示すが、重労働や戦いには慣れていない。"
     }
     {
+        en = "Motherfarker."
+        ja = "くそったれめ。"
+    }
+    {
+        en = "Much appreciated."
+        ja = "ありがたい。"
+    }
+    {
+        en = "Murdered by his fellow brothers"
+        ja = "同じ傭兵団の仲間たちに殺された"
+    }
+    {
         en = "Mushrooms"
         ja = "キノコ"
     }
@@ -13471,8 +14499,24 @@
         ja = "楽器（両手持ち）"
     }
     {
+        en = "My sword is not so sharp, yet the ladies can't even do that?"
+        ja = "俺の剣はあれほど鋭くもないのに、女どもは呑んですらくれないのか？"
+    }
+    {
+        en = "My throat's so scratchy I can barely squeak out a word!"
+        ja = "喉がひりついて、言葉を絞り出すのもやっとだ！"
+    }
+    {
         en = "Nachzehrers"
         ja = "ナハツェーラー"
+    }
+    {
+        en = "Nailed it."
+        ja = "見事に当てた。"
+    }
+    {
+        en = "Naturally, %minstrel% the minstrel is ready to talk."
+        ja = "当然ながら、吟遊詩人の%minstrel%が口を開きたがっている。"
     }
     {
         en = "Near %townname%"
@@ -13503,6 +14547,42 @@
         ja = "生来戦うことに向いていなかった吟遊詩人の%name%は、衰退する%companyname%を早々に去った。今は楽師や道化師の一座とともに、酔った貴族たちを相手に夜ごと芸を披露している。あなたも一度、その舞台を目にした。%name%は大半の時間、酔客に罵られ、食べかけの鶏の骨を投げつけられていた。ある貴族など、道化師の一人に犬をけしかければ面白いと思ったらしい。吟遊詩人の瞳の中で夢が死んでいくのが見えた。それでも舞台は続いた。"
     }
     {
+        en = "Nevermind his tears, watch his hands!"
+        ja = "涙に気を取られるな。手を見張れ！"
+    }
+    {
+        en = "Next time I'll listen to my intuition."
+        ja = "次は直感に従おう。"
+    }
+    {
+        en = "Nice job."
+        ja = "よくやった。"
+    }
+    {
+        en = "Nice one!"
+        ja = "やったな！"
+    }
+    {
+        en = "Nice save."
+        ja = "うまく取り繕った。"
+    }
+    {
+        en = "Nice shot!"
+        ja = "いい一射だ！"
+    }
+    {
+        en = "Nice talking."
+        ja = "話ができてよかった。"
+    }
+    {
+        en = "Nice try."
+        ja = "惜しかった。"
+    }
+    {
+        en = "Nice work with the niceties."
+        ja = "愛想よくやった甲斐があったな。"
+    }
+    {
         en = "Nice work!"
         ja = "よくやった！"
     }
@@ -13527,6 +14607,14 @@
         ja = "取引はなしだ。"
     }
     {
+        en = "No digging up graves today."
+        ja = "今日は墓暴きはなしだ。"
+    }
+    {
+        en = "No good deed goes unpunished."
+        ja = "善行には罰が付きものだ。"
+    }
+    {
         en = "No longer seeing the point in risking his life for so few crowns, %name% the former poacher put down the sellsword's life and returned to unlawfully hunting deer in the woods. A nobleman once offered you a good satchel of crowns to specifically hunt the man down. You declined the offer, but the writing was on the wall: his days are numbered."
         ja = "命を懸けてもわずかなクラウンしか得られないことに見切りをつけ、かつて密猟者だった%name%は傭兵稼業を捨て、森で鹿を違法に狩る暮らしへ戻った。ある貴族が、あの男だけは必ず狩り出せと、たっぷり入ったクラウンの袋を差し出したことがある。あなたは断ったが、先は見えている。彼の余命は長くない。"
     }
@@ -13539,8 +14627,80 @@
         ja = "体力を失っても士気判定が発生しない"
     }
     {
+        en = "No more experiments, anatomist."
+        ja = "これ以上の実験はなしだ、解剖学者。"
+    }
+    {
+        en = "No one left to tell what happened here."
+        ja = "ここで何があったか話す者は、もう誰もいない。"
+    }
+    {
+        en = "No talking. You just die."
+        ja = "話は無用だ。死ね。"
+    }
+    {
+        en = "No, I don't think so."
+        ja = "いや、やめておこう。"
+    }
+    {
+        en = "No, I won't risk his life on this."
+        ja = "駄目だ。このためにあいつの命を危険にさらすわけにはいかない。"
+    }
+    {
+        en = "No, he's clearly far too dangerous."
+        ja = "駄目だ。あいつは明らかに危険すぎる。"
+    }
+    {
+        en = "No, keep your distance."
+        ja = "いや、距離を取れ。"
+    }
+    {
         en = "No, thanks, we're good."
         ja = "いや、結構だ。間に合っている。"
+    }
+    {
+        en = "No, thanks."
+        ja = "いや、結構だ。"
+    }
+    {
+        en = "No, thanks. He's all yours."
+        ja = "いや、結構だ。そいつはあんたに任せる。"
+    }
+    {
+        en = "No, that's not happening."
+        ja = "いや、それはさせない。"
+    }
+    {
+        en = "No, the risk is too great."
+        ja = "駄目だ。危険が大きすぎる。"
+    }
+    {
+        en = "No, they need to keep what little strength they have for battle."
+        ja = "駄目だ。わずかに残った力は戦いのために温存させる。"
+    }
+    {
+        en = "No, this doesn't sound safe at all."
+        ja = "駄目だ。どう考えても安全とは思えない。"
+    }
+    {
+        en = "No, we have more important matters to attend to."
+        ja = "駄目だ。もっと重要な用事がある。"
+    }
+    {
+        en = "No, we'd rather not be double-checking our food every time we take a bite."
+        ja = "いや、一口食うたびに食べ物を念入りに確かめるのは御免だ。"
+    }
+    {
+        en = "No, we're good."
+        ja = "いや、結構だ。"
+    }
+    {
+        en = "No."
+        ja = "駄目だ。"
+    }
+    {
+        en = "No. Run along, kid."
+        ja = "駄目だ。もう行け、坊主。"
     }
     {
         en = "Noble Mail"
@@ -13549,6 +14709,18 @@
     {
         en = "Noble Tunic"
         ja = "貴族のチュニック"
+    }
+    {
+        en = "Nobles will now give you contracts"
+        ja = "これからは貴族から依頼を受けられる"
+    }
+    {
+        en = "Nobody saw nothing."
+        ja = "誰も何も見ちゃいない。"
+    }
+    {
+        en = "Nobody's ever there to save me."
+        ja = "俺を助けてくれる奴なんて、いつだって誰もいない。"
     }
     {
         en = "Nomad"
@@ -13563,12 +14735,36 @@
         ja = "遊牧民の王冠"
     }
     {
+        en = "None of us are born a mercenary."
+        ja = "生まれながらの傭兵など誰もいない。"
+    }
+    {
+        en = "Not a bad haul."
+        ja = "悪くない戦利品だ。"
+    }
+    {
+        en = "Not a chance."
+        ja = "絶対に駄目だ。"
+    }
+    {
         en = "Not affected by nighttime penalties"
         ja = "夜間のペナルティを受けない"
     }
     {
+        en = "Not bad."
+        ja = "悪くない。"
+    }
+    {
         en = "Not entirely surprising."
         ja = "驚くほどのことでもない。"
+    }
+    {
+        en = "Not everyone will be this lenient..."
+        ja = "誰もがこう寛大とは限らない……"
+    }
+    {
+        en = "Not for us to know, maybe."
+        ja = "我らが知るべきことではないのだろう。"
     }
     {
         en = "Not interested."
