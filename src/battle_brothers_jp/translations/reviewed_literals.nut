@@ -10675,8 +10675,36 @@
         ja = "森にいることを楽しんだ"
     }
     {
+        en = "Enjoyed himself with harlots"
+        ja = "娼婦たちと楽しんだ"
+    }
+    {
+        en = "Enjoyed life on the road"
+        ja = "旅暮らしを楽しんだ"
+    }
+    {
         en = "Enjoyed raiding and pillaging"
         ja = "襲撃と略奪を楽しんだ"
+    }
+    {
+        en = "Enjoyed some honey in the desert"
+        ja = "砂漠で蜂蜜を味わった"
+    }
+    {
+        en = "Enjoyed the hospitality of nomads"
+        ja = "遊牧民のもてなしを楽しんだ"
+    }
+    {
+        en = "Enjoyed the view from atop a mountain"
+        ja = "山頂からの眺めを楽しんだ"
+    }
+    {
+        en = "Enough star talk. Back to the road."
+        ja = "星の話はもういい。行軍に戻るぞ。"
+    }
+    {
+        en = "Enough. I'll have this bloody demon whipped out of you!"
+        ja = "もうたくさんだ。この忌々しい悪魔を、お前から鞭で叩き出してやる！"
     }
     {
         en = "Ensnare"
@@ -10685,6 +10713,18 @@
     {
         en = "Entangled"
         ja = "絡みつかれた"
+    }
+    {
+        en = "Entertained by a traveling troupe"
+        ja = "旅芸人一座の出し物を楽しんだ"
+    }
+    {
+        en = "Entertained townsfolk with his juggling"
+        ja = "曲芸で町人たちを楽しませた"
+    }
+    {
+        en = "Equal pay will keep the peace."
+        ja = "同じ賃金を払えば平穏は保たれる。"
     }
     {
         en = "Erdfall"
@@ -10717,6 +10757,10 @@
     {
         en = "Erlstadt"
         ja = "エルシュタット"
+    }
+    {
+        en = "Errr, right."
+        ja = "ええと、そうだな。"
     }
     {
         en = "Erzberg"
@@ -10791,6 +10835,34 @@
         ja = "宦官"
     }
     {
+        en = "Even holy men have tricks of the trade."
+        ja = "聖職者にも、その道の技がある。"
+    }
+    {
+        en = "Everybody makes mistakes."
+        ja = "誰にでも間違いはある。"
+    }
+    {
+        en = "Everyone can earn salvation by working off their debt to the Gilder."
+        ja = "誰であろうと、ギルダーへの負債を働いて返せば救済を得られる。"
+    }
+    {
+        en = "Everything in order here."
+        ja = "すべて問題ない。"
+    }
+    {
+        en = "Ewww."
+        ja = "うえっ。"
+    }
+    {
+        en = "Except for the guy who got away, that also went well."
+        ja = "一人逃したことを除けば、これもうまくいった。"
+    }
+    {
+        en = "Exciting!"
+        ja = "胸が躍る！"
+    }
+    {
         en = "Execute"
         ja = "処刑"
     }
@@ -10809,6 +10881,14 @@
     {
         en = "Exhausted"
         ja = "疲労困憊"
+    }
+    {
+        en = "Experienced a heat stroke"
+        ja = "熱射病にかかった"
+    }
+    {
+        en = "Experimented on by a madman"
+        ja = "狂人の実験台にされた"
     }
     {
         en = "Explode"
@@ -10851,8 +10931,16 @@
         ja = "ファーンヴァハト"
     }
     {
+        en = "Failed his act and injured himself"
+        ja = "芸に失敗し、自ら怪我をした"
+    }
+    {
         en = "Failed in creating a masterwork"
         ja = "傑作作りに失敗した"
+    }
+    {
+        en = "Failed in his plan and lost a large amount of money"
+        ja = "計画に失敗し、大金を失った"
     }
     {
         en = "Failed to deliver cargo"
@@ -10879,8 +10967,40 @@
         ja = "ファルケンシュタイン"
     }
     {
+        en = "Fall back for now."
+        ja = "今は退け。"
+    }
+    {
         en = "Fall back!"
         ja = "退け！"
+    }
+    {
+        en = "Fall back."
+        ja = "退却しろ。"
+    }
+    {
+        en = "Farewell!"
+        ja = "さらばだ！"
+    }
+    {
+        en = "Farewell."
+        ja = "さらばだ。"
+    }
+    {
+        en = "Fark the old home, you're with us now."
+        ja = "昔の家なんぞくそくらえだ。今のお前には俺たちがいる。"
+    }
+    {
+        en = "Fark."
+        ja = "くそっ。"
+    }
+    {
+        en = "Farkin' peasants."
+        ja = "くそったれな農民どもめ。"
+    }
+    {
+        en = "Farking hell."
+        ja = "くそったれ。"
     }
     {
         en = "Farmhand"
@@ -10897,6 +11017,22 @@
     {
         en = "Farnwacht"
         ja = "ファーンヴァハト"
+    }
+    {
+        en = "Fascinated with beetles"
+        ja = "甲虫に魅了された"
+    }
+    {
+        en = "Fascinated with spiders"
+        ja = "蜘蛛に魅了された"
+    }
+    {
+        en = "Fascinating."
+        ja = "興味深い。"
+    }
+    {
+        en = "Fashioned himself something nice from cloth scraps"
+        ja = "布切れから自分用に立派な品を仕立てた"
     }
     {
         en = "Fast Adaption"
@@ -10919,8 +11055,28 @@
         ja = "羽根飾りの帽子"
     }
     {
+        en = "Feel anything?"
+        ja = "何か感じるか？"
+    }
+    {
+        en = "Feel better soon, %anatomist%."
+        ja = "早く元気になれ、%anatomist%。"
+    }
+    {
         en = "Feel the adrenaline rushing through your veins as you seize the opportunity to act faster than your opponent."
         ja = "血管を駆け巡るアドレナリンに身を任せ、敵より先に動く好機をつかむ。"
+    }
+    {
+        en = "Feels better than ever"
+        ja = "かつてないほど気分がいい"
+    }
+    {
+        en = "Feels strong and beautiful"
+        ja = "自分は強く美しいと感じている"
+    }
+    {
+        en = "Feels the best he did in a long time"
+        ja = "久しぶりに最高の気分だ"
     }
     {
         en = "Feldburg"
@@ -10955,6 +11111,22 @@
         ja = "楽しませてもらった"
     }
     {
+        en = "Felt for a thief killed by you"
+        ja = "あなたが殺した盗賊を哀れんだ"
+    }
+    {
+        en = "Felt humiliated in front of the company"
+        ja = "傭兵団の前で屈辱を味わった"
+    }
+    {
+        en = "Felt intellectually superior to the other men"
+        ja = "ほかの団員より頭がいいと感じた"
+    }
+    {
+        en = "Felt let down by you"
+        ja = "あなたに失望した"
+    }
+    {
         en = "Fennburg"
         ja = "フェンブルク"
     }
@@ -10983,12 +11155,32 @@
         ja = "フィヒテンヴァル"
     }
     {
+        en = "Fight for your lives! Fight like you've never fought before!"
+        ja = "命を懸けて戦え！　これまでにないほど激しく戦え！"
+    }
+    {
         en = "Filzmoos"
         ja = "フィルツモース"
     }
     {
+        en = "Finally got paid for a job while back"
+        ja = "以前の仕事の報酬をようやく受け取った"
+    }
+    {
+        en = "Finally, it's over."
+        ja = "ようやく終わった。"
+    }
+    {
+        en = "Find your own way, peasants."
+        ja = "自分たちで何とかしろ、農民ども。"
+    }
+    {
         en = "Findelsburg"
         ja = "フィンデルスブルク"
+    }
+    {
+        en = "Fine, let it live."
+        ja = "いいだろう、生かしておけ。"
     }
     {
         en = "Fine, the company will cover the damages - but %wildman% will work it off."
@@ -11001,6 +11193,14 @@
     {
         en = "Fine. I did not wake up this morning looking to slaughter innocents."
         ja = "わかった。今朝目覚めたとき、罪のない者を皆殺しにするつもりなどなかった。"
+    }
+    {
+        en = "Fine. I'll spare your life  if you work for me."
+        ja = "いいだろう。俺のために働くなら命は助けてやる。"
+    }
+    {
+        en = "Fine. Let's take a look."
+        ja = "いいだろう。見てみよう。"
     }
     {
         en = "Fingerbone of Sir Gerhardt"
@@ -11067,6 +11267,14 @@
         ja = "漁師は肉体労働に慣れている。"
     }
     {
+        en = "Fishes"
+        ja = "魚釣り"
+    }
+    {
+        en = "Fix it."
+        ja = "直せ。"
+    }
+    {
         en = "Flagellant"
         ja = "鞭打ち苦行者"
     }
@@ -11111,6 +11319,10 @@
         ja = "放蕩者の笛"
     }
     {
+        en = "Follow him, quick!"
+        ja = "急げ、あいつを追え！"
+    }
+    {
         en = "Follow the thieves' tracks and return your cargo"
         ja = "盗賊の足跡を追い、積荷を取り戻す"
     }
@@ -11127,8 +11339,24 @@
         ja = "%name%にとって、どうしても少し足りないものはあった。だがそれで宦官が人生を楽しめなかったわけではない。大量のクラウンを手に%companyname%を引退し、女の誘惑ともまったく無縁な彼は、素晴らしく、何事にも極めて集中した人生を送った。"
     }
     {
+        en = "For 50 crowns, we'll just take one."
+        ja = "50クラウンなら、一つだけもらおう。"
+    }
+    {
+        en = "For gold, glory, and Young Anselm!"
+        ja = "黄金と栄光、そして若きアンセルムのために！"
+    }
+    {
+        en = "For that price, none are of interest."
+        ja = "その値段では、どれも要らない。"
+    }
+    {
         en = "For the company!"
         ja = "傭兵団のために！"
+    }
+    {
+        en = "Forced to eat against his beliefs"
+        ja = "信条に反して食事を強いられた"
     }
     {
         en = "Forefathers' Scroll"
@@ -11141,6 +11369,26 @@
     {
         en = "Forget it, this isn't worth it."
         ja = "忘れろ。割に合わない。"
+    }
+    {
+        en = "Forget those ruins, we're moving on."
+        ja = "あの遺跡は忘れろ。先へ進む。"
+    }
+    {
+        en = "Form up!"
+        ja = "隊列を組め！"
+    }
+    {
+        en = "Formerly a soldier loyal to noble lords, his company was slaughtered by your men and %name% was taken as an indebted. It didn't take much to break his spirit and force him to fight for you."
+        ja = "かつて貴族諸侯に忠誠を捧げる兵士だった%name%は、仲間をあなたの部下に皆殺しにされ、債務奴隷として捕らえられた。彼の心を折り、あなたのために戦わせるのに大した手間はかからなかった。"
+    }
+    {
+        en = "Fornicating fruit? %otherbro%, go help tar this fool!"
+        ja = "果物と交わっただと？　%otherbro%、この馬鹿にタールを塗るのを手伝え！"
+    }
+    {
+        en = "Fornicating fruit? %otherbro%, tar this fool!"
+        ja = "果物と交わっただと？　%otherbro%、この馬鹿にタールを塗れ！"
     }
     {
         en = "Fortifying!"
@@ -11163,8 +11411,24 @@
         ja = "味方を解放"
     }
     {
+        en = "Free that man!"
+        ja = "その男を解放しろ！"
+    }
+    {
         en = "Frightened to death"
         ja = "恐怖で死んだ"
+    }
+    {
+        en = "From dust to finding dust."
+        ja = "塵から、塵を探す旅へ。"
+    }
+    {
+        en = "From the brink a broken man must be saved."
+        ja = "壊れた男を瀬戸際から救わねばならない。"
+    }
+    {
+        en = "From what I heard, you did."
+        ja = "聞いた話では、やったそうだな。"
     }
     {
         en = "Full Aketon Cap"
@@ -11179,8 +11443,16 @@
         ja = "全身鎖帷子"
     }
     {
+        en = "Fun's over."
+        ja = "お楽しみは終わりだ。"
+    }
+    {
         en = "Further mutations will cause a longer period of sickness"
         ja = "さらに変異を重ねると、病に苦しむ期間が長くなる"
+    }
+    {
+        en = "Gained confidence in your leadership"
+        ja = "あなたの指揮への信頼を深めた"
     }
     {
         en = "Gambeson"
@@ -11199,8 +11471,68 @@
         ja = "深手"
     }
     {
+        en = "Gave a lecture on the nature of animals"
+        ja = "動物の本質について講義した"
+    }
+    {
+        en = "Gave medical advice to a receptive audience"
+        ja = "耳を傾ける者たちへ医学的助言をした"
+    }
+    {
+        en = "Gee, I wonder how this will turn out."
+        ja = "さて、どうなることやら。"
+    }
+    {
         en = "Geomancy"
         ja = "地占術"
+    }
+    {
+        en = "Get back to work!"
+        ja = "仕事へ戻れ！"
+    }
+    {
+        en = "Get back to work."
+        ja = "仕事へ戻れ。"
+    }
+    {
+        en = "Get him out of my sight."
+        ja = "あいつを目の前から連れ出せ。"
+    }
+    {
+        en = "Get him, boy!"
+        ja = "やれ、坊や！"
+    }
+    {
+        en = "Get his body out of there!"
+        ja = "あそこから遺体を運び出せ！"
+    }
+    {
+        en = "Get it together, %anatomist%."
+        ja = "しっかりしろ、%anatomist%。"
+    }
+    {
+        en = "Get out of my sight."
+        ja = "目の前から消えろ。"
+    }
+    {
+        en = "Get out!"
+        ja = "出ていけ！"
+    }
+    {
+        en = "Get over it."
+        ja = "いつまでも気にするな。"
+    }
+    {
+        en = "Get that wound cleaned."
+        ja = "その傷を洗っておけ。"
+    }
+    {
+        en = "Get your sleep, kid."
+        ja = "眠っておけ、若造。"
+    }
+    {
+        en = "Getting bullied by eggheads."
+        ja = "学者先生どもにいじめられるとはな。"
     }
     {
         en = "Ghastly Aura"
@@ -11235,8 +11567,64 @@
         ja = "ギルダーの尊顔"
     }
     {
+        en = "Git you idiots, git!"
+        ja = "行け、この馬鹿ども、行け！"
+    }
+    {
+        en = "Give him a good beating."
+        ja = "たっぷり痛めつけてやれ。"
+    }
+    {
+        en = "Give that poor guy some food and water."
+        ja = "あの哀れな男に食料と水を与えろ。"
+    }
+    {
         en = "Give to an adjacent ally or eat yourself strange mushrooms to enter a state of trance-like rage with no regard for your safety. May result in sickness. The effect will slowly wear off over 4 turns. Can not be used while engaged in melee, and anyone receiving the item needs to have a free bag slot."
         ja = "奇妙なキノコを隣接する味方へ渡すか自分で食べ、安全など顧みない忘我の激情状態に入る。病気になることがある。効果は4ターンかけて徐々に薄れる。近接戦闘中は使用できず、受け取る者には空きのバッグ枠が必要となる。"
+    }
+    {
+        en = "Glad someone appreciates it."
+        ja = "わかってくれる者がいて嬉しい。"
+    }
+    {
+        en = "Glad someone else paid that price, though."
+        ja = "もっとも、その代償を払ったのが他人でよかった。"
+    }
+    {
+        en = "Glad that's settled."
+        ja = "片づいて何よりだ。"
+    }
+    {
+        en = "Glad to be of help."
+        ja = "役に立てて何よりだ。"
+    }
+    {
+        en = "Glad to be of service."
+        ja = "力になれて何よりだ。"
+    }
+    {
+        en = "Glad to hear."
+        ja = "そいつは何よりだ。"
+    }
+    {
+        en = "Glad to see fallen comrades receive a fine farewell"
+        ja = "倒れた仲間たちが立派に弔われたことを喜んだ"
+    }
+    {
+        en = "Glad you were here."
+        ja = "お前がいてくれてよかった。"
+    }
+    {
+        en = "Glad you're feeling better, %anatomist%."
+        ja = "元気になって何よりだ、%anatomist%。"
+    }
+    {
+        en = "Glad you're feeling better, %militiacaptain%."
+        ja = "元気になって何よりだ、%militiacaptain%。"
+    }
+    {
+        en = "Glad you're staying with us."
+        ja = "残ってくれて嬉しい。"
     }
     {
         en = "Gladiator"
@@ -11255,6 +11643,34 @@
         ja = "大食漢"
     }
     {
+        en = "Go and and heal him of his ailments."
+        ja = "行って、あいつの病を治してやれ。"
+    }
+    {
+        en = "Go fark yourself!"
+        ja = "くたばれ！"
+    }
+    {
+        en = "Go fark yourself."
+        ja = "くたばれ。"
+    }
+    {
+        en = "Go home to your family, soldier."
+        ja = "家族のもとへ帰れ、兵士よ。"
+    }
+    {
+        en = "Go in."
+        ja = "中へ入れ。"
+    }
+    {
+        en = "Go on ahead."
+        ja = "先へ行け。"
+    }
+    {
+        en = "Go on and correct him then."
+        ja = "ならば行って、あいつの誤りを正してこい。"
+    }
+    {
         en = "Go, go, go! This character has an adrenaline rush and will act again before his opponents come next round."
         ja = "急げ、急げ！ アドレナリンが全身を駆け巡り、次のラウンドでは敵より先にもう一度行動する。"
     }
@@ -11265,6 +11681,26 @@
     {
         en = "Goblin Raiders"
         ja = "ゴブリンの略奪隊"
+    }
+    {
+        en = "Goddammit."
+        ja = "くそったれ。"
+    }
+    {
+        en = "Godsdamn nightmares."
+        ja = "忌々しい悪夢め。"
+    }
+    {
+        en = "Godspeed, stranger."
+        ja = "道中の無事を祈る、旅の人。"
+    }
+    {
+        en = "Godspeed."
+        ja = "旅の無事を祈る。"
+    }
+    {
+        en = "Gold is gold."
+        ja = "金は金だ。"
     }
     {
         en = "Golden Armor"
@@ -11295,12 +11731,92 @@
         ja = "黄金の皮衣"
     }
     {
+        en = "Gonna be some strong lads roaming these part soon, no doubt..."
+        ja = "じきにこの辺りを屈強な若者たちが歩き回るだろうな。間違いない……"
+    }
+    {
+        en = "Good boy."
+        ja = "いい子だ。"
+    }
+    {
+        en = "Good eats."
+        ja = "うまい飯だった。"
+    }
+    {
+        en = "Good eye."
+        ja = "目ざといな。"
+    }
+    {
+        en = "Good for him."
+        ja = "よかったな。"
+    }
+    {
         en = "Good for you."
         ja = "そいつは何よりだ。"
     }
     {
+        en = "Good job doing that thing awhile back."
+        ja = "この前のあれ、よくやった。"
+    }
+    {
+        en = "Good job, but also bad job."
+        ja = "よくやった。だが、しくじってもいる。"
+    }
+    {
+        en = "Good job."
+        ja = "よくやった。"
+    }
+    {
+        en = "Good luck out there, man."
+        ja = "道中の幸運を祈る。"
+    }
+    {
+        en = "Good luck out there."
+        ja = "道中の幸運を祈る。"
+    }
+    {
+        en = "Good luck to you as well."
+        ja = "お前にも幸運を。"
+    }
+    {
+        en = "Good luck with the baron, then."
+        ja = "では、男爵との話がうまくいくといいな。"
+    }
+    {
         en = "Good luck, I guess."
         ja = "まあ、幸運を祈るよ。"
+    }
+    {
+        en = "Good luck."
+        ja = "幸運を祈る。"
+    }
+    {
+        en = "Good shot, sir!"
+        ja = "お見事な一射です、隊長！"
+    }
+    {
+        en = "Good to have someone with your skills with us."
+        ja = "お前ほどの腕を持つ者がいてくれて心強い。"
+    }
+    {
+        en = "Good to have the men burn for battle like this."
+        ja = "団員たちがこれほど戦意を燃やすのはいいことだ。"
+    }
+    {
+        en = "Good to know."
+        ja = "いいことを聞いた。"
+    }
+    {
+        en = "Good work being you."
+        ja = "自分を取り戻せて何よりだ。"
+    }
+    {
+        en = "Good work."
+        ja = "よくやった。"
+    }
+    {
+        en = "Good... job"
+        ja = "よく……やった。"
     }
     {
         en = "Goodhand"
@@ -11315,12 +11831,52 @@
         ja = "腹を満たす"
     }
     {
+        en = "Got a few extra crowns from you"
+        ja = "あなたから少し余分にクラウンをもらった"
+    }
+    {
         en = "Got a pay cut"
         ja = "給金を減らされた"
     }
     {
         en = "Got a pay raise"
         ja = "給金が上がった"
+    }
+    {
+        en = "Got badly beaten in a fighting tournament"
+        ja = "格闘大会でひどく打ちのめされた"
+    }
+    {
+        en = "Got humiliated in front of the company"
+        ja = "傭兵団の前で屈辱を味わった"
+    }
+    {
+        en = "Got injured navigating an ancient mausoleum"
+        ja = "古代の霊廟を進む途中で負傷した"
+    }
+    {
+        en = "Got revenge on a bird that shat on him"
+        ja = "自分へ糞を落とした鳥に復讐した"
+    }
+    {
+        en = "Got saved from a possible flaming death by a fellow juggler"
+        ja = "炎に焼かれて死ぬところを仲間の曲芸師に救われた"
+    }
+    {
+        en = "Got shit on by a bird"
+        ja = "鳥に糞を落とされた"
+    }
+    {
+        en = "Got shit on by a bird for good luck"
+        ja = "幸運の印として鳥に糞を落とされた"
+    }
+    {
+        en = "Got some loving"
+        ja = "女とひとときを楽しんだ"
+    }
+    {
+        en = "Got stung by a scorpion"
+        ja = "サソリに刺された"
     }
     {
         en = "Got taken by barbarians and left to die in the cold"
@@ -11331,8 +11887,32 @@
         ja = "人狩りに捕らえられた"
     }
     {
+        en = "Got to examine a hero's cadaver"
+        ja = "英雄の死体を調べることができた"
+    }
+    {
+        en = "Got to examine a hero's unusual cadaver"
+        ja = "英雄の異常な死体を調べることができた"
+    }
+    {
+        en = "Got to examine an interesting blighted cadaver"
+        ja = "興味深い病変のある死体を調べることができた"
+    }
+    {
         en = "Got to examine the corpse of a heroic knight"
         ja = "英雄的な騎士の遺体を調べられた"
+    }
+    {
+        en = "Got to study an interesting specimen"
+        ja = "興味深い標本を研究できた"
+    }
+    {
+        en = "Got to study an interesting wound up close"
+        ja = "興味深い傷を間近で研究できた"
+    }
+    {
+        en = "Got to study an unusual blight"
+        ja = "異常な病変を研究できた"
     }
     {
         en = "Got whipped"
@@ -11383,8 +11963,32 @@
         ja = "グリーンスキンの大軍"
     }
     {
+        en = "Gross, but alright."
+        ja = "気味が悪いが、いいだろう。"
+    }
+    {
+        en = "Gross."
+        ja = "気味が悪い。"
+    }
+    {
+        en = "Gross. Let's get out of here."
+        ja = "気味が悪い。ここを出よう。"
+    }
+    {
         en = "Grow Shield"
         ja = "盾を生やす"
+    }
+    {
+        en = "Grow a pair, you gits."
+        ja = "肝を据えろ、この間抜けども。"
+    }
+    {
+        en = "Grow a pair."
+        ja = "肝を据えろ。"
+    }
+    {
+        en = "Growing up to become a real sellsword after all, are we?"
+        ja = "ついに本物の傭兵へ成長し始めたか？"
     }
     {
         en = "Gruesome Feast"
@@ -11395,16 +11999,104 @@
         ja = "守護"
     }
     {
+        en = "Guess that's that."
+        ja = "これで終わりだな。"
+    }
+    {
+        en = "Had a bad dream about not being strong and beautiful"
+        ja = "強くも美しくもない自分の悪夢を見た"
+    }
+    {
+        en = "Had a bit of a partie carree"
+        ja = "四人での情事を少々楽しんだ"
+    }
+    {
+        en = "Had a brawl over cultural differences"
+        ja = "文化の違いを巡って乱闘した"
+    }
+    {
+        en = "Had a disturbing nightmare involving the Grand Diviner"
+        ja = "大占術師が現れる不穏な悪夢を見た"
+    }
+    {
         en = "Had a good brawl"
         ja = "存分に殴り合った"
+    }
+    {
+        en = "Had a good laugh at a retired gladiator"
+        ja = "引退した剣闘士を笑いものにした"
+    }
+    {
+        en = "Had a good night's sleep"
+        ja = "ぐっすり一晩眠った"
+    }
+    {
+        en = "Had a good talk with you"
+        ja = "あなたと有意義な話ができた"
+    }
+    {
+        en = "Had a most refreshing drink"
+        ja = "この上なく爽快な一杯を味わった"
+    }
+    {
+        en = "Had a pleasurable supernatural experience"
+        ja = "心地よい超自然的体験をした"
+    }
+    {
+        en = "Had a stimulating discourse on religious matters"
+        ja = "宗教を巡る刺激的な議論を交わした"
+    }
+    {
+        en = "Had a string of bad fortune and lost everything"
+        ja = "不運が続き、すべてを失った"
     }
     {
         en = "Had a witch burned"
         ja = "魔女を火あぶりにした"
     }
     {
+        en = "Had an alp invade his mind"
+        ja = "アルプに心を侵された"
+    }
+    {
+        en = "Had an encouraging talk"
+        ja = "励ましの言葉をかけてもらった"
+    }
+    {
         en = "Had an excellent adventure"
         ja = "実にすばらしい冒険をした"
+    }
+    {
+        en = "Had an understanding with his brothers in faith"
+        ja = "信仰を同じくする兄弟たちと分かり合った"
+    }
+    {
+        en = "Had his clubfoot cured"
+        ja = "内反足を治してもらった"
+    }
+    {
+        en = "Had his faith in Young Anselm redoubled"
+        ja = "若きアンセルムへの信仰をいっそう強めた"
+    }
+    {
+        en = "Had his faith in the existence of the white nachzehrer renewed"
+        ja = "白いナハツェーラーの存在を再び信じるようになった"
+    }
+    {
+        en = "Had his feet ground raw by desert sand"
+        ja = "砂漠の砂で足の皮を擦りむいた"
+    }
+    {
+        en = "Had his medical advice rejected"
+        ja = "医学的助言を拒まれた"
+    }
+    {
+        en = "Had no success robbing a grave with you"
+        ja = "あなたと墓を荒らしたが、成果を得られなかった"
+    }
+    {
+        en = "Had terrible nightmares"
+        ja = "恐ろしい悪夢を見た"
     }
     {
         en = "Hail"
@@ -11415,12 +12107,28 @@
         ja = "槌による撲殺"
     }
     {
+        en = "Hand over the indebted to me and I will pursue their salvation accordingly."
+        ja = "債務奴隷たちをこちらへ渡せ。しかるべき救済を施そう。"
+    }
+    {
         en = "Hand-to-Hand Attack"
         ja = "徒手攻撃"
     }
     {
+        en = "Handily won a fighting tournament"
+        ja = "格闘大会で難なく優勝した"
+    }
+    {
         en = "Hangover"
         ja = "二日酔い"
+    }
+    {
+        en = "Happy to have a new life surface-side"
+        ja = "地上で新たな人生を得たことを喜んでいる"
+    }
+    {
+        en = "Happy to join you at the campfire."
+        ja = "焚き火を囲む仲間が増えて嬉しい。"
     }
     {
         en = "Harbor"
@@ -11431,8 +12139,92 @@
         ja = "ハーネス"
     }
     {
+        en = "Has become a squire to a knight"
+        ja = "騎士の従者になった"
+    }
+    {
+        en = "Has been shaken in his beliefs"
+        ja = "信念を揺さぶられた"
+    }
+    {
+        en = "Has caught some fish"
+        ja = "魚を何匹か釣った"
+    }
+    {
+        en = "Has come to terms with his mutations"
+        ja = "自らの変異を受け入れた"
+    }
+    {
+        en = "Has dealt out just punishment"
+        ja = "正当な罰を与えた"
+    }
+    {
+        en = "Has drilled the new recruits"
+        ja = "新兵たちを鍛えた"
+    }
+    {
+        en = "Has eaten nothing but ground grains for days"
+        ja = "何日もの間、挽いた穀物しか食べていない"
+    }
+    {
+        en = "Has hunted successfully"
+        ja = "狩りに成功した"
+    }
+    {
+        en = "Has lost too many friends"
+        ja = "あまりにも多くの友を失った"
+    }
+    {
+        en = "Has made a tidy sum selling one of his fingers"
+        ja = "自分の指を一本売って、まとまった金を得た"
+    }
+    {
+        en = "Has played a game of dice with you"
+        ja = "あなたとサイコロ遊びをした"
+    }
+    {
+        en = "Has seen a bad omen"
+        ja = "悪い前兆を見た"
+    }
+    {
+        en = "Has seen the end of things"
+        ja = "万物の終焉を目にした"
+    }
+    {
+        en = "Has shown off of his physical prowess"
+        ja = "肉体の力を誇示した"
+    }
+    {
+        en = "Has used his unique talents to great success"
+        ja = "持ち前の技を大いに活かした"
+    }
+    {
+        en = "Have %monk% the monk take a look instead."
+        ja = "代わりに修道士の%monk%に見てもらおう。"
+    }
+    {
+        en = "Have a nice day. "
+        ja = "よい一日を。"
+    }
+    {
+        en = "Have a word with your brothers in faith, %cultist%."
+        ja = "信仰を同じくする兄弟たちと話してこい、%cultist%。"
+    }
+    {
         en = "Have at least 50,000 crowns."
         ja = "50,000クラウン以上を保有する。"
+    }
+    {
+        en = "Have him flogged for this."
+        ja = "この件で鞭打ちに処せ。"
+    }
+    {
+        en = "Have him hanged for this."
+        ja = "この件で絞首刑に処せ。"
+    }
+    {
+        en = "Have you killed anyone?"
+        ja = "人を殺したことはあるか？"
     }
     {
         en = "Having enough of all the fighting, %name% the once-beggar retired from the %companyname%. You know the man made a pretty crown in his time with the mercenary company, yet the other day you saw him out begging again. You asked if he'd wasted all his money and he laughed. He said he'd purchased land and was doing just fine. Then he held out his little tin and asked for a crown. You gave him two."
@@ -11443,8 +12235,48 @@
         ja = "%companyname%を逃げ出した解剖学者の%name%は、別の場所で研究を続けた。無作法なやり方で旅へ出たと同業者から非難され、凡庸な知性しか持てぬことに苦しんだ。数年後、甲虫研究にささやかな貢献を果たすと、ほどなく海辺の崖から身を投げ、脳を岩へ、体を海へ寄贈した。"
     }
     {
+        en = "He awaits us all."
+        ja = "ダヴクルは我らすべてを待っている。"
+    }
+    {
+        en = "He might make a good sellsword yet."
+        ja = "いずれ立派な傭兵になるかもしれない。"
+    }
+    {
         en = "He was with you from the start, %name%, and he was with you in retirement, leaving the company not long after you did. But he wasn't yet done with the fighting life and took up fighting for another company - his own. Having learned so much from your leadership, he is making you about as proud as any son could. Ironically, he hates the notion of you being a father figure to him, and you always tell him you'd never father a son so ugly to begin with. You keep in touch to this day."
         ja = "%name%は最初からあなたとともにいた。引退の時も同じで、あなたが去って間もなく傭兵団を離れた。だが戦う暮らしを終えたわけではなく、別の傭兵団――自分自身の傭兵団――のために戦い始めた。あなたの指揮から多くを学んだ彼は、その姿は、実の息子にも劣らぬほどあなたの誇りとなっている。皮肉にも、彼はあなたを父親代わりと呼ぶ考えを嫌い、あなたも「あんな醜い息子を作った覚えはない」といつも返している。今でも互いに連絡を取り合っている。"
+    }
+    {
+        en = "He will be steeled by combat, or he will be killed by it."
+        ja = "戦いで鍛え上げられるか、戦いに殺されるかだ。"
+    }
+    {
+        en = "He won't be needing that anymore."
+        ja = "もうあいつには必要ない。"
+    }
+    {
+        en = "He'll be alright. Pay up."
+        ja = "あいつなら大丈夫だ。金を払え。"
+    }
+    {
+        en = "He'll fit right in with us."
+        ja = "俺たちにすぐ馴染むだろう。"
+    }
+    {
+        en = "He'll get over it."
+        ja = "じきに立ち直る。"
+    }
+    {
+        en = "He's not our concern. Let him go."
+        ja = "あいつは俺たちには関係ない。行かせろ。"
+    }
+    {
+        en = "He's not taking a fall."
+        ja = "あいつは八百長で負ける気がない。"
+    }
+    {
+        en = "He's right there, take him."
+        ja = "あそこにいる。連れていけ。"
     }
     {
         en = "Headbutt"
@@ -11461,6 +12293,14 @@
     {
         en = "Headtaker"
         ja = "首狩り"
+    }
+    {
+        en = "Hear, hear!"
+        ja = "そのとおり！"
+    }
+    {
+        en = "Heard rumors of you freeing indebted"
+        ja = "あなたが債務奴隷を解放したという噂を聞いた"
     }
     {
         en = "Heavy Armor"
@@ -11499,8 +12339,20 @@
         ja = "反射神経の強化"
     }
     {
+        en = "Hell of a haul, I suppose."
+        ja = "大した獲物ではあるな。"
+    }
+    {
         en = "Helmet of the Ijirok"
         ja = "イジロクの兜"
+    }
+    {
+        en = "Help me kick in that gate, %volunteer%!"
+        ja = "あの門を蹴破るのを手伝え、%volunteer%！"
+    }
+    {
+        en = "Helped a little boy"
+        ja = "少年を助けた"
     }
     {
         en = "Helped build a mill"
@@ -11511,12 +12363,40 @@
         ja = "無報酬で水車小屋の建設を手伝った"
     }
     {
+        en = "Helped conscript some peasants"
+        ja = "農民の徴兵を手伝った"
+    }
+    {
+        en = "Helped conscript their populace"
+        ja = "彼らの住民の徴兵を手伝った"
+    }
+    {
+        en = "Helped repair a damaged priory"
+        ja = "損壊した修道院の修復を手伝った"
+    }
+    {
+        en = "Helped save some peasants"
+        ja = "農民たちの救出を手伝った"
+    }
+    {
+        en = "Helped spread word about the company"
+        ja = "傭兵団の評判を広めるのを手伝った"
+    }
+    {
+        en = "Helped their men conscript some peasants"
+        ja = "彼らの兵が農民を徴兵するのを手伝った"
+    }
+    {
         en = "Heraldic Mail"
         ja = "紋章付き鎖帷子"
     }
     {
         en = "Heraldic Shoulderplates"
         ja = "紋章付き肩甲板"
+    }
+    {
+        en = "Here you go, have a few crowns."
+        ja = "ほら、クラウンを何枚かやろう。"
     }
     {
         en = "Hex"
@@ -11529,6 +12409,10 @@
     {
         en = "Hexen"
         ja = "ヘクセン"
+    }
+    {
+        en = "Hey, it's your body."
+        ja = "まあ、お前の身体だからな。"
     }
     {
         en = "Hidden"
@@ -11551,6 +12435,18 @@
         ja = "高地の兜"
     }
     {
+        en = "His experimental surgery didn't work"
+        ja = "実験的な手術が失敗した"
+    }
+    {
+        en = "His shadows traverses with great danger."
+        ja = "あの男の影とは、道を交えない方が身のためだ。"
+    }
+    {
+        en = "His war was not ours."
+        ja = "あいつの戦争は、俺たちの戦争ではなかった。"
+    }
+    {
         en = "Historian"
         ja = "歴史家"
     }
@@ -11561,6 +12457,30 @@
     {
         en = "Hits both head and body for additional damage"
         ja = "頭部と胴体の両方に命中し、追加ダメージを与える"
+    }
+    {
+        en = "Hmm, alright."
+        ja = "うむ、いいだろう。"
+    }
+    {
+        en = "Hmm."
+        ja = "うむ。"
+    }
+    {
+        en = "Hobble along now."
+        ja = "さあ、足を引きずって行け。"
+    }
+    {
+        en = "Hoggart's Heirloom"
+        ja = "ホッガートの家宝"
+    }
+    {
+        en = "Hold on, let's see what happens next."
+        ja = "待て。この先どうなるか見届けよう。"
+    }
+    {
+        en = "Holy smokes!"
+        ja = "こいつは驚いた！"
     }
     {
         en = "Honor"
@@ -11607,12 +12527,68 @@
         ja = "猟犬使いは軍用犬の扱いに慣れている。"
     }
     {
+        en = "How about we lower your pay instead?"
+        ja = "代わりに、お前の賃金を下げるのはどうだ？"
+    }
+    {
+        en = "How about you just hand over your valuables instead?"
+        ja = "代わりに、金目の物をすべて渡してもらおうか？"
+    }
+    {
+        en = "How about you just hand over your valuables?"
+        ja = "金目の物を全部渡してもらおうか？"
+    }
+    {
+        en = "How are you doing?"
+        ja = "調子はどうだ？"
+    }
+    {
+        en = "How do we stop him?"
+        ja = "どうすればあいつを止められる？"
+    }
+    {
+        en = "How do you keep misplacing that?"
+        ja = "どうして何度もそれをなくすんだ？"
+    }
+    {
+        en = "How do you know who I am?"
+        ja = "どうして私が何者か知っている？"
+    }
+    {
+        en = "How many crowns for a round of beer?"
+        ja = "ビールを一杯ずつ頼むなら、何クラウンだ？"
+    }
+    {
+        en = "How much are you paid for this?"
+        ja = "この仕事でいくらもらっている？"
+    }
+    {
+        en = "How refreshing!"
+        ja = "何と爽やかだ！"
+    }
+    {
         en = "Hrm..."
         ja = "ううむ……"
     }
     {
+        en = "Hubris! Survivable hubris!"
+        ja = "思い上がりだ！　だが、生き延びられる思い上がりだ！"
+    }
+    {
         en = "Huge"
         ja = "巨躯"
+    }
+    {
+        en = "Hugo."
+        ja = "ヒューゴ。"
+    }
+    {
+        en = "Huh. Interesting story."
+        ja = "ほう。興味深い話だ。"
+    }
+    {
+        en = "Humiliated himself in front of the company"
+        ja = "傭兵団の前で恥をさらした"
     }
     {
         en = "Hunt for Alps, Unholds and Hexen"
@@ -11647,6 +12623,14 @@
         ja = "狩人は弓矢で獣を仕留め、独りで森を行き来することに熟達している。"
     }
     {
+        en = "Hurry it up, too."
+        ja = "それと、急いでくれ。"
+    }
+    {
+        en = "Huzzah!"
+        ja = "万歳！"
+    }
+    {
         en = "Hyena"
         ja = "ハイエナ"
     }
@@ -11679,6 +12663,50 @@
         ja = "その条件で引き受けよう。"
     }
     {
+        en = "I agree to your offer. %bastard% will go, and you will take his place."
+        ja = "その申し出を受けよう。%bastard%には去ってもらい、お前が後釜に入れ。"
+    }
+    {
+        en = "I am now breathing manually."
+        ja = "呼吸の仕方を意識してしまった。"
+    }
+    {
+        en = "I appreciate the offer, nontheless."
+        ja = "それでも、その申し出には感謝する。"
+    }
+    {
+        en = "I best not see you using that as a toothpick."
+        ja = "それを爪楊枝代わりに使うところは見せるなよ。"
+    }
+    {
+        en = "I bet %monkfull% knows the truth."
+        ja = "%monkfull%なら真実を知っているはずだ。"
+    }
+    {
+        en = "I better not reget this. Welcome to the company."
+        ja = "後悔させるなよ。傭兵団へようこそ。"
+    }
+    {
+        en = "I can think only of %dumb% to be dim enough to race a horse."
+        ja = "馬と競走しようなどという間抜けは、%dumb%しか思いつかない。"
+    }
+    {
+        en = "I can't intervene."
+        ja = "手出しはできない。"
+    }
+    {
+        en = "I can't put the whole company on the line for you."
+        ja = "お前一人のために、傭兵団全体を危険にはさらせない。"
+    }
+    {
+        en = "I can't stand this town."
+        ja = "この町には我慢ならない。"
+    }
+    {
+        en = "I demand to be paid right now."
+        ja = "今すぐ報酬を払え。"
+    }
+    {
         en = "I desire a drink for the body."
         ja = "身体に効く一杯をいただこう。"
     }
@@ -11687,44 +12715,216 @@
         ja = "心に効く一杯をいただこう。"
     }
     {
+        en = "I didn't know %oldgods% had it in him."
+        ja = "%oldgods%があれほどやるとは思わなかった。"
+    }
+    {
+        en = "I don't gamble."
+        ja = "賭け事はしない。"
+    }
+    {
+        en = "I don't give a rat's ass where you came from, stop fighting."
+        ja = "お前がどこの出だろうと知ったことか。喧嘩をやめろ。"
+    }
+    {
+        en = "I don't have time for this."
+        ja = "こんなことに付き合う暇はない。"
+    }
+    {
         en = "I don't know if this is good or bad."
         ja = "これが吉と出るか凶と出るか、分からんな。"
+    }
+    {
+        en = "I don't know."
+        ja = "わからない。"
+    }
+    {
+        en = "I don't quite think he gets it, but that works."
+        ja = "理解したとは思えないが、これでいい。"
+    }
+    {
+        en = "I don't think so."
+        ja = "そうは思わない。"
     }
     {
         en = "I feel refreshed!"
         ja = "すっきりした！"
     }
     {
+        en = "I guess that was that."
+        ja = "これで終わりだったようだ。"
+    }
+    {
+        en = "I guess that's his way of saying thanks."
+        ja = "あれが、あいつなりの礼なのだろう。"
+    }
+    {
+        en = "I guess we can help her."
+        ja = "彼女を助けてもいいだろう。"
+    }
+    {
+        en = "I guess we can help him."
+        ja = "彼を助けてもいいだろう。"
+    }
+    {
         en = "I had to ask."
         ja = "聞くだけ聞いてみたかった。"
+    }
+    {
+        en = "I have no time for this."
+        ja = "こんなことに付き合う暇はない。"
+    }
+    {
+        en = "I hope he cheers up."
+        ja = "元気を取り戻すといいが。"
+    }
+    {
+        en = "I hope it was worth it."
+        ja = "それだけの価値があったといいが。"
     }
     {
         en = "I hope she finds somewhere safe to be."
         ja = "あの女が安全に暮らせる場所を見つけられるといいな。"
     }
     {
+        en = "I hope they do as well."
+        ja = "あちらも同じだといいが。"
+    }
+    {
+        en = "I hope this is a lesson learned."
+        ja = "これで懲りてくれるといいが。"
+    }
+    {
+        en = "I hope we did the right thing giving him that book..."
+        ja = "あの本を渡したのが正しい選択だったといいが……"
+    }
+    {
+        en = "I hope you know how to use a weapon."
+        ja = "武器の扱いは知っているんだろうな。"
+    }
+    {
+        en = "I just hope you'll heal in time."
+        ja = "せめて手遅れになる前に治るといいが。"
+    }
+    {
         en = "I know a good deal when I see one. Hand over the crowns."
         ja = "割のいい話なら一目で分かる。クラウンを渡せ。"
+    }
+    {
+        en = "I look forward to killing you twice, then."
+        ja = "ならば、お前を二度殺せる日を楽しみにしよう。"
     }
     {
         en = "I meant to scare it off."
         ja = "追い払うつもりだったんだ。"
     }
     {
+        en = "I might have to do something about discipline in this company."
+        ja = "この傭兵団の規律を何とかする必要がありそうだ。"
+    }
+    {
+        en = "I need a drink."
+        ja = "酒が欲しい。"
+    }
+    {
+        en = "I need to get more rest."
+        ja = "もっと休まなければ。"
+    }
+    {
         en = "I need to get the men something to eat."
         ja = "団員たちに何か食べさせないと。"
+    }
+    {
+        en = "I need to start sleeping with a helmet on."
+        ja = "これからは兜を被って眠るべきだな。"
+    }
+    {
+        en = "I really don't need more of this. You're on your own."
+        ja = "もうこんなことは御免だ。自分で何とかしろ。"
+    }
+    {
+        en = "I see now why you're no longer working as a bowyer."
+        ja = "お前がもう弓師をしていない理由がわかった。"
+    }
+    {
+        en = "I see you thinking, %cultistfull%. What say you?"
+        ja = "考え込んでいるな、%cultistfull%。どう思う？"
     }
     {
         en = "I see, time to part ways then."
         ja = "そうか。なら、ここで別れよう。"
     }
     {
+        en = "I should be more careful what I say."
+        ja = "今後は発言にもっと気をつけよう。"
+    }
+    {
+        en = "I should have been an undertaker."
+        ja = "誓約者ではなく、葬儀屋になるべきだったな。"
+    }
+    {
+        en = "I should have taken action..."
+        ja = "行動を起こすべきだった……"
+    }
+    {
+        en = "I should learn more secrets."
+        ja = "もっと秘密を握るべきだな。"
+    }
+    {
+        en = "I should stop shaving."
+        ja = "髭を剃るのはやめるべきだな。"
+    }
+    {
+        en = "I should take a closer look at that armor."
+        ja = "あの鎧をもっとよく調べてみよう。"
+    }
+    {
+        en = "I suppose this is what they call a crisis of faith."
+        ja = "これがいわゆる信仰の危機なのだろう。"
+    }
+    {
+        en = "I take you as my squire."
+        ja = "お前を我が従者とする。"
+    }
+    {
+        en = "I think I'll just kill you."
+        ja = "やはり、お前を殺すことにしよう。"
+    }
+    {
+        en = "I think I'll name you... Swimmer."
+        ja = "お前の名は……スイマーにしよう。"
+    }
+    {
+        en = "I think the historian is correct."
+        ja = "歴史家の言うことが正しいと思う。"
+    }
+    {
+        en = "I think you should stay with us."
+        ja = "お前は俺たちと一緒にいるべきだ。"
+    }
+    {
+        en = "I thought you studied baskets?"
+        ja = "籠作りを学んでいたのではないのか？"
+    }
+    {
         en = "I want to know what's going on."
         ja = "何が起きているのか知りたい。"
     }
     {
+        en = "I was not the chosen one."
+        ja = "私は選ばれし者ではなかった。"
+    }
+    {
+        en = "I will lead better."
+        ja = "もっとましな指揮を執ろう。"
+    }
+    {
         en = "I will never yield that boy to you hags. To arms!"
         ja = "あの子をお前たち婆どもに渡しはしない。武器を取れ！"
+    }
+    {
+        en = "I will not have our trusty hounds be butchered and eaten."
+        ja = "忠実な猟犬たちを屠って食わせるわけにはいかない。"
     }
     {
         en = "I won't put the life of my men at risk for this."

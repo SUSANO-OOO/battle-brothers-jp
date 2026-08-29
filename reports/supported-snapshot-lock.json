@@ -17,8 +17,8 @@
     "mod_msu 479 1.9.0 2026-06-23T04-27Z eVJjKbX9c.zip": "617AF64BD4B354408B91F8B8618F94F664491EDCD2CF4649B8AD52673C81B37B"
   },
   "ledger_files": {
-    "work/ledger/translation-ledger.json": "A9F70D4080EEEC3C133F1FD37C73DF79A8EDC079E7015698AB97088148776267",
-    "work/ledger/translation-units.json": "517269397B7DD7F73C77893F78FA3CDEBE4CDC88202FDB9F62D8159C7D254BEE"
+    "work/ledger/translation-ledger.json": "6A706C4D0732E9EBA9F557BF90F761FAEFEF68059D7A9119EAEEBF31A9B25535",
+    "work/ledger/translation-units.json": "28BE753F4FA34B59C6E939DB2EE8FF400CF9FEA62788B629FA213FAE87FA5F8E"
   },
   "note": "Release builds require a fresh read-only scan matching every fingerprint and matching canonical ledger hashes."
 }

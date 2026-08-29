@@ -50,3 +50,6 @@
 - Independently reviewed and adopted 297 translations from the second Vanilla event tranche with 46 corrections; resolved two internal after-combat screen IDs and one language-invariant numeric display value as exact exclusions.
 - Proved `Barnabas' Dagger` is safely localized by the existing item getter return boundary while raw item identity, stash state, serialization, and saves remain unchanged.
 - Built and fully static-QA-verified the reviewed-3,878 development tranche; all 31 repository-owned checks pass and the 13-entry archive matches source exactly.
+- Independently reviewed and adopted all 300 translations from the third Vanilla event tranche with 57 corrections, no exclusions, and no unresolved player-facing text.
+- Proved the `Fishes` title and `Hoggart's Heirloom` item name reach existing return-only display boundaries without changing persisted identity, and resolved one ambiguous upstream shadow sentence from its immediate event context while preserving the source-defect note.
+- Built and fully static-QA-verified the reviewed-4,178 development tranche; all 31 repository-owned checks pass and the 13-entry archive matches source exactly.

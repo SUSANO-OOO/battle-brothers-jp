@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
-  "canonical_reviewed_units": 3878,
+  "canonical_reviewed_units": 4178,
   "translated_needs_review_units": 0,
   "tranches": [
     {
@@ -324,6 +324,33 @@
         {
           "path": "work/review_batches/vanilla_events_002_boundary_audit.json (gitignored)",
           "sha256": "C9F74F96A29F57259D9D0B417ABEDE4F2B2603A535DF697015F4596143213501"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-events-literal-003",
+      "source_units": 300,
+      "reviewed_units": 300,
+      "resolved_exclusion_units": 0,
+      "draft_changes_by_independent_reviewer": 57,
+      "player_facing_unresolved": 0,
+      "source_defect_notes_preserved": 8,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_events_literal_source_003.json (gitignored)",
+          "sha256": "77D13EC9E16D862BDF2F464CFE21BCB87F525598A6AA613AA9535FAC6422F247"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_source_audit_003.json (gitignored)",
+          "sha256": "2657630EC24058B4D7D910184694539D38DA1B876B31147E1C748FB9AB1190CB"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_reviewed_003.json (gitignored)",
+          "sha256": "41C2D82E7FAB0EA4868B5BE9B93FA6C14784C2CBDF207E976ED0102356E19162"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_003_boundary_audit.json (gitignored)",
+          "sha256": "CEEF9580558D564B219124C73F5BCF577BEF9F98B2ADEA19EFE97E8D31397D1B"
         }
       ]
     }
