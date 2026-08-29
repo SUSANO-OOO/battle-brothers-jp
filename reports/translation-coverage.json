@@ -5,19 +5,19 @@
   "status": "TRANSLATION_IN_PROGRESS",
   "detailed_ledger_location": "work/ledger/translation-ledger.json (gitignored)",
   "translation_units_location": "work/ledger/translation-units.json (gitignored)",
-  "detailed_ledger_sha256": "4234358C635AA184B0559B252A0F15DD3193C31E1711010A92EB3D0393D93E9A",
-  "translation_units_sha256": "47216BB7F38D52CA2D4E93601D08E079279AADCD183118CB2E6C8462C84A7F21",
+  "detailed_ledger_sha256": "ADD0FBA28DB42C2B0ECAEC79C7399246A79D44AA22A8592AE10EFC13654BC88A",
+  "translation_units_sha256": "15783C24FF30BD83800767A27AB7141CD3E0D603F07DCD9DF6B56AA610EC8AED",
   "rosetta_extractor": {
     "version": "0.5.0",
     "commit": "dde98e99fd95ed0e7474a4328555144b4e913678"
   },
   "total_occurrences": 48158,
-  "resolved_exclusion_occurrences": 2600,
-  "translatable_occurrences": 45558,
-  "unique_translation_units": 31973,
-  "untranslated_units": 30967,
+  "resolved_exclusion_occurrences": 2690,
+  "translatable_occurrences": 45468,
+  "unique_translation_units": 31971,
+  "untranslated_units": 30669,
   "translated_needs_review_units": 0,
-  "reviewed_units": 1006,
+  "reviewed_units": 1302,
   "extraction_failures": [],
   "extraction_warnings": [
     {
@@ -80,7 +80,10 @@
   "duplicate_stable_keys": [],
   "resolved_exclusion_reasons": {
     "DEBUG_ONLY_SOURCE": 5,
+    "INTERNAL_ACHIEVEMENT_ID": 1,
     "INTERNAL_CONTROL_OR_SCREEN_ID": 2542,
+    "INTERNAL_TEMPLATE_VARIABLE_KEY": 12,
+    "INTERNAL_TILE_PROPERTY_KEY": 77,
     "LOG_DIAGNOSTIC_ONLY": 41,
     "RESOURCE_OR_ENGINE_KEY": 4,
     "RESOURCE_OR_SCRIPT_PATH": 2,
@@ -89,10 +92,10 @@
   "per_module": {
     "legends": {
       "occurrences": 24619,
-      "resolved_exclusions": 692,
-      "translatable_occurrences": 23927,
-      "translated_occurrences": 1054,
-      "reviewed_occurrences": 1054
+      "resolved_exclusions": 739,
+      "translatable_occurrences": 23880,
+      "translated_occurrences": 1438,
+      "reviewed_occurrences": 1438
     },
     "legends_assets": {
       "occurrences": 1,
@@ -117,10 +120,10 @@
     },
     "vanilla": {
       "occurrences": 22581,
-      "resolved_exclusions": 1895,
-      "translatable_occurrences": 20686,
-      "translated_occurrences": 1034,
-      "reviewed_occurrences": 1034
+      "resolved_exclusions": 1938,
+      "translatable_occurrences": 20643,
+      "translated_occurrences": 1416,
+      "reviewed_occurrences": 1416
     },
     "vanilla_ui": {
       "occurrences": 376,
@@ -131,7 +134,7 @@
     }
   },
   "release_gate": "NOT_MET",
-  "updated_at_utc": "2026-08-29T18:14:02.742511+00:00",
+  "updated_at_utc": "2026-08-29T18:33:31.091144+00:00",
   "runtime_pattern_resolved_units": 127,
   "runtime_pattern_unresolved_units": 0
 }

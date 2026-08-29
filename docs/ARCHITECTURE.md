@@ -26,6 +26,8 @@ actual call path監査でRosettaが到達しない境界が判明したため、
 
 reviewed literalはignored canonical ledgerからdeterministic generatorでSquirrel/JS mapへ出力する。同じ英語が異なる意味を持つ場合はcontext unitへ分割し、global mapで安全な文脈だけを登録する。残りはexact translation-only boundaryを使う。既存Vanilla/Legends JS全体の差替えは行わない。internal ID、CSS class、HTML scaffoldは翻訳対象外である。
 
+resolved exclusionはoccurrence-level source auditを先に行い、unit全stable keyが同じ非表示semanticsである場合だけwhole-unit除外できる。player-facingとmachine keyが同一unitへdeduplicateされた場合は、machine key occurrenceと未翻訳player-facing occurrenceへ先にcontext分割する。canonical QAは全translatable occurrenceがexactly one unitに属し、除外occurrenceがunitに属さないことを検証する。
+
 Rosetta extractorの`mode=pattern`に現れる`<this.m.Name>`等はsource-expression hintであり、有効なruntime captureではない。独立review済みであっても、`<name:str>`等の有効patternと代表sample、または狭いboundary hookが確定するまで生成物へ出さない。現在の127 reviewed pattern unitはすべてこの監査を通過した。さらにRosetta `0.5.0`は最初に一致したruleを採用するため、全代表sampleを全登録ruleの`matchParts()`へ通し「実効matchがexactly 1」であることを生成ハーネスで検査する。
 
 ### D. Font/rendering

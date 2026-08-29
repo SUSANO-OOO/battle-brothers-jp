@@ -389,6 +389,117 @@ def check_supported_snapshot_lock(repo: Path) -> dict[str, Any]:
     )
 
 
+def ledger_partition_errors(
+    ledger: dict[str, Any], units_payload: dict[str, Any], coverage: dict[str, Any]
+) -> dict[str, Any]:
+    entries = ledger.get("entries", [])
+    units = units_payload.get("units", [])
+    occurrence_index = {entry.get("stable_key"): entry for entry in entries}
+    duplicate_stable_keys = sorted(
+        key for key, count in Counter(entry.get("stable_key") for entry in entries).items() if count > 1
+    )
+    duplicate_unit_ids = sorted(
+        key for key, count in Counter(unit.get("translation_unit") for unit in units).items() if count > 1
+    )
+    assignments: Counter[str] = Counter()
+    unit_errors = []
+    for unit in units:
+        unit_id = unit.get("translation_unit")
+        occurrences = unit.get("occurrences", [])
+        for stable_key in occurrences:
+            assignments[stable_key] += 1
+            occurrence = occurrence_index.get(stable_key)
+            if occurrence is None:
+                unit_errors.append(f"{unit_id}: missing occurrence {stable_key}")
+                continue
+            if occurrence.get("translation_unit") != unit_id:
+                unit_errors.append(f"{unit_id}: reverse reference mismatch {stable_key}")
+            if occurrence.get("status") == "RESOLVED_EXCLUSION":
+                unit_errors.append(f"{unit_id}: contains resolved exclusion {stable_key}")
+        actual_modules = sorted(
+            {occurrence_index[key]["module"] for key in occurrences if key in occurrence_index}
+        )
+        if unit.get("occurrence_count") != len(occurrences):
+            unit_errors.append(f"{unit_id}: occurrence_count mismatch")
+        if unit.get("modules") != actual_modules:
+            unit_errors.append(f"{unit_id}: modules mismatch")
+
+    entry_errors = []
+    for entry in entries:
+        stable_key = entry.get("stable_key")
+        if entry.get("status") == "RESOLVED_EXCLUSION":
+            if entry.get("translation_unit") is not None:
+                entry_errors.append(f"{stable_key}: exclusion retains translation_unit")
+            if entry.get("review_status") != "NOT_APPLICABLE":
+                entry_errors.append(f"{stable_key}: exclusion review_status mismatch")
+            if entry.get("japanese"):
+                entry_errors.append(f"{stable_key}: exclusion has Japanese text")
+            if assignments[stable_key] != 0:
+                entry_errors.append(f"{stable_key}: exclusion assigned to a unit")
+        else:
+            if not entry.get("translation_unit"):
+                entry_errors.append(f"{stable_key}: translatable occurrence has no unit")
+            if assignments[stable_key] != 1:
+                entry_errors.append(f"{stable_key}: assigned {assignments[stable_key]} times")
+
+    resolved = sum(entry.get("status") == "RESOLVED_EXCLUSION" for entry in entries)
+    count_mismatches = []
+    expected_counts = {
+        "total_occurrences": len(entries),
+        "resolved_exclusion_occurrences": resolved,
+        "translatable_occurrences": len(entries) - resolved,
+        "unique_translation_units": len(units),
+        "untranslated_units": sum(unit.get("status") == "UNTRANSLATED" for unit in units),
+        "translated_needs_review_units": sum(
+            unit.get("status") == "TRANSLATED" and unit.get("review_status") != "REVIEWED"
+            for unit in units
+        ),
+        "reviewed_units": sum(
+            unit.get("status") == "TRANSLATED" and unit.get("review_status") == "REVIEWED"
+            for unit in units
+        ),
+    }
+    for name, expected in expected_counts.items():
+        if coverage.get(name) != expected:
+            count_mismatches.append(
+                {"field": name, "coverage": coverage.get(name), "canonical": expected}
+            )
+    return {
+        "duplicate_stable_keys": duplicate_stable_keys,
+        "duplicate_unit_ids": duplicate_unit_ids,
+        "unit_errors": unit_errors,
+        "entry_errors": entry_errors,
+        "count_mismatches": count_mismatches,
+        "canonical_counts": expected_counts,
+    }
+
+
+def check_ledger_partition(repo: Path) -> dict[str, Any]:
+    paths = {
+        "ledger": repo / "work" / "ledger" / "translation-ledger.json",
+        "units": repo / "work" / "ledger" / "translation-units.json",
+        "coverage": repo / "reports" / "translation-coverage.json",
+    }
+    missing = [name for name, path in paths.items() if not path.is_file()]
+    if missing:
+        return result("canonical_ledger_partition", False, {"missing": missing})
+    ledger = json.loads(paths["ledger"].read_text(encoding="utf-8"))
+    units = json.loads(paths["units"].read_text(encoding="utf-8"))
+    coverage = json.loads(paths["coverage"].read_text(encoding="utf-8"))
+    errors = ledger_partition_errors(ledger, units, coverage)
+    passed = not any(
+        errors[name]
+        for name in (
+            "duplicate_stable_keys",
+            "duplicate_unit_ids",
+            "unit_errors",
+            "entry_errors",
+            "count_mismatches",
+        )
+    )
+    return result("canonical_ledger_partition", passed, errors)
+
+
 def check_dependency_graph(repo: Path) -> dict[str, Any]:
     path = repo / "reports" / "mod-dependency-graph.json"
     graph = json.loads(path.read_text(encoding="utf-8"))
@@ -716,6 +827,7 @@ def main() -> int:
         check_reachability(repo, src),
         *check_runtime_translation_manifest(repo, src),
         check_literal_reachability_remediation(repo, src),
+        check_ledger_partition(repo),
         check_supported_snapshot_lock(repo),
         check_dependency_graph(repo),
         *check_scope(src),

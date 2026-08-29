@@ -16,3 +16,7 @@
 - Independently reviewed and adopted the first 300 Legends item units; 46 draft translations changed and upstream display/implementation differences remained non-gameplay notes.
 - Detected and independently resolved cross-module Rosetta first-match overlap; all 121 reviewed runtime samples now have exactly one effective rule.
 - Built and fully static-QA-verified the reviewed-1,006 development tranche; release coverage and runtime gates remain closed.
+- Independently reviewed and adopted 296 Vanilla skills/effects units; 27 drafts changed in review.
+- Audited 92 deduplicated internal-key candidates occurrence by occurrence, excluded 90, and retained two player-facing `Barrage` contexts as untranslated.
+- Added exact whole-unit exclusion validation, unresolved context splitting, and canonical ledger partition QA after detecting and repairing an over-broad canonical exclusion.
+- Built and fully static-QA-verified the reviewed-1,302 development tranche; all 25 current static checks pass while release coverage and runtime gates remain closed.

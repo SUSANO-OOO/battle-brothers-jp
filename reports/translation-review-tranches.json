@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
-  "canonical_reviewed_units": 1006,
+  "canonical_reviewed_units": 1302,
   "translated_needs_review_units": 0,
   "tranches": [
     {
@@ -49,6 +49,31 @@
       "draft_changes_by_independent_reviewer": 46,
       "batch": "work/review_batches/legends_items_literal_reviewed_001.json (gitignored)",
       "sha256": "1756B123FCE3D9939B0D2AD58D3066BF9048BEED9C2E43131DF6570ED9D212DE"
+    },
+    {
+      "name": "vanilla-skills-literal-001",
+      "reviewed_units": 296,
+      "draft_changes_by_independent_reviewer": 27,
+      "resolved_exclusion_occurrences": 90,
+      "player_facing_contexts_retained_untranslated": 2,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_skills_literal_reviewed_001.json (gitignored)",
+          "sha256": "B303FAA9C73718E7064FF80EAFDDE01AB1D3105A0B443369C615108291A1CC4F"
+        },
+        {
+          "path": "work/review_batches/vanilla_skills_exclusion_occurrence_audit_001.json (gitignored)",
+          "sha256": "57A7BFF510CEF18C31EC20E989B33E8BA7F6B3827F9A8832DABB21A9CFB54C28"
+        },
+        {
+          "path": "work/review_batches/vanilla_skills_whole_unit_exclusions_reviewed_001.json (gitignored)",
+          "sha256": "DF9C1AB1440E92E892F78D9E783DC470DC9BCB67437BA9AD3A6C1A3ECDCF215C"
+        },
+        {
+          "path": "work/review_batches/barrage_context_split_001.json (gitignored)",
+          "sha256": "7A3182DE82173904E58617C55D307EFB9210E6E3059AC3A58444C1404CAF40BE"
+        }
+      ]
     }
   ],
   "runtime_contract_reviews": [
