@@ -4,6 +4,188 @@
 
 local mod = ::BattleBrothersJP.Mod;
 
+// Legends formats one return-item description template with a colorized raw
+// Flags.Item before storing m.Description. Exact template rules cannot match
+// that completed string. Reconstruct the single-%s template from the returned
+// clone, translate the reviewed template and item, then format a new display
+// value. Failure is closed: no exact marker/rule/signature means no rewrite.
+local function translateReturnItemDescription(_contract, _description)
+{
+    if (typeof _description != "string"
+        || !("m" in _contract) || typeof _contract.m != "table"
+        || !("Type" in _contract.m) || _contract.m.Type != "contract.return_item"
+        || !("Flags" in _contract.m) || _contract.m.Flags == null
+        || !("has" in _contract.m.Flags) || typeof _contract.m.Flags.has != "function"
+        || !("get" in _contract.m.Flags) || typeof _contract.m.Flags.get != "function"
+        || !_contract.m.Flags.has("Item")) return null;
+
+    local rawItem = _contract.m.Flags.get("Item");
+    if (typeof rawItem != "string" || rawItem.len() == 0) return null;
+
+    local highlight = ::Const.UI.Color.getHighlightLightBackgroundValue();
+    local rawMarker = ::Const.UI.getColorized(rawItem, highlight);
+    local markerAt = _description.find(rawMarker);
+    if (markerAt == null || _description.find(rawMarker, markerAt + rawMarker.len()) != null) return null;
+
+    local sourceTemplate = _description.slice(0, markerAt) + "%s"
+        + _description.slice(markerAt + rawMarker.len());
+    local translatedTemplate = ::Rosetta._(sourceTemplate);
+    if (translatedTemplate == sourceTemplate) return null;
+
+    local slotAt = translatedTemplate.find("%s");
+    if (slotAt == null || translatedTemplate.find("%s", slotAt + 2) != null) return null;
+    local withoutSlot = translatedTemplate.slice(0, slotAt) + translatedTemplate.slice(slotAt + 2);
+    if (withoutSlot.find("%") != null) return null;
+
+    local translatedItem = ::Rosetta._(rawItem);
+    if (translatedItem == rawItem) return null;
+    return ::format(translatedTemplate, ::Const.UI.getColorized(translatedItem, highlight));
+}
+
+// Relation-change reasons are semantic history values: the game coalesces,
+// stores, serializes, and reloads their raw English text. Translate only the
+// returned Relations tooltip clone, guarded by the exact installed prefixes,
+// polarity icons, and independently reviewed contract-item allowlists.
+local stolenRelationItems = {
+    ["Amber Wristguards"] = true,
+    ["Ancestral Helm"] = true,
+    ["Ancient Crown"] = true,
+    ["Antique Book of Bloodlines"] = true,
+    ["Bad Tempered Parrot"] = true,
+    ["Black Book of Magick"] = true,
+    ["Blood Chalice"] = true,
+    ["Bronze Bust"] = true,
+    ["Chaos Emerald"] = true,
+    ["Crested Signet Ring"] = true,
+    ["Dragon Orb"] = true,
+    ["Dragon Tears Elixir"] = true,
+    ["Ebonwood Harp"] = true,
+    ["Embroidered Tapestry"] = true,
+    ["Enchanted Dagger"] = true,
+    ["Erotic Taxidermy Collection"] = true,
+    ["Exotic Hairless Cat"] = true,
+    ["Exotic Spice Box"] = true,
+    ["Famed Butterfly Collection"] = true,
+    ["Family Portrait"] = true,
+    ["Fingerbones of St Cicero"] = true,
+    ["Forbidden Book Collection"] = true,
+    ["Glass Warbow"] = true,
+    ["Golden Snuffbox"] = true,
+    ["Grimoire of the Rat"] = true,
+    ["Haunted Vase"] = true,
+    ["Heraldic Banner"] = true,
+    ["Ice Tribe Flute"] = true
+};
+local obtainedRelationItems = {
+    ["Ancestor's Stone"] = true,
+    ["Beads of Fortune"] = true,
+    ["Blue Crystal Staff"] = true,
+    ["Dragon Shield"] = true,
+    ["Elder Lute"] = true,
+    ["Everburning Lantern"] = true,
+    ["Frogir's Hammer"] = true,
+    ["Grimoire of Fate"] = true,
+    ["Guardian Totem"] = true,
+    ["Harvest Horn"] = true,
+    ["Horseshoe of Healing"] = true
+};
+local relationDisplayRules = [
+    {
+        Prefix = "Returned stolen ",
+        Icon = "ui/tooltips/positive.png",
+        Items = stolenRelationItems,
+        JapanesePrefix = "盗品「",
+        JapaneseSuffix = "」を返却"
+    },
+    {
+        Prefix = "Failed to return stolen ",
+        Icon = "ui/tooltips/negative.png",
+        Items = stolenRelationItems,
+        JapanesePrefix = "盗品「",
+        JapaneseSuffix = "」の返却に失敗"
+    },
+    {
+        Prefix = "Obtained ",
+        Icon = "ui/tooltips/positive.png",
+        Items = obtainedRelationItems,
+        JapanesePrefix = "「",
+        JapaneseSuffix = "」を入手"
+    },
+    {
+        Prefix = "Failed to obtain ",
+        Icon = "ui/tooltips/negative.png",
+        Items = obtainedRelationItems,
+        JapanesePrefix = "「",
+        JapaneseSuffix = "」の入手に失敗"
+    }
+];
+
+local function translateRelationChangeTooltip(_entries, _elementId)
+{
+    if (_elementId != "world-relations-screen.Relations" || typeof _entries != "array") return _entries;
+
+    local copied = null;
+    foreach (i, entry in _entries)
+    {
+        if (typeof entry != "table"
+            || !("id" in entry) || entry.id != 11
+            || !("type" in entry) || entry.type != "hint"
+            || !("icon" in entry) || typeof entry.icon != "string"
+            || !("text" in entry) || typeof entry.text != "string") continue;
+
+        foreach (rule in relationDisplayRules)
+        {
+            if (entry.icon != rule.Icon || !::std.Str.startswith(entry.text, rule.Prefix)) continue;
+            local rawItem = entry.text.slice(rule.Prefix.len());
+            if (rawItem.len() == 0 || !(rawItem in rule.Items)) continue;
+            local translatedItem = ::Rosetta._(rawItem);
+            if (translatedItem == rawItem) continue;
+
+            if (copied == null) copied = _entries.slice(0);
+            local copiedEntry = clone entry;
+            copiedEntry.text = rule.JapanesePrefix + translatedItem + rule.JapaneseSuffix;
+            copied[i] = copiedEntry;
+            break;
+        }
+    }
+    return copied != null ? copied : _entries;
+}
+
+// Fallen.KilledBy is persisted in statistics and consumed by gameplay events.
+// world_obituary_screen returns that raw array directly to JS, so clone only
+// the final DTO and translate exact reviewed demise strings on the clone.
+local obituaryDisplayCauses = {
+    ["Deserted the company"] = true,
+    ["Got a better paying offer"] = true,
+    ["Handed over to authorities"] = true,
+    ["Hanged for attempted murder"] = true,
+    ["Left to claim their birthright"] = true
+};
+local function translateObituaryDTO(_data)
+{
+    if (typeof _data != "table" || !("Fallen" in _data) || typeof _data.Fallen != "array") return _data;
+
+    local copiedFallen = null;
+    foreach (i, fallen in _data.Fallen)
+    {
+        if (typeof fallen != "table"
+            || !("KilledBy" in fallen) || typeof fallen.KilledBy != "string"
+            || !(fallen.KilledBy in obituaryDisplayCauses)) continue;
+        local translated = ::Rosetta._(fallen.KilledBy);
+        if (translated == fallen.KilledBy) continue;
+
+        if (copiedFallen == null) copiedFallen = _data.Fallen.slice(0);
+        local copiedEntry = clone fallen;
+        copiedEntry.KilledBy = translated;
+        copiedFallen[i] = copiedEntry;
+    }
+    if (copiedFallen == null) return _data;
+
+    local copiedData = clone _data;
+    copiedData.Fallen = copiedFallen;
+    return copiedData;
+}
+
 // Translate only a metric suffix on one known tooltip entry.  The calculated
 // and colorized value is copied byte-for-byte; the wrapper never recomputes a
 // gameplay value or changes any tooltip metadata.
@@ -118,7 +300,68 @@ mod.hookTree("scripts/skills/skill", function (q) {
 mod.hookTree("scripts/contracts/contract", function (q) {
     q.getDescription = @(__original) function () {
         local ret = __original();
-        return typeof ret == "string" ? ::Rosetta._(ret) : ret;
+        if (typeof ret != "string") return ret;
+        local formatted = translateReturnItemDescription(this, ret);
+        return formatted != null ? formatted : ::Rosetta._(ret);
+    }
+});
+
+// Open contract offers bypass getUITitle() and copy raw getName() into this
+// returned JS DTO. Translate only that DTO field; the contract name, screens,
+// log identity, serialized state, content, buttons, and image path stay raw.
+mod.hook("scripts/ui/global/data_helper", function (q) {
+    q.convertContractToUIData = @(__original) function (_contract) {
+        local ret = __original(_contract);
+        if (typeof ret == "table" && "title" in ret && typeof ret.title == "string")
+        {
+            ret.title = ::Rosetta._(ret.title);
+        }
+        return ret;
+    }
+});
+
+// Installed Legends inserts this exact English fragment after its Task screen
+// has been assembled. It is therefore not visible as an independent Rosetta
+// literal. Work on a display-only clone returned by getUIContent(); never edit
+// ActiveScreen, Screens, Task.start, flags, options, or persisted contract data.
+mod.hook("scripts/contracts/contracts/arena_contract", function (q) {
+    q.getUIContent = @(__original) function () {
+        local ret = __original();
+        if (typeof ret != "array") return ret;
+
+        local englishFragment = " The arena master";
+        local japaneseFragment = ::Rosetta._(englishFragment);
+        if (japaneseFragment == englishFragment) return ret;
+
+        local copied = ret.slice(0);
+        foreach (i, entry in ret)
+        {
+            if (typeof entry != "table"
+                || !("type" in entry) || entry.type != "description"
+                || !("text" in entry) || typeof entry.text != "string"
+                || entry.text.find(englishFragment) == null) continue;
+
+            local copiedEntry = clone entry;
+            copiedEntry.text = ::std.Str.replace(entry.text, englishFragment, japaneseFragment);
+            copied[i] = copiedEntry;
+        }
+        return copied;
+    }
+});
+
+// The first argument is an entity id; the Relations owner string is the exact
+// _elementId selected by the installed tooltip implementation. Rosetta's
+// earlier wrapper has already cloned generic tooltip entries when this runs.
+mod.hook("scripts/ui/screens/tooltip/tooltip_events", function (q) {
+    q.onQueryUIElementTooltipData = @(__original) function (_entityId, _elementId, _elementOwner) {
+        local ret = __original(_entityId, _elementId, _elementOwner);
+        return translateRelationChangeTooltip(ret, _elementId);
+    }
+});
+
+mod.hook("scripts/ui/screens/world/world_obituary_screen", function (q) {
+    q.convertFallenToUIData = @(__original) function () {
+        return translateObituaryDTO(__original());
     }
 });
 

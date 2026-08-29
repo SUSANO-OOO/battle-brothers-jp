@@ -1,18 +1,42 @@
 {
   "schema_version": 1,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
-  "status": "PARTIAL_GREEN_WITH_59_BOUNDARY_REMEDIATIONS_PENDING",
+  "status": "FULL_STATIC_BOUNDARY_REMEDIATION_GREEN_RUNTIME_NOT_TESTED",
   "source_units_audited": 300,
   "source_evidence_complete": 300,
-  "independently_reviewed_translations": 220,
+  "independently_reviewed_translations": 285,
   "resolved_internal_units": 15,
-  "runtime_blocked_drafts": 65,
+  "resolved_internal_occurrences": 23,
+  "runtime_blocked_drafts": 0,
   "approved_boundaries": {
     "contract_description_units": {
       "count": 160,
       "boundary": "scripts/contracts/contract.getDescription returned string",
       "result": "PASS",
       "state_contract": "original once; m.Description, state, flags, serialization, and save values remain raw"
+    },
+    "formatted_return_item_description_units": {
+      "count": 23,
+      "boundary": "return_item getDescription returned clone with exact one-%s template reconstruction",
+      "result": "PASS",
+      "state_contract": "exact highlight marker and reviewed template/item rules required; Flags.Item and m.Description remain raw"
+    },
+    "semantic_contract_item_units": {
+      "count": 39,
+      "boundary": "exact reviewed item literals plus cloned itemLower/template/relation display consumers",
+      "result": "PASS",
+      "state_contract": "item pools, Flags.Item/ItemName, caller variables, relation history, and save values remain raw"
+    },
+    "relation_display_shapes": {
+      "count": 4,
+      "boundary": "scripts/ui/screens/tooltip/tooltip_events.onQueryUIElementTooltipData returned clone",
+      "result": "PASS_INDEPENDENT_AUDIT",
+      "guards": "exact Relations element id, entry id/type/polarity icon, prefix, and class-specific 28/11 raw-item allowlists"
+    },
+    "open_contract_dto_title_units": {
+      "count": 19,
+      "boundary": "scripts/ui/global/data_helper.convertContractToUIData returned title field",
+      "result": "PASS_INDEPENDENT_AUDIT"
     },
     "world_description_units": {
       "count": 11,
@@ -35,6 +59,17 @@
       "boundary": "map label, tooltip, and cloned template-variable display boundaries",
       "result": "PASS"
     },
+    "generated_dame_fragment_units": {
+      "count": 1,
+      "boundary": "reviewed Dame <first:word><rest:str> final-display Rosetta pattern",
+      "result": "PASS_INDEPENDENT_AUDIT",
+      "negative_samples": ["Dame", "Dame ", "Madame Roderick"]
+    },
+    "arena_composed_fragment_units": {
+      "count": 1,
+      "boundary": "arena_contract.getUIContent returned description-entry clone",
+      "result": "PASS_INDEPENDENT_AUDIT"
+    },
     "background_description_units": {
       "count": 2,
       "boundary": "buildTextFromTemplate cloned display values",
@@ -46,16 +81,24 @@
     "result": "REJECTED_AND_REMOVED",
     "reason": "cripple_vs_injury_event consumes the raw English mood reason as a gameplay discriminator"
   },
-  "pending_boundary_groups": {
-    "semantic_item_values": 39,
-    "open_contract_dto_titles": 19,
-    "persisted_generated_name_fragment": 1
-  },
+  "pending_boundary_groups": {},
   "evidence": {
     "ignored_source_audit": "work/review_batches/legends_contracts_source_audit_001.json",
     "ignored_source_audit_sha256": "3480CFA903D143DA03683D5B64E6A8E1538DA5B547F2D497308E5B2B4692422A",
+    "semantic_boundary_audit": "work/review_batches/legends_contracts_semantic_item_boundary_audit_001.json",
+    "semantic_boundary_audit_sha256": "1C757776A2F7AF71423374D786212DDF303231C49F4333218C033BA1E4395F3B",
+    "semantic_item_review_sha256": "0F4238BC5FD17C787908416225DFEFEC4B1D46CBC43ECBA323631E0CC251FF76",
+    "return_description_review_sha256": "687F71F40A4128421B0019A569E040A3C970C6923CA97F5B9FB389DD8D2925F4",
+    "relation_display_review_sha256": "A3BD6C2D39F9024F7A744A2876F140E6F99018C6E39C3D9A7081927F97C987D5",
     "ui_boundary_harness": "tests/squirrel/test_ui_boundaries.nut",
-    "harness_result": "UI_BOUNDARIES_TEST_OK"
+    "event_variable_harness": "tests/squirrel/test_event_variable_boundaries.nut",
+    "harness_results": [
+      "UI_BOUNDARIES_TEST_OK",
+      "EVENT_VARIABLE_BOUNDARIES_TEST_OK",
+      "REVIEWED_RUNTIME_PATTERNS_OK",
+      "RUNTIME_PATTERN_COLLISION_AUDIT_OK",
+      "VERTICAL_SLICE_ROSETTA_TEST_OK"
+    ]
   },
   "runtime_game_qa": "NOT_TESTED",
   "actual_user_environment_writes": 0

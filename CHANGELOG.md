@@ -38,3 +38,11 @@
 - Audited the first 300 Legends contract units, independently adopted 220 reviewed translations with 41 corrections, and resolved 15 internal control units only after all-occurrence review.
 - Added a return-only contract-description boundary for 160 Legends templates; rejected a gameplay-breaking mood-history getter hook and retained raw state with final-tooltip localization.
 - Built and fully static-QA-verified the reviewed-2,901 development tranche; all 29 repository-owned checks pass and the 13-entry archive matches source exactly.
+- Completed the 300-unit Legends contract source tranche with 285 independently reviewed translations and 15 reasoned internal exclusions; added 23 separately reviewed derived return-item templates.
+- Added exact display-only contract title, arena description, formatted return-item, and faction-relation boundaries while preserving flags, history, persistence, and save values.
+- Hardened literal-source runtime patterns so generated `Dame` names translate without overmatching bare or unrelated text.
+- Independently reviewed and adopted 300 Vanilla settlement units; 21 drafts changed in review.
+- Completed the first 300-unit Legends event tranche with 294 reviewed translations, 61 review corrections, and six exact internal exclusions covering seven occurrences.
+- Added clone-only installed PronounTable family/value localization and an exact five-cause obituary DTO boundary; independent re-audit confirmed unknown values fail closed and all persisted/raw data remains unchanged.
+- Added a machine-readable Legends event boundary audit and release QA check covering canonical emission, evidence fingerprints, implementation guards, and negative samples.
+- Built and fully static-QA-verified the reviewed-3,581 development tranche; all 30 repository-owned checks pass and the 13-entry archive matches source exactly.

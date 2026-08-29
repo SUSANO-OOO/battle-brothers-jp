@@ -24,6 +24,8 @@ world `getName()`はsave flag、contract objective、faction/party name、unique
 
 Rosettaは`buildTextFromTemplate`へ渡すraw templateを先に翻訳するため、後から挿入する変数値には通常literal ruleが届かない。ここはcallerの`_vars`を変更せず各pairをcloneし、一般のstring値を最終rendering用にRosettaへ通す。これによりworld getterをrawに保ってもsettlement/item/skill/faction名をtemplate内だけ翻訳できる。その上でexact `noble` / `sibling` / `sib`、`justbeggar`、`nemesisS`のkey/valueだけはcontext固有訳を適用する。current snapshotで実きょうだいを指すdisowned-noble templateはraw templateの固有句で分岐する。語呂合わせを含むteamplayer等の全文は別の翻訳unitとしてreviewし、単語global replacementは行わない。
 
+Legendsイベントの`PronounTable`は単純なliteral辞書として扱わない。installed sourceに存在するsubject/object/possessive/reflexive/person/child/to-beのfamilyとvalueをexact allowlistし、表示用にcloneしたtemplate変数だけを日本語へ写像する。既知familyに未知valueが来た場合もRosetta general translationへ流さずrawのままfail closedとする。これによりcaller配列、PronounTable、actor、event state、ID、save dataは不変である。死亡原因`KilledBy`も同様に、review済み5 literalだけを`world_obituary_screen.convertFallenToUIData`の返却DTO cloneで翻訳し、World.Statisticsと保存値は変更しない。
+
 翻訳データはmodule/category別の`.nut`へ生成し、`::Rosetta.add`で登録する。literal、stable ID、patternを区別する。Rosetta parserが扱えないsourceは未解決のまま黙殺せず、fallback抽出とreason付きexclusionへ送る。
 
 ### C. JavaScript/UI translation
@@ -32,6 +34,8 @@ Rosetta `0.5.0`はJS-origin stringsを処理しない。Modern Hooks `0.6.0`の`
 
 actual call path監査でRosettaが到達しない境界が判明したため、whole-file replacementではなく限定的Squirrel hookを追加した。`ambition.getUIText()`、skillの`getKilledString()`、contract baseの`getDescription()`、Legends camp crafting `queryLoad()`、settlement `getUIInformation()`の表示field、port buildingの独立travel-roster DTO、named armor/helmetの`getName()`戻り値、および4つのexact Legends perk classで完成後のtextだけを処理する。contract descriptionはLegendsが選択済みtemplateを保存した`m.Description`へ書き戻さず、getterのstring返却値だけを訳す。installed call site 4件はすべてDTO/tooltip表示であり、original 1回、state・flags・serialization・save不変をharnessで固定した。港はraw settlement nameを先に捕捉し、返却DTOの`Name`とexact一致する`ListName`だけを翻訳する。`ID`、cost、image、route、settlement object、raw identityは変更せず、`BackgroundText`はraw description prefixだけを訳して既にrender済みのsuffixをbyte-for-byte保持する。Adaptiveの列挙は固定prefixとcolor境界内のgroup名だけを再構成し、metric wrapperは計算済みcolor値をbyte-for-byte保持する。`Play`の文脈訳も定数配列やpersisted `m.Name`ではなく戻り値のsuffixだけを変換する。いずれもgameplay state、数値、id/type/icon、save dataを変更しない。
 
+Legends contractの残余境界は、open contract titleの返却DTO field、arena contractの返却description entry、return-item description、faction relation tooltipへ分離した。return-itemはraw `Flags.Item`のcolorized markerがexactly oneで、review済み`%s` templateとitem訳の両方が存在する場合だけclone上で再構成する。relation tooltipはactual `world-relations-screen.Relations` element ID、entry id/type/polarity icon、4 exact prefix、class別28/11 item allowlistをすべて満たす場合だけentry cloneを訳す。contract name、Flags、relation history、serialized state、saveはrawのまま保持し、malformed/未知入力は原返却値へfail closedする。
+
 installed Legends `legend_ranger_commander_background`には`%name's face`と`h%name%`という2つのplayer-facing source typoがある。canonical翻訳はsource signatureを保持し、同じLate bucketでRosettaより後に登録するexact-class `hookTree`を外側wrapperにして、Rosetta返却templateだけを`%name%の顔` / `%name%`へ正規化する。通常のexact `hook`はModern Hooksのfinalization順でRosetta tree hookの内側になるため採用しない。合成fixtureでsource → Rosetta inner → JP remediation outer、inner 1回、unrelated/non-string不変を検証する。
 
 reviewed literalはignored canonical ledgerからdeterministic generatorでSquirrel/JS mapへ出力する。同じ英語が異なる意味を持つ場合はcontext unitへ分割し、global mapで安全な文脈だけを登録する。残りはexact translation-only boundaryを使う。既存Vanilla/Legends JS全体の差替えは行わない。internal ID、CSS class、HTML scaffoldは翻訳対象外である。
@@ -39,6 +43,8 @@ reviewed literalはignored canonical ledgerからdeterministic generatorでSquir
 resolved exclusionはoccurrence-level source auditを先に行い、unit全stable keyが同じ非表示semanticsである場合だけwhole-unit除外できる。player-facingとmachine keyが同一unitへdeduplicateされた場合は、machine key occurrenceと未翻訳player-facing occurrenceへ先にcontext分割する。canonical QAは全translatable occurrenceがexactly one unitに属し、除外occurrenceがunitに属さないことを検証する。
 
 Rosetta extractorの`mode=pattern`に現れる`<this.m.Name>`等はsource-expression hintであり、有効なruntime captureではない。独立review済みであっても、`<name:str>`等の有効patternと代表sample、または狭いboundary hookが確定するまで生成物へ出さない。現在の127 reviewed pattern unitはすべてこの監査を通過した。さらにRosetta `0.5.0`は最初に一致したruleを採用するため、全代表sampleを全登録ruleの`matchParts()`へ通し「実効matchがexactly 1」であることを生成ハーネスで検査する。
+
+source Englishそのものをpatternの左辺として使う特殊契約（例: bare `Dame`をgenerated nameだけに届かせる契約）は、captureを最低1個要求し、runtime sampleがsource Englishと同一なら生成・適用を拒否する。現契約は`Dame <first:word><rest:str>`だけを`デイム・<first><rest>`へ変換し、bare `Dame`、`Dame `、`Madame Roderick`は不変である。
 
 ### D. Font/rendering
 

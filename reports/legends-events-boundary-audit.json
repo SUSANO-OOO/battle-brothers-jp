@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "status": "FULL_STATIC_REMEDIATION_GREEN_RUNTIME_NOT_TESTED",
+  "source_units": 300,
+  "independently_reviewed_units": 294,
+  "resolved_internal_units": 6,
+  "resolved_internal_occurrences": 7,
+  "remaining_runtime_blockers": 0,
+  "review_corrections": {
+    "initial_review": 57,
+    "boundary_remediation_review": 4
+  },
+  "boundaries": {
+    "event_template_units": {
+      "count": 43,
+      "translation": "reviewed full-template Rosetta literals",
+      "supplemental_boundary": "global buildTextFromTemplate cloned variable list",
+      "pronoun_contract": "exact installed PronounTable family/value mappings only; unknown values fail closed",
+      "state_contract": "caller variables, PronounTable, actor data, event state, IDs, and saves remain raw"
+    },
+    "obituary_killed_by_units": {
+      "count": 5,
+      "translation": "reviewed exact Rosetta literals",
+      "supplemental_boundary": "scripts/ui/screens/world/world_obituary_screen.convertFallenToUIData returned DTO",
+      "allowlist_count": 5,
+      "state_contract": "statistics Fallen array, KilledBy persistence, serialization, gameplay consumers, and saves remain raw"
+    }
+  },
+  "evidence": {
+    "source_audit": "work/review_batches/legends_events_source_audit_001.json",
+    "source_audit_sha256": "F5E72163158856A9BC129AD268AC1D6C7E22A39CC99DD256EC33471A01C26BEE",
+    "initial_review": "work/review_batches/legends_events_literal_reviewed_001.json",
+    "initial_review_sha256": "3EB14973D9B377E40A3FCB1719DE0E53D1E5FE37837CD58839DE03606C385252",
+    "exclusion_batch": "work/review_batches/legends_events_exclusion_batch_001.json",
+    "exclusion_batch_sha256": "D10201296E938BDBE0C01691FE0CB1A38B970BF48C26CEB624B4ED5AA0CC40D4",
+    "boundary_remediation_review": "work/review_batches/legends_events_boundary_remediation_reviewed_001.json",
+    "boundary_remediation_review_sha256": "23E5F9C79A32942C42D08A9D8077FA20FDFB2E9E9275946ACDDAD735882BD120",
+    "targeted_results": [
+      "EVENT_VARIABLE_BOUNDARIES_TEST_OK",
+      "UI_BOUNDARIES_TEST_OK",
+      "VERTICAL_SLICE_ROSETTA_TEST_OK"
+    ],
+    "production_pair_checks": {
+      "obituary_causes": 5,
+      "pronoun_end_to_end_samples": 1,
+      "unknown_pronoun_value_negative": 1,
+      "unknown_obituary_cause_negative": 1
+    }
+  },
+  "placeholder_or_tag_violations": 0,
+  "known_mojibake": 0,
+  "runtime_game_qa": "NOT_TESTED",
+  "actual_user_environment_writes": 0
+}

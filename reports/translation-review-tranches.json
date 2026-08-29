@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
-  "canonical_reviewed_units": 2681,
+  "canonical_reviewed_units": 3581,
   "translated_needs_review_units": 0,
   "tranches": [
     {
@@ -211,8 +211,10 @@
     {
       "name": "legends-contracts-literal-reviewed-001",
       "source_units": 300,
-      "reviewed_units": 220,
-      "runtime_blocked_drafts": 65,
+      "source_reviewed_units": 285,
+      "derived_runtime_pattern_units": 23,
+      "reviewed_units": 308,
+      "runtime_blocked_drafts": 0,
       "resolved_exclusion_units": 15,
       "resolved_exclusion_occurrences": 23,
       "corrected_drafts": 41,
@@ -221,7 +223,78 @@
       "review_batch": "work/review_batches/legends_contracts_literal_reviewed_001.json (gitignored)",
       "review_batch_sha256": "1A3AD6C25CAD3A7798FF045D90DC4BE819404BF35C78868ED5E593AF90886DDC",
       "exclusion_batch": "work/review_batches/legends_contracts_exclusion_batch_001.json (gitignored)",
-      "exclusion_batch_sha256": "DA98125D8EEE01D71607939EE4265B8C374DC731414FA4C0996554EBEC75C1BA"
+      "exclusion_batch_sha256": "DA98125D8EEE01D71607939EE4265B8C374DC731414FA4C0996554EBEC75C1BA",
+      "completion_batches": [
+        {
+          "path": "work/review_batches/legends_contract_remaining_reviewed_001.json (gitignored)",
+          "units": 21,
+          "sha256": "0891EE90366E034DC7BF584042D7BFA1D2FA915FD2BDEEE867A4E2E12B92677A"
+        },
+        {
+          "path": "work/review_batches/legends_contracts_semantic_items_reviewed_001.json (gitignored)",
+          "units": 44,
+          "sha256": "0F4238BC5FD17C787908416225DFEFEC4B1D46CBC43ECBA323631E0CC251FF76"
+        },
+        {
+          "path": "work/review_batches/legends_return_item_descriptions_reviewed_001.json (gitignored)",
+          "derived_units": 23,
+          "sha256": "687F71F40A4128421B0019A569E040A3C970C6923CA97F5B9FB389DD8D2925F4"
+        }
+      ],
+      "supplemental_boundary_reviews": [
+        {
+          "path": "work/review_batches/legends_contract_relation_display_reviewed_001.json (gitignored)",
+          "display_shapes": 4,
+          "sha256": "A3BD6C2D39F9024F7A744A2876F140E6F99018C6E39C3D9A7081927F97C987D5"
+        },
+        {
+          "path": "work/review_batches/legends_contract_dame_runtime_pattern_reviewed_001.json (gitignored)",
+          "units": 1,
+          "sha256": "AEF6CC68088DC02DD3B2556A7A075367BA988466E929BBF862D7EF9FC99E8BD6"
+        },
+        {
+          "path": "work/review_batches/legends_contract_dame_runtime_pattern_correction_002.json (gitignored)",
+          "units": 1,
+          "sha256": "54C3C51DCFA10F0044D75EB10B061668700398FDB145E889E1A1271918D5CA83"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-settlements-literal-001",
+      "source_units": 300,
+      "reviewed_units": 300,
+      "draft_changes_by_independent_reviewer": 21,
+      "batch": "work/review_batches/vanilla_settlements_literal_reviewed_001.json (gitignored)",
+      "sha256": "85CD9CBED60620679944F8E8455CEBC63E8A9747D5AC5DE94C7031D1C6CA540D"
+    },
+    {
+      "name": "legends-events-literal-001",
+      "source_units": 300,
+      "reviewed_units": 294,
+      "canonical_count_delta": 292,
+      "canonical_overlap_with_prior_tranches": 2,
+      "resolved_exclusion_units": 6,
+      "resolved_exclusion_occurrences": 7,
+      "draft_changes_by_independent_reviewer": 61,
+      "batches": [
+        {
+          "path": "work/review_batches/legends_events_source_audit_001.json (gitignored)",
+          "sha256": "F5E72163158856A9BC129AD268AC1D6C7E22A39CC99DD256EC33471A01C26BEE"
+        },
+        {
+          "path": "work/review_batches/legends_events_literal_reviewed_001.json (gitignored)",
+          "sha256": "3EB14973D9B377E40A3FCB1719DE0E53D1E5FE37837CD58839DE03606C385252"
+        },
+        {
+          "path": "work/review_batches/legends_events_exclusion_batch_001.json (gitignored)",
+          "sha256": "D10201296E938BDBE0C01691FE0CB1A38B970BF48C26CEB624B4ED5AA0CC40D4"
+        },
+        {
+          "path": "work/review_batches/legends_events_boundary_remediation_reviewed_001.json (gitignored)",
+          "units": 48,
+          "sha256": "23E5F9C79A32942C42D08A9D8077FA20FDFB2E9E9275946ACDDAD735882BD120"
+        }
+      ]
     }
   ],
   "runtime_contract_reviews": [

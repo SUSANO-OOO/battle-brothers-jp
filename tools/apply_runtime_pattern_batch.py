@@ -53,6 +53,21 @@ def validate_rosetta_contract(entry: dict[str, Any]) -> None:
             raise ValueError(f"Malformed runtime sample: {unit_id}")
 
 
+def validate_literal_source_runtime_pattern(unit: dict[str, Any], entry: dict[str, Any]) -> None:
+    """Prevent a literal-source exception from becoming a global fixed rule."""
+    if unit.get("mode") == "pattern":
+        return
+    runtime_en = entry.get("runtime_en")
+    if not isinstance(runtime_en, str) or not CAPTURE.search(runtime_en):
+        raise ValueError(
+            f"Literal source runtime pattern requires at least one capture: {entry['translation_unit']}"
+        )
+    if runtime_en == unit.get("english"):
+        raise ValueError(
+            f"Literal source runtime pattern must differ from source English: {entry['translation_unit']}"
+        )
+
+
 def validate_boundary_contract(entry: dict[str, Any]) -> None:
     unit_id = entry["translation_unit"]
     for field in ("hook_target", "hook_method", "boundary_operation"):
@@ -100,8 +115,8 @@ def main() -> int:
         if unit_id not in unit_index:
             raise ValueError(f"Unknown pattern unit: {unit_id}")
         unit = unit_index[unit_id]
-        if unit.get("mode") != "pattern" or unit.get("review_status") != "REVIEWED":
-            raise ValueError(f"Runtime contract requires a reviewed pattern unit: {unit_id}")
+        if unit.get("review_status") != "REVIEWED":
+            raise ValueError(f"Runtime contract requires a reviewed translation unit: {unit_id}")
         if entry.get("english") != unit.get("english"):
             raise ValueError(f"Pattern batch English mismatch: {unit_id}")
         strategy = entry.get("strategy")
@@ -111,8 +126,13 @@ def main() -> int:
             continue
         if status != "RESOLVED" or strategy not in {"ROSETTA_PATTERN", "BOUNDARY_HOOK"}:
             raise ValueError(f"Invalid runtime resolution status/strategy: {unit_id}")
+        if unit.get("mode") != "pattern" and strategy != "ROSETTA_PATTERN":
+            raise ValueError(
+                f"Literal source units may only use a reviewed final-display ROSETTA_PATTERN: {unit_id}"
+            )
         if strategy == "ROSETTA_PATTERN":
             validate_rosetta_contract(entry)
+            validate_literal_source_runtime_pattern(unit, entry)
         else:
             validate_boundary_contract(entry)
         resolved.append(entry)
@@ -147,11 +167,14 @@ def main() -> int:
     coverage["detailed_ledger_sha256"] = sha256(ledger_path)
     coverage["translation_units_sha256"] = sha256(units_path)
     coverage["runtime_pattern_resolved_units"] = sum(
-        unit.get("mode") == "pattern" and unit.get("runtime_contract", {}).get("resolution_status") == "RESOLVED"
+        (unit.get("mode") == "pattern" or unit.get("runtime_strategy") == "ROSETTA_PATTERN")
+        and unit.get("runtime_contract", {}).get("resolution_status") == "RESOLVED"
         for unit in units_payload["units"]
     )
     coverage["runtime_pattern_unresolved_units"] = sum(
-        unit.get("mode") == "pattern" and unit.get("review_status") == "REVIEWED" and unit.get("runtime_contract", {}).get("resolution_status") != "RESOLVED"
+        (unit.get("mode") == "pattern" or unit.get("runtime_strategy") == "ROSETTA_PATTERN")
+        and unit.get("review_status") == "REVIEWED"
+        and unit.get("runtime_contract", {}).get("resolution_status") != "RESOLVED"
         for unit in units_payload["units"]
     )
     coverage["updated_at_utc"] = applied_at

@@ -1,14 +1,14 @@
 # Project State
 
-Updated: 2026-08-30 05:38 (Asia/Tokyo)
+Updated: 2026-08-30 06:35 (Asia/Tokyo)
 
 ## Current phase
 
-Phase 7 — 2,901 units independently reviewed; the remaining Legends contract semantic-display boundaries and Vanilla settlements independent review continue.
+Phase 7 — 3,581 canonical units independently reviewed; the next 300-unit Vanilla events translation tranche is in draft preparation.
 
 ## Current commit
 
-Local checkpoint: `55e6d8945b5677a18266342c5dadaf5986cfd60c` on `codex/integrated-jp-mod`. GitHub authentication is blocked, so no remote commit is claimed.
+Local checkpoint: `968a113bb3a16f0b1b68e10f59857bef7c660ca8` on `codex/integrated-jp-mod`. GitHub authentication is blocked, so no remote commit is claimed.
 
 ## Installed snapshot ID
 
@@ -76,11 +76,16 @@ Snapshot basis SHA-256: `CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E
 - Independent 15-finding Rosetta name-semantics audit proved that global item/background/world-name translation can break Poacher damage/effects, Donkey tooltip routing, Beggar save lookup, world unique-name generation, and persisted derived names. Post-Rosetta guards now use exact scopes for item/background semantics and a global raw world getter with display-only map/UI/template boundaries; dedicated harnesses cover normal localized display, raw matcher input, Donkey equality, world identity, labels, settlement DTOs, and cloned template variables.
 - Independent runtime-boundary review caught a cross-bucket queue-order defect and three persisted-state mutations. The preload now runs in Rosetta's Late bucket after Rosetta; armor-name constants, contract flags, and caller-owned event variables are no longer mutated.
 - Independently resolved the installed unfinished Vala tooltip for localization: the faithful `トランス状態に入り、うんぬんかんぬん。` translation is approved without invented mechanics. The unrelated undefined-`t` gameplay path remains unmodified and not runtime verified as a known upstream limitation.
-- Audited 300 Legends contract units against the installed call sites. Independent review adopted 220 translations with 41 corrections and resolved 15 internal units covering 23 control-key occurrences; 65 drafts remain unapplied until their final display boundaries are proven.
+- Completed the 300-unit Legends contract source tranche: 285 source units are independently reviewed and 15 internal units covering 23 control-key occurrences are resolved exclusions. The final 65 source translations and 23 derived return-item templates were adopted only after their actual display boundaries were proven.
 - Added and independently approved a return-only `contract.getDescription()` boundary for the 160 installed Legends description templates that Rosetta 0.5.0 does not otherwise intercept. The wrapper calls the original once and leaves `m.Description`, contract state, flags, serialization, and save data raw.
+- Added and independently audited display-only boundaries for 19 open-contract DTO titles, the arena description fragment, 23 formatted return-item descriptions, and four faction-relation shapes. Exact prefixes, type/icon guards, item allowlists, placeholder counts, original-once behavior, and fail-closed malformed inputs are covered without changing contract flags, relation history, or saves.
+- Hardened literal-source runtime patterns after the generated `Dame` fragment audit: a capture is mandatory and a runtime sample equal to the literal source is rejected. `Dame <first><rest>` is localized, while bare `Dame`, `Dame `, and `Madame Roderick` remain untouched.
+- Independently translated and reviewed 300 Vanilla settlement units; 21 draft translations changed during review.
+- Completed the first 300-unit Legends event tranche: 294 player-facing units are independently reviewed with 61 total review corrections, while six internal units covering seven occurrences are resolved exclusions.
+- Added exact clone-only Legends pronoun/person mappings and a five-cause obituary DTO boundary. Independent re-audit confirmed known-family unknown values and unknown obituary causes fail closed, all 48 remediation literals are generated, and caller variables, PronounTable, actor/event state, Statistics, persistence, and saves remain raw.
 - Rejected and removed a tentative `getMoodChanges()` return translation after source audit found an installed gameplay comparison against the raw English mood reason. Mood and relation history remain raw in state and are localized only at the existing final tooltip boundaries.
 - Fixed the exclusion pipeline after a canonical application exposed a mixed-context deduplication risk: the ignored ledger was restored before regeneration, exact stable-key coverage is now mandatory, mixed unresolved units are split first, and canonical ledger partition QA prevents exclusions from hiding inside translation units.
-- Created the local root checkpoint `2a2da26153bd099c46dbd8d3dded183353e161ed` on `codex/integrated-jp-mod`; no remote claim is made.
+- Latest local checkpoint is `968a113bb3a16f0b1b68e10f59857bef7c660ca8` on `codex/integrated-jp-mod`; the 3,581-unit tranche is not yet committed at this line's timestamp and no remote claim is made.
 - Portable GitHub Actions workflow added for repository-only Python/JS checks. Hosted CI has not run because no authenticated remote exists.
 - Graph-first `scan`, `extract`, `diff`, `coverage`, `validate`, `build`, `qa`, and `update` commands are exposed through `tools/bbjp.py`; `update` deliberately stops before extraction when installed fingerprints changed.
 - Deterministic development-only ZIPs are built below `work/qa`; none is a release artifact.
@@ -89,29 +94,29 @@ Snapshot basis SHA-256: `CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E
 ## Translation counts and coverage
 
 - Extracted occurrences: `48,158`
-- Reasoned resolved-exclusion occurrences: `3,554`
-- Translatable occurrences: `44,604`
-- Unique translation units: `31,833` (ambiguous global units use context-specific partitions)
-- Untranslated units: `28,932`
+- Reasoned resolved-exclusion occurrences: `3,561`
+- Translatable occurrences: `44,597`
+- Unique translation units: `31,827` (ambiguous global units use context-specific partitions)
+- Untranslated units: `28,246`
 - Translated-needs-review units: `0`
-- Reviewed units: `2,901`
-- Reviewed unique-unit coverage: `9.1132%` (`2,901 / 31,833`)
-- Reviewed occurrence coverage: `15.7766%` (`7,037 / 44,604`)
+- Reviewed units: `3,581`
+- Reviewed unique-unit coverage: `11.2515%` (`3,581 / 31,827`)
+- Reviewed occurrence coverage: `18.3017%` (`8,162 / 44,597`)
 - Extraction failures: `0`
 - Extraction fallback warnings: `8` source files / `601` candidates
 - Release coverage gate: `NOT_MET`
 
 ## Last green tests
 
-- Project Python unit tests: `53/53 PASS`.
+- Project Python unit tests: `59/59 PASS`.
 - Rosetta official Python extractor suite: `102 PASS, 1 XFAIL`.
 - Vertical Slice Squirrel syntax: preload and translation files compile with Squirrel `3.0.7`.
 - Vertical Slice Rosetta harness: Japanese literals and `%dragonslayer%` token preservation PASS.
 - JS syntax and button/dialog/popup wrapper behavior: PASS (`UI_TRANSLATION_TEST_OK`).
 - Last fully green Vertical Slice static MOD QA: all 17 checks PASS in `reports/qa-vertical-slice.json`.
-- Current full development-tranche static QA: `29/29 PASS` in `reports/qa-reviewed-2901.json`, including exact canonical ledger partitioning, runtime accounting and canonical boundary-contract checks, Late-bucket registration, pending patterns 0, all 121 representative patterns, all-rule collision audit, semantic-name/event-variable/source-defect/UI/JS harnesses, canonical snapshot/ledger lock, exact archive parity, third-party allowlist, and write-scope.
-- Font static QA for the current generated tranche: 2,005 required non-ASCII code points, missing 0.
-- The current 2,901-unit source generation contains 2,887 emitted units plus 14 exact boundary units. The clean development ZIP and complete 29-check suite are green; runtime game QA remains `NOT_TESTED`.
+- Current development-tranche static QA: `30/30 PASS` in `reports/qa-reviewed-3581.json`, including exact canonical ledger partitioning, event-boundary evidence, runtime accounting, Late-bucket registration, pending patterns 0, all-rule collision audit, semantic-name/event-variable/source-defect/UI/JS harnesses, canonical snapshot/ledger lock, exact archive parity, third-party allowlist, glyph coverage, and write-scope.
+- Font static QA for the current generated tranche: 2,119 required non-ASCII code points, missing 0.
+- The current 3,581-unit source generation contains 3,567 emitted units plus 14 exact boundary units; pending runtime patterns are 0. The 13-entry development ZIP matches repository-owned source 13/13. Runtime game QA remains `NOT_TESTED`.
 
 Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's standard `sq.exe`: it reports a runtime wrong-parameter error while returning exit code 0. `sq_taro.exe` only compiles it. This is not reported as PASS and needs compatible runtime or isolated game confirmation.
 
@@ -120,12 +125,11 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 - GitHub: `gh auth status` reports the stored token for `SUSANO-OOO` is invalid; repository existence/ownership/create/push/read-back remain unverified.
 - Runtime dependencies: Rosetta `0.5.0` and stdlib `>=2.5` are not installed in the user's current game. The project will not install them automatically.
 - Runtime QA: fully isolated game + Documents/config/save/log environment is not yet proven safe. The real environment remains untouched.
-- Release coverage: 28,932 unique units remain untranslated.
+- Release coverage: 28,246 unique units remain untranslated.
 
 ## Unresolved items
 
 - Preserve the reviewed Vala placeholder disclosure and do not present the unmodified undefined-`t` upstream gameplay defect as runtime verified.
-- Resolve the 65 withheld Legends contract drafts without mutating persisted/raw semantics: 39 semantic item values, 19 open-contract DTO titles, five world names already proven at downstream boundaries, one generated `Dame` name fragment, and one composed arena-master fragment.
 - Translate and independently review the two player-facing `Barrage` context units; the achievement identifier is already excluded.
 - Complete Vanilla, Legends, MSU/Jimmy UI, and remaining framework player-facing translations.
 - Manually audit all conservative exclusions and all 601 fallback candidates.
@@ -136,13 +140,13 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Next exact action
 
-Complete the call-site audit and display-only remediation for the 65 withheld Legends contract drafts, independently review the prepared 300-unit Vanilla settlements draft in parallel, then apply only newly proven units and rerun a clean build plus the locked static QA.
+Finish the prepared 300-unit Vanilla events draft, send it through a separate context/mechanics/lore/placeholder review pass, apply only independently approved entries, then regenerate and repeat the locked clean-build QA.
 
 ## Artifact state
 
 - Release artifact: `NOT_BUILT`.
-- Latest fully checked development tranche only: `work/qa/mod_battle_brothers_jp_REVIEWED_2901.zip`.
-- Development-tranche SHA-256: `A0299317371E0EAB2935BF38BF18A0BB0B976602FDFDEAB657549D50342142DA`; exact 13/13 source/archive parity PASS. It is not a release artifact.
+- Latest fully checked development tranche only: `work/qa/mod_battle_brothers_jp_REVIEWED_3581.zip`.
+- Development-tranche SHA-256: `B7CD5FE86D5D0EE6E8DBAA3AF9746A232657695AADCFB67B9C26BD4E28858870`; exact 13/13 source/archive parity PASS. It is not a release artifact.
 - `dist/mod_battle_brothers_jp.zip` does not exist and no RC claim is made.
 
 ## Runtime state

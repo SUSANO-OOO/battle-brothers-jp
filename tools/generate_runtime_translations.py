@@ -68,6 +68,12 @@ def reviewed_literal_units(
         if strategy == "BOUNDARY_HOOK":
             boundary_hook_ids.append(unit_id)
             continue
+        if strategy == "ROSETTA_PATTERN":
+            # Some installed sources expose a semantic literal only while
+            # constructing a persisted value (for example an honorific). Its
+            # safe runtime shape is a reviewed, anchored final-display pattern,
+            # handled by reviewed_pattern_units instead of a global literal.
+            continue
         japanese = unit.get("japanese")
         if not isinstance(japanese, str) or not japanese.strip():
             raise ValueError(f"Reviewed unit has empty Japanese: {unit_id}")
@@ -117,7 +123,8 @@ def reviewed_pattern_units(
     runtime_keys: dict[str, str] = {}
     runtime_signatures: dict[str, tuple[str, str]] = {}
     for unit in units_payload["units"]:
-        if unit.get("mode") != "pattern" or unit.get("status") != "TRANSLATED" or unit.get("review_status") != "REVIEWED":
+        is_runtime_pattern = unit.get("mode") == "pattern" or unit.get("runtime_strategy") == "ROSETTA_PATTERN"
+        if not is_runtime_pattern or unit.get("status") != "TRANSLATED" or unit.get("review_status") != "REVIEWED":
             continue
         unit_id = unit["translation_unit"]
         contract = unit.get("runtime_contract", {})
@@ -130,6 +137,16 @@ def reviewed_pattern_units(
             continue
         if strategy != "ROSETTA_PATTERN":
             raise ValueError(f"Unknown resolved runtime pattern strategy: {unit_id}")
+        runtime_en = contract["runtime_en"]
+        if unit.get("mode") != "pattern":
+            if not RUNTIME_CAPTURE.search(runtime_en):
+                raise ValueError(
+                    f"Literal source runtime pattern requires at least one capture: {unit_id}"
+                )
+            if runtime_en == unit.get("english"):
+                raise ValueError(
+                    f"Literal source runtime pattern must differ from source English: {unit_id}"
+                )
         modules = {
             occurrences[key]["module"]
             for key in unit["occurrences"]
@@ -138,7 +155,6 @@ def reviewed_pattern_units(
         if not modules or any(module not in MODULES for module in modules):
             raise ValueError(f"Resolved Rosetta pattern has no supported Squirrel module: {unit_id}")
         module = min(modules, key=lambda name: (MODULE_PRIORITY.get(name, 999), name))
-        runtime_en = contract["runtime_en"]
         runtime_ja = contract["runtime_ja"]
         signature = runtime_pattern_signature(runtime_en)
         previous_signature = runtime_signatures.setdefault(signature, (runtime_en, unit_id))

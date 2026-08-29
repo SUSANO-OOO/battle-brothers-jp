@@ -45,6 +45,60 @@ class RuntimeGenerationTests(unittest.TestCase):
         self.assertEqual(pending, [])
         self.assertEqual(boundary, ["general-title"])
 
+    def test_literal_source_can_emit_only_an_anchored_final_display_pattern(self) -> None:
+        ledger = {"entries": [{"stable_key": "d", "module": "legends", "channel": "squirrel"}]}
+        units = {"units": [{
+            "translation_unit": "dame-title",
+            "english": "Dame",
+            "japanese": "デイム",
+            "mode": "literal",
+            "status": "TRANSLATED",
+            "review_status": "REVIEWED",
+            "occurrences": ["d"],
+            "runtime_strategy": "ROSETTA_PATTERN",
+            "runtime_contract": {
+                "strategy": "ROSETTA_PATTERN",
+                "resolution_status": "RESOLVED",
+                "runtime_en": "Dame <first:word><rest:str>",
+                "runtime_ja": "デイム・<first><rest>",
+                "samples": [{"english": "Dame Roderick", "japanese": "デイム・Roderick"}],
+            },
+        }]}
+        squirrel, javascript, emitted, pending, boundary = MODULE.reviewed_literal_units(units, ledger)
+        self.assertEqual(squirrel, {})
+        self.assertEqual(javascript, {})
+        self.assertEqual(emitted, [])
+        self.assertEqual(pending, [])
+        self.assertEqual(boundary, [])
+        patterns, emitted, pending, boundary, samples = MODULE.reviewed_pattern_units(units, ledger)
+        self.assertEqual(patterns["legends"], [{"en": "Dame <first:word><rest:str>", "ja": "デイム・<first><rest>", "mode": "pattern"}])
+        self.assertEqual(emitted, ["dame-title"])
+        self.assertEqual(pending, [])
+        self.assertEqual(boundary, [])
+        self.assertEqual(samples, [{"translation_unit": "dame-title", "english": "Dame Roderick", "japanese": "デイム・Roderick"}])
+
+    def test_literal_source_captureless_runtime_rule_is_rejected(self) -> None:
+        ledger = {"entries": [{"stable_key": "d", "module": "legends", "channel": "squirrel"}]}
+        units = {"units": [{
+            "translation_unit": "dame-title",
+            "english": "Dame",
+            "japanese": "デイム",
+            "mode": "literal",
+            "status": "TRANSLATED",
+            "review_status": "REVIEWED",
+            "occurrences": ["d"],
+            "runtime_strategy": "ROSETTA_PATTERN",
+            "runtime_contract": {
+                "strategy": "ROSETTA_PATTERN",
+                "resolution_status": "RESOLVED",
+                "runtime_en": "Dame",
+                "runtime_ja": "デイム",
+                "samples": [{"english": "Dame", "japanese": "デイム"}],
+            },
+        }]}
+        with self.assertRaisesRegex(ValueError, "at least one capture"):
+            MODULE.reviewed_pattern_units(units, ledger)
+
     def test_cross_module_squirrel_literal_is_registered_once(self) -> None:
         ledger = {"entries": [
             {"stable_key": "v", "module": "vanilla", "channel": "squirrel"},

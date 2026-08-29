@@ -1,21 +1,21 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-08-29T20:37:21.622104+00:00",
+  "generated_at_utc": "2026-08-29T21:29:23.854888+00:00",
   "generator": "tools/generate_runtime_translations.py",
-  "canonical_ledger_sha256": "5BD4D3FD5871166ECEB51ECF33AD3E8754642C7D04BA948BC9D77C0EFFA4336C",
-  "translation_units_sha256": "5BDE8EBF1500BC1D692464AFC517761B09669BEE524873CD6A7A3252BDF93612",
-  "reviewed_emitted_unit_count": 2887,
-  "reviewed_emitted_unit_ids_sha256": "F53876E8B135A2AC79E6B6521FB10191600C92A40F0FA4E5C594E60D3A727DC0",
+  "canonical_ledger_sha256": "DD28695F2F1A99C65D91C3484DC75682E26D64D3558A885867292894AB6410F5",
+  "translation_units_sha256": "76B4A020F9888E7805096326C8E3E9FDBB4891562F28AC84915E059F87C4AD54",
+  "reviewed_emitted_unit_count": 3567,
+  "reviewed_emitted_unit_ids_sha256": "81B91CD542D3BF61C45FD47DF2A2703BCCD5879060F1630A2A97BFDF20F0DBBD",
   "reviewed_literal_squirrel_pairs_by_module": {
-    "legends": 1169,
+    "legends": 1525,
     "msu": 25,
-    "vanilla": 1497
+    "vanilla": 1797
   },
   "reviewed_runtime_pattern_pairs_by_module": {
-    "legends": 34,
+    "legends": 58,
     "vanilla": 64
   },
-  "reviewed_runtime_pattern_samples": 121,
+  "reviewed_runtime_pattern_samples": 146,
   "reviewed_literal_javascript_pairs": 85,
   "reviewed_pattern_units_pending_runtime_audit": 0,
   "pending_pattern_unit_ids_sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B",
@@ -25,9 +25,9 @@
   "static_reachability": "PAIR_EMITTED_ONLY; CALL_PATH_AUDIT_REMAINS_REQUIRED",
   "runtime_qa": "NOT_TESTED",
   "outputs": {
-    "src/battle_brothers_jp/translations/reviewed_literals.nut": "26EDE58EC609A31B504DAB0EBCAA4A2970FC6F6889B34A039028A2EEB6C821BC",
+    "src/battle_brothers_jp/translations/reviewed_literals.nut": "E4FFF493FBF82293BD505B957421FEA322BBCD62DD4CB2CEFFE870793B120452",
     "src/ui/mods/mod_battle_brothers_jp/generated_strings.js": "9A35EC81633EA94F1B60D39BFFEF128BD528134688499C23D1ADCDBF20725FAC",
-    "tests/squirrel/test_reviewed_runtime_patterns.nut": "1FCFD6F81B4F68D357A3922763C8D82278FFDE80A8A686981B3B1A5F040008B9",
-    "tests/squirrel/test_runtime_pattern_collisions.nut": "4DFFE2B13038E1E80F08F77F8D885C50342C9E36B7969A200574491935214BA3"
+    "tests/squirrel/test_reviewed_runtime_patterns.nut": "3CD2ACE7DDCD799241408604A96EC8B1966D6A3C56480C54405BCF6C224A2094",
+    "tests/squirrel/test_runtime_pattern_collisions.nut": "B79BE5D9A370CBA2E503C3E23CB1A0379CAC8ECA3A89FFE01C3B4BDFE105B816"
   }
 }

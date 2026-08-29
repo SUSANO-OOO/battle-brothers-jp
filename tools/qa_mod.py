@@ -602,6 +602,89 @@ def check_semantic_limitation_tracking(repo: Path) -> dict[str, Any]:
     )
 
 
+def check_legends_event_boundary_audit(repo: Path, src: Path) -> dict[str, Any]:
+    report_path = repo / "reports" / "legends-events-boundary-audit.json"
+    units_path = repo / "work" / "ledger" / "translation-units.json"
+    if not report_path.is_file() or not units_path.is_file():
+        return result(
+            "legends_event_boundary_audit",
+            False,
+            {"missing": [str(path.relative_to(repo)) for path in (report_path, units_path) if not path.is_file()]},
+        )
+
+    payload = json.loads(report_path.read_text(encoding="utf-8"))
+    units = {
+        unit["translation_unit"]: unit
+        for unit in json.loads(units_path.read_text(encoding="utf-8")).get("units", [])
+    }
+    evidence_errors = []
+    for label in ("source_audit", "initial_review", "exclusion_batch", "boundary_remediation_review"):
+        relative = payload.get("evidence", {}).get(label)
+        expected = payload.get("evidence", {}).get(label + "_sha256")
+        path = repo / relative if isinstance(relative, str) else None
+        if path is None or not path.is_file() or sha256_bytes(path.read_bytes()) != expected:
+            evidence_errors.append(label)
+
+    remediation_path = repo / payload.get("evidence", {}).get("boundary_remediation_review", "")
+    remediation = json.loads(remediation_path.read_text(encoding="utf-8")) if remediation_path.is_file() else {}
+    remediation_ids = [entry.get("translation_unit") for entry in remediation.get("entries", [])]
+    unit_errors = [
+        unit_id
+        for unit_id in remediation_ids
+        if unit_id not in units
+        or units[unit_id].get("review_status") != "REVIEWED"
+        or units[unit_id].get("status") != "TRANSLATED"
+        or units[unit_id].get("runtime_strategy") == "BOUNDARY_HOOK"
+    ]
+
+    event_source = (src / "battle_brothers_jp" / "hooks" / "event_variable_boundaries.nut").read_text(encoding="utf-8")
+    ui_source = (src / "battle_brothers_jp" / "hooks" / "ui_boundaries.nut").read_text(encoding="utf-8")
+    vertical_source = (repo / "tests" / "squirrel" / "test_vertical_slice.nut").read_text(encoding="utf-8")
+    required_tokens = {
+        "pronoun_family_map": "pronounDisplayValues" in event_source,
+        "pronoun_unknown_fail_closed": 'family in pronounDisplayValues)' in event_source,
+        "obituary_allowlist": "obituaryDisplayCauses" in ui_source,
+        "obituary_dto_hook": 'hook("scripts/ui/screens/world/world_obituary_screen"' in ui_source,
+        "production_obituary_pairs": all(
+            value in vertical_source
+            for value in (
+                "Deserted the company",
+                "Got a better paying offer",
+                "Handed over to authorities",
+                "Hanged for attempted murder",
+                "Left to claim their birthright",
+            )
+        ),
+        "production_pronoun_sample": "Is %their% former self again" in vertical_source,
+    }
+    passed = (
+        payload.get("status") == "FULL_STATIC_REMEDIATION_GREEN_RUNTIME_NOT_TESTED"
+        and payload.get("source_units") == 300
+        and payload.get("independently_reviewed_units") == 294
+        and payload.get("resolved_internal_units") == 6
+        and payload.get("remaining_runtime_blockers") == 0
+        and len(remediation_ids) == 48
+        and not evidence_errors
+        and not unit_errors
+        and all(required_tokens.values())
+        and payload.get("actual_user_environment_writes") == 0
+    )
+    return result(
+        "legends_event_boundary_audit",
+        passed,
+        {
+            "source_units": payload.get("source_units"),
+            "reviewed_units": payload.get("independently_reviewed_units"),
+            "resolved_internal_units": payload.get("resolved_internal_units"),
+            "remediation_units": len(remediation_ids),
+            "evidence_errors": evidence_errors,
+            "unit_errors": unit_errors,
+            "implementation_tokens": required_tokens,
+            "runtime_qa": payload.get("runtime_game_qa"),
+        },
+    )
+
+
 def check_dependency_graph(repo: Path) -> dict[str, Any]:
     path = repo / "reports" / "mod-dependency-graph.json"
     graph = json.loads(path.read_text(encoding="utf-8"))
@@ -665,6 +748,7 @@ def check_scope(src: Path) -> list[dict[str, Any]]:
     allowed_translation_hooks = {
         "scripts/ambitions/ambition",
         "scripts/contracts/contract",
+        "scripts/contracts/contracts/arena_contract",
         "scripts/entity/world/location",
         "scripts/entity/world/party",
         "scripts/entity/world/settlement",
@@ -685,6 +769,9 @@ def check_scope(src: Path) -> list[dict[str, Any]]:
         "scripts/skills/perks/perk_legend_specialist_poacher",
         "scripts/skills/traits/legend_intensive_training_trait",
         "scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module",
+        "scripts/ui/screens/tooltip/tooltip_events",
+        "scripts/ui/screens/world/world_obituary_screen",
+        "scripts/ui/global/data_helper",
     }
     unexpected_hooks = sorted(set(hook_targets) - allowed_translation_hooks)
     missing_hooks = sorted(allowed_translation_hooks - set(hook_targets))
@@ -1002,6 +1089,7 @@ def main() -> int:
         check_ledger_partition(repo),
         check_supported_snapshot_lock(repo),
         check_semantic_limitation_tracking(repo),
+        check_legends_event_boundary_audit(repo, src),
         check_dependency_graph(repo),
         *check_scope(src),
         check_third_party(src),

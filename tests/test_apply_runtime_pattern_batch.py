@@ -52,6 +52,45 @@ class RuntimePatternValidationTests(unittest.TestCase):
         self.assertEqual(merged["runtime_en"], "<value:int>")
         self.assertNotIn("translation_unit", merged)
 
+    def test_final_display_pattern_is_valid_for_reviewed_literal_source_unit(self) -> None:
+        entry = {
+            "translation_unit": "unit:dame",
+            "runtime_en": "Dame <first:word><rest:str>",
+            "runtime_ja": "デイム・<first><rest>",
+            "samples": [{"english": "Dame Roderick", "japanese": "デイム・Roderick"}],
+        }
+        MODULE.validate_rosetta_contract(entry)
+        MODULE.validate_literal_source_runtime_pattern(
+            {"translation_unit": "unit:dame", "english": "Dame", "mode": "literal"},
+            entry,
+        )
+
+    def test_literal_source_cannot_become_captureless_global_rule(self) -> None:
+        unit = {"translation_unit": "unit:dame", "english": "Dame", "mode": "literal"}
+        entry = {
+            "translation_unit": "unit:dame",
+            "runtime_en": "Dame",
+            "runtime_ja": "デイム",
+            "samples": [{"english": "Dame", "japanese": "デイム"}],
+        }
+        with self.assertRaisesRegex(ValueError, "at least one capture"):
+            MODULE.validate_literal_source_runtime_pattern(unit, entry)
+
+    def test_literal_source_runtime_rule_must_differ_from_source(self) -> None:
+        unit = {
+            "translation_unit": "unit:literal-shaped",
+            "english": "Title <name:word>",
+            "mode": "literal",
+        }
+        entry = {
+            "translation_unit": "unit:literal-shaped",
+            "runtime_en": "Title <name:word>",
+            "runtime_ja": "称号・<name>",
+            "samples": [{"english": "Title Rowan", "japanese": "称号・Rowan"}],
+        }
+        with self.assertRaisesRegex(ValueError, "must differ"):
+            MODULE.validate_literal_source_runtime_pattern(unit, entry)
+
 
 if __name__ == "__main__":
     unittest.main()

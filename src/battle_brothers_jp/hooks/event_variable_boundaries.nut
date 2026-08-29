@@ -7,9 +7,47 @@
 local mod = ::BattleBrothersJP.Mod;
 local rosettaBuildTextFromTemplate = ::buildTextFromTemplate;
 
+// Legends extends the final template variable list with gender-aware English
+// pronouns and person words. They are not safe as global Rosetta literals, so
+// map only an exact PronounTable family/value pair on the cloned display list.
+local pronounDisplayValues = {
+    they = { they = "その者", he = "彼", she = "彼女" },
+    them = { them = "その者", him = "彼", her = "彼女" },
+    their = { their = "その者の", his = "彼の", her = "彼女の" },
+    theirs = { theirs = "その者のもの", his = "彼のもの", hers = "彼女のもの" },
+    themselves = { themselves = "その者自身", himself = "彼自身", herself = "彼女自身" },
+    person = { person = "者", man = "男", woman = "女" },
+    people = { people = "人々", men = "男たち", women = "女たち" },
+    swordsman = { swordsman = "剣士", swordswoman = "剣士" },
+    child = { child = "子供", boy = "少年", girl = "少女" },
+    offspring = { child = "子", son = "息子", daughter = "娘" },
+    ["they are"] = { ["they are"] = "その者は", ["he is"] = "彼は", ["she is"] = "彼女は" },
+    ["they were"] = { ["they were"] = "その者は", ["he was"] = "彼は", ["she was"] = "彼女は" },
+    ["they will"] = { ["they will"] = "その者は", ["he will"] = "彼は", ["she will"] = "彼女は" },
+    ["they're"] = { ["they're"] = "その者は", ["he's"] = "彼は", ["she's"] = "彼女は" },
+    ["they'll"] = { ["they'll"] = "その者は", ["he'll"] = "彼は", ["she'll"] = "彼女は" },
+    ["are they"] = { ["are they"] = "その者は", ["is he"] = "彼は", ["is she"] = "彼女は" },
+    ["were they"] = { ["were they"] = "その者は", ["was he"] = "彼は", ["was she"] = "彼女は" }
+};
+
 ::buildTextFromTemplate = function (_text, _vars)
 {
     if (typeof _vars != "array") return rosettaBuildTextFromTemplate(_text, _vars);
+
+    // return_item supplies both the raw title-case item identity and a
+    // lowercase derivative. The derivative cannot match an exact reviewed
+    // display rule. Resolve it only from the unique matching sibling pair and
+    // only in the clone; Flags.Item and caller-owned variables stay raw.
+    local rawItem = null;
+    local rawItemMatches = 0;
+    foreach (candidate in _vars)
+    {
+        if (typeof candidate != "array" || candidate.len() < 2
+            || typeof candidate[0] != "string" || candidate[0].tolower() != "item"
+            || typeof candidate[1] != "string") continue;
+        rawItem = candidate[1];
+        rawItemMatches += 1;
+    }
 
     local displayVars = [];
     foreach (pair in _vars)
@@ -44,6 +82,18 @@ local rosettaBuildTextFromTemplate = ::buildTextFromTemplate;
                      ? "きょうだい"
                      : "団員";
             }
+            else if (family in pronounDisplayValues && value.tolower() in pronounDisplayValues[family])
+            {
+                copiedPair[1] = pronounDisplayValues[family][value.tolower()];
+            }
+            else if (family == "noble" || family == "sib" || family == "sibling"
+                || family in pronounDisplayValues)
+            {
+                // A known semantic family with an unknown value is not a
+                // general display literal. Preserve it verbatim rather than
+                // allowing an unrelated Rosetta rule to overmatch.
+                copiedPair[1] = value;
+            }
             else if (key == "justbeggar" && value == "beggar")
             {
                 copiedPair[1] = "物乞い";
@@ -51,6 +101,11 @@ local rosettaBuildTextFromTemplate = ::buildTextFromTemplate;
             else if (key == "nemesiss" && value == "General")
             {
                 copiedPair[1] = "将軍";
+            }
+            else if (key == "itemlower" && rawItemMatches == 1 && rawItem.tolower() == value)
+            {
+                local translatedItem = ::Rosetta._(rawItem);
+                if (translatedItem != rawItem) copiedPair[1] = translatedItem;
             }
             else
             {
