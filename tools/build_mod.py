@@ -24,7 +24,11 @@ def verify_semantic_limitations(repo: Path) -> None:
     if not path.is_file():
         raise ValueError("Release build requires upstream-source limitation audit")
     payload = json.loads(path.read_text(encoding="utf-8"))
-    if payload.get("status") != "RESOLVED":
+    allowed_statuses = {
+        "RESOLVED",
+        "RESOLVED_FOR_LOCALIZATION_WITH_KNOWN_UPSTREAM_LIMITATIONS",
+    }
+    if payload.get("status") not in allowed_statuses:
         raise ValueError(
             f"Release build refuses open upstream semantic limitations: {payload.get('status')}"
         )

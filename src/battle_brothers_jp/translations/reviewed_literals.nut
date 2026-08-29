@@ -7,6 +7,26 @@
     lang = "ja"
 }, [
     {
+        en = "\n\n\n\n\n\n\n\nThe following characters will enter the arena:\n\n%bro1name%\n%bro2name%\n%bro3name%"
+        ja = "\n\n\n\n\n\n\n\n次の団員が闘技場に入る：\n\n%bro1name%\n%bro2name%\n%bro3name%"
+    }
+    {
+        en = "\n\n\n\n\n\n\n\nThe following characters will enter the arena:\n\n%bro1name%\n%bro2name%\n%bro3name%\n%bro4name%\n%bro5name%"
+        ja = "\n\n\n\n\n\n\n\n次の団員が闘技場に入る：\n\n%bro1name%\n%bro2name%\n%bro3name%\n%bro4name%\n%bro5name%"
+    }
+    {
+        en = "\n\n{%employer% lets out a sigh.%SPEECH_ON%Fine, I shall pay half of the agreed payment for at least having destroyed the nest.%SPEECH_OFF%}"
+        ja = "\n\n{%employer%はため息をつく。%SPEECH_ON%いいだろう。少なくとも巣は破壊したのだから、取り決めた報酬の半分は払おう。%SPEECH_OFF%}"
+    }
+    {
+        en = "\n\n{After a brief moment of consideration, %employer% hands you a paltry sum of crowns.%SPEECH_ON%I don't think you deserve this at all, but having risked your lives for this, perhaps you should get something for the trouble%SPEECH_OFF%}"
+        ja = "\n\n{しばし考えた後、%employer%はわずかなクラウンを手渡す。%SPEECH_ON%本来なら一枚たりとも受け取る資格はない。だが命を懸けたのだ、この苦労に何もなしというわけにもいくまい。%SPEECH_OFF%}"
+    }
+    {
+        en = " { Time to get paid. | Our employer awaits. | Onwards, we have a 'package' to deliver. }"
+        ja = " { 報酬を受け取る時だ。 | 依頼主が待っている。 | 行くぞ。届けるべき「荷物」がある。 }"
+    }
+    {
         en = " {Without a father around, %name%'s mother taught how to shoot a bow, and how to feed the rest of the family. | Born in the hinterlands of %randomtown%, %name% has spent life stalking the beasts amongst the trees. | %name% once took a bet to shoot an apple off a pig's head. The shot missed. A belly full of bacon, determined to never miss again - unless it meant more bacon, of course. | Early in life, %name% liked to traipse about the forests. When a rabid fox attacked, %name% learned to take a bow. When a devilish eagle clawed %name%'s face, the pain taught how to shoot it.} {Once employed by local royalty, a disastrous boar hunt ended with a gored baron and all the blame - and blood - on %name%'s hands. | The hunter hid the thought well, but for the longest time wondered what it would be like to hunt the ultimate game: man. | Sadly, a bad game of peasant-roulette forced the deer hunter into seeking other means of income. | Unfortunately, the ranger is not nearly as good at cooking deer as shooting them. A dinner consisting of undercooked meats poisoned %name%'s entire family. Desperation for a new life is understandable. | After an arduous trip to town to sell meats and leathers, %name% followed the call of mercenary work. | War drove the game out of the forests, and the hunt out of %name%. Now it has driven %name% to seek another line of work. | When %name%'s partner fell ill, the wounds could not be healed with hunted meat. Needing to earn crowns to pay for treatment, %name% took up the vocation of sellswords - or sellbows, as it were.} {Any outfit could use a deadeye such as this ranger. | Not entirely without faults, %name% is a professional archer nonetheless. | A quick demonstration is offered: %name% shoots one arrow high into the sky, and with another knocks it out. Impressive. | %name% has the look of someone with something to prove - just make sure it is proved at range. When first given a sword, %name% grabbed it at the wrong end. Yes, that end. | The hunter wields a bow like another limb, and shoots arrows like a preacher does words.}"
         ja = " {父親がいなかったため、%name%は母から弓の射ち方と、残された家族を養う術を教わった。 | %randomtown%の辺境に生まれた%name%は、木々の間に潜む獣を追って生涯を過ごしてきた。 | %name%はかつて、豚の頭に載せたリンゴを射抜けるか賭けをした。矢は外れた。腹いっぱいベーコンを食べ、二度と外すまいと決意した――もちろん、またベーコンにありつけるなら話は別だ。 | 幼い頃の%name%は森をぶらつくのが好きだった。狂犬病の狐に襲われた時、%name%は弓を手にすることを覚えた。凶暴な鷲に%name%の顔を爪で裂かれた時、その痛みから仕留め方を学んだ。} {かつて地元の貴族に仕えていたが、悲惨な猪狩りで男爵が牙にかけられ、責任も血もすべて%name%の手に残った。 | 狩人は胸の内をうまく隠していたが、究極の獲物――人間――を狩るとはどんなものか、長らく思いを巡らせていた。 | 不幸にも、農民ルーレットの勝負でしくじり、鹿狩りは別の稼ぎ口を探す羽目になった。 | あいにく、この野伏は鹿を射るほどには鹿を料理する腕がなかった。生焼け肉の夕食で%name%の家族は全員食中毒になった。新しい人生を切望するのも無理はない。 | 肉と皮を売るため町まで苦難の旅を終えた後、%name%は傭兵稼業の呼び声に従った。 | 戦争が森から獲物を追い払い、%name%から狩りを奪った。今度は%name%を別の稼業へと追いやったのだ。 | %name%の伴侶が病に倒れた時、狩った肉では傷を癒せなかった。治療費のクラウンを稼ぐため、%name%は剣売り――いや、弓売り――の稼業に就いた。} {この野伏ほどの神射手なら、どんな一団でも欲しがるだろう。 | 欠点がないわけではないが、それでも%name%は一流の弓手だ。 | ちょっとした実演として、%name%は一本の矢を空高く放ち、もう一本でそれを射落とした。見事なものだ。 | %name%には何かを証明したがっている者の目つきがある――ただし、遠くから証明させた方がいい。初めて剣を渡された時、%name%は刃の方を握った。そう、そちら側だ。 | この狩人は弓を手足のように操り、説教師が言葉を放つように矢を放つ。}"
     }
@@ -143,6 +163,14 @@
         ja = "%name%は%their%防具がもたらす防護と機動性を活かす。敵が%them%への攻撃を外すたび、近接ダメージと近接技能が高まる。"
     }
     {
+        en = "%name% was 'saved' by you from a death sentence. Recruiting this savage barbarian has put you in bad terms with the nobles of the north."
+        ja = "%name%は、あなたによって死刑から「救われた」。この獰猛な蛮族を雇ったことで、北方の貴族たちとの関係は悪化した。"
+    }
+    {
+        en = "%name% was 'saved' by you from execution. You decided that this killing machine is a worthy acquisition, ignoring the fact it is also the most wanted criminal in the north."
+        ja = "%name%は、あなたによって処刑から「救われた」。北方一のお尋ね者でもあるという事実には目をつぶり、この殺戮機械を有用な戦力として迎え入れた。"
+    }
+    {
         en = "%name% was a misfit from the start, their lack of skill on the battlefield held them back compared to their stronger mercenary counterparts. Their journey ironically ended not on the battlefield but instead in their workshop, which stands only as a charred ruin."
         ja = "%name%は初めからはみ出し者だった。戦場での技量不足により、より屈強な傭兵たちに後れを取った。皮肉にもその旅は戦場ではなく、焼け落ちた廃墟だけが残る自らの工房で終わった。"
     }
@@ -167,8 +195,24 @@
         ja = "%name%は、機会攻撃を受けることなく、あらゆる支配領域を安全に通過する。また、自分に対して行われる最初の攻撃を自動的に回避する。防具の総重量が30以下の場合にのみ使用できる。"
     }
     {
+        en = "%peddler% has a business proposal"
+        ja = "%peddler%から商談がある"
+    }
+    {
+        en = "'Big as an 'orse! Wit sharp teef! Five eyez! Sp'licky as a jabber!' - The peasant reports are nonsense, but something is clearly out there."
+        ja = "「馬みてえにでけえ！　歯は尖ってる！　目玉が五つ！　ジャバーみてえにヌメヌメだ！」――農民の報告はでたらめだが、何かがいることだけは確かだ。"
+    }
+    {
+        en = "'Deliver with maximum security.' You have to wonder what kind of item demands such lengths."
+        ja = "「最大限の警備で届けよ」。そこまでする必要がある品とは、いったい何なのだろう。"
+    }
+    {
         en = "'I'm not out yet'. Fully refresh your Fatigue, and grant [color=%positive%]+5[/color] Fatigue Recovery for 3 turns. Additionally, remove any [color=#731f39]Stun[/color], [color=#731f39]Daze[/color], [color=#731f39]Stagger[/color], [color=#731f39]Baffle[/color], [color=#731f39]Charmed[/color] or [color=#731f39]Sleeping[/color] status. Can only be used once per combat and is only usable if accumulated fatigue is more than 50% of the maximum."
         ja = "「まだ終わっちゃいない」。疲労を完全に回復し、3ターンの間、ターンごとの疲労回復量を[color=%positive%]+5[/color]する。さらに、[color=#731f39]気絶[/color]、[color=#731f39]朦朧[/color]、[color=#731f39]よろめき[/color]、[color=#731f39]困惑[/color]、[color=#731f39]魅了[/color]、[color=#731f39]睡眠[/color]の状態をすべて解除する。戦闘中に一度しか使えず、蓄積疲労が最大疲労値の50%を超えている場合にのみ使用できる。"
+    }
+    {
+        en = "'Steal from the rich, give to the poor.' An interesting idea for sure, until the rich inevitably hire a sellsword company to kill you."
+        ja = "「金持ちから奪い、貧しい者に与える」。なるほど面白い考えだ――金持ちが傭兵団を雇ってお前を殺しに来るまでは。"
     }
     {
         en = "(Cosmetic only)"
@@ -219,6 +263,26 @@
         ja = "夜間の戦闘では、ターンごとに20%の確率で変異する。"
     }
     {
+        en = "A Coven is a cesspit of dark magic and corruption. Burn them all, and quickly! Lest they claim your soul."
+        ja = "魔女の集会は闇の魔術と堕落の肥溜めだ。魂を奪われる前に、一人残らず、今すぐ焼き払え！"
+    }
+    {
+        en = "A Holy Site has been conquered by southern heathens. Honor and fear of the Old Gods demands that it be retaken."
+        ja = "聖地が南方の異教徒に奪われた。名誉と古き神々への畏れが、その奪還を求めている。"
+    }
+    {
+        en = "A Holy Site is being trespassed by northern rats. Flush them out."
+        ja = "北方の鼠どもが聖地を踏みにじっている。叩き出せ。"
+    }
+    {
+        en = "A Noble house patrol is too close to discovering a nearby camp of ours."
+        ja = "貴族家の巡回隊が、近くにある我らの野営地を発見しかねないほど迫っている。"
+    }
+    {
+        en = "A Stollwurm - a burrowing bipedal dragon resembling a giant snake."
+        ja = "シュトルヴルム――地中を掘り進む二足の竜で、巨大な蛇に似ている。"
+    }
+    {
         en = "A Treatise on Armor:"
         ja = "防具論："
     }
@@ -227,12 +291,20 @@
         ja = "ヴァラは各地を旅する予見者、巫女、そして女魔術師だ。"
     }
     {
+        en = "A Vizier can find many uses for a Crownling company it would seem. Such as holding a crumbling ruin in the arse-end of nowhere."
+        ja = "宰相というものはクラウンリングの傭兵団にいろいろな使い道を見つけるらしい。たとえば、辺境の果てにある崩れかけた廃墟を守らせる、とか。"
+    }
+    {
         en = "A backpack worn by merchants to carry many more supplies"
         ja = "商人がより多くの物資を運ぶために背負う大きな背嚢。"
     }
     {
         en = "A bag of darts, required to use blow guns of all kinds. Is automatically refilled after each battle if you have enough ammunition."
         ja = "あらゆる吹き矢を使うために必要な矢玉の袋。十分な矢弾があれば、戦闘終了後に自動で補充される。"
+    }
+    {
+        en = "A barbarian prisoner, shackled and guarded, awaits transport to face judgment. His kin will not this make this easy."
+        ja = "鎖につながれ、見張られた蛮族の囚人が、裁きを受けるための護送を待っている。同族が容易には進ませてくれないだろう。"
     }
     {
         en = "A basic leather helm made of odd scraps stitched together."
@@ -279,6 +351,10 @@
         ja = "顔を刃で斬られた。傷痕が残り、戦場で鍛えられた。"
     }
     {
+        en = "A blessed local item which went missing years ago has reportedly been sighted in the wilds."
+        ja = "何年も前に失われた、地元で祝福された品が荒野で目撃されたという。"
+    }
+    {
         en = "A boiled and hardened brigandine studded with steel rivets and reinforced with steel padded shoulders for added protection."
         ja = "煮固めた革に鋼の鋲を打ち、さらに鋼で補強した肩当てを加えて防護を高めたブリガンダイン。"
     }
@@ -297,6 +373,10 @@
     {
         en = "A breastplate made of several layers of linen that provides basic protection."
         ja = "何層もの亜麻布で作られた、基礎的な防護をもたらす胸当て。"
+    }
+    {
+        en = "A brigand stronghold is nearby, attracting all manner of thieves, vagrants and murderers."
+        ja = "近くに盗賊の砦があり、ありとあらゆる盗人、浮浪者、人殺しを呼び寄せている。"
     }
     {
         en = "A bright, decorated coat that offers decent protection."
@@ -343,6 +423,10 @@
         ja = "力の奔流を放ち、敵へ向かって飛ばす。"
     }
     {
+        en = "A business proposal"
+        ja = "商談"
+    }
+    {
         en = "A ceremonial crown that has endured the passage of time. It still carries the authority of ancient Lich Priests."
         ja = "長い歳月を耐え抜いた儀礼用の冠。今なお古代のリッチ司祭の権威を帯びている。"
     }
@@ -353,6 +437,10 @@
     {
         en = "A characteristic head covering of the convent"
         ja = "修道院に特有の頭巾。"
+    }
+    {
+        en = "A charismatic new crime lord had united all the brigand gangs, marking a dark turning point for the realm."
+        ja = "人を惹きつける新たな犯罪王が盗賊団をことごとく束ね、領内は暗い転機を迎えている。"
     }
     {
         en = "A cloak made from the feathers of a basilisk. The weave offers additional padding and protects the wearer from poison."
@@ -515,6 +603,10 @@
         ja = "腐敗の度合いもさまざまな死体。飲み込みは遅いが、たいていの相手には恐ろしい敵となる。好きな名前を何でも付けられるぞ！"
     }
     {
+        en = "A creature of nightmare and legend, the Lindwurm is a massive serpent with razor-sharp fangs and venom that burns like fire."
+        ja = "悪夢と伝説の怪物リントヴルム。剃刀のような牙を備え、炎のように焼ける毒を持つ巨大な蛇だ。"
+    }
+    {
         en = "A crested ornament of a noble house tarnished by time and rot, a grim reminder that even the highborn are not exempt from the common fate of all mortals."
         ja = "時と腐敗にくすんだ貴族家の兜飾り。高貴な生まれであろうと、あらゆる定命の者に共通する末路からは逃れられないと告げる陰鬱な遺物だ。"
     }
@@ -533,6 +625,10 @@
     {
         en = "A crudely forged, heavy plate of iron designed to shield the throat and the jaw."
         ja = "喉と顎を守るため、粗雑に鍛えられた重い鉄板。"
+    }
+    {
+        en = "A cursed pack of fell beasts appear to have developed a taste for human flesh."
+        ja = "呪われた凶獣の群れが、人肉の味を覚えたらしい。"
     }
     {
         en = "A curtain of mail designed to be hanged over the mouth."
@@ -597,6 +693,10 @@
     {
         en = "A deep tusk gore performed with full force to smash a target to bits. Anyone hit will be staggered and lose initiative."
         ja = "全力で深々と牙を突き立て、標的を粉砕する。命中した者はよろめき、先制値が低下する。"
+    }
+    {
+        en = "A delightful group of companions have set-up in a nearby ruin. They attack all who travel the road."
+        ja = "実に愉快な御一行が、近くの廃墟に居を構えた。街道を通る者は誰であろうと襲っている。"
     }
     {
         en = "A dense wool wrap to protect against blunt hits."
@@ -665,6 +765,10 @@
     {
         en = "A few bones from a Höllenhund; they still have a faint, eerie glow about them."
         ja = "ヘレンフントの骨が数本。今もかすかな不気味な光を帯びている。"
+    }
+    {
+        en = "A fierce pack of sand beasts appear to have developed quite a taste for human flesh."
+        ja = "獰猛な砂漠の獣の群れが、すっかり人肉の味を覚えたらしい。"
     }
     {
         en = "A fine cloth hat typically worn by the nobles."
@@ -811,6 +915,10 @@
         ja = "優美に湾曲した鉄製の面頬。二つの覗き穴と、中央にいくつかの呼吸孔がある。"
     }
     {
+        en = "A grand tournament to the death, a celebration of slaughter. Eternal glory and prized items await."
+        ja = "死ぬまで続く大試合、殺戮の祭典。永遠の栄光と価値ある品が待っている。"
+    }
+    {
         en = "A great bascinet that is formed of a single encompassing plate, covering the head completely, aswell as the neck and a bit of the shoulders too. Excellent protection."
         ja = "一枚の鋼板で頭部全体を包み、首と肩の一部まで覆うグレート・バシネット。優れた防護をもたらす。"
     }
@@ -821,6 +929,10 @@
     {
         en = "A great, curved claw used to pin down or disembowel prey. Many would pay well for such a curiosity."
         ja = "獲物を押さえつけ、はらわたを裂くための大きく湾曲した鉤爪。この珍品なら、高値を払う者も多いだろう。"
+    }
+    {
+        en = "A group of brigands, more coordinated than usual."
+        ja = "普段より統制の取れた盗賊の一団。"
     }
     {
         en = "A hardened nasal helm with a cloth band and a tail."
@@ -1043,6 +1155,10 @@
         ja = "陰気な垂れ飾りの縁を持つ頭巾付き肩掛け。目立たず、控えめな姿を保つのに役立つ。"
     }
     {
+        en = "A horde of terrorizing skin ghouls."
+        ja = "人々を恐怖に陥れるスキングールの大群。"
+    }
+    {
         en = "A horse eats more than humans, can't wear human armor, moves much better on flat terrain, but worse on rough terrain"
         ja = "馬は人間より多く食べ、人間用の防具を着られない。平坦な地形でははるかによく動けるが、険しい地形では動きが悪くなる。"
     }
@@ -1105,6 +1221,10 @@
     {
         en = "A large cart and donkey, excellent for carrying many things, but must be protected in battle."
         ja = "大量の荷物を運べる大型の荷車とロバ。戦闘では守らなければならない。"
+    }
+    {
+        en = "A large force hunting you down."
+        ja = "あなたを追い詰めようとする大軍。"
     }
     {
         en = "A large linen turban, worn to protect the head from the overbearing sun."
@@ -1347,6 +1467,10 @@
         ja = "錆びた金属片を布で巻いて作った間に合わせの武器。自暴自棄か正気を失った者にしかふさわしくない。"
     }
     {
+        en = "A malevolent presence lurks in the heart of the forest, its dark aura spreading like a poison through the trees and soil."
+        ja = "森の奥に邪悪な存在が潜み、その暗い気配が毒のように木々と土へ広がっている。"
+    }
+    {
         en = "A marvel of a fighting horse, %name% the Destrier was retired to horse breeder, where he was treated lavishly as he helped father the next generation of living engines-of-war"
         ja = "見事な軍馬だったデストリアの%name%は種馬として牧場へ引退し、次代の生きた戦争機械を生み出す父馬として、贅沢な扱いを受けた。"
     }
@@ -1463,6 +1587,10 @@
         ja = "長い柄に短い鎖で金属錘をつないだ、残忍な軍用フレイル。頭へまともに当たれば大抵の者を倒せるほど致命的で、盾越しや盾の回りから打ち込むのにも役立つ。"
     }
     {
+        en = "A mighty barbarian king claims his throne in the frozen north, his rule marked by fire and steel."
+        ja = "強大な蛮族王が凍てつく北方で王を名乗っている。その支配は炎と鋼に彩られている。"
+    }
+    {
         en = "A military figure of great experience and prowess"
         ja = "経験も武勇も卓越した軍人。"
     }
@@ -1479,8 +1607,16 @@
         ja = "聖職に就く女性の慎ましい被り物。白い裏地は純潔と無垢を象徴する。"
     }
     {
+        en = "A monstrous serpent with a hunger that knows no bounds is terrorising the area. None dare face it."
+        ja = "飽くなき飢えを抱く巨大な蛇が一帯を恐怖に陥れている。立ち向かおうとする者はいない。"
+    }
+    {
         en = "A more reliable sellsword than most, %name%'s background as an ironmonger helped %them% to keep the %companyname%'s equipment functioning. Having saved more than enough crowns, %name% retired and returned to blacksmithing, learning from a true master and becoming a paragon of the craft. Last you heard of %them% %they% was living in luxury, making custom weapons and armor for nobles."
         ja = "並の者より頼りになる傭兵で、金物商だった%name%の経験は、%them%が%companyname%の装備を使える状態に保つ助けとなった。十分すぎるほどクラウンを蓄えた%name%は引退して鍛冶仕事へ戻り、真の名匠に学んで、その技の鑑となった。最後に%them%の消息を聞いた時、%they%は貴族のために特注の武器と防具を作り、贅沢に暮らしていた。"
+    }
+    {
+        en = "A most urgent matter concerning his lordships private collection has arisen..."
+        ja = "領主閣下の個人的な収蔵品をめぐり、火急の事態が生じた……。"
     }
     {
         en = "A muladi is accustomed to the south, although not entirely accepted by the locals."
@@ -1507,6 +1643,10 @@
         ja = "蛮族の部族から提供された、ウンホルトを拘束するための網。秘密の毒が塗られており、[color=%negative%]朦朧[/color]、[color=%negative%]困惑[/color]状態、または体力が25%未満のウンホルトを捕らえると従順にする。"
     }
     {
+        en = "A new era dawns as brigand gangs across the land swear fealty to the banner of the underworld king, their unified front heralding a dark chapter in the history of the realm."
+        ja = "各地の盗賊団が裏社会の王の旗に忠誠を誓い、新たな時代が幕を開ける。その統一戦線は、領内史に暗い一章が始まることを告げている。"
+    }
+    {
         en = "A noble of the realm, practiced in fencing but quite unfit"
         ja = "王国の貴族。剣術を修めているが、ひどく体が鈍っている。"
     }
@@ -1525,6 +1665,14 @@
     {
         en = "A nordic helm with a metal face mask and cheek guards."
         ja = "金属製の仮面と頬当てを備えた北方風の兜。"
+    }
+    {
+        en = "A northern ice tribe has settled nearby. These barbarians and their savage pagan ways are not welcome here."
+        ja = "北方の氷の部族が近くに住み着いた。蛮族も、その野蛮な異教の風習も、この地では歓迎されない。"
+    }
+    {
+        en = "A party of graberobbers and pillagers."
+        ja = "墓荒らしと略奪者の一団。"
     }
     {
         en = "A pitch black mist lingers here, eminating a bone chilling air from within"
@@ -1547,6 +1695,14 @@
         ja = "装着者を美しく見せるより、実際に呼吸できるようにすることを重視した粗末な付け鼻。嘘はつかない方がいい。"
     }
     {
+        en = "A shame."
+        ja = "残念だ。"
+    }
+    {
+        en = "A shepard claims to have found the burial site of a holy relic. Sounds like a load of hogwash, but you will be paid to investigate."
+        ja = "羊飼いが聖遺物の埋葬地を見つけたという。法螺話にしか聞こえないが、調べれば報酬は出る。"
+    }
+    {
         en = "A shot with so much force that it passes straight through the target to whoever is behind them."
         ja = "対象を貫通し、その背後にいる者まで届くほど強力な射撃。"
     }
@@ -1559,12 +1715,24 @@
         ja = "全力で頭上から大きく振り下ろし、標的を粉砕する。"
     }
     {
+        en = "A small scouting party of a Noble house."
+        ja = "貴族家の小規模な斥候隊。"
+    }
+    {
+        en = "A stampede of basilisks hunting for food"
+        ja = "餌を求めて殺到するバシリスクの群れ。"
+    }
+    {
         en = "A supporter from the start, %name% was as loyal as he was talented. He stayed with the company for a time before eventually leaving to forge out a path for himself. The other day, you received a letter from the mercenary stating that he had started his own company and was in dire need of help. Unfortunately, the message was dated to nearly a full year ago. When you investigated the existence of his company, you learned that it had been completely annihilated in a battle between nobles."
         ja = "初めから支持者だった%name%は、才能に劣らず忠実だった。しばらく傭兵団に残った後、自らの道を切り拓くため去った。先日、その傭兵から、自分の傭兵団を立ち上げたものの窮地に陥り、助けを切実に求めているという手紙が届いた。だが残念なことに、日付はほぼ丸一年前だった。彼の傭兵団について調べると、貴族同士の戦いで全滅していたことが分かった。"
     }
     {
         en = "A supporter of your cause from the start, %name% was as loyal as she was talented. She stayed with the company for a time before eventually leaving to forge out a path for himself. The other day, you received a letter from the mercenary stating that she had started her own company and was in dire need of help. Unfortunately, the message was dated to nearly a full year ago. When you investigated the existence of her company, you learned that it had been completely annihilated in a battle between nobles."
         ja = "初めからあなたの大義を支持していた%name%は、才能に劣らず忠実だった。しばらく傭兵団に残った後、自らの道を切り拓くため去った。先日、その傭兵から、自分の傭兵団を立ち上げたものの窮地に陥り、助けを切実に求めているという手紙が届いた。だが残念なことに、日付はほぼ丸一年前だった。彼女の傭兵団について調べると、貴族同士の戦いで全滅していたことが分かった。"
+    }
+    {
+        en = "A swarm of redback webknechts skittering about."
+        ja = "レッドバック・ウェブクネヒトの群れが、かさかさと這い回っている。"
     }
     {
         en = "A sweeping cleave that can be used from behind the frontline and can inflict bleeding wounds if there is no armor absorbing the blow and if the target is able to bleed at all."
@@ -1583,6 +1751,10 @@
         ja = "根っからの剥製師だったため、沈みかけた傭兵団から逃げ出すよう%name%を説得するのに大した労はいらなかった。商売を始めるため去ったが、道中で盗賊の一団にさらわれた。殺すと脅されると、ひ弱で無害な剥製師を装い、装身具を作る腕を見せた。感心した迷信深い無法者たちは彼を一味に加えた。数日後、彼らは全員死に、この「おとなしい」男は少しばかり赤く染まって野営地から歩み出た。一週間後に店を開き、今も繁盛している。"
     }
     {
+        en = "A valuable cargo requires express, armed delivery. Discretion preferred."
+        ja = "高価な積荷を、武装して至急配送する必要がある。目立たぬことが望ましい。"
+    }
+    {
         en = "A very disagreeable and cacophonous chant can makes it almost impossible for enemies to focus and concentrate properly."
         ja = "耳障りな不協和音の詠唱により、敵はまともに集中することがほぼ不可能になる。"
     }
@@ -1599,6 +1771,10 @@
         ja = "ハイエナと獲物の間が最大2マスまでなら使える、凶暴な飛びかかり噛み。ハイエナは間へ跳び込んで噛みつき、命中すると直ちに元の位置へ戻りながら犠牲者を引きずる。犠牲者はハイエナの隣に固定され、ハイエナが近接攻撃を受けるまで移動不能になる。"
     }
     {
+        en = "A warband of your barbarian employer."
+        ja = "蛮族の依頼主が差し向けた戦士団。"
+    }
+    {
         en = "A wax ear stitched into one's head. Hardly a proper replacement, but some sense of balance is returned and very faint noises can be heard."
         ja = "頭に縫い付けた蝋製の耳。まともな代用品とは言い難いが、いくらか平衡感覚が戻り、ごくかすかな音なら聞こえる。"
     }
@@ -1613,6 +1789,14 @@
     {
         en = "A wooden finger with a joint for the user to force it into whatever position they need. Perfect for pointing fingers at people, but not too much else."
         ja = "必要な位置へ使用者が押し曲げられる関節付きの木の指。人を指差すにはうってつけだが、ほかにはほとんど役に立たない。"
+    }
+    {
+        en = "Abducted Villager"
+        ja = "連れ去られた村人"
+    }
+    {
+        en = "Accompanied by a formidable escort, this wealthy merchant/'s travels will be safeguarded."
+        ja = "手強い護衛が同行し、この裕福な商人の旅路を守る。"
     }
     {
         en = "Accuracy based on ranged skill, damage based on current initiative. requires a magic staff"
@@ -1671,6 +1855,10 @@
         ja = "傭兵団で味わった恐怖を思い返し、眠れぬ夜を幾度も過ごした後、%Name%は村へ戻り、再び夜警となった。だが数日後、持ち場で死んでいるところを発見された。目は閉じていたものの、顔は恐怖に歪んでいた。その夜、物音を聞いた村人は一人もいなかったが、月明かりの中を青白い人影が立ち去るのを見た者がいた。"
     }
     {
+        en = "After years of cruelty, some of the slaves are rebelling. Help crush this uprising before it spreads."
+        ja = "長年の虐待に耐えかね、一部の奴隷が反乱を起こした。広がる前に鎮圧せよ。"
+    }
+    {
         en = "After {not much  more time | much more time later | a lifetime adrift | a short while | a few more months} after your retirement, %name% found {interest | their calling with | some hope with | work with} a {preacher | thief | vagabond | wildman | wise woman | crusader | odd trio of kids | haughty nobleman | ranger | people's militia | cultist band | northern raiding party | group of escaped slaves | hunting party of manhunters}, their time with you taught them {everything | most of what | all | a bit of what} they needed to survive in their new employment. They never spoke your name, but {their memory of you never faded | they go on to greater things in your memory}."
         ja = "あなたの引退から{さほど経たないうちに | さらに長い時を経て | 生涯を漂流した末に | しばらくして | さらに数か月後}、%name%は{関心 | 天職 | いくらかの希望 | 仕事}を{説教師 | 盗人 | 放浪者 | 野生の男 | 賢女 | 十字軍戦士 | 風変わりな三人組の子供 | 尊大な貴族 | 野伏 | 民衆の民兵団 | 教団員の一団 | 北方の略奪隊 | 逃亡奴隷の一団 | 人狩りの狩猟隊}のもとに見いだした。あなたと過ごした時間から、生き延びるために必要なことの{すべて | 大半 | 何もかも | いくらか}を学んでいた。あなたの名を口にすることはなかったが、{あなたの記憶が薄れることはなかった | あなたの思い出を胸に、さらに大きなことを成し遂げていった}。"
     }
@@ -1691,8 +1879,16 @@
         ja = "近接戦闘中でも投擲武器を使用できる"
     }
     {
+        en = "Almost consumed alive by basilisks"
+        ja = "バシリスクに生きたまま喰われかけた"
+    }
+    {
         en = "Alp Slayer"
         ja = "アルプ殺し"
+    }
+    {
+        en = "Alps are nightmares made flesh, yet they can be beaten. These reports though... sound downright demonic."
+        ja = "アルプは悪夢が肉体を得た存在だが、倒すことはできる。だが今回の報告は……まさに悪魔じみている。"
     }
     {
         en = "Although many things can be taken at the point of a sword, some things will always be more potent than cold steel; the flash of an eyelash, the locking of a gaze..."
@@ -1715,6 +1911,62 @@
         ja = "野心家"
     }
     {
+        en = "Amid the burning sands, the gnawed bones of deceased travelers are starting to pile up."
+        ja = "焼けつく砂の中で、旅人たちの齧られた遺骨が積み上がり始めている。"
+    }
+    {
+        en = "Amid the power struggles of nobility, a series of unfortunate events can often lead to a town changing its allegiances."
+        ja = "貴族同士の権力争いでは、いくつもの不幸が重なり、町が忠誠先を変えることも珍しくない。"
+    }
+    {
+        en = "Amid the slaughter, a fearsome greenskin Warlord has emerged. Goad him into fighting you and put an end to his carnage."
+        ja = "殺戮のさなか、恐るべきグリーンスキンの軍将が台頭した。戦いへ誘き出し、その凶行に終止符を打て。"
+    }
+    {
+        en = "Amidst escalating reports of bandit attacks and caravan ambushes, the imperative to patrol the roads becomes undeniable."
+        ja = "盗賊の襲撃や隊商への待ち伏せが相次いで報告され、街道を巡回する必要は誰の目にも明らかだ。"
+    }
+    {
+        en = "Amidst the cheers and jeers, the Arena stands as a testament to the might of the Southern Realms."
+        ja = "歓声と罵声の中に立つ闘技場は、南方諸国の威勢を物語る。"
+    }
+    {
+        en = "Amidst the dunes, the sand nomads carve out a life of resilience and adaptability. Do not underestimate them."
+        ja = "砂丘の中で、砂漠の遊牧民は強靱さと適応力を頼りに暮らしている。侮ってはならない。"
+    }
+    {
+        en = "Amidst the maelstrom of battle, the destinies of noble houses and mercenary companies alike are forged."
+        ja = "戦いの渦中で、貴族家と傭兵団、双方の運命が鍛え上げられる。"
+    }
+    {
+        en = "Amidst the merchant caravan, camaraderie is forged over shared travels and shared burdens."
+        ja = "商人隊商では、旅と重荷を分かち合ううちに仲間意識が生まれる。"
+    }
+    {
+        en = "Amidst the rolling hills, fell beasts lurk in the darkness, their eyes glowing like embers in the night."
+        ja = "なだらかな丘陵の闇に凶獣が潜む。その目は夜の熾火のように光っている。"
+    }
+    {
+        en = "Among the desert caravans, diversity thrives as cultures blend along the trade routes."
+        ja = "砂漠の隊商では、交易路で文化が交わり、多様性が育まれる。"
+    }
+    {
+        en = "Among the desert caravans, fortunes rise and fall just like the shifting sands."
+        ja = "砂漠の隊商では、富も移ろう砂のように増えては減る。"
+    }
+    {
+        en = "Among the sand nomads, kinship and tradition are the bedrock of their society. Sounds lovely, but you've seen what they do to unarmed traders on the roads."
+        ja = "砂漠の遊牧民にとって、血縁と伝統は社会の礎だ。結構な話だが、武器を持たない交易商に街道で何をするか、あなたは見てきた。"
+    }
+    {
+        en = "Amongst the ruins of a kingdom lies the secret of a relic, said to hold the power to vanquish the undead hordes that threaten the world."
+        ja = "滅びた王国の廃墟に、世界を脅かす不死者の大群を打ち滅ぼす力を秘めた聖遺物の秘密が眠っている。"
+    }
+    {
+        en = "Amongst the shifting sands, the embalmed dead wander aimlessly, their mummified forms driven by an insatiable thirst for the life they lost centuries ago."
+        ja = "移ろう砂の中を、防腐処理された死者があてもなくさまよう。ミイラとなった身体は、数百年前に失った命への飽くなき渇きに突き動かされている。"
+    }
+    {
         en = "Amputation is a thing of life, and the wearer of this prosthetic foot was lucky enough to be given a replacement after the removal of their maimed one. It's awful to walk on, but at least you can walk."
         ja = "切断は人生につきものだ。この義足の装着者は、損傷した足を切り落とした後、運よく代用品を与えられた。歩き心地は最悪だが、少なくとも歩ける。"
     }
@@ -1725,6 +1977,10 @@
     {
         en = "An aging master slayer of a local guild, time has taken their youth but their skills still surpass those they train."
         ja = "地元ギルドの老いた討伐師範。時は若さを奪ったが、その技は今も教え子たちを凌ぐ。"
+    }
+    {
+        en = "An enemy divided..."
+        ja = "分裂した敵……"
     }
     {
         en = "An intriguing chant that stimulates the senses."
@@ -1739,6 +1995,10 @@
         ja = "忘れ去られた昔の戦で体を損なった老兵が、来ないかもしれない次の戦争を待っている。"
     }
     {
+        en = "An ominous clucking floats across the fields at dawn. Locals tell tales of a bloodthirsty beast standing taller than a man."
+        ja = "夜明けの野に、不吉な鶏めいた鳴き声が漂う。地元民は、人の背丈を超える血に飢えた獣の話をしている。"
+    }
+    {
         en = "An overhead strike that bears the full force on the targets entire body."
         ja = "標的の全身へ力を叩き込む頭上からの一撃。"
     }
@@ -1751,8 +2011,20 @@
         ja = "古代南方の仮面"
     }
     {
+        en = "Ancient ruins dot the desert landscape, ideal ambush locations for unwary caravans."
+        ja = "砂漠には古代遺跡が点在し、警戒を怠る隊商を待ち伏せするには格好の場所となっている。"
+    }
+    {
+        en = "Ancient texts speak of a divine weapon, whispered to have been crafted to cleanse the land of the undead."
+        ja = "古文書は、不死者をこの地から一掃するために造られたという神聖な武器について語っている。"
+    }
+    {
         en = "Another swing will remove the rest of the reeds."
         ja = "もう一振りすれば、残った葦も刈り取れる。"
+    }
+    {
+        en = "Anxiety mounts as rumors circulate of a malevolent presence haunting the nearby graveyard."
+        ja = "近くの墓地に邪悪な存在が取り憑いているという噂が広まり、不安が募っている。"
     }
     {
         en = "Any attack that inflicts at least 1 point of damage to hitpoints triggers a morale check for the opponent with a penalty equal to [color=%positive%]10%[/color] of your arena wins"
@@ -1779,6 +2051,10 @@
         ja = "闘技場の王者"
     }
     {
+        en = "Arriving without the crowns"
+        ja = "クラウンを持たずに到着"
+    }
+    {
         en = "Arrowsplitter"
         ja = "矢裂き"
     }
@@ -1787,8 +2063,24 @@
         ja = "%companyname%が衰えるにつれ、%name%はいち早く指揮を執った。だが防御を重んじる気質は行動の遅れにつながり、傭兵団の大半は沼地でゴブリンの矢に少しずつ削られた。絶え間ない飛び道具の雨の下、多くの者は最後まで盾を握りしめていた。"
     }
     {
+        en = "As dawn breaks each morning, the townsfolk awaken with a sense of dread, knowing that the nightmares that haunted their sleep will return with the setting sun."
+        ja = "毎朝、夜が明けると町の人々は怯えながら目を覚ます。眠りを苛んだ悪夢が、日が沈めば戻ってくると知っているからだ。"
+    }
+    {
         en = "As long as you are faster than the target, any attack that inflicts at least [color=%positive%]1[/color] point of damage to Hitpoints triggers a morale check for the opponent with a penalty equal to [color=%negative%]20%[/color] of the Initiative difference between you and the target"
         ja = "対象より先制値が高い限り、体力へ少なくとも[color=%positive%]1[/color]のダメージを与える攻撃はすべて、相手に士気判定を発生させる。そのペナルティは、自身と対象の先制値の差の[color=%negative%]20%[/color]に等しい。"
+    }
+    {
+        en = "As night falls the townsfolk huddle in fear, haunted by the nameless dread that lurks in the shadows."
+        ja = "夜になると町の人々は恐怖に身を寄せ合い、闇に潜む名状しがたい不安に苛まれる。"
+    }
+    {
+        en = "As night falls the townsfolk toss and turn in their beds, haunted by nightmares that refuse to release their grip."
+        ja = "夜になると町の人々は寝床で身をよじり、決して手放そうとしない悪夢に苛まれる。"
+    }
+    {
+        en = "As the undead march ever closer, rival factions race uncover a relic that could spell the difference between life and death."
+        ja = "不死者が刻一刻と迫る中、敵対する諸勢力は、生死を分けかねない聖遺物を求めて先を争っている。"
     }
     {
         en = "As time went on, %name% found work not too far from where they once grew up. The local village needed a new herbalist to heal the sick and tend to the wounded coming back from the wars. %name% occasionally recognised some of the casualties that ended up in her hut as a few of those who got away in the past. Thankfully they did not have the same attention to detail."
@@ -1807,6 +2099,26 @@
         ja = "占星術師"
     }
     {
+        en = "At %Home%..."
+        ja = "%Home%にて……"
+    }
+    {
+        en = "At bandit camp..."
+        ja = "盗賊の野営地にて……"
+    }
+    {
+        en = "At least we got some of them."
+        ja = "少なくとも、何人かは仕留めた。"
+    }
+    {
+        en = "At night brigands roam freely, posing a serious threat to the safety and security of the town."
+        ja = "夜になると盗賊が我が物顔でうろつき、町の安全と治安を深刻に脅かしている。"
+    }
+    {
+        en = "At the Webknecht Nest..."
+        ja = "ウェブクネヒトの巣にて……"
+    }
+    {
         en = "Ate pie"
         ja = "パイを食べた"
     }
@@ -1815,12 +2127,44 @@
         ja = "プディングを食べた"
     }
     {
+        en = "Attacking an army of relentless greenskin besiegers is a task nobody wants."
+        ja = "執拗なグリーンスキンの包囲軍を攻めるなど、誰も引き受けたくない仕事だ。"
+    }
+    {
         en = "Automatically performs ranged attack against any enemy walks into your overwatch zone but that attack deals [color=%negative%]25%[/color] less Damage"
         ja = "敵が監視射撃範囲へ入ると自動的に遠隔攻撃を行うが、その攻撃が与えるダメージは[color=%negative%]25%[/color]減少する。"
     }
     {
         en = "Auxiliary"
         ja = "補助兵"
+    }
+    {
+        en = "Avaricious or ambitious nobles are a far greater threat to merchant safety then mere brigands."
+        ja = "強欲な、あるいは野心的な貴族は、ただの盗賊よりも商人の安全をはるかに脅かす。"
+    }
+    {
+        en = "Back to the cage! (Increase Moral Reputation)"
+        ja = "檻へ戻せ！（道義的評判上昇）"
+    }
+    {
+        en = "Bamboozled some poachers"
+        ja = "密猟者たちをまんまと欺いた"
+    }
+    {
+        en = "Bandit army of your employer."
+        ja = "依頼主の盗賊軍。"
+    }
+    {
+        en = "Banditry and highway robbery in their lands makes the nobility look weak, thus making fighting patrols a reliable repeat contract."
+        ja = "領内での盗賊行為や街道強盗は貴族を弱く見せる。そのため巡回任務は繰り返し請けやすい依頼となる。"
+    }
+    {
+        en = "Bandits want to procure an item, but as outlaws they cannot enter town."
+        ja = "盗賊たちはある品を手に入れたがっているが、無法者ゆえ町へ入れない。"
+    }
+    {
+        en = "Barbarians live by their own code of honor, much like sellswords, whose code can be changed for the right price."
+        ja = "蛮族は傭兵とよく似て、独自の名誉の掟に従って生きている。もっとも、傭兵の掟は十分な金を積めば変わるが。"
     }
     {
         en = "Bashed"
@@ -1863,12 +2207,32 @@
         ja = "ダメージが適用される前に、対象は[color=%damage%]30%[/color]の確率で効果を解除する。"
     }
     {
+        en = "Behold, the rise of a barbarian king in the north, his might unmatched, his fury unstoppable!"
+        ja = "見よ、北方に蛮族王が立つ！　比類なき力と止めようのない怒りを携えて！"
+    }
+    {
+        en = "Being devoured by a pack of savage beasts was not high on your list of things to do today."
+        ja = "獰猛な獣の群れに喰われる予定は、今日の用事には入っていなかった。"
+    }
+    {
+        en = "Being devoured by ferocious desert beasts was not high on your list of things to do today."
+        ja = "凶暴な砂漠の獣に喰われる予定は、今日の用事には入っていなかった。"
+    }
+    {
         en = "Being exceptionally light, this character's strikes don't really hurt, however they're also extremely fast."
         ja = "ひときわ軽いこのキャラクターの攻撃は大して痛くないが、動きは極めて速い。"
     }
     {
         en = "Being exceptionally purposeful, this character's strikes hurt plenty, but they're also slower."
         ja = "ひときわ力強いこのキャラクターの攻撃は十分に痛いが、動きは遅い。"
+    }
+    {
+        en = "Beneath her seductive guise lies a heart as black as pitch."
+        ja = "その蠱惑的な外見の下には、瀝青のように黒い心が隠れている。"
+    }
+    {
+        en = "Beneath the burning sun, the embalmed dead roam the desert wastes, their empty eyes fixed on the horizon as they obey a long-forgotten command."
+        ja = "灼熱の太陽の下、防腐処理された死者が砂漠の荒野をさまよう。虚ろな目を地平線へ向け、とうに忘れられた命令に従っている。"
     }
     {
         en = "Berserker"
@@ -1885,6 +2249,38 @@
     {
         en = "Better trained and equipped than northern militia, conscripts are the rank and file of the southern military."
         ja = "北方の民兵よりもよく訓練され、装備も整った徴募兵は、南方軍の主力をなす一般兵である。"
+    }
+    {
+        en = "Beware the deadly serpents, whose sleek bodies glide effortlessly through the desert, hunting for prey."
+        ja = "死を招く蛇に気をつけろ。滑らかな身体で砂漠を易々と進み、獲物を狩る。"
+    }
+    {
+        en = "Beware the deceptively agile movements, for its powerful talons can shred armor and flesh alike with ease."
+        ja = "見かけによらぬ俊敏な動きに注意せよ。強靱な鉤爪は鎧も肉も容易く引き裂く。"
+    }
+    {
+        en = "Beware the desert's haunted wastelands, for the spirits of the ancients are said to linger there, twisted by centuries of anger and resentment."
+        ja = "砂漠の呪われた荒野に気をつけろ。古代人の霊が、幾世紀もの怒りと怨念に歪められ、今もそこに留まっているという。"
+    }
+    {
+        en = "Beware the desert's silent guardians: the sand golems, whose massive forms emerge from the sands to block the path of any travelers who dare to cross their domain."
+        ja = "砂漠の寡黙な守護者、砂のゴーレムに気をつけろ。その巨体は砂中から現れ、領域を横切ろうとする旅人の道を塞ぐ。"
+    }
+    {
+        en = "Beware the forest's haunted groves, where gnarled limbs and grasping roots hunger for the flesh of the living."
+        ja = "森の呪われた木立に気をつけろ。節くれ立った枝と絡みつく根が、生者の肉に飢えている。"
+    }
+    {
+        en = "Beware the hexen, for she is a creature of unfathomable malice, whose thirst for power knows no bounds."
+        ja = "ヘクセンに気をつけろ。その悪意は測り知れず、力への渇望に際限がない。"
+    }
+    {
+        en = "Beware the witch's beauty, for behind her beguiling facade lies a heart as cold and merciless as winter's frost."
+        ja = "魔女の美貌に気をつけろ。その魅惑的な仮面の裏には、冬の霜のように冷酷な心がある。"
+    }
+    {
+        en = "Beware these souldrinkers, for they are cunning and elusive, wreathed in the flames of hell."
+        ja = "魂を啜る者どもに気をつけろ。狡猾で捉えどころがなく、地獄の炎を身にまとっている。"
     }
     {
         en = "Bind your opponent with web."
@@ -1915,12 +2311,28 @@
         ja = "地形に溶け込み、攻撃するか、敵に隣接するマスへ移動するまで見つからない。"
     }
     {
+        en = "Blessed are the maker stollwurms, whose passage cleanses the world. You don't believe that farkin' nonsense of course."
+        ja = "造物主のシュトルヴルムは祝福され、その通るところで世界は清められる――むろん、そんなクソったれた戯言を信じちゃいない。"
+    }
+    {
         en = "Blinded"
         ja = "盲目"
     }
     {
+        en = "Bloated red bodies and gaping maws skitter through the darkness, hungry for blood."
+        ja = "膨れた赤い胴と大きく開いた顎が、血に飢えて闇の中を走り回る。"
+    }
+    {
         en = "Block your enemy's weapons in a way that leaves them open to counter attack. Applies the Vulnerable effect to an enemy, lowering their melee and ranged defenses by 10."
         ja = "敵の武器を封じて反撃の隙を作る。「無防備」効果を付与し、敵の近接防御と射撃防御を10低下させる。"
+    }
+    {
+        en = "Blood soaks the sand, yet the crowd always screams for more. A grand tournament has been announced!"
+        ja = "血が砂を濡らしても、群衆はなお次を求めて叫ぶ。大闘技大会が布告された！"
+    }
+    {
+        en = "Blundering mountains of hatred and rage are devastating the area. These are the largest Unholds you have ever seen."
+        ja = "憎悪と怒りの山塊が、この一帯を踏み荒らしている。これほど巨大なウンホルトは見たことがない。"
     }
     {
         en = "Boar Form"
@@ -1929,6 +2341,14 @@
     {
         en = "Bounty Hunters are solitary in nature who prefer more direct means to that of assassins. Anyone who is brave enough to walk the roads and take coin alone is either a fool or has more than meets the eye to them"
         ja = "賞金稼ぎは孤独を好み、暗殺者よりも直接的な手段を選ぶ。街道を一人で歩き、単身で報酬を得ようとするほど大胆な者は、愚か者か、見た目以上の何かを持つ者のどちらかだ。"
+    }
+    {
+        en = "Break the Siege"
+        ja = "包囲を破れ"
+    }
+    {
+        en = "Brigand raiders have been humiliating the region. You are being hired to eradicate them."
+        ja = "盗賊どもが一帯を蹂躙している。根絶やしにするため、あなたが雇われた。"
     }
     {
         en = "Brooding and at times suicidal, it's no surprise that %name% is frequently found diving into battle with nothing more than a large two-hander. {Clothed in murderous intent, you once saw her cleave a man in two - top to bottom. | It is said that she once cleaved a warrior orc in two, leaving the trunk of its legs still standing. | The woman is known to ignore the fragility of her own mortality just to end the life of another. | She thrives being in the thick of battle where she can swing her weapons with little regard for safety or accuracy. | Supposedly, she once won a jousting tournament, but had to flee after bedding a watching nobleman's wife. | The woman is not a murderer, but she would have made a fine one. | Seemingly unstoppable at times, you are glad to have the woman on your side. | In a fit of bloodthirsty rage she once impaled two goblins on one pike. | A strong brute, you once saw %name% kill someone just on her backswing.} She'll use any weapon you give her, but %name% has a proclivity towards those that can make calamitous ruin out of a man's body."
@@ -1945,6 +2365,10 @@
     {
         en = "Call down bolts of lightning randomly within four tiles."
         ja = "4マス以内へ無作為に稲妻を落とす。"
+    }
+    {
+        en = "Calling all warriors! The Imperial Arena grand tournament beckons!"
+        ja = "戦士よ集え！　帝国闘技場の大試合が呼んでいる！"
     }
     {
         en = "Can be removed by attacking the hyena or by disengaging"
@@ -1995,12 +2419,20 @@
         ja = "集落ではこれ以上訓練できない。"
     }
     {
+        en = "Cause infighting between the Noble houses by murdering one of their patrols."
+        ja = "貴族家の巡回隊を一つ皆殺しにし、貴族家同士の内紛を引き起こせ。"
+    }
+    {
         en = "Centurion"
         ja = "ケントゥリオ"
     }
     {
         en = "Chains up to 3 more additional targets"
         ja = "さらに最大3体の対象へ連鎖する。"
+    }
+    {
+        en = "Champions, assemble! The Imperial Arena tournament awaits your valor!"
+        ja = "勇士よ、集え！　帝国闘技場の大会が、その武勇を待っている！"
     }
     {
         en = "Chance on each attack to ignore armor completely, the chance is [color=%positive%]50%[/color] of the Initiative difference between you and the target as long as you are faster"
@@ -2039,6 +2471,10 @@
         ja = "クレオ"
     }
     {
+        en = "Closing in..."
+        ja = "追い詰めつつある……"
+    }
+    {
         en = "Clothed in the un-reality of your life's work, manipulating the undead is second nature. With nothing to fear, manipulating people was not much more difficult. Despite the pacts you have made and the enemies bested along the way, you feel age catching up to you. How long has it been — how much longer is there to go?"
         ja = "生涯をかけた仕事が生む非現実をまとえば、不死者を操ることなど息をするようなものだ。恐れるものがない以上、人を操ることも大して難しくはなかった。結んだ契約や打ち倒した敵がいかほどであろうと、老いが追いついてくるのを感じる。どれほどの時が過ぎたのか――あとどれほど残されているのか？"
     }
@@ -2047,8 +2483,24 @@
         ja = "武器と矢尻へ毒を塗る。近接戦闘に拘束されている間は使用できない。戦闘の第1ラウンド中は行動力を消費しない。"
     }
     {
+        en = "Cold winds rise in the north. A terrible Barbarian King has emerged, dealing death and destruction to all in his path."
+        ja = "北方に冷たい風が吹く。恐るべき蛮族王が現れ、行く手のすべてに死と破壊をもたらしている。"
+    }
+    {
+        en = "Colossal footsteps shake the earth. Buildings have been shattered, the very landscape torn apart by primal fury."
+        ja = "途方もない足音が大地を揺らす。建物は砕け、原始の怒りが地形そのものを引き裂いた。"
+    }
+    {
+        en = "Colossal serpents with scales as hard as iron, few would ever dare to hunt such a creature."
+        ja = "鉄のように硬い鱗を持つ巨大な蛇。これを狩ろうとする者など滅多にいない。"
+    }
+    {
         en = "Command a fighter of Centurion rank or lower to do your bidding. Targets can only be inspired once per turn. Does not work on Legates."
         ja = "ケントゥリオ以下の階級にある戦士へ命令を下す。対象が鼓舞されるのは1ターンにつき1回だけ。レガトゥスには効果がない。"
+    }
+    {
+        en = "Complete the delivery, claim your payment. Sounds so simple."
+        ja = "品を届け、報酬を受け取る。実に簡単そうだ。"
     }
     {
         en = "Completely absorbs the first hit which doesn't ignore armor."
@@ -2067,6 +2519,10 @@
         ja = "耐え難い悪臭を放つ混合物を調合し、息をするために対象を後退させる。命中した対象には疲労が蓄積し、高低差のある場所から数段突き落とされた場合はダメージを受けることがある。ノックバックに成功すると、対象の盾壁、槍衾、応酬を解除する。移動不能の対象はノックバックできない。射撃技能を使用する。"
     }
     {
+        en = "Confront the Orc Warlord"
+        ja = "オークの軍将と対決せよ"
+    }
+    {
         en = "Conjure a heavy ball of ice to crush your enemies."
         ja = "重い氷塊を召喚し、敵を押し潰す。"
     }
@@ -2081,6 +2537,14 @@
     {
         en = "Considers death unavoidable, experiences no morale check when allies die"
         ja = "死は避けられないものと考えており、味方が死亡しても士気判定を行わない。"
+    }
+    {
+        en = "Corpse-eaters... always wretched, malevolent, yet predictable. However there is an intelligence being hinted in these disturbing reports that gives you pause."
+        ja = "屍肉喰らい……いつも惨めで邪悪だが、行動は読みやすい。ところが今回の不穏な報告からは知性の存在が仄めかされ、思わず警戒してしまう。"
+    }
+    {
+        en = "Corrupt officials often extort merchants, demanding tolls or else facing dire consequences."
+        ja = "腐敗した役人はしばしば商人を脅し、通行料を出さなければ悲惨な目に遭わせると迫る。"
     }
     {
         en = "Corrupt the force sustaining one of your thralls, causing them to detonate destructively after the corruption has time to build. Affected dead explode at the end of their turn next round, dealing damage in a 1 tile radius. The less HP they have, the more damage the explosion inflicts. If they are killed before they explode, the effect no longer triggers."
@@ -2119,6 +2583,10 @@
         ja = "岩を砕き、素材を採取できることがある。"
     }
     {
+        en = "Crush the stronghold, claim your bounty. What could go wrong?"
+        ja = "砦を潰し、賞金を受け取る。いったい何がまずいというのか？"
+    }
+    {
         en = "Crushed under ice"
         ja = "氷に押し潰された"
     }
@@ -2129,6 +2597,10 @@
     {
         en = "Cunning Disguise"
         ja = "巧妙な擬態"
+    }
+    {
+        en = "Cunning, sneaky and treacherous little creatures, goblins and sellswords apparently have much in common."
+        ja = "狡猾で、こそこそと動き、裏切りも辞さない小柄な生き物。どうやらゴブリンと傭兵には共通点が多い。"
     }
     {
         en = "Cut down any bush with a chance of harvesting it."
@@ -2151,6 +2623,14 @@
         ja = "ダメージは現在の先制値に応じて変動し、装甲を無視する。"
     }
     {
+        en = "Dark forests border the roads, where malicious creatures often ambush passing caravans."
+        ja = "街道沿いには暗い森が広がり、悪意ある怪物が通りかかる隊商を待ち伏せすることが多い。"
+    }
+    {
+        en = "Dark rituals, flawless beauty, a nobleman's ardor. Twisted and maniacal, you must face the coven of witches."
+        ja = "闇の儀式、完璧な美貌、貴族の情欲。歪んだ狂気に満ちる魔女の集会と対峙せよ。"
+    }
+    {
         en = "Darted"
         ja = "吹き矢に倒れた"
     }
@@ -2167,6 +2647,10 @@
         ja = "死を語る者"
     }
     {
+        en = "Death cannot be escaped. But with the right actions, it can be postponed."
+        ja = "死から逃れることはできない。だが正しく動けば、先延ばしにはできる。"
+    }
+    {
         en = "Deathly spectre"
         ja = "死の亡霊"
     }
@@ -2175,20 +2659,64 @@
         ja = "「衰弱」のクールダウンは[color=%damage%]4[/color]ターン。"
     }
     {
+        en = "Deliver a large shipment of coin to another settlement, with maximum security."
+        ja = "大量のクラウンを最大限の警備で別の集落へ届けよ。"
+    }
+    {
+        en = "Deliver a secret envoy through enemy territory, then somehow get them out again."
+        ja = "秘密の使節を敵地の奥まで送り届け、その後どうにか連れ戻せ。"
+    }
+    {
+        en = "Deliver coins to %recipient% in %objective% about %days% to the %direction% by road. Do not spend it on the way."
+        ja = "%recipient%へクラウンを届けよ。%objective%までは街道沿いに約%days%、%direction%の方角にある。途中で使い込むな。"
+    }
+    {
+        en = "Deliver requested item to bandit camp"
+        ja = "指定の品を盗賊の野営地へ届けよ"
+    }
+    {
+        en = "Delivered the crowns"
+        ja = "クラウンを届けた"
+    }
+    {
         en = "Dervish"
         ja = "ダルヴィーシュ"
+    }
+    {
+        en = "Desperation mounts as the town faces a ruthless brigand gang, with no end in sight."
+        ja = "冷酷な盗賊団に終わりなく脅かされ、町では絶望が募っている。"
     }
     {
         en = "Despite being so highly prized by fighting men they are also called Great Horses, not all knights can afford them over courser, and rare indeed is the non-Noble riding one"
         ja = "戦士たちから非常に高く評価され、「大馬」とも呼ばれる。だがコーサーより高価なため、すべての騎士が買えるわけではなく、貴族でない者が乗るのは極めて珍しい。"
     }
     {
+        en = "Despite his captivity, the barbarian prisoner remains a formidable threat. Bulging muscles and furious eyes, not to mention the savage kin waiting to ambush you in the forest."
+        ja = "囚われの身でも、この蛮族の囚人は侮れない脅威だ。盛り上がる筋肉に怒り狂った目。そして森で待ち伏せする獰猛な同族もいる。"
+    }
+    {
+        en = "Despite your heathen ways, the Gilder will permit your assistance in securing a sacred place."
+        ja = "異教の道を歩むあなたであっても、聖地の確保に助力することをギルダーは許すだろう。"
+    }
+    {
         en = "Destrier"
         ja = "デストリア"
     }
     {
+        en = "Destroy camp of prisoner's enemies"
+        ja = "囚人の敵がいる野営地を破壊せよ"
+    }
+    {
+        en = "Destroy the Noble house patrol"
+        ja = "貴族家の巡回隊を壊滅させよ"
+    }
+    {
         en = "Determined to be a hero."
         ja = "英雄になると固く決意している。"
+    }
+    {
+        en = "Devious fraudsters have stolen quite the item from a local lord."
+        ja = "狡猾な詐欺師どもが、地元領主から大層な品を盗み出した。"
     }
     {
         en = "Died from redback poison"
@@ -2227,8 +2755,16 @@
         ja = "崩壊"
     }
     {
+        en = "Disturbing reports of people being seized in the night by eight-legged horrors are the talk of the town."
+        ja = "八本脚の怪物が夜な夜な人をさらっているという不穏な話で、町は持ちきりだ。"
+    }
+    {
         en = "Diviner"
         ja = "占術師"
+    }
+    {
+        en = "Do not leave any survivors"
+        ja = "生存者を一人も残すな"
     }
     {
         en = "Doctor"
@@ -2241,6 +2777,10 @@
     {
         en = "Doesn't really care what you are doing. Just here for salary and food."
         ja = "あなたが何をしているかなど、さほど気にしていない。給金と食事のためにいるだけだ。"
+    }
+    {
+        en = "Don your armor and sharpen your blades! The Imperial Arena grand tournament is about to begin!"
+        ja = "鎧をまとい、刃を研げ！　帝国闘技場の大試合が今まさに始まる！"
     }
     {
         en = "Don't fire until you see the whites of their eyes!"
@@ -2257,6 +2797,10 @@
     {
         en = "Double tongued"
         ja = "二枚舌"
+    }
+    {
+        en = "Double-crossing a merchant to confound a political rival is a favorite pastime of nobility."
+        ja = "政敵を困らせるため商人を裏切るのは、貴族が好む道楽だ。"
     }
     {
         en = "Drained"
@@ -2279,6 +2823,10 @@
         ja = "戦闘中に飲むと、無作為な状態効果を得る。有害なことも有益なこともある。戦闘終了後に毎回補充される。"
     }
     {
+        en = "Driving out the unholy corruption is an endless battle, but one that must be fought."
+        ja = "不浄な腐敗を追い払う戦いに終わりはない。だが戦わねばならない。"
+    }
+    {
         en = "Druid"
         ja = "ドルイド"
     }
@@ -2297,6 +2845,10 @@
     {
         en = "Dunestalker"
         ja = "砂丘の追跡者"
+    }
+    {
+        en = "Dying with an arrow in your gut from attacking a fortified position is not exactly high in your list of priorities."
+        ja = "要塞化された陣地を攻め、腹に矢を受けて死ぬことは、優先事項の上位には入らない。"
     }
     {
         en = "Effected by fatigue at 10% normal rate."
@@ -2331,6 +2883,10 @@
         ja = "敵がこのキャラクターを狙いやすくなる。"
     }
     {
+        en = "Engaging in privateering requires cunning and audacity, as neither side particularly cares for you to make it out alive."
+        ja = "私掠には狡知と大胆さが要る。どちらの陣営も、あなたが生還するかなど気にかけてはいないからだ。"
+    }
+    {
         en = "Enhanced Prosthetic Ear"
         ja = "強化義耳"
     }
@@ -2351,12 +2907,36 @@
         ja = "強化義鼻"
     }
     {
+        en = "Enough death for one day. (Increase Moral Reputation)"
+        ja = "今日の死はもう十分だ。（道義的評判上昇）"
+    }
+    {
+        en = "Ensure an envoy/'s safety on a perilous journey into enemy lands. For an outrageous fee of course."
+        ja = "敵地へ向かう危険な旅で、使節の安全を確保せよ。むろん法外な報酬と引き換えに。"
+    }
+    {
+        en = "Ensure the safe passage of the caravan, profit from your service."
+        ja = "隊商を無事に通し、働きに見合う利益を得よ。"
+    }
+    {
+        en = "Ensure the safety of this portly merchant and his wares on the road for a tiny cut of his profits."
+        ja = "この太った商人と商品を街道で守り、利益のほんの一部を分けてもらえ。"
+    }
+    {
         en = "Enter a trance and bla bla bla."
         ja = "トランス状態に入り、うんぬんかんぬん。"
     }
     {
         en = "Entrancer"
         ja = "魅了術師"
+    }
+    {
+        en = "Equip provided nets"
+        ja = "支給された網を装備せよ"
+    }
+    {
+        en = "Escort prisoner to %objective% about %days% to the %direction%"
+        ja = "囚人を%objective%まで護送せよ。約%days%、%direction%の方角にある。"
     }
     {
         en = "Evaluate your enemy, preparing your next attack to leave them bleeding from multiple grazes."
@@ -2371,6 +2951,10 @@
         ja = "敵を見定め、次の攻撃でノックバックさせる準備をする。"
     }
     {
+        en = "Even reanimated bones can fall, even the dead can die again."
+        ja = "蘇った骨でさえ倒れ、死者でさえもう一度死ぬ。"
+    }
+    {
         en = "Eventually, being away from the woods became too much for %name%, they eventually found their way back home with tales from the world outside and beyond the trees. The throws of nature were not healed, but they were mending - which is sometimes all one person can do to make a difference."
         ja = "やがて森を離れていることに耐えられなくなった%name%は、木々の外に広がる世界の物語を携え、故郷へ戻る道を見つけた。自然の傷は癒えていなかったが、回復へ向かってはいた――時に、一人の力で状況を良くするには、それだけで精いっぱいなのだ。"
     }
@@ -2379,12 +2963,36 @@
         ja = "いつまでもよそ者だった%name%は故郷へ戻り、冒険で得たクラウンを使って、かつて自分を蔑んだ者たちから遠く離れた場所に家を買った。自然と%name%の結びつきは強まり、不当な扱いを受けた者や追われる者にとって安全な避難所となった。"
     }
     {
+        en = "Every dawn brings new challenges to a barbarian camp. Today, it's your mercenary company cresting the horizon."
+        ja = "蛮族の野営地には毎朝、新たな試練が訪れる。今日、地平線の向こうから現れるのはあなたの傭兵団だ。"
+    }
+    {
         en = "Every man and woman in the area stand secretly wants to be %fullname%, children play in streets dressed and fighting like %they% does. As they should."
         ja = "闘技場の観客席にいる男も女も、ひそかに%fullname%になりたいと願っている。子供たちは街路で%they%のような格好をし、戦って遊ぶ。当然のことだ。"
     }
     {
+        en = "Every night, the nightmares descend like a shroud, tormenting the locals with visions of horror and despair."
+        ja = "毎夜、悪夢が屍衣のように降りかかり、恐怖と絶望の幻で地元民を苦しめる。"
+    }
+    {
+        en = "Every night, the townsfolk are gripped by fear as their nightmares manifest in chilling clarity."
+        ja = "毎夜、悪夢が凍りつくほど鮮明な姿を取ると、町の人々は恐怖に囚われる。"
+    }
+    {
+        en = "Every rumour helps."
+        ja = "どんな噂も役に立つ。"
+    }
+    {
+        en = "Every soul in a brigand stronghold knows the value of a sharp blade and a quick wit. Be wary."
+        ja = "盗賊の砦にいる者なら誰でも、鋭い刃と機転の価値を知っている。用心しろ。"
+    }
+    {
         en = "Everyone needs shoes — and the same applies to four legs, not just two."
         ja = "誰にでも靴は必要だ――二本足だけでなく、四本足にも。"
+    }
+    {
+        en = "Everyone, charge! (Decrease Moral Reputation)"
+        ja = "全員、突撃！（道義的評判低下）"
     }
     {
         en = "Evoker"
@@ -2395,24 +3003,84 @@
         ja = "力を振り絞り、異例の速さで1マス移動する。支配領域の外にいる間、1ターンにつき1回だけ使用できる。"
     }
     {
+        en = "Experienced the thrill of the hunt"
+        ja = "狩りの興奮を味わった"
+    }
+    {
+        en = "Exploration! The thrill of the unknown."
+        ja = "探索！　未知を追う興奮。"
+    }
+    {
+        en = "Exploration. Easy money, for a sellsword company."
+        ja = "探索。傭兵団には楽な稼ぎだ。"
+    }
+    {
+        en = "Express, armed delivery is certainly a specialist service you can provide."
+        ja = "武装した至急配送なら、確かにあなたが提供できる専門仕事だ。"
+    }
+    {
         en = "Fade into the environment."
         ja = "周囲へ溶け込む。"
+    }
+    {
+        en = "Failed to negotiate with bandits"
+        ja = "盗賊との交渉に失敗した"
+    }
+    {
+        en = "Failed to protect a prisoner wagon"
+        ja = "囚人護送車を守れなかった"
+    }
+    {
+        en = "Failed to sing to the wolves"
+        ja = "狼へ歌いかけることに失敗した"
     }
     {
         en = "Farrier"
         ja = "蹄鉄工"
     }
     {
+        en = "Fat merchants are willing to pay good coin to ensure their safety on the roads."
+        ja = "太った商人は、街道での安全を確保するためなら良い金を払う。"
+    }
+    {
+        en = "Fear grips the hearts of villagers as fell beasts are sighted circling ominously on the mist-covered hills."
+        ja = "霧に覆われた丘を凶獣が不吉にうろつく姿が目撃され、村人たちは恐怖に囚われている。"
+    }
+    {
         en = "Fear of Nobles"
         ja = "貴族恐怖症"
+    }
+    {
+        en = "Fearful talk abounds that all the brigand gangs have united under a dangerous new leader. Even the farkin' nobility look worried."
+        ja = "すべての盗賊団が危険な新指導者の下に結集したという恐ろしげな噂で持ちきりだ。クソったれな貴族どもでさえ心配そうにしている。"
     }
     {
         en = "Feast on a corpse to regain health and cure injuries. Will daze and disgust any ally within four tiles."
         ja = "死体を貪り、体力を回復して負傷を治す。4マス以内の味方を朦朧とさせ、嫌悪感を抱かせる。"
     }
     {
+        en = "Fell beasts have been spotted roaming the hills. The frightened locals are demanding action before attacks occur."
+        ja = "丘を歩き回る凶獣が目撃された。怯えた地元民は、襲撃が起こる前に動けと要求している。"
+    }
+    {
+        en = "Few are brave or stupid enough to walk into an orc camp. You reckon the company can provide plenty of both."
+        ja = "オークの野営地へ踏み込めるほど勇敢な者、あるいは愚かな者は少ない。傭兵団にはどちらもたっぷりいるだろう。"
+    }
+    {
+        en = "Few things elicit such horror as the Webknechts, especially when they grow large enough to start abducting fully-grown townsfolk."
+        ja = "巨大な略奪者どもが一帯をうろつき、作物や家畜、その途方もない手にかかる旨そうな物を何でも、じわじわと奪っている。"
+    }
+    {
+        en = "Fields lay barren, and homes abandoned, as monster attacks ravage a once thriving region."
+        ja = "怪物の襲撃で、かつて栄えた一帯は荒れ果て、畑は不毛となり、家々は捨てられている。"
+    }
+    {
         en = "Fighting with other escaped slaves drives this character to succeed."
         ja = "ほかの逃亡奴隷とともに戦うと、このキャラクターは奮起する。"
+    }
+    {
+        en = "Find a concealed place that may not even exist. Perfect."
+        ja = "存在するかどうかすら分からない隠された場所を探せ。完璧だ。"
     }
     {
         en = "Fine craftsmanship allows the wearer of this prosthetic to articulate the joints with some effort, allowing the fingers to be bent to hold a shield or a sword. Of course, you lose quite a bit of finesse with such an item."
@@ -2435,6 +3103,10 @@
         ja = "鞭打たれて死亡"
     }
     {
+        en = "Flamewalkers are creatures of darkness and despair, their very touch draining the life force from their victims."
+        ja = "フレイムウォーカーは闇と絶望の怪物で、その一触れが犠牲者から生命力を吸い取る。"
+    }
+    {
         en = "Fleshless"
         ja = "肉なき者"
     }
@@ -2447,6 +3119,14 @@
         ja = "水のように流麗に！\n\n可能なら、主手の攻撃に続けて逆手で追撃する。"
     }
     {
+        en = "Folk speak in hushed tones of eerie sights and mysterious sounds emanating from the cemetery, fueling speculation and fear among those who dare to listen."
+        ja = "墓地で不気味なものを見た、謎めいた音を聞いたと、人々は声を潜めて語る。耳を傾ける者たちの間で憶測と恐怖が膨らんでいる。"
+    }
+    {
+        en = "Folks are reporting there's a giant roaming around these parts, stealing livestock from farms."
+        ja = "この辺りを巨人が歩き回り、農場から家畜を盗んでいるという報告がある。"
+    }
+    {
         en = "Follow-up attack: [color=%negative%]Disabled[/color]"
         ja = "追撃：[color=%negative%]無効[/color]"
     }
@@ -2455,12 +3135,84 @@
         ja = "歩兵"
     }
     {
+        en = "For both protection and deniability, hired sellswords are a popular choice for secret diplomatic missions."
+        ja = "護衛を任せられ、関与も否認しやすいことから、秘密外交任務には雇われた傭兵が好んで使われる。"
+    }
+    {
+        en = "For glory!"
+        ja = "栄光のために！"
+    }
+    {
+        en = "For those who tread the forest paths, the threat of being ensnared in sticky silk and spirited away by arachnid fiends fills their waking hours with dread."
+        ja = "森の小径を歩く者は、粘つく糸に絡め取られ、蜘蛛の怪物に連れ去られる恐怖を四六時中抱えている。"
+    }
+    {
+        en = "For those with steel in their veins: a mercenary contract to kill the savage greenskin warlord."
+        ja = "鋼の血を持つ者へ。獰猛なグリーンスキンの軍将を討つ傭兵契約だ。"
+    }
+    {
+        en = "Forget it."
+        ja = "忘れろ。"
+    }
+    {
         en = "Framed Beggar"
         ja = "濡れ衣を着せられた物乞い"
     }
     {
         en = "Framed Widow"
         ja = "濡れ衣を着せられた未亡人"
+    }
+    {
+        en = "Friendly barbarian tribe seeks unhold line-breakers. This should be interesting."
+        ja = "友好的な蛮族部族が、戦列を突破するウンホルトを求めている。面白いことになりそうだ。"
+    }
+    {
+        en = "From pickup to drop-off, prioritize security, earn your pay."
+        ja = "受け取りから引き渡しまで安全を最優先し、報酬を受け取れ。"
+    }
+    {
+        en = "From pickup to drop-off, secure the coin at all times and be on your guard."
+        ja = "受け取りから引き渡しまで、常にクラウンを守り、警戒を怠るな。"
+    }
+    {
+        en = "From the icy wastes emerges a barbarian king, ready to conquer and rule the northern lands!"
+        ja = "氷の荒野から蛮族王が現れ、北方の地を征服し支配しようとしている！"
+    }
+    {
+        en = "Get lost, and get paid whilst doing so."
+        ja = "道に迷い、そのついでに報酬をもらえ。"
+    }
+    {
+        en = "Get lost, you rabble! (Decrease Moral Reputation)"
+        ja = "失せろ、この有象無象め！（道義的評判低下）"
+    }
+    {
+        en = "Get paid for the armed delivery of this crucial item."
+        ja = "この重要な品を武装して届け、報酬を受け取れ。"
+    }
+    {
+        en = "Getting paid to walk the lads about for a few days might just be the best deal of the year."
+        ja = "数日ほど若い衆を歩かせるだけで金になるとは、今年一番の儲け話かもしれない。"
+    }
+    {
+        en = "Ghouls"
+        ja = "ナハツェーラー"
+    }
+    {
+        en = "Giant marauders are slowly plundering the region of crops, livestock, and anything else tasty-lookin' they can lay their colossal hands upon."
+        ja = "巨大な略奪者が、作物、家畜、その途方もない手で掴める旨そうな物を何でも、ゆっくりと一帯から奪っている。"
+    }
+    {
+        en = "Giant spiders sometimes spin their webs across the roads, trapping unwary caravans in their deadly snares."
+        ja = "巨大蜘蛛は時に街道を跨いで巣を張り、警戒を怠る隊商を死の罠へ絡め取る。"
+    }
+    {
+        en = "Giant, serpentine monsters are ravaging the countryside, devouring cattle and men. None appear able to stop them."
+        ja = "巨大な蛇の怪物が田園を蹂躙し、牛も人も貪っている。誰にも止められないようだ。"
+    }
+    {
+        en = "Given his dreadful reputation, you are amazed anyone had the stones to steal from his lordship in the first place."
+        ja = "領主閣下の恐るべき評判を考えれば、そもそも盗みを働く肝の据わった者がいたことに驚かされる。"
     }
     {
         en = "Gladiator Prizefighter"
@@ -2475,6 +3227,50 @@
         ja = "虚ろな目"
     }
     {
+        en = "Glints of gold and heavy steps serve as a warning to all."
+        ja = "金色のきらめきと重い足音が、近づく者すべてへ警告を発している。"
+    }
+    {
+        en = "Glittering under the sun, the sands of the Imperial Arena bear witness to countless contests."
+        ja = "陽光にきらめく帝国闘技場の砂は、数え切れない試合を見届けてきた。"
+    }
+    {
+        en = "Glory, renown and much coin awaits in the recapture of a most sacred site."
+        ja = "この上なく神聖な地を奪還すれば、栄光、名声、そして大金が待っている。"
+    }
+    {
+        en = "Good idea. Let's speak with the prisoner. (Decrease Moral Reputation)"
+        ja = "いい考えだ。囚人と話そう。（道義的評判低下）"
+    }
+    {
+        en = "Gossip is abound of stories of a relic, capable of purifying the undead with its divine radiance."
+        ja = "神聖な光で不死者を浄化できる聖遺物がある、という話で持ちきりだ。"
+    }
+    {
+        en = "Grave robbers under mercenary contract are stripping the crypts bare."
+        ja = "傭兵契約を結んだ墓荒らしが、地下墓所を根こそぎ漁っている。"
+    }
+    {
+        en = "Greenskin marauders, while formidable in strength, often fall prey to their own reckless aggression, their impulsive actions leading them into traps and ambushes."
+        ja = "グリーンスキンの略奪者は強大だが、その無謀な攻撃性に足をすくわれ、衝動的な行動で罠や待ち伏せへ飛び込むことも多い。"
+    }
+    {
+        en = "Greenskins thrive on carnage, slaughter and war. You thrive on coin."
+        ja = "グリーンスキンは凶行、殺戮、戦争を糧にする。あなたは金を糧にする。"
+    }
+    {
+        en = "Grim rumors are spreading of dark forces at play in the nearby cemetery."
+        ja = "近くの墓地で暗い力が動いているという不吉な噂が広まっている。"
+    }
+    {
+        en = "Guard the item closely, hand only to its intended recipient to fulfill the contract."
+        ja = "品は厳重に守り、契約を果たすため指定された受取人だけに渡せ。"
+    }
+    {
+        en = "Guarding a caravan means standing firm against bandits and beasts, as well as knowing when to abandon your employer to save yourself."
+        ja = "隊商を守るには、盗賊や獣を前に踏みとどまる覚悟が要る。それと、自分が生き延びるため依頼主を見捨てる頃合いを知ることも。"
+    }
+    {
         en = "Guild Master"
         ja = "ギルド長"
     }
@@ -2485,6 +3281,10 @@
     {
         en = "Hailing from the north, berserkers are often feared even among the wildmen and the barbarians. Incredibly hardy and often maddened from the overuse of mushrooms, they almost rival orcs in raw strength."
         ja = "北方出身の狂戦士は、野人や蛮族の間でさえ恐れられることが多い。並外れて頑健で、茸の食いすぎで狂気に陥っている者も多く、膂力だけならオークにさえ迫る。"
+    }
+    {
+        en = "Handle with care, deliver securely, enjoy the payout. Sounds easy enough."
+        ja = "慎重に扱い、安全に届け、報酬を受け取れ。いかにも簡単そうだ。"
     }
     {
         en = "Having enough of all the fighting, %name% the once-beggar retired from the %companyname%. You know the woman made a pretty crown in her time with the mercenary company, yet the other day you saw her out begging again. You asked if she'd wasted all her money and she laughed. She said she'd purchased land and was doing just fine. Then she held out his little tin and asked for a crown. You gave her two."
@@ -2499,8 +3299,20 @@
         ja = "%name%は初めからあなたを支え、あなたが引退した後ほどなくして団を去った。身分の低い農民ではあったが、幾度もの戦いで己を証明し、やがて傭兵団で得られる限りもっとも信頼できる大切な友となった。"
     }
     {
+        en = "He's big, he's mean and he's green. Someone needs to kill him."
+        ja = "でかくて、凶暴で、緑色だ。誰かが殺さねばならない。"
+    }
+    {
+        en = "He's violently killed everyone who has ever faced him, but perhaps you will get lucky."
+        ja = "これまで立ち向かった者を一人残らず惨殺してきた。だがあなたなら運に恵まれるかもしれない。"
+    }
+    {
         en = "Healer"
         ja = "治療師"
+    }
+    {
+        en = "Her beauty is flawless, her heart cruel, her talons razor sharp. Careful she does not claim your soul."
+        ja = "美貌に瑕はなく、心は残酷、鉤爪は剃刀のように鋭い。魂を奪われないよう気をつけろ。"
     }
     {
         en = "Herbalist / Apothecaries"
@@ -2509,6 +3321,18 @@
     {
         en = "Herbalists and Apothecaries are skilled with a sickle, harvesting herbs for use in medicine"
         ja = "薬草師や薬剤師は鎌の扱いに長け、薬に用いる草を刈り取る。"
+    }
+    {
+        en = "Hero of the land"
+        ja = "この地の英雄"
+    }
+    {
+        en = "Hexen cunning knows no bounds. They prey upon the weaknesses of men, enthralling them with promises of power and pleasure."
+        ja = "ヘクセンの狡知には際限がない。権力と快楽を約束して男たちを魅了し、その弱みを食い物にする。"
+    }
+    {
+        en = "Hold a sand-blasted ruin against an invading northern army. For an outrageous fee of course."
+        ja = "砂に削られた廃墟を、侵攻する北方軍から守れ。むろん法外な報酬と引き換えに。"
     }
     {
         en = "Hold your ground!"
@@ -2539,8 +3363,40 @@
         ja = "馬は長く過酷な旅に慣れている。"
     }
     {
+        en = "Howls of terror echo through the night, as townsfolk are besieged by nightmares that seem all too real."
+        ja = "あまりにも生々しい悪夢に町の人々が責め苛まれ、恐怖の叫びが夜に響き渡る。"
+    }
+    {
+        en = "Hunt and capture at least one unhold"
+        ja = "少なくとも一体のウンホルトを狩り、捕獲せよ"
+    }
+    {
+        en = "Hunt and eliminate the Lindwurm that has become a blight upon the region. Only the boldest need apply."
+        ja = "一帯を荒廃させるリントヴルムを狩り、始末せよ。応募できるのは最も勇敢な者だけだ。"
+    }
+    {
+        en = "Hunt around the %regiontype% region of %worldmapregion% %distance% to the %direction% and other regions"
+        ja = "%regiontype%地域の%worldmapregion%一帯と周辺を捜索せよ。%distance%、%direction%の方角にある。"
+    }
+    {
+        en = "Hunt down some thieves to claim the reward and gratitude of the local ruler."
+        ja = "盗賊を追い詰め、地元領主の報酬と感謝を受け取れ。"
+    }
+    {
         en = "Husk"
         ja = "抜け殻"
+    }
+    {
+        en = "I see my pocket filled with crowns already! (Decrease Moral Reputation)"
+        ja = "もうポケットがクラウンで膨らむのが見える！（道義的評判低下）"
+    }
+    {
+        en = "I would rather we not waste the crowns."
+        ja = "クラウンを無駄にはしたくない。"
+    }
+    {
+        en = "If only it worked that way"
+        ja = "そんなふうにうまくいけばな。"
     }
     {
         en = "If the Vala is successful in her dealings with these harmful spirits, they will haunt and weaken her opponents. Lowers damage, lowers maximum fatigue, increases fatigue cost for skills."
@@ -2561,6 +3417,30 @@
     {
         en = "Immune to the effects of fresh injuries, and not upset by health losses."
         ja = "新たに負った負傷の影響を受けず、体力が減っても士気が下がらない。"
+    }
+    {
+        en = "In a barbarian camp, the fire of battle is ever burning. Hopefully just like their camp will be later today."
+        ja = "蛮族の野営地では戦いの炎が絶えず燃えている。今日の終わりには、野営地そのものも同じように燃えているといい。"
+    }
+    {
+        en = "In a brigand stronghold, fear reigns supreme and trust is a rare commodity."
+        ja = "盗賊の砦では恐怖が支配し、信頼は希少な品だ。"
+    }
+    {
+        en = "In a flurry of sand and scales, desert serpents often launch deadly coordinated attacks to overwhelm travelers."
+        ja = "砂と鱗を巻き上げ、砂漠の蛇はしばしば連携して致命的な襲撃を仕掛け、旅人を圧倒する。"
+    }
+    {
+        en = "In nomad lore, sand serpents are revered as spirits of the desert, their sinuous forms embodying untamed power."
+        ja = "遊牧民の伝承では、砂漠の蛇は荒ぶる力をしなやかな姿に宿す砂漠の精霊として崇められている。"
+    }
+    {
+        en = "In service to the local ruler, recover a stolen artifact and kill the thieves responsible."
+        ja = "地元領主に仕え、盗まれた遺物を取り戻し、盗人を始末せよ。"
+    }
+    {
+        en = "In the cutthroat world of diplomacy, envoys face constant danger from rival factions, rogue agents, and deadly traps laid by those who seek to thwart their efforts."
+        ja = "弱肉強食の外交世界で、使節は敵対勢力、裏切った工作員、そして任務を妨げようとする者が仕掛けた死の罠に常に脅かされる。"
     }
     {
         en = "Increases the character's action points by [color=%positive%]1[/color]."

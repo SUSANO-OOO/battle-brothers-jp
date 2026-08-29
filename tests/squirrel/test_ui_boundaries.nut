@@ -7,7 +7,8 @@ local groupNames = {
     Harbor = "港",
     ["A harbor that allows you to book passage by ship to other parts of the continent"] = "大陸各地へ向かう船便を手配できる港",
     Hohenburg = "ホーエンブルク",
-    ["a fortified settlement"] = "堅固な城塞都市"
+    ["a fortified settlement"] = "堅固な城塞都市",
+    ["A brigand stronghold is nearby, attracting all manner of thieves, vagrants and murderers."] = "近隣の盗賊砦に、盗人やならず者、人殺しどもが集まっている。"
 };
 
 ::Rosetta <- {
@@ -20,6 +21,7 @@ local hooks = {};
 local methodShapes = {
     ["scripts/ambitions/ambition"] = ["getUIText"],
     ["scripts/skills/skill"] = ["getKilledString"],
+    ["scripts/contracts/contract"] = ["getDescription"],
     ["scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module"] = ["queryLoad"],
     ["scripts/entity/world/settlement"] = ["getUIInformation"],
     ["scripts/entity/world/settlements/buildings/port_building"] = ["getUITravelRoster"],
@@ -61,6 +63,27 @@ function assertUnchanged(_actual, _expected)
     assertEqual(_actual.type, _expected.type);
     assertEqual(_actual.icon, _expected.icon);
 }
+
+local contractCalls = 0;
+local contractState = {
+    m = {
+        Description = "A brigand stronghold is nearby, attracting all manner of thieves, vagrants and murderers.",
+        State = "Offer"
+    }
+};
+local contractDescriptionWrapper = hooks["scripts/contracts/contract"].getDescription(function () {
+    contractCalls += 1;
+    return this.m.Description;
+});
+assertEqual(
+    contractDescriptionWrapper.call(contractState),
+    "近隣の盗賊砦に、盗人やならず者、人殺しどもが集まっている。"
+);
+assertEqual(contractCalls, 1);
+assertEqual(contractState.m.Description, "A brigand stronghold is nearby, attracting all manner of thieves, vagrants and murderers.");
+assertEqual(contractState.m.State, "Offer");
+local contractNullWrapper = hooks["scripts/contracts/contract"].getDescription(function () { return null; });
+assertEqual(contractNullWrapper(), null);
 
 local adaptiveOriginal = function (_actor) {
     return [{

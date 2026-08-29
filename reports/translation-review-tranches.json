@@ -199,6 +199,29 @@
       "boundary_hook_units": 1,
       "batch": "work/review_batches/port_world_name_boundary_reviewed_001.json (gitignored)",
       "sha256": "547531CCBC96DD4EF6BA7A8A75B5C8821AF595B7830D50582C3885AFD7DAD555"
+    },
+    {
+      "name": "vala-upstream-limitation-resolution-001",
+      "reviewed_units": 1,
+      "canonical_count_delta": 0,
+      "localization_disposition": "APPROVED_WITH_KNOWN_UPSTREAM_LIMITATION",
+      "batch": "work/review_batches/vala_upstream_limitation_resolution_reviewed_001.json (gitignored)",
+      "sha256": "A99F8BB2A087F85BEA1D272E2689B55304E95EA49C46716A56644A67CE51BD14"
+    },
+    {
+      "name": "legends-contracts-literal-reviewed-001",
+      "source_units": 300,
+      "reviewed_units": 220,
+      "runtime_blocked_drafts": 65,
+      "resolved_exclusion_units": 15,
+      "resolved_exclusion_occurrences": 23,
+      "corrected_drafts": 41,
+      "source_audit": "work/review_batches/legends_contracts_source_audit_001.json (gitignored)",
+      "source_audit_sha256": "3480CFA903D143DA03683D5B64E6A8E1538DA5B547F2D497308E5B2B4692422A",
+      "review_batch": "work/review_batches/legends_contracts_literal_reviewed_001.json (gitignored)",
+      "review_batch_sha256": "1A3AD6C25CAD3A7798FF045D90DC4BE819404BF35C78868ED5E593AF90886DDC",
+      "exclusion_batch": "work/review_batches/legends_contracts_exclusion_batch_001.json (gitignored)",
+      "exclusion_batch_sha256": "DA98125D8EEE01D71607939EE4265B8C374DC731414FA4C0996554EBEC75C1BA"
     }
   ],
   "runtime_contract_reviews": [

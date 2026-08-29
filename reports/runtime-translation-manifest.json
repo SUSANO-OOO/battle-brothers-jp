@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-08-29T20:08:15.072462+00:00",
+  "generated_at_utc": "2026-08-29T20:37:21.622104+00:00",
   "generator": "tools/generate_runtime_translations.py",
-  "canonical_ledger_sha256": "DFC087D7E39D0F5036B8AC8525126328F4302805F8CD5BF8F7E36B7A342CC782",
-  "translation_units_sha256": "2AFC8B960D8B7C5F737DFF13A830C78BBA66CE66DDDD1BAFC947BE8F8BEFCA3F",
-  "reviewed_emitted_unit_count": 2667,
-  "reviewed_emitted_unit_ids_sha256": "C4DCF0B4FC5FA1E5B92FF5AEFDB177AA3E06B1DDE323AF2B6D970BC17F641B55",
+  "canonical_ledger_sha256": "5BD4D3FD5871166ECEB51ECF33AD3E8754642C7D04BA948BC9D77C0EFFA4336C",
+  "translation_units_sha256": "5BDE8EBF1500BC1D692464AFC517761B09669BEE524873CD6A7A3252BDF93612",
+  "reviewed_emitted_unit_count": 2887,
+  "reviewed_emitted_unit_ids_sha256": "F53876E8B135A2AC79E6B6521FB10191600C92A40F0FA4E5C594E60D3A727DC0",
   "reviewed_literal_squirrel_pairs_by_module": {
-    "legends": 949,
+    "legends": 1169,
     "msu": 25,
     "vanilla": 1497
   },
@@ -25,7 +25,7 @@
   "static_reachability": "PAIR_EMITTED_ONLY; CALL_PATH_AUDIT_REMAINS_REQUIRED",
   "runtime_qa": "NOT_TESTED",
   "outputs": {
-    "src/battle_brothers_jp/translations/reviewed_literals.nut": "4EEA3D98411E9E10C06BEAEEA9D6E02B8667FC76CE64136CBA7519B8F2F4F6B2",
+    "src/battle_brothers_jp/translations/reviewed_literals.nut": "26EDE58EC609A31B504DAB0EBCAA4A2970FC6F6889B34A039028A2EEB6C821BC",
     "src/ui/mods/mod_battle_brothers_jp/generated_strings.js": "9A35EC81633EA94F1B60D39BFFEF128BD528134688499C23D1ADCDBF20725FAC",
     "tests/squirrel/test_reviewed_runtime_patterns.nut": "1FCFD6F81B4F68D357A3922763C8D82278FFDE80A8A686981B3B1A5F040008B9",
     "tests/squirrel/test_runtime_pattern_collisions.nut": "4DFFE2B13038E1E80F08F77F8D885C50342C9E36B7969A200574491935214BA3"

@@ -38,6 +38,22 @@ class ReleaseSemanticLimitationTests(unittest.TestCase):
             )
             MODULE.verify_semantic_limitations(repo)
 
+    def test_localization_resolved_with_known_upstream_limitations_allows_release_gate(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            repo = Path(temp_dir)
+            reports = repo / "reports"
+            reports.mkdir()
+            (reports / "upstream-source-limitations.json").write_text(
+                json.dumps(
+                    {
+                        "status": "RESOLVED_FOR_LOCALIZATION_WITH_KNOWN_UPSTREAM_LIMITATIONS",
+                        "entries": [{"gameplay_change": "NONE", "runtime_qa": "NOT_TESTED"}],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            MODULE.verify_semantic_limitations(repo)
+
 
 if __name__ == "__main__":
     unittest.main()

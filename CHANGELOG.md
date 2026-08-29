@@ -34,3 +34,7 @@
 - Transparently localized the installed `{ TODO | TODO }` background as `{未実装 | 未実装}` without inventing lore or mechanics.
 - Added and independently audited a display-only port travel-roster boundary that preserves raw settlement identity, travel state, costs, images, ordering, and rendered dynamic suffixes.
 - Built and fully static-QA-verified the reviewed-2,681 development tranche; all 29 repository-owned checks pass while release coverage, GitHub, upstream Vala limitation, and runtime gates remain closed.
+- Independently approved the faithful Vala placeholder translation without inventing effects or numbers; the unrelated undefined-`t` gameplay defect remains an unmodified, unverified upstream limitation rather than a localization blocker.
+- Audited the first 300 Legends contract units, independently adopted 220 reviewed translations with 41 corrections, and resolved 15 internal control units only after all-occurrence review.
+- Added a return-only contract-description boundary for 160 Legends templates; rejected a gameplay-breaking mood-history getter hook and retained raw state with final-tooltip localization.
+- Built and fully static-QA-verified the reviewed-2,901 development tranche; all 29 repository-owned checks pass and the 13-entry archive matches source exactly.

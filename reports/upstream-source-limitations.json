@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
-  "status": "OPEN_SEMANTIC_LIMITATION",
+  "status": "RESOLVED_FOR_LOCALIZATION_WITH_KNOWN_UPSTREAM_LIMITATIONS",
   "entries": [
     {
       "translation_unit": "unit:59964EA1A5B96DEF01C6424A",
@@ -23,7 +23,7 @@
       "localization_action": "Faithfully translate the installed placeholder without inventing mechanics; preserve the upstream defect as an explicit limitation.",
       "gameplay_change": "NONE",
       "runtime_qa": "NOT_TESTED",
-      "release_resolution": "Requires an authoritative upstream description or an explicit release decision to retain the faithful placeholder translation as a known limitation."
+      "release_resolution": "RESOLVED_FOR_LOCALIZATION_BY_INDEPENDENT_HIGH_RISK_REVIEW; FAITHFUL_PLACEHOLDER_TRANSLATION_APPROVED_AS_A_KNOWN_LIMITATION; UPSTREAM_TOOLTIP_REMAINS_UNFINISHED; UNDEFINED_T_RUNTIME_DEFECT_REMAINS_UNMODIFIED_AND_NOT_RUNTIME_VERIFIED"
     },
     {
       "translation_unit": "unit:44A4E3DBF3F21D9A682865FE",

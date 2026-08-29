@@ -111,6 +111,17 @@ mod.hookTree("scripts/skills/skill", function (q) {
     }
 });
 
+// Legends stores one selected contract DescriptionTemplate verbatim in
+// m.Description. Rosetta 0.5.0 translates contract titles/lists but does not
+// intercept this getter. Translate only the returned UI value so the selected
+// template, contract state, flags, serialization, and save data remain raw.
+mod.hookTree("scripts/contracts/contract", function (q) {
+    q.getDescription = @(__original) function () {
+        local ret = __original();
+        return typeof ret == "string" ? ::Rosetta._(ret) : ret;
+    }
+});
+
 // Legends camp crafting sends Title/SubTitle directly to its JS module through
 // queryLoad(). Translate only those two UI fields at the Squirrel/JS boundary.
 mod.hook("scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module", function (q) {

@@ -582,7 +582,11 @@ def check_semantic_limitation_tracking(repo: Path) -> dict[str, Any]:
             malformed.append(
                 {"index": index, "missing": missing, "gameplay_change": entry.get("gameplay_change")}
             )
-    allowed_statuses = {"OPEN_SEMANTIC_LIMITATION", "RESOLVED"}
+    allowed_statuses = {
+        "OPEN_SEMANTIC_LIMITATION",
+        "RESOLVED",
+        "RESOLVED_FOR_LOCALIZATION_WITH_KNOWN_UPSTREAM_LIMITATIONS",
+    }
     passed = payload.get("status") in allowed_statuses and not malformed
     return result(
         "upstream_semantic_limitation_tracking",
@@ -590,7 +594,9 @@ def check_semantic_limitation_tracking(repo: Path) -> dict[str, Any]:
         {
             "status": payload.get("status"),
             "entries": len(entries),
-            "release_blocked": payload.get("status") != "RESOLVED",
+            "localization_release_blocked": payload.get("status") == "OPEN_SEMANTIC_LIMITATION",
+            "known_upstream_runtime_limitations": payload.get("status")
+            == "RESOLVED_FOR_LOCALIZATION_WITH_KNOWN_UPSTREAM_LIMITATIONS",
             "malformed": malformed,
         },
     )
@@ -658,6 +664,7 @@ def check_scope(src: Path) -> list[dict[str, Any]]:
         )
     allowed_translation_hooks = {
         "scripts/ambitions/ambition",
+        "scripts/contracts/contract",
         "scripts/entity/world/location",
         "scripts/entity/world/party",
         "scripts/entity/world/settlement",

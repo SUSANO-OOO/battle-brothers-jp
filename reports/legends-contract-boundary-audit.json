@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "status": "PARTIAL_GREEN_WITH_59_BOUNDARY_REMEDIATIONS_PENDING",
+  "source_units_audited": 300,
+  "source_evidence_complete": 300,
+  "independently_reviewed_translations": 220,
+  "resolved_internal_units": 15,
+  "runtime_blocked_drafts": 65,
+  "approved_boundaries": {
+    "contract_description_units": {
+      "count": 160,
+      "boundary": "scripts/contracts/contract.getDescription returned string",
+      "result": "PASS",
+      "state_contract": "original once; m.Description, state, flags, serialization, and save values remain raw"
+    },
+    "world_description_units": {
+      "count": 11,
+      "boundary": "existing Rosetta final tooltip translation",
+      "result": "PASS"
+    },
+    "mood_reason_units": {
+      "count": 5,
+      "boundary": "existing mood skill-tooltip translation",
+      "result": "PASS",
+      "safety": "raw getMoodChanges retained because installed gameplay code compares an English Text value"
+    },
+    "faction_relation_reason_units": {
+      "count": 3,
+      "boundary": "existing faction-relation tooltip translation",
+      "result": "PASS"
+    },
+    "world_name_units": {
+      "count": 5,
+      "boundary": "map label, tooltip, and cloned template-variable display boundaries",
+      "result": "PASS"
+    },
+    "background_description_units": {
+      "count": 2,
+      "boundary": "buildTextFromTemplate cloned display values",
+      "result": "PASS"
+    }
+  },
+  "retracted_unsafe_boundary": {
+    "target": "player.getMoodChanges returned array",
+    "result": "REJECTED_AND_REMOVED",
+    "reason": "cripple_vs_injury_event consumes the raw English mood reason as a gameplay discriminator"
+  },
+  "pending_boundary_groups": {
+    "semantic_item_values": 39,
+    "open_contract_dto_titles": 19,
+    "persisted_generated_name_fragment": 1
+  },
+  "evidence": {
+    "ignored_source_audit": "work/review_batches/legends_contracts_source_audit_001.json",
+    "ignored_source_audit_sha256": "3480CFA903D143DA03683D5B64E6A8E1538DA5B547F2D497308E5B2B4692422A",
+    "ui_boundary_harness": "tests/squirrel/test_ui_boundaries.nut",
+    "harness_result": "UI_BOUNDARIES_TEST_OK"
+  },
+  "runtime_game_qa": "NOT_TESTED",
+  "actual_user_environment_writes": 0
+}
