@@ -6931,12 +6931,224 @@
         ja = "%terrainImage%{砂漠には砂以外、ほとんど何もない。だから一本だけぽつんと立つ木に出くわすのは珍しく、しかも枝から丸々と太った蜂の巣が下がり、その膨らんだ形の周りを働き蜂の群れが飛び回っているとなれば、なおさら奇妙だ。少し離れていても、蜂蜜が金色の残り火のようにきらめくのが見える……}"
     }
     {
+        en = "%terrainImage%{The desert is so awash in similarity that seeing a bit of greenery immediately draws the eye. Such is the magnetism of an oasis. You spot it at great distance, and upon approach you realize the green is not a tree at all, but a banner flying from the catch of a dead, dried tree. Around it are more dead trees, some having crumpled into the sands which eat at them from every side. And in the midst of this passed oasis sets a skeleton with its face down in a small bowl of earth where, perhaps, water once was. To the skeleton's side is a pile of treasures. All the crowns in the world, but not a single drop of water with which to spend it on.\n\n You move to get the gold, but the coins move with you, sliding apart as a black snake rises up and hisses at you. Green poisons slickly drip from its fangs.}"
+        ja = "%terrainImage%{どこまでも似た景色が広がる砂漠では、わずかな緑もたちまち目を引く。オアシスとはそれほど人を惹きつけるものだ。遠くからそれを見つけ、近づいてみると、緑に見えたのは木ではなく、枯れ果てた木の枝に引っかかってはためく旗だった。周囲にも枯れ木が立ち、いくつかは四方から食らいつく砂の中へ崩れ落ちている。とうに死んだこのオアシスの真ん中には、かつて水があったのだろう小さなくぼみに顔を伏せた骸骨が座っていた。その傍らには財宝の山がある。この世のクラウンをすべて積み上げたような富だ。だが、その金で買える水は一滴もない。\n\n 黄金を取ろうと踏み出すと、硬貨もこちらに合わせて動き、左右へ滑り落ちた。その下から黒い蛇が身を起こし、こちらへ威嚇する。牙からは緑色の毒液がぬらりと滴っている。}"
+    }
+    {
+        en = "%terrainImage%{The man grins.%SPEECH_ON%You don't know a damn thing about me, stranger. Maybe I aim to kill myself cause I done a terrible crime. I mean, I haven't, but what're you doing going off about 'don't do it'? You've seen my preparation, were I of the mind to pause wouldn't I have done it at any prior moment? Now you set back there and watch this.%SPEECH_OFF%He turns and leaps into the hole. There's a clatter of his crashing, some murmuring about how there's more debris than he remembers. When you look down he yells at you to clear out and the orange glow zips into a hole. The man bows.%SPEECH_ON%I bid you good stranger, a strange farewe-%SPEECH_OFF% The explosion blows out your ears and puts you on the ground. The earth rolls beneath you in tremble that can be felt through the deafness which you are now submerged. A pluming cloud of fire spears into the sky and growls with the clinking and clanking of metals and the dull plops of leather and other goods, and you roll to your belly and cover your head as it all comes down like the scraps of some god's hellstorm.\n\n Absolutely none of the debris is of any use. As for the man himself, well, he got his wish. He no doubt died in the blink of an eye, all that remains are charred chunks here and there and broiled lungs and seared strips of sinews and more. You check to make sure your eyebrows are still there and, satisfied, prepare to move on.}"
+        ja = "%terrainImage%{男はにやりと笑う。%SPEECH_ON%あんたは俺のことを何ひとつ知らねえ、よそ者。俺がひどい罪を犯して自殺しようとしてるのかもしれねえだろ。まあ、犯しちゃいないがな。それなのに「やめろ」なんて何を勝手に騒いでやがる？　ここまで準備したのを見たろ。思い直す気があるなら、とっくにどこかでやめてたはずだ。さあ、そこで座って見てな。%SPEECH_OFF%男は背を向けて穴へ飛び込む。下で何かにぶつかるけたたましい音がし、以前より瓦礫が増えたなどとぶつぶつ言う声が聞こえる。覗き込むと、男は離れろと怒鳴り、橙色の光が穴の奥へ走った。男は一礼する。%SPEECH_ON%では、見知らぬ御仁よ。奇妙なる別れを――%SPEECH_OFF% 爆発が耳を潰し、あなたを地面へ叩き倒す。音の消えた世界に沈む中でも、大地のうねりと震えだけは全身に伝わる。噴き上がる火柱が空を貫き、金属の甲高い音、革や雑貨の鈍い落下音を伴って唸る。あなたは腹ばいになって頭を抱え、神が降らせた地獄の嵐の残骸さながらに降り注ぐ品々をやり過ごす。\n\n 瓦礫は何ひとつ使い物にならない。男自身については、まあ、望みは叶った。瞬きする間に死んだのだろう。残ったのは、あちこちに散った黒焦げの肉片、焼けた肺、炙られた腱の切れ端などだ。あなたは眉毛がまだ付いていることを確かめ、満足して先へ進む支度をする。}"
+    }
+    {
+        en = "%terrainImage%{The man nods.%SPEECH_ON%That ain't no watering hole, that's a cannon. I got a pile of fire powder in the bottom. The chute is armed with buckets, and fishing rods, all manner of cutlery, some soldier's metal boots, a broken sword, couple of scabbards, I think a few animals fell in but they no doubt dead now, if not they're going for a ride.%SPEECH_OFF%}"
+        ja = "%terrainImage%{男はうなずく。%SPEECH_ON%ありゃ水汲み穴じゃねえ、大砲だ。底には火薬を山ほど積んである。筒には桶や釣り竿、ありとあらゆる食器、兵士の鉄靴、折れた剣、鞘を何本か詰めた。動物も何匹か落ちたと思うが、もう死んでるだろう。生きてるなら、とんでもねえ旅に出ることになるな。%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{The monk nods with your approval then suddenly swings around and cold cocks the stranger. He falls off the well wall and collapses into the dirt, staring up with his eyes wonked.%SPEECH_ON%What'd you go and do that for?%SPEECH_OFF%He asks, touching his lip. %monk% crouches down.%SPEECH_ON%How's that feel?%SPEECH_OFF%The stranger sneers and spits blood. He says it hurts. The monk nods.%SPEECH_ON%Feel alive?%SPEECH_OFF%The stranger gets to his feet and dusts himself off. He nods.%SPEECH_ON%A little, yeah.%SPEECH_OFF%The two talk for a time and when it is over the man is willing to join the company free of charge. He also says that there are a number of goods in the well if they want to be used, though to be mindful to not drop any fire in there cause it'll blow sky high.}"
+        ja = "%terrainImage%{あなたの許しにうなずくと、修道士は突然振り向きざまに男の顎を殴り抜いた。男は井戸の縁から落ち、地面に崩れ落ちて、焦点の合わない目で見上げる。%SPEECH_ON%何しやがる！%SPEECH_OFF%唇に触れながら男が問う。%monk%はしゃがみ込む。%SPEECH_ON%どんな感じだ？%SPEECH_OFF%男は顔を歪め、血を吐く。痛い、と答える。修道士はうなずく。%SPEECH_ON%生きてると感じるか？%SPEECH_OFF%男は立ち上がり、土埃を払ってうなずく。%SPEECH_ON%少しはな。%SPEECH_OFF%二人はしばらく話し合い、終わるころには男が無償で傭兵団へ加わる気になっていた。井戸の中には使えそうな品がいくつもあるとも教えてくれたが、火を落とせば井戸ごと空まで吹き飛ぶので注意しろという。}"
+    }
+    {
+        en = "%terrainImage%{The nearly frozen man joins the company. He's a ragged wreck, but if what he said is true maybe he will someday become the fighter he could barely speak of.}"
+        ja = "%terrainImage%{凍死寸前だった男が傭兵団に加わった。見るも無惨な有様だが、話が本当なら、いつの日か、かろうじて語ったあの戦士になれるかもしれない。}"
+    }
+    {
+        en = "%terrainImage%{The next stop ain't far. You hope the men can keep it together until they get there. What bandages you have are applied as necessary.}"
+        ja = "%terrainImage%{次の立ち寄り先は遠くない。そこまで団員たちが持ちこたえてくれることを願う。手持ちの包帯を必要な者へ巻いてやる。}"
+    }
+    {
+        en = "%terrainImage%{The snowy wastes are home to not much of anything, so to find a man half-naked in its frigid geography is rather unusual. That he is actually alive even more so. You crouch beside him. His eyes are hollow and rime frosts make blinking them a struggle. His lips are jagged and purple. His nose a deep red bordering on black. You ask if he can speak. He nods.%SPEECH_ON%Barbarians. Took. Me.%SPEECH_OFF%You ask where his kidnappers are. He shrugs and continues his cold cadence.%SPEECH_ON%They. Got. Bored. And. Left.%SPEECH_OFF%It does seem in tune with the primitives to up and leave a prisoner in the ice. He explains that he was once a sturdy swordfighter. A smile squeezes  through the pain.%SPEECH_ON%A. King's. Guard. In. The. Kingless. Land. Things. Could. Be. Worse?%SPEECH_OFF%}"
+        ja = "%terrainImage%{雪の荒野にはほとんど何も棲まない。そんな凍てつく土地で半裸の男を見つけるだけでも珍しいのに、まだ生きているとなればなおさらだ。あなたは傍らにしゃがみ込む。目は落ちくぼみ、霜がまつ毛を凍らせて瞬きさえ難しい。唇は裂けて紫色に変わり、鼻は黒ずむ寸前の深紅だ。話せるかと問うと、男はうなずく。%SPEECH_ON%蛮族。俺を。さらった。%SPEECH_OFF%さらった者たちはどこだと尋ねる。男は肩をすくめ、凍えた調子で続ける。%SPEECH_ON%奴ら。飽きた。それで。置いてった。%SPEECH_OFF%捕虜を氷の上へ放り出して去るとは、いかにも野蛮人らしい。男はかつて屈強な剣士だったと語る。苦痛の中から、かすかな笑みが絞り出される。%SPEECH_ON%王なき国の。王の護衛。これより。悪くなるか？%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{Unlike the south, finding travelers on the northern 'roads' is often a cause for caution. You never know what monstrous man or beastly barbarian you'll come across next. This time it is a large man limping with a dog beside him. You draw your sword halfway out of its sheath and loud enough to gain his ear. The man looks up and his dog rears to the sudden yank of a leash. The northerner can speak a bit of your tongue.%SPEECH_ON%Ahh, fighters. I'm a fighter myself.%SPEECH_OFF%You ask why he is alone. He explains that his clan had a dispute, and that he was to duel another man to decide who would take control. You ask why he did not duel this man, you ask if he is afraid. The traveler shakes his head.%SPEECH_ON%No. The clansman was my brother. And I'd no desire to kill kin. They gave me this bitch here as both insult and reward and threw me from the tribe. I've no land or people to go to, but if you'd have me, I'd surely fight for you just as well as anyone else.%SPEECH_OFF%}"
+        ja = "%terrainImage%{南方と違い、北方の「街道」で旅人を見つけたときは警戒が要る。次に出会うのが怪物じみた男か、獣じみた蛮族か、知れたものではない。今回は犬を連れ、足を引きずる大男だった。あなたは剣を鞘から半ば抜き、わざと耳に届く音を立てる。男が顔を上げ、手綱を急に引かれた犬が身を起こす。北方人はあなたたちの言葉を少し話せた。%SPEECH_ON%ああ、戦士か。俺も戦士だ。%SPEECH_OFF%なぜ一人なのかと尋ねる。氏族で争いが起き、誰が支配権を握るか決めるため、別の男と決闘することになったのだという。なぜ戦わなかった、怖気づいたのかと問う。旅人は首を振る。%SPEECH_ON%違う。相手は俺の兄弟だった。血族を殺す気にはなれなかった。奴らは侮辱と褒美を兼ねて、この雌犬を俺に寄越し、氏族から追放した。もう行く土地も、帰る民もない。受け入れてくれるなら、ほかの誰にも劣らずあんたのために戦う。%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{Upon hearing some sellswords yelling at each other, you reluctantly set aside your quill pen and step outside your tent. There you find %hauntedbrother1% and %hauntedbrother2% in each other's faces - and between them they're pulling at the Grand Diviner's flail. What is being screamed between them are obscenities of a most graphic nature, and just as you're about to step in the flail glows a bright green and both sellswords drop the weapon to lunge at each other. The fight is ended fast, but not without injuries.}"
+        ja = "%terrainImage%{傭兵たちが怒鳴り合う声を聞き、あなたは渋々羽根ペンを置いて天幕の外へ出る。そこでは%hauntedbrother1%と%hauntedbrother2%が互いに顔を突き合わせ、その間で大占術師のフレイルを引っ張り合っていた。二人は目を覆いたくなるほど下劣な罵声を浴びせ合っている。あなたが割って入ろうとした瞬間、フレイルが鮮やかな緑に輝き、二人は武器を落として互いへ飛びかかった。喧嘩はすぐ止められたが、無傷では済まなかった。}"
+    }
+    {
+        en = "%terrainImage%{Walking, running, fighting, fucking, all good for a man's heart. The time spent traveling the land has improved the vitality and vigor of the men. You even caught one of the cheekier mercenaries flexing into pondwater, admiring his own reflection like some smirkin' wench. | All this running about the land has increased the stamina of the men. One runs in place, holding a finger to his neck. He remarks that his heart rate isn't going up at all. Another brother remarks that the guy doesn't even know how to count. The running man pauses.%SPEECH_ON%Oh. That's right.%SPEECH_OFF%}"
+        ja = "%terrainImage%{歩く、走る、戦う、女を抱く。どれも男の心臓にはいい。各地を旅してきた日々が、団員たちの生命力と活力を鍛え上げた。生意気な傭兵の一人が池の水面に向かって筋肉を誇示し、にやつく娘のように自分の姿へ見とれているところまで目にした。 | 各地を走り回ったおかげで、団員たちの持久力が増した。一人がその場で足踏みしながら首に指を当て、心拍がまるで上がらないと得意げに言う。別の団員が、そいつは数の数え方すら知らないぞと指摘する。走っていた男は動きを止める。%SPEECH_ON%ああ。そうだった。%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{When it comes to walking the earth, %travelbro% is longer in the tooth than anyone. He laughs at the plight of his fellow sellswords.%SPEECH_ON%Ah, now this is what I'm talking about! Nevermind the pain, men, embrace the soreness!%SPEECH_OFF%The company collectively tells him to stuff it, but the roadman happily wiggles his toes around. You didn't even realize he had his boots off before that, his feet are so calloused you thought the bony figures but folds of leather!}"
+        ja = "%terrainImage%{地上を歩くことなら、%travelbro%ほど年季の入った者はいない。彼は仲間の苦境を笑い飛ばす。%SPEECH_ON%ああ、これだよ、これ！　痛みなんか気にするな。筋肉痛を楽しめ、みんな！%SPEECH_OFF%傭兵団は声を揃えて黙れと言うが、旅慣れた男は楽しげに足の指を動かしている。靴を脱いでいたことにさえ気づかなかった。あまりに足裏が硬く、骨ばった形を革のひだだと思っていたのだ！}"
+    }
+    {
+        en = "%terrainImage%{While on the march, you find a drunken nobleman tottering side to side on the path. Mussy is the name of his hair, leaves and grass and what looks like birdshit swept up in it like someone stirred the ingredients to a prank. But his clothes sweep about with the finest of silks and his fingers glisten with jewelry. He has a bottle in each hand and he swings them around as he sings gibberish pub songs.\n\nHe is in all regards the greatest magnet for a mugging you've ever seen. %randombrother% purses his lips and he looks like a wolf staring at a fat sheep.%SPEECH_ON%I'm not saying nothing, sir, I'm just. I'm just seeing it. That's a lot of juice. A lot of juice limping down the road. But again I ain't saying nothing.%SPEECH_OFF%You know what he's talking about.}"
+        ja = "%terrainImage%{行軍中、道の上で左右によろめく酔っ払いの貴族を見つける。髪と呼ぶにはあまりに乱れ、草葉や、鳥の糞らしきものまで、悪戯の材料をかき混ぜたように絡まっている。だが身にまとうのは極上の絹で、指には宝石がきらめく。両手に瓶を一本ずつ持ち、意味不明な酒場歌を歌いながら振り回している。\n\nこれほど追い剥ぎを呼び寄せそうな男を見たことはない。%randombrother%は唇をすぼめ、肥えた羊を見つめる狼のような顔をしている。%SPEECH_ON%何も言ってませんよ、隊長。ただ、その……見えてるだけです。大した獲物が、大した獲物が道をふらついてる。でも、俺は何も言ってませんからね。%SPEECH_OFF%何を言いたいかはわかっている。}"
+    }
+    {
+        en = "%terrainImage%{While traveling the land, %birdbro% gets struck by birdshite. It hits his swordhand and splashes crosswise all over his armor.%SPEECH_ON%Aww, awwww!%SPEECH_OFF%His arms go wide like chicken wings as he looks at the damage.%SPEECH_ON%Bloody hell, just my luck!%SPEECH_OFF%}"
+        ja = "%terrainImage%{旅の途中、%birdbro%に鳥の糞が命中する。剣を握る手に当たり、鎧の上へ斜めに飛び散った。%SPEECH_ON%うわっ、うわああ！%SPEECH_OFF%被害を見た彼は、鶏の翼のように両腕を広げる。%SPEECH_ON%くそったれ、ついてねえ！%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{You come across a caldera the bottom of which you find a few sheep nuzzling something. As you draw close, you see that there is an enormous hound there, its fur matted with blood, its collar shredded, and its paws wiry where the claws have come apart. It regards you with a growl, but can't maintain it for long as it simply puts its head down with an exhausted huff. The sheep depart and beyond them you find a man leaning against a rock. His chest has been ripped open and whatever killed him did it with such force as to spray his innards all along the rocks. Following the trail, you do find a monstrous Nachzehrer whose throat has been ripped out. %randombrother% nods.%SPEECH_ON%I think that pup might be worth having in the company.%SPEECH_OFF%}"
+        ja = "%terrainImage%{窪地に出くわし、底では数頭の羊が何かへ鼻先を寄せている。近づくと、そこには巨大な猟犬がいた。毛皮は血で固まり、首輪は裂け、爪の剥がれた足先はささくれている。唸ってこちらを睨むが、長くは続かず、疲れ切った息を吐いて頭を伏せた。羊が離れ、その先には岩にもたれた男がいる。胸は引き裂かれ、殺した何かの力があまりに強かったのか、内臓が岩一面へ飛び散っている。痕跡を追うと、喉を食い破られた巨大なナハツェーラーが見つかった。%randombrother%がうなずく。%SPEECH_ON%あの犬なら、傭兵団に迎える価値がありそうですね。%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{You come across a man beside a hole in the ice. He's got a fishing pole next to him and, despite the environment, welcomes you warmly.%SPEECH_ON%Care to have a chat, traveler? You don't seem to be from these parts.%SPEECH_OFF% | A man wearing bear fur is cutting a hole in the ice. He looks at you just as the rim of his cuts drops and he punches it into the water.%SPEECH_ON%Come traveler, take ease beside me for a time. I'm harmless.%SPEECH_OFF%}"
+        ja = "%terrainImage%{氷に開いた穴のそばで男に出会う。傍らには釣り竿があり、こんな環境にもかかわらず、男は暖かく迎えてくれる。%SPEECH_ON%旅の人、少し話していかないか？　この辺りの者ではなさそうだ。%SPEECH_OFF% | 熊の毛皮を着た男が氷へ穴を開けている。切り取った縁が落ちると同時にこちらを見て、それを拳で水中へ押し込んだ。%SPEECH_ON%さあ旅人よ、しばしここで休んでいけ。俺は危害など加えない。%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{You come across a man holding the reins of a lanky horse whose mangy mane has seen better days. The horse has a grey beard forming and its got dry caliche lips smacking desperately for water. Seeing you, its owner waves.%SPEECH_ON%Come, come! I've a bet to make for those brave and fast enough to think they'll win it!%SPEECH_OFF%Curious, you ask what the bet is. The man pats the horse, a plume of dust lifting on the pat and you can see his handprint on the shoulder.%SPEECH_ON%Race m'horse! Not with another horse, mind, but your humanly legs! If you lose, you give me %reward% crowns. If you win, I'll pay you triple. You up for it?%SPEECH_OFF%}"
+        ja = "%terrainImage%{ひょろ長い馬の手綱を持つ男に出会う。馬のみすぼらしいたてがみは盛りをとうに過ぎ、灰色の顎鬚まで生え始めている。乾いて石灰のこびりついた唇を鳴らし、必死に水を求めていた。あなたを見ると、飼い主が手を振る。%SPEECH_ON%さあ、さあ！　勝てると思うほど勇敢で足の速い奴に、賭けを持ちかけよう！%SPEECH_OFF%何を賭けるのか尋ねる。男が馬を叩くと埃が舞い、肩には手形がくっきり残った。%SPEECH_ON%俺の馬と競走だ！　馬同士じゃないぞ、人間の脚で走るんだ！　負けたら%reward%クラウンを払え。勝ったら三倍にして返す。どうだ？%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{You come across a young traveler on the road. His straw hat is turned inside out as though he meant for it to catch rain. He's got a walking stick with its end shaved to a ball to navigate muddy roads. When you get near, he straightens up and tents his hands on the top of the staff.%SPEECH_ON%Oy', mercenaries are ye? I'd avoid the forests if I were ye. They say trees roam those parts now. They don't do so in menace, but neither does a motha' bear when it chows down on your balls for getting too close. It's a matter of nature, ye know?%SPEECH_OFF%Uh, sure. | A man is found beside the road reading some tomes. He looks up, turning one of the pages for you to see, displaying a drawing of a tree with long branches extended to the ground. The trunk is lit with eyes.%SPEECH_ON%They call 'em schrats. Trees that will claw and kill anything that gets close, but I don't think that's quite right. I don't think they're animals, I think they're calculating and smart monsters with a vengeful attitude toward matters of trespass. So don't trespass upon them, understand? Stay out of the forests.%SPEECH_OFF%Not in the mood for idle tree talk, you wish the man well in his studies and quickly move on. | An elderly woman carrying a basket crosses paths with your company. She gestures toward the goods, a pile of chopped firewood.%SPEECH_ON%If ye want some fyewood, aye, best stay clear of where I got it.%SPEECH_OFF%You ask what she means. She grins all wily like.%SPEECH_ON%A schrat in the forest watched me do it, gave me propuh permission to warm meself with this here tinder. Didn't give my uncle permission. It tore my uncle in half and hung his flesh. Peehaps ornamental value, ye know?%SPEECH_OFF%Er, of course.}"
+        ja = "%terrainImage%{街道で若い旅人に出会う。雨を受け止めるつもりなのか、麦藁帽子を裏返しに被っている。ぬかるんだ道を進むため、先端を球状に削った杖を持っていた。あなたたちが近づくと、男は背筋を伸ばし、杖の上で両手を山形に組む。%SPEECH_ON%よう、傭兵か？　俺なら森には近づかねえ。最近は木があの辺りを歩き回るって話だ。悪気があるわけじゃねえんだろうが、近づきすぎたお前の玉を母熊が食いちぎるのだって悪気じゃねえ。自然ってのはそういうもんさ、わかるだろ？%SPEECH_OFF%ああ、そうだな。 | 街道脇で書物を読む男を見つける。男は顔を上げると、一頁をこちらへ向けた。地面まで伸びた長い枝を持つ木が描かれ、その幹には無数の目が光っている。%SPEECH_ON%シュラートと呼ばれている。近づくものを爪で裂き、殺す木だ。だが、それだけではないと思う。獣ではない。計算高く知恵のある怪物で、縄張りを侵す者へ執念深く報復する。だから奴らの領分を侵すな。わかったか？　森には入るな。%SPEECH_OFF%木の話に付き合う気分でもなく、あなたは男の研究の無事を祈ると、足早に立ち去る。 | 籠を抱えた老女が傭兵団とすれ違う。女は中の品、薪の山を指さす。%SPEECH_ON%薪が欲しいならね、ああ、あたしがこれを取ってきた場所には近づかない方がいいよ。%SPEECH_OFF%どういう意味か尋ねる。老女は狡猾そうに笑う。%SPEECH_ON%森のシュラートが見てたんだよ。これで暖を取ることを、ちゃんと許してくれた。でも叔父さんには許さなかった。真っ二つに裂いて、肉を吊るしたんだ。飾りにしたかったのかもねえ、わかるだろ？%SPEECH_OFF%ああ、なるほど。}"
+    }
+    {
+        en = "%terrainImage%{You come to a watering hole. The well's walled exterior is embroidered with animal skulls and similarly stitched with their ribs. As you draw near, there's a faint hiss from the depths. Staring in, you see a tiny orange glow snaking left to right.%SPEECH_ON%You might want to try not looking down there.%SPEECH_OFF%You turn around to see a man dressed in rags. His hair is spiked backwards in black chevrons. Dark splotches pepper his face and he's got bruises on every fingernail and a tarred smile.%SPEECH_ON%It's about to blow.%SPEECH_OFF%}"
+        ja = "%terrainImage%{水場へたどり着く。井戸を囲む壁には動物の頭蓋骨が飾られ、肋骨も縫い付けるように並んでいる。近づくと、深みからかすかなシューという音が聞こえる。覗き込むと、小さな橙色の光が左右へ蛇行していた。%SPEECH_ON%そこは覗かない方がいいぞ。%SPEECH_OFF%振り返ると、ぼろをまとった男がいる。髪は黒い山形を描くように後ろへ逆立ち、顔には黒い染みが散り、すべての爪に痣があり、笑う歯は煤けている。%SPEECH_ON%もうすぐ吹き飛ぶ。%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{You dream of your mother. You had not seen her face in some time, and thought you'd forgotten it, the world having ground down most memories. She is as lovely as you'd expect, and she draws you in, hand about your hair, threading her fingers through it, the soft hiss of her touch met by the gentlest of whispers. And a moment later she offers a breast to you, and you reel back, unsure, and when you look up the Grand Diviner is there, grinning madly.%SPEECH_ON%Wombless, I ascend, sellsword. The grand nurturer...%SPEECH_OFF%A fleshy golem wraps its red appendages over his shoulders, coiling you up in its greasy grip.%SPEECH_ON%Find in my bosom the raw power of this world, sellsword! Let me mother you into the man you should have been!%SPEECH_OFF%With a snarl, you rip out of the dream and flip off your cot and hit the ground, gasping for air and slapping your face as if whatever dreamt of came back with you. The rest of the company is in an equal state of disrepair, every sellsword having been struck by the same nightmare. You glance over to inventory to see the Grand Diviner's flail bristling a bright green, then it fades from your stare, the slightest chuckle following it out...}"
+        ja = "%terrainImage%{母の夢を見る。その顔を長らく見ておらず、この世界に多くの記憶を削り取られ、もう忘れたと思っていた。母は思い描いたとおりに美しく、あなたを引き寄せる。髪へ置いた手の指が梳くたびに柔らかな音を立て、穏やかな囁きがそれに重なる。やがて母が乳房を差し出す。戸惑って身を引き、見上げると、そこには狂気の笑みを浮かべた大占術師がいた。%SPEECH_ON%子宮なき身で、我は昇華する、傭兵よ。偉大なる養育者へ……%SPEECH_OFF%肉塊のゴーレムが赤い肢をその肩へ回し、脂ぎった抱擁であなたを締め上げる。%SPEECH_ON%我が胸に、この世の剥き出しの力を見いだせ、傭兵よ！　お前がなるべきだった男へ、我が母として育ててやろう！%SPEECH_OFF%あなたは唸り声を上げて夢を引き裂き、寝台から転げ落ちて地面へ叩きつけられる。息を喘がせ、夢で見た何かが一緒に戻ってきたかのように顔を叩く。傭兵団の全員も同じ有様だ。すべての傭兵が同じ悪夢に襲われていた。荷物へ目をやると、大占術師のフレイルが鮮やかな緑の光を放っている。やがて光は視界から薄れ、かすかな含み笑いだけが後を追う……}"
+    }
+    {
+        en = "%terrainImage%{You elect %dumb%, the company's biggest idiot, to be your horse racing champion. The horse's owner takes one look at the man and raises an eyebrow.%SPEECH_ON%Well. Alright.%SPEECH_OFF%Rules of the race are clear: first to a distant apple tree is the winner. The man and animal line up on the track. Pretending that he knows what he's doing, %dumb% crouches in a tri-pointed stance. The horse owner yells and slaps his beast on the buttocks. %dumb% releases into a nice stride and shockingly gets ahead of the horse, but he's unable to handle his speed and tilts into the second lane and collides with the beast. The horse buckles at the knees and flips head over hind and %dumb% somehow ends up in the curve of its loins and on the flip around is catapulted through the air. It's a damned sight and one you'll surely never see again. The horse gets back to its feet and stares around confused while %dumb%'s unconscious body flies over the finish line. You turn your palms to the horse owner whose hands are gripping his head.%SPEECH_ON%By the old gods, man, are you not concerned for your sellsword?%SPEECH_OFF%}"
+        ja = "%terrainImage%{傭兵団きっての大馬鹿者%dumb%を、馬との競走の代表に選ぶ。馬主は男を一目見るなり片眉を上げる。%SPEECH_ON%まあ……いいだろう。%SPEECH_OFF%規則は明快だ。遠くのリンゴの木へ先に着いた方が勝つ。男と馬が走路に並ぶ。何か心得があるふりをして、%dumb%は三点支持の姿勢で身をかがめる。馬主が叫び、獣の尻を叩く。%dumb%は見事に飛び出し、驚いたことに馬の前へ出る。だが自分の速さを制御できず、隣の走路へ傾いて獣と衝突した。馬は膝から崩れ、頭と尻をひっくり返す。どういうわけか%dumb%はその腰のくぼみへ収まり、回転の勢いで宙へ射出された。まったく凄まじい光景で、二度と目にすることはないだろう。馬は立ち上がり、混乱して辺りを見回す。その間にも、意識を失った%dumb%の身体は決勝線の向こうへ飛んでいく。頭を抱える馬主へ、あなたは両掌を向ける。%SPEECH_ON%古き神々にかけて、お前は自分の傭兵が心配ではないのか？%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{You eye a traveler in the distance bobbing forth, slouched and crooning like a wingless gargoyle. His walking stick bobs and prods in front of him and even far away you hear the snicker and snacker of stones being tapped. You give an order for your men to hold and wait, letting the stranger come to you.\n\nWhen he finally nears, he looks up. At first, his nose is all that you see, the rest of him hidden in a cloak. He sniffs gingerly like a blind mole come across a bizarre impasse. Just as you begin to ask if the man is alright, he throws the cloak back, revealing himself. That which faces you is a tired figure. Hobbled. Sleepless days pinch creases about his eyes. Reddened cheeks spread as he smiles. He asks if he might stay with your party for a time. | A traveler hails your party from the roadside. He says he's on his way to %randomtown% but that he wouldn't mind a rest. The next question he has is an obvious one: he wonders if it'd be alright to stay with your party for the night. | A traveler carrying a cart of personal goods heads your way. You let him approach, holding your hand up to warn him to go no further. He states that he is a simple wanderer and that he's only looking to get to %randomtown%. First showing that he is completely unarmed, he asks if maybe he can stay the night with your company. | A whistling man ambles down the road, a cheery dog huffing at his side with its tongue aloll. Seeing your troop, he stabs his walking stick into the dirt and tents his hands atop it. Some small talk is made of the weather, notably that rain is in the belly of some oncoming clouds. He asks if mayhaps he could dodge the rain in the company of sellswords. A strange request, not one usually made to men who earn blood money. | A man walks the road with a shovel bobbing over one shoulder and a sack of dirt swinging in the other hand. When you inquire as to what he is doing, he says he's just buried his brother and he's on his way back to %randomtown%. The sack holds some of the dirt where his kin was laid to rest. Respectable. The man looks weary, as weary as a man who has buried his sibling would understandably be. Perhaps sensing your pitying gaze, he asks if maybe he can stay with your company for a time. | You spot a strange man hobbling along the road. He's dressed in a long cloak and he's got a knapsack yoked over one of his shoulders. His eyes stare at the ground until they come to your feet at which point he finally looks up. Seeing your company, the man is surprisingly unalarmed. In fact, he's quite receptive of your presence and asks if maybe he could spend the night with sellswords before continuing his journey to %randomtown%. | A man with a pitchfork is crossing a field where the crops have failed. His feet scuff up the deadened ground and you see tufts of ash being pitched wind-wise. When he gets to the road, you hail him down and ask where he's coming from. The man is a daytaler only trying to get back home. All the work around here is dried up, literally. Licking his cracked lips, the man wonders if maybe he could stay the night with your company. He certainly looks like he could use some rest, anyway. | A man carrying a bucket of tools crosses paths with your company. The roads seem ill-fit to place one man against a company of sellswords, and this stranger appraises the situation correctly by placing his wares down and putting his hands up.\n\nYou tell him to calm and ask where he is going. He explains that he is a mason from %randomtown%, but that his work there is done. He's only on his way back to his family located on a homestead a good day's walk from where you stand. Looking rather thirsty and tired, the man asks if maybe he could spend the night with your company to help him rest for the coming walk. | A figure appears on the horizon, blurred and shimmering in a heat haze. It appears to have paused, no doubt having seen you, too. With little fear, you press the men onward and soon come across a man toting a few bags of this or that. He's sitting down on the ground and doesn't bother getting up when you near. He explains he's been on the road for days and could use a good night's rest. Naturally, he asks if he can spend that rest in the company of your men. | You come across a man who is weak and weary. He explains that he has been searching for his lost dog, but that he's just about given up. Before he heads home, he wonders quite loudly if maybe a night's rest in your company could help him find the energy to seek out his mutt for one more day. | A man tracked by buzzards is found on the side of the road. He's not hurt or wounded, just exhausted. He asks with a cracking voice if maybe he could spend the night in the company of your men.}"
+        ja = "%terrainImage%{遠くに旅人の姿を見つける。翼のないガーゴイルのように前屈みで鼻歌を歌い、上下に揺れながら近づいてくる。杖が前方で上下し、地面を突く。はるか遠くからでも、石を叩く小刻みな音が聞こえる。あなたは団員たちへ止まって待てと命じ、見知らぬ者がこちらへ来るのを待つ。\n\nようやくそばまで来ると、男は顔を上げた。最初に見えたのは鼻だけで、残りは外套に隠れている。奇妙な障害物に出くわした盲目のモグラのように、おずおずと匂いを嗅ぐ。大丈夫かと尋ねかけた瞬間、男は外套を払い、姿を現す。こちらを向いたのは疲れ切った男だった。足を引きずり、眠れぬ日々が目の周りへ皺を刻んでいる。赤らんだ頬を緩めて笑うと、しばらく一行に置いてもらえないかと尋ねた。 | 街道脇の旅人が一行へ声をかける。%randomtown%へ向かう途中だが、休息も悪くないという。続く問いは予想どおりだった。今夜、あなたたちと一緒に過ごしてもよいかというのだ。 | 身の回りの品を積んだ荷車を引く旅人がこちらへ来る。近づかせ、片手を上げて、それ以上進むなと警告する。男はただの放浪者で、%randomtown%を目指しているだけだと話す。武器を何ひとつ持っていないところを見せてから、今夜、傭兵団と一緒に過ごせないかと尋ねる。 | 口笛を吹く男が街道をぶらついている。傍らでは、陽気な犬が舌を垂らして息を弾ませていた。部隊を見ると、男は杖を地面へ突き立て、その上で両手を山形に組む。天気について少し世間話をし、特に、迫る雲が雨を孕んでいると話す。そして、もしかしたら傭兵たちと一緒なら雨を避けられないかと尋ねる。血銭を稼ぐ男たちにするには、妙な頼みだ。 | 肩に担いだシャベルを上下させ、もう片方の手で土袋を揺らしながら、男が街道を歩いてくる。何をしているのか尋ねると、兄弟を埋葬したばかりで、%randomtown%へ戻るところだという。袋には、肉親を葬った場所の土が入っている。立派な心がけだ。男は疲れている。兄弟を埋めた者なら当然の疲れようだろう。憐れむ視線を察したのか、しばらく傭兵団と共にいられないかと尋ねる。 | 街道を足を引きずって進む奇妙な男を見つける。長い外套をまとい、片肩に背負い袋を掛けている。地面を見つめていた目があなたの足元へ届き、そこでようやく顔を上げた。傭兵団を見ても、意外なほど動じない。それどころか、こちらの存在をむしろ歓迎し、%randomtown%への旅を続ける前に、傭兵たちと一夜を過ごせないかと尋ねる。 | 作物の枯れた畑を、三叉鍬を持つ男が横切っている。足が死んだ土を擦るたび、灰の房が風に巻き上げられる。街道へ出たところで呼び止め、どこから来たのか尋ねる。男は家へ帰ろうとしているだけの日雇い労働者だった。この辺りの仕事は文字どおり干上がっている。ひび割れた唇を舐め、今夜、傭兵団と一緒に過ごせないかと尋ねる。いずれにせよ、休息が必要な顔をしている。 | 道具を入れた桶を運ぶ男が、傭兵団と行き合う。街道で一人、傭兵団と対峙するには分が悪すぎる。見知らぬ男も正しく状況を見極め、荷物を下ろして両手を上げた。\n\n落ち着けと言い、どこへ行くのか尋ねる。男は%randomtown%の石工だが、そこでの仕事は終わったという。今いる場所から一日ほど歩いた農家に家族がおり、そこへ帰るだけらしい。喉が渇き、疲れた様子の男は、これからの道に備えて休むため、今夜、傭兵団と一緒に過ごせないかと尋ねる。 | 地平線に人影が現れる。陽炎の中でぼやけ、揺らいでいる。向こうもこちらを見つけたのか、立ち止まったようだ。恐れることなく団員たちを進ませると、やがて雑多な袋をいくつか抱えた男と出会う。男は地面に座り込み、近づいても立ち上がろうとしない。何日も街道を歩き続け、ぐっすり一晩眠りたいという。当然のように、その休息を団員たちのもとで取れないかと尋ねる。 | 弱り、疲れ果てた男に出会う。行方不明になった犬を探してきたが、もう諦めかけているという。家へ帰る前に、傭兵団と一緒に一晩休めば、もう一日だけ犬を探す力が戻るだろうかと、やけに大きな声で尋ねる。 | 禿鷹につけ狙われる男を街道脇で見つける。怪我も傷もない。ただ疲れ果てている。ひび割れた声で、今夜、団員たちと一緒に過ごせないかと尋ねる。}"
+    }
+    {
+        en = "%terrainImage%{You find %hauntedbrother% staring into the Grand Diviner's flail. The glassy bulb is filled with mist, and the sellsword is raking his tongue to suck up the condensation. Hand to your sword, you ask what he's doing, and the man freezes, and his eyes open and he jerks back like a man snorting awake knowing he's late for work.%SPEECH_ON%Augh! What the fark? How did... I was sleeping, when... what the fark!%SPEECH_OFF%Some of the men have said the weapon has been murmuring when nobody's looking, and it seems every so often it does capture someone's ear...}"
+        ja = "%terrainImage%{%hauntedbrother%が大占術師のフレイルを覗き込んでいる。ガラス質の球は霧で満たされ、傭兵は舌を這わせて結露を舐め取っていた。剣へ手をかけ、何をしているのか尋ねる。男は凍りつき、目を見開くと、仕事に遅れたと悟って飛び起きる者のように身を引く。%SPEECH_ON%うわっ！　何だこりゃ？　どうして……俺は眠ってて、それで……何なんだよ！%SPEECH_OFF%誰も見ていないとき、武器が囁いていると話す者もいる。どうやら、ときおり誰かがその囁きに聞き入ってしまうらしい……}"
+    }
+    {
+        en = "%terrainImage%{You find a man beside the road churning leaves with a mortar and pestle. He's also chewing some of the goods himself and looks up at you with a green grin.%SPEECH_ON%I've dealt with the bugs and insects all m'life, but them webknechts are something else entirely. I ain't ever seen a bug move tha' fass. Scissorin' and zippin' forward, grabbin' dogs and cats and such, stealing them aways. You stay clear of them right bastard spiders, ye hear?%SPEECH_OFF%The stranger hocks a loogie and then gets on with his work as though you'd never come by at all. | A woman in the doorway of a homestead regards the company with a series of nods. With a mug in hand she points at you, sloshing her drink around just as much as her speech.%SPEECH_ON%Ah, spiderfood comin' thew? Eh? Well git, them eight legged farks ain't keen on a game of wait and see, they'll find ye as soon as they hungry, and they always hungry, yessir, always foamin' at the mouth with that poison of theirs, yessir yessir.%SPEECH_OFF%She throws back a mug and falls back into the home's doorway with a clunk and clatter. | You come across a young man up in a poplar tree. He's somehow managed to construct a tiny abode the size and shape of an outhouse up in the heights. Looking down at you, he nods.%SPEECH_ON%Yeah you are incredulous about me and this here tree, well let me tell ya, them webknechts come fast. Spiders the size of dogs! And you know what I say to that? Fuck all of it. You can find me in these here trees from now on and if those damn beasts grow wings I'll just up and off my ownself thank ye very much.%SPEECH_OFF%Webknechts seem to be driving the locals mad, though you can't really blame them.}"
+        ja = "%terrainImage%{街道脇で、乳鉢と乳棒を使って葉をすり潰す男を見つける。自分でもその葉を噛んでおり、緑色の歯を見せてこちらを見る。%SPEECH_ON%虫とは生まれてこのかた付き合ってきたが、あのウェブクネヒトどもはまるで別物だ。あんなに速く動く虫は見たことがねえ。鋏を鳴らして飛び出し、犬や猫なんかをひっつかんで、さらっていきやがる。あの忌々しい蜘蛛どもには近づくな。わかったか？%SPEECH_OFF%見知らぬ男は痰を吐くと、あなたなど最初から通らなかったかのように作業へ戻る。 | 農家の戸口に立つ女が、何度もうなずきながら傭兵団を見る。杯を手にあなたを指さし、酒と同じくらい言葉もこぼす。%SPEECH_ON%ああ、蜘蛛の餌が通るのかい？　ああ？　さっさと行きな。八本脚のくそったれどもは待っちゃくれないよ。腹が減りゃ、すぐお前らを見つける。いつだって腹を空かせて、毒で口から泡を吹いてるんだ。そうさ、そうとも。%SPEECH_OFF%女は杯をあおり、物音を立てて家の戸口へ倒れ込む。 | ポプラの木の上にいる若者を見つける。どうやったのか、便所ほどの大きさと形をした小屋を高所に組み上げている。こちらを見下ろし、男はうなずく。%SPEECH_ON%ああ、俺とこの木を見て信じられねえって顔だな。だが教えてやる、あのウェブクネヒトどもは速いぞ。犬ほどもある蜘蛛だ！　そんなものに俺が何と言うかって？　全部くそくらえだ。これから俺はずっと木の上にいる。あの化け物どもに翼が生えたら、自分で飛び降りておさらばするさ。ありがとよ。%SPEECH_OFF%ウェブクネヒトは土地の者たちを狂わせているようだが、責める気にはなれない。}"
+    }
+    {
+        en = "%terrainImage%{You look back at the company, then unsheathe your sword as you turn around. You swing it up and clip the crossbow and the man shoots it just over your shoulder. You drive the blade down the slat of wood and cut the cords of the weapon and stab the steel into the man's chest. He goes down easy and you hear men shout in the distance, but they're scared and scampering away. Thieves like this know not to fight with sellswords. Unfortunately, the crossbow bolt that went over your shoulder struck %hurtbro%. He'll survive, but it is a garish wound.}"
+        ja = "%terrainImage%{傭兵団を振り返り、それから向き直りざまに剣を抜く。振り上げた刃が弩へ当たり、男の放った矢はあなたの肩すれすれを飛び越える。木枠に沿って剣を振り下ろし、弦を断ち、そのまま男の胸へ鋼を突き刺す。男はあっけなく倒れ、遠くで何人かが叫ぶ。だが怯えきり、逃げ去っていった。この手の盗賊は、傭兵と戦ってはならないと心得ている。不運にも、肩を越えた弩の矢は%hurtbro%へ当たっていた。命は助かるが、見るも無惨な傷だ。}"
+    }
+    {
+        en = "%terrainImage%{You look back at the company, then unsheathe your sword as you turn around. You swing it up and clip the crossbow and the man shoots it just over your shoulder. You drive the blade down the slat of wood and cut the cords of the weapon and stab the steel into the man's chest. He goes down easy and you hear men shout in the distance, but they're scared and scampering away. Thieves like this know not to fight with sellswords. You collect whatever goods the man had already stolen up to this point.}"
+        ja = "%terrainImage%{傭兵団を振り返り、それから向き直りざまに剣を抜く。振り上げた刃が弩へ当たり、男の放った矢はあなたの肩すれすれを飛び越える。木枠に沿って剣を振り下ろし、弦を断ち、そのまま男の胸へ鋼を突き刺す。男はあっけなく倒れ、遠くで何人かが叫ぶ。だが怯えきり、逃げ去っていった。この手の盗賊は、傭兵と戦ってはならないと心得ている。男がそれまでに盗んでいた品を、残らず回収する。}"
+    }
+    {
+        en = "%terrainImage%{You move to take the hound, but as you crouch down one of the sheep bays and charges, knocking you over. The men laugh and by the time you get to your knees another sheep crushes you from behind to many cheers. Drawing out your sword emits a sharp twang that sends the sheep scurrying. When you look back at the hound its nose is to the dirt and its eyes peerless. It has died and the sheep slowly collect around it bleating and crying out. You sheathe your sword and tell the company to move on.}"
+        ja = "%terrainImage%{猟犬を引き取ろうと近づくが、しゃがんだところへ一頭の羊が鳴きながら突進し、あなたをなぎ倒す。団員たちが笑う。膝をつくころには別の羊が背後から押し潰し、大歓声が上がった。剣を抜く鋭い音に、羊たちは逃げ散る。猟犬を振り返ると、鼻は土に伏せられ、目から光が失われていた。死んだのだ。羊たちがゆっくり集まり、鳴き声を上げて嘆く。あなたは剣を納め、傭兵団へ先を急げと命じる。}"
+    }
+    {
+        en = "%terrainImage%{You nod.%SPEECH_ON%Quite alright. I'm assuming all that you got is counterfeit, aye?%SPEECH_OFF%The man nods.%SPEECH_ON%Of course. The finest fitting counterfeit this side of %townname% this is! But enough chin wagging shenanigans. Appreciate ya keeping this square, but we got work to do.%SPEECH_OFF%Nodding again, you wish him luck in them doings.}"
+        ja = "%terrainImage%{あなたはうなずく。%SPEECH_ON%それでいい。持っている物は全部偽物なんだろう？%SPEECH_OFF%男はうなずく。%SPEECH_ON%もちろんさ。%townname%界隈じゃ、これほど見事な偽物はない！　だが無駄話はここまでだ。筋を通してくれてありがたいが、こっちにも仕事がある。%SPEECH_OFF%もう一度うなずき、あなたは男の仕事の無事を祈る。}"
+    }
+    {
+        en = "%terrainImage%{You nominate %randombrother% to try and see if he can best the beast. The race's rules are first to the apple tree and before you can even begin to root for the sellsword the horse smokes him completely. It gets to the finish line and begins fishing the branches for apples. The company is sitting completely silent, but when %randombrother% crosses the finish line in a distant last place they roar with delight as though he just won the keys to the kingdom's finest whorehouse. The horse's owner laughs.%SPEECH_ON%Don't be hard on yerself, kind sir. The fun is in the chance.%SPEECH_OFF%Indeed it seems the spectacle of the man's efforts entertained the company.} "
+        ja = "%terrainImage%{%randombrother%を指名し、獣に勝てるか試させる。競走はリンゴの木へ先に着いた方が勝ちだ。傭兵へ声援を送る暇もなく、馬は男を完全に置き去りにする。決勝線へ着くと、枝を探ってリンゴを食べ始めた。傭兵団は静まり返っている。しかし、はるか後方の最下位で%randombrother%が決勝線を越えると、王国一の娼館の鍵を勝ち取ったかのような歓声を上げる。馬主が笑う。%SPEECH_ON%そう落ち込むな、旦那。勝負ってのは、挑むことが楽しいんだ。%SPEECH_OFF%確かに、男の奮闘ぶりは傭兵団を楽しませたようだ。} "
+    }
+    {
+        en = "%terrainImage%{You pat the man on his head, but tell him it's already over. He nods.%SPEECH_ON%Speak. For. Yourself. Mercenary.%SPEECH_OFF%He smiles again, but this time it does release. It sticks. Literally. And he leans forward and his eyes are open and do not blink and in this state he is gone. You get the men back on the road, or what one can make of a road in these snowed stretches.}"
+        ja = "%terrainImage%{男の頭を軽く叩きながら、もう手遅れだと告げる。男はうなずく。%SPEECH_ON%勝手に。決めるな。傭兵。%SPEECH_OFF%男はまた笑う。だが今度、その笑みは解けない。文字どおり凍りついた。前のめりになり、目を見開いたまま瞬きもせず、その姿勢で息絶える。あなたは団員たちを街道へ、少なくとも、この雪原で街道と呼べるものへ戻す。}"
+    }
+    {
+        en = "%terrainImage%{You reach out to the hound and it lifts it head to you as though you were another threat. Its eyes peer blackly from a long-matted mane that still drips with blood. The sheep, having seen what carnage this beast has already wrought, bay nervously as they watch you. But you won't be deterred. You put your hand forth, palm supinated, and the weary dog slowly lowers into it. You nod.%SPEECH_ON%There's more fight in you yet, friend.%SPEECH_OFF%}"
+        ja = "%terrainImage%{猟犬へ手を差し伸べると、また敵が現れたかのように頭を上げる。血を滴らせたまま長くもつれた毛の奥から、黒い目がこちらを窺う。この獣がもたらした惨状を見ていた羊たちは、不安げに鳴きながらあなたを見守っている。だが、ひるみはしない。手のひらを上にして差し出すと、疲れ切った犬はゆっくりと頭をそこへ沈める。あなたはうなずく。%SPEECH_ON%まだ戦えるさ、友よ。%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{You tell %birdbro% that being shit on is a part of life and get the company ready to get back on the road. But a modest %historian% comes up and tells the ill-fated sellsword to hold off on cleaning the shite. The historian takes a good look at the shite and then up at the bird which authored it.%SPEECH_ON%Yes, yes... I know that bird! That magical creature!%SPEECH_OFF%The men look up at the bird as though they were sealeagured sailors finding rarified land. %historian% points at %birdbro%.%SPEECH_ON%You got shat on by a red-and-blue mockingbird! That's all I wanted to say, really. I just hadn't seen one in awhile. You... you can clean it now.%SPEECH_OFF%The mercenaries stand slackjawed before bursting into laughter. %birdbro% grabs the historian and uses his sleeves to clean the shit off which brings more roars from the men.}"
+        ja = "%terrainImage%{糞を落とされるのも人生の一部だと%birdbro%へ言い、傭兵団に出発の支度をさせる。だが、控えめな%historian%が近づき、不運な傭兵へ、まだ糞を拭うなと告げる。歴史家は糞をじっくり観察し、それを落とした鳥を見上げる。%SPEECH_ON%そうだ、そうだ……あの鳥を知っているぞ！　あの不思議な生き物を！%SPEECH_OFF%団員たちは、長く海を漂った船乗りが、ようやく陸地を見つけたかのように鳥を見上げる。%historian%は%birdbro%を指さす。%SPEECH_ON%お前に糞を落としたのは、赤と青のマネシツグミだ！　言いたかったのはそれだけだ。しばらく見ていなかったものでな。もう……拭いていいぞ。%SPEECH_OFF%傭兵たちは呆気に取られ、それから一斉に笑い出す。%birdbro%は歴史家をつかみ、その袖で糞を拭う。団員たちの笑い声がさらに大きくなる。}"
+    }
+    {
+        en = "%terrainImage%{You tell the monk to stand down. He shrugs and returns to your side. When you look back at the man you realize he's lit a fire and watch just as he leaps into the well.\n\n The explosion blows out your ears and puts you on the ground. The earth rolls beneath you in tremble that can be felt through the deafness which you are now submerged. A pluming cloud of fire spears into the sky and growls with the clinking and clanking of metals and the dull plops of leather and other goods, and you roll to your belly and cover your head as it all comes down like the scraps of some god's hellstorm.\n\n Absolutely none of the debris is of any use. As for the man himself, well, he got his wish. He no doubt died in the blink of an eye, all that remains are charred chunks here and there and broiled lungs and seared strips of sinews and more. You check to make sure your eyebrows are still there and, satisfied, prepare to move on.}"
+        ja = "%terrainImage%{あなたは修道士へ、手を引けと命じる。修道士は肩をすくめ、あなたの側へ戻る。男を振り返ると、すでに火をつけていた。そして見ている前で井戸へ飛び込む。\n\n 爆発が耳を潰し、あなたを地面へ叩き倒す。音の消えた世界に沈む中でも、大地のうねりと震えだけは全身に伝わる。噴き上がる火柱が空を貫き、金属の甲高い音、革や雑貨の鈍い落下音を伴って唸る。あなたは腹ばいになって頭を抱え、神が降らせた地獄の嵐の残骸さながらに降り注ぐ品々をやり過ごす。\n\n 瓦礫は何ひとつ使い物にならない。男自身については、まあ、望みは叶った。瞬きする間に死んだのだろう。残ったのは、あちこちに散った黒焦げの肉片、焼けた肺、炙られた腱の切れ端などだ。あなたは眉毛がまだ付いていることを確かめ、満足して先へ進む支度をする。}"
+    }
+    {
+        en = "%terrainImage%{You walk up to the man and help him sit down. He grins as one of his bottles clanks off the path and rolls away.%SPEECH_ON%Thankiicup, sir, jast, no, well, ya.%SPEECH_OFF%Nodding, you hold his hand out and spit on his fingers, then roll the jewelry off and pocket them. He merely watches as though you were a physician treating a malady. The rest of your mercenaries strip him down and throw a goatskin tarp over him and then leave him there. As you walk away he asks if you know about the drink.%SPEECH_ON%Not, not sayin' away the secret, but, sirs, drinks are good.%SPEECH_OFF%Yes, are they ever. Unfortunately, as you rejoin the company %randombrother% reports that a kid saw everything and scampered off. You ask why he didn't chase after him. He looks at you shrewdly.%SPEECH_ON%I'm not the scampering sort, sir.%SPEECH_OFF%}"
+        ja = "%terrainImage%{男へ歩み寄り、座るのを手伝う。瓶の一本が街道へぶつかって転がり去ると、男はにやつく。%SPEECH_ON%ありぐひっく、旦那、ただ、いや、その、な。%SPEECH_OFF%あなたはうなずき、男の手を取ると指へ唾を吐き、宝石を抜き取って懐へ入れる。男は、病を診る医者でも見るように、ただ眺めている。ほかの傭兵たちは服を剥ぎ、山羊皮の覆いを掛けて、その場へ残す。立ち去るあなたたちへ、男は酒について知っているかと尋ねる。%SPEECH_ON%ひ、秘密を、ばらす気はねえが、旦那、酒はうまいぞ。%SPEECH_OFF%まったくだ。ところが傭兵団へ戻ると、子供が一部始終を見て逃げたと%randombrother%が報告する。なぜ追わなかったのか尋ねると、男は抜け目のない顔をする。%SPEECH_ON%俺はちょこまか走る柄じゃありません、隊長。%SPEECH_OFF%}"
+    }
+    {
+        en = "%terrainImage%{You walk up to the man and, startled, he reels back with a hiccup.%SPEECH_ON%Oy, who are ye?%SPEECH_OFF%Telling him you're a good friend, you approach to rob him of everything, but as you take another step his eyes clear and he drops both bottles and suddenly reaches into his coat and pulls out a crossbow.%SPEECH_ON%Not another step you lout. I got men yonder who are watching. I don't want no trouble. We ain't keen on getting squirrely with sellswords. We're here to rob travelers, no good travelers at that, choosing to rob a drunk! Now why dontcha just get on down the road and we all leave without impasse upon our purposes.%SPEECH_OFF%The crossbow crickets as its wood shakes in his loose grip.}"
+        ja = "%terrainImage%{男へ歩み寄ると、不意を突かれた男はしゃっくりをしながら後ずさる。%SPEECH_ON%おい、お前ら何者だ？%SPEECH_OFF%親しい友人だと答え、身ぐるみを剥ごうと近づく。だが次の一歩を踏み出すと、男の目が澄み、両方の瓶を落とし、突然上着から弩を抜いた。%SPEECH_ON%それ以上近づくな、間抜け。向こうで仲間が見張ってる。面倒はごめんだ。傭兵相手に荒事を起こす気はねえ。俺たちは旅人を襲いに来たんだ。それも、酔っ払いを襲おうとするようなろくでなしの旅人をな！　さあ街道を進め。そうすりゃ、互いの仕事を邪魔せず別れられる。%SPEECH_OFF%緩んだ手の中で木枠が震え、弩が小刻みに鳴る。}"
+    }
+    {
+        en = "%terrainImage%{You're sure %wildman% the Wildman has seen a hive or two in his time estranged to the forests. He grunts and points at the beehive and then at himself. You nod. He grunts again and goes up the sand dune to the tree while you watch from a safe distance. When he stands beneath the hive, he hoots again, cupping his hand over his mouth to make sure you hear him. He points at the beehive. You nod again and point aggressively at the hive. It's the only beehive for miles, what could possibly be so confusing about this? \n\n The Wildman turns toward the beehive. He cocks an arm back. That... that is not what you wanted to see. He sizes up the beehive, tongue out, eyes slimmed. You rush forward, yelling at him, but he's already honed in. He launches a fist and absolutely obliterates the bees. Honeycombs stickily flail around his wrist as though his hairy arm were an impromptu maypole. The Wildman casually walks back down the sand dune. As he nears, you see bees crawling all over his face and stinging away like the pissed off savages that they are, but he doesn't seem to even sense their presence. He holds out the crunchy remains of his honeyed demolition as though he held the heart of a ferocious beast.}"
+        ja = "%terrainImage%{森で人里を離れて暮らしてきた野人%wildman%なら、これまで巣を一つや二つ見たことがあるはずだ。男は唸り、蜂の巣を指してから自分を指す。あなたはうなずく。もう一度唸ると、野人は砂丘を上って木へ向かい、あなたは安全な距離から見守る。巣の下に立つと、また声を上げ、聞こえるよう口へ手を添える。そして蜂の巣を指す。あなたはまたうなずき、強く巣を指さす。見渡す限り、蜂の巣はこれ一つしかない。何をそんなに迷うことがある？ \n\n 野人は蜂の巣へ向き直り、腕を後ろへ引く。そ、それは見たくなかった動きだ。舌を出し、目を細めて蜂の巣へ狙いをつける。あなたは前へ駆け出し、叫ぶ。だが、すでに狙いは定まっていた。拳を放ち、蜂の巣を跡形もなく粉砕する。毛深い腕が即席の五月柱にでもなったように、蜂蜜まみれの巣板が手首の周りで粘つきながら揺れている。野人は平然と砂丘を下りてくる。近づくと、顔中を蜂が這い、怒り狂った蛮族さながらに次々と針を刺しているのが見える。だが男は、その存在すら感じていないようだ。凶暴な獣の心臓を掲げるかのように、蜂蜜まみれの破壊の残骸を差し出す。}"
+    }
+    {
+        en = "%terrainImage%{You've heard of such snakes killing men outright. With that threat on the table, you do not feel it worth the trouble and leave the treasure behind.}"
+        ja = "%terrainImage%{この手の蛇は、人をたちどころに殺すと聞いたことがある。危険を冒す価値はないと判断し、財宝を残して立ち去る。}"
+    }
+    {
+        en = "%thief%, you used to be a thief. Get us that map!"
+        ja = "%thief%、お前は昔、盗賊だったな。あの地図を手に入れろ！"
+    }
+    {
+        en = "%townImage%%doghandler% asks you to enter %wardog% into a local dog fighting circle. That sounds like an awful idea, but the man goes on to explain that a lot of money stands to be made in dogfighting. All the doghandler needs is an ante of two hundred crowns."
+        ja = "%townImage%%doghandler%が、%wardog%を地元の闘犬場へ出したいと言い出す。ひどい考えにしか聞こえないが、男は闘犬なら大金を稼げると説明する。犬使いが必要としているのは、掛け金の200クラウンだけだ。"
+    }
+    {
+        en = "%townImage%%peacekeeperfull% places himself between %troublemaker% and the old man. He shakes his head 'no' in a very modest fashion, but you can't help but notice that his swordhand is also on the pommel of his weapon. The troublemaking sellsword briefly seems to consider cutting the man down, but then a smile snaps across his face. He laughs as he sheathes his weapon.%SPEECH_ON%Only having a bit of fun, my brother.%SPEECH_OFF%The peasants slowly start going about their business again, but they are wary and stare side-eyed at your men for the rest of your duration in %townname%."
+        ja = "%townImage%%peacekeeperfull%が%troublemaker%と老人の間へ割って入る。控えめに首を横へ振って「駄目だ」と示すが、剣を握る手が柄頭に置かれていることにも気づく。乱暴者の傭兵は、一瞬その男を斬り捨てようか考えたようだ。だが、顔へ不意に笑みを浮かべ、笑いながら武器を鞘へ戻す。%SPEECH_ON%ちょっと楽しんでいただけだ、兄弟。%SPEECH_OFF%農民たちはゆっくりと仕事へ戻る。しかし警戒は解かず、%townname%に滞在する間ずっと、団員たちを横目で睨んでいた。"
+    }
+    {
+        en = "%townImage%%peacekeeperfull% steps in between %troublemaker% and the old man. The troublemaking sellsword laughs and sheathes his weapon. He turns back to the rest of the company, grinning and shaking his head, but you notice that this smile quickly fades. Before you can say anything, %troublemaker% wheels a fist back around and knocks %peacekeeper% out cold.\n\n Well, that's one way to mollify a mercenary."
+        ja = "%townImage%%peacekeeperfull%が%troublemaker%と老人の間へ割って入る。乱暴者の傭兵は笑って武器を鞘へ戻す。にやつきながら首を振り、傭兵団へ向き直る。だが、その笑みがすぐ消えたことに気づく。何か言うより早く、%troublemaker%は拳を振り回し、%peacekeeper%を殴って気絶させた。\n\n なるほど、傭兵をなだめる方法としては一つの手だ。"
+    }
+    {
+        en = "%townImage%As %troublemaker% raises his weapon on high, you grab him by the forearm and bring it back down. He swings around, looking at you sternly. The cowering old man backs off, soon collected by caretakers that shuttle him back inside before he gets himself hurt.\n\nA few other peasants linger around, watching with keen interest. You tell the sellsword to back down. He's paid to fight who you deem he should fight, not a bunch of peasants who are minding their own.\n\n As %troublemaker% glances around, you realize you've left him no 'out' that will save face. In his eyes, there is a look that says he's about to kill you. It'd be the end of him, but he'd go out with his suicidal pride intact. But the look fades, and embarrassment and humiliation take its place. He sheathes his weapon, spits, and remarks that he was only having some fun."
+        ja = "%townImage%%troublemaker%が武器を高く振り上げたところで、あなたは前腕をつかんで引き下ろす。男は勢いよく振り向き、険しい目であなたを見る。身を縮めていた老人は後ずさりし、世話役たちが引き取り、怪我をする前に屋内へ連れ戻す。\n\nほかにも何人かの農民が残り、強い関心を示して見守っている。あなたは傭兵へ手を引けと命じる。金を払っているのは、あなたが戦うべきと判断した相手と戦わせるためであり、何もせず暮らしている農民を相手にさせるためではない。\n\n %troublemaker%が辺りを見回す。そこであなたは、面目を保って引き下がれる逃げ道を何ひとつ残さなかったことに気づく。その目は、今にもあなたを殺そうとしていると語っている。そうすれば男も終わりだが、自滅的な誇りだけは守って死ねる。だが殺気は消え、代わりに羞恥と屈辱が浮かぶ。男は武器を鞘へ納め、唾を吐き、少し楽しんでいただけだと言う。"
+    }
+    {
+        en = "%townImage%Civilization is no place for a wildman like %wildman% and he quickly proves it.\n\nApparently, the damned man went crazy while in a shop and trashed the whole place. As the story goes, he just walked in and started taking things, not quite understanding the social norms of paying for goods. The shop owner then came after him with a broom, trying to shoo the man out of his store. Believing the broom a monster, the wildman proceeded to go completely crazy. Judging by the reports, it was quite the commotion, up to and including shite throwing.\n\nNow the shop owner is in your face demanding compensation for the damage done. Apparently he's wanting %compensation% crowns. Behind him, a few town militia stand with very watchful eyes."
+        ja = "%townImage%文明社会は%wildman%のような野人に向く場所ではない。男はたちまちそれを証明した。\n\nどうやら、あの忌々しい男は店で突然暴れ出し、店内をめちゃくちゃにしたらしい。話によれば、店へ入るなり品物を勝手に取り始め、代金を支払うという社会の決まりを理解していなかった。店主は箒を手に男を追い、店から追い払おうとした。箒を怪物だと思った野人は、完全に我を失った。報告を聞く限り、糞まで投げつける大騒ぎだったようだ。\n\n今や店主は、損害を弁償しろと目の前で迫っている。どうやら%compensation%クラウンを要求しているらしい。その背後では、数人の民兵が厳しい目を向けている。"
+    }
+    {
+        en = "%townImage%Entering %townname%, it isn't long until %troublemaker% is bothering the locals. He's slapping buckets out of their hands and kicking women into the mud. When an old man confronts him, the sellsword draws out his weapon. Other peasants beg that you put a stop to this at once."
+        ja = "%townImage%%townname%へ入ると、間もなく%troublemaker%が住民へちょっかいを出し始める。手にした桶を叩き落とし、女たちを泥へ蹴り倒す。老人が立ちはだかると、傭兵は武器を抜いた。ほかの農民たちは、今すぐ止めてくれと懇願する。"
+    }
+    {
+        en = "%townImage%Following the man's torch through the dark, you come to a building with a sliding portal at its door. The stranger gives the door a pattern of knocks and it pops open as if commanded by the final rap. You are ushered in, leering faces watching from the side as you enter. Immediately, you hear the unsettling din of snarling and barking. This is what you are here for, right?\n\n Stairs lead you to the pits where a crowd huddles around a makeshift arena of dirt and wobbly fenceposts. The action can't be seen yet, but off to the side are a pile of dead dogs and beside them sit their killers, eyes wild, blood frothing mouths agape in horrified panting. As two dogs clash in the arena, you glance at %doghandler%."
+        ja = "%townImage%男の松明を追って暗闇を進み、戸口に滑り窓のある建物へ着く。見知らぬ男が決まった調子で戸を叩くと、最後の一打を命令としたかのように窓が開く。中へ通される間、脇から下卑た顔がこちらを見つめる。たちまち、不穏な唸り声と吠え声が聞こえてくる。これを見に来たのだろう？\n\n 階段を下りると闘技場があり、人だかりが土とぐらつく柵柱で作った即席の囲いを取り巻いている。試合はまだ見えない。だが脇には死んだ犬が山積みされ、その傍らには殺した犬たちが座る。目を血走らせ、血で泡立つ口を開き、恐ろしい息を荒げている。二頭の犬が囲いの中でぶつかり合う。あなたは%doghandler%へ目をやる。"
+    }
+    {
+        en = "%townImage%Surveying the damage, you agree to compensate the businessman. But this isn't your fault, it's the wildman's. You dock his pay: for some time to come, the mercenary's earnings will be halved. Furthermore, you take what earnings he's made and hand them over to the shop owner. It doesn't even begin to cover the damages, but it's a start. One man is left happy, and another quite disgruntled.\n\nYou tell the wild cretin that now he'll think twice about smearing shit all over someone else's walls. But the wildman doesn't seem to understand you. He just understands that the gold he once owned has been given to someone else, and he eyes its departure with sadness and bottled anger."
+        ja = "%townImage%損害を確認し、商人へ弁償することに同意する。だが、これはあなたの責任ではない。野人の責任だ。男の賃金を差し引き、しばらくの間、報酬を半分にする。さらに、これまでの稼ぎを取り上げて店主へ渡す。損害には遠く及ばないが、手始めにはなる。一人は満足し、もう一人は大いに不満を抱いた。\n\n他人の壁へ糞を塗りたくる前に、これからは二度考えることになるぞと、あなたは野蛮な愚か者へ告げる。だが野人には通じていない。かつて自分のものだった黄金が他人へ渡ったことだけは理解し、悲しみと押し殺した怒りを目に浮かべ、その行方を見送る。"
+    }
+    {
+        en = "%townImage%Walking about %townname% with a few sellswords, you turn a corner to find an opulent man surrounded by thieves and bandits. They look over their shoulders and widen their eyes. One nicks the merchant on the cheek.%SPEECH_ON%Alright, we'll get you next time ya bastard!%SPEECH_OFF%The scoundrels quickly make their leave. A moment later and the merchant's heavily-armed guards appear. Nursing his wound, he starts yelling at them.%SPEECH_ON%What am I paying you for you sorry bastards? The second I get into trouble and you're nowhere to be seen? Look at this man here, that's who I should be paying! Hey, take this for your troubles, stranger.%SPEECH_OFF%The merchant throws you a satchel of crowns for your 'trouble,' though all you did was turn a corner and run into a coincidence."
+        ja = "%townImage%数人の傭兵を連れて%townname%を歩いていると、角を曲がった先で、着飾った男が盗賊や追い剥ぎに囲まれている。奴らは肩越しにこちらを見て、目を見開く。一人が商人の頬を浅く切る。%SPEECH_ON%わかった、次こそ捕まえてやるからな、くそ野郎！%SPEECH_OFF%悪党どもは急いで立ち去る。その直後、重武装した商人の護衛たちが現れる。傷を押さえながら、商人は怒鳴りつける。%SPEECH_ON%何のために金を払っていると思ってるんだ、この役立たずども！　俺が面倒に巻き込まれた途端、どこにもいやしない！　ここにいる御仁を見ろ。金を払うならこの方だ！　さあ、手間をかけた礼だ。受け取ってくれ。%SPEECH_OFF%商人は「手間」への礼としてクラウンの入った革袋を投げて寄越す。もっとも、あなたは角を曲がり、偶然この場へ出くわしただけだ。"
+    }
+    {
+        en = "%townImage%While walking about %townname%, you run into an old man dragging a youthful man by the ear.%SPEECH_ON%You want to be a master, it takes time! Blood! Sweat! Tears if yer of the cryin' sort and there's no shame in that if ya are. Here, look! A sellsword! If you want to fight so bad, why not go to him?%SPEECH_OFF%You hold your hands out and ask for an explanation before getting offloaded some annoying git. The elderly man calms himself and lets the kid's ear go.%SPEECH_ON%Aye, I suppose you are owed more of an explanation. I'm the fencing master of this town, but I teach discipline and patience before anyone so much can touch a sword! And this damned student of mine has neither! So I told him, if you want to fight so bad, get the hell out!%SPEECH_OFF%You look at the kid. He's got a fresh face, but there is in fact some impatient eagerness in his eyes. You ask him if what the swordmaster says is true. The kid nods.%SPEECH_ON%Yessir. And I'd be more than happy to fight for you, too.%SPEECH_OFF%"
+        ja = "%townImage%%townname%を歩いていると、若者の耳を引っ張って歩く老人に出会う。%SPEECH_ON%達人になるには時間が要る！　血も！　汗も！　泣き虫なら涙もだ。泣いたって恥じゃない！　ほら、見ろ！　傭兵だ！　そんなに戦いたいなら、あの男についていけばいいだろう？%SPEECH_OFF%厄介者を押しつけられる前に、説明しろと両手を上げる。老人は気を落ち着け、若者の耳を放す。%SPEECH_ON%ああ、もう少し説明する義理はあるな。俺はこの町の剣術師範だ。だが、誰であろうと剣に触れるより先に、規律と忍耐を教える！　この忌々しい弟子には、どちらもない！　だから言ってやった。そんなに戦いたいなら出ていけ、とな！%SPEECH_OFF%若者を見る。まだ幼さの残る顔だが、その目には確かに抑えきれない焦りがある。師範の話は本当かと尋ねる。若者はうなずく。%SPEECH_ON%はい、旦那。それに、あなたのためなら喜んで戦います。%SPEECH_OFF%"
+    }
+    {
+        en = "%townImage%You push the shop owner away, telling him that you owe nothing. When he jumps forward again, your hand deftly moves to the pommel of your sword, stopping the man in one swift motion. He raises his hands up, nodding as he backs off. A few townspeople see this and skirt by, trying to avoid your gaze. The militiamen notice, but they seem uncertain on whether to take action or not."
+        ja = "%townImage%店主を押し返し、何も払う義理はないと告げる。男が再び前へ飛び出すと、あなたの手が素早く剣の柄頭へ移る。その一動作で男は足を止めた。両手を上げ、うなずきながら後ずさる。何人かの町人がそれを見て、視線を避けながら遠巻きに通り過ぎる。民兵たちも気づくが、行動すべきか迷っているようだ。"
+    }
+    {
+        en = "%townImage%You shrug. %troublemaker% doesn't run the old man through, but he does threaten to, raising the weapon on high. When the old man cowers, the sellsword delivers a punch that knocks the elderly right out, his teeth peppering the muck like spits of white rain. This brings a few jeers from the villagers, but they know not to contest your presence any further.\n\nA few men drag the elder away while children boo and women hiss. One child even runs up to the sellsword, pointing at him as he yells 'he's a bad man.' %troublemaker% shrugs as he sheathes his weapon.%SPEECH_ON%And yet the bad man still stands. Would you also like a taste of the mud, little one?%SPEECH_OFF%The kid quickly runs off."
+        ja = "%townImage%あなたは肩をすくめる。%troublemaker%は老人を刺し貫きはしないが、武器を高く掲げて脅す。老人が身を縮めると、傭兵は拳を叩き込み、老人を気絶させた。抜けた歯が白い雨粒のように泥へ散る。村人たちから罵声が上がるが、これ以上あなたたちへ逆らうべきではないと知っている。\n\n何人かの男が老人を引きずっていく。子供たちは野次を飛ばし、女たちは声を上げて非難する。一人の子供が傭兵へ駆け寄り、指さしながら「悪い奴だ」と叫ぶ。%troublemaker%は肩をすくめ、武器を鞘へ納める。%SPEECH_ON%それでも悪い奴は立っている。お前も泥の味を知りたいか、坊主？%SPEECH_OFF%子供は急いで逃げ去る。"
+    }
+    {
+        en = "%townImage%You take a purse of crowns and follow %doghandler% through a wind of darker and darker streets. Soon enough, there isn't much to see. Wet cobblestones, licked white by strobes of moonlight, lazily guide you into what depths the city hides from those who prefer the day. Suddenly, a torch flares up and a man's face, afloat and disembodied in the dark, speaks out to you.%SPEECH_ON%That dog here for da'fights?%SPEECH_OFF%%doghandler% nods. The stranger tilts the torch forward.%SPEECH_ON%Alright then. Right this way, gen-teel-men. Watch yer step. All manner of piss goes downhill.%SPEECH_OFF%"
+        ja = "%townImage%クラウンの袋を手に、%doghandler%について、次第に暗さを増す街路のうねりを進む。やがて、ほとんど何も見えなくなる。月光の筋に白く舐められた濡れた石畳が、昼を好む者へ町が隠す深みまで、物憂げに導いていく。不意に松明が燃え上がり、暗闇へ顔だけが浮かんだ男が話しかける。%SPEECH_ON%その犬、試合に出すのか？%SPEECH_OFF%%doghandler%がうなずく。見知らぬ男は松明を前へ傾ける。%SPEECH_ON%よし。こっちだ、紳士諸君。足元に気をつけな。あらゆる小便が坂を流れてくる。%SPEECH_OFF%"
+    }
+    {
+        en = "%townImage%{A boy suddenly runs up to the company. He practically gloms onto %oathtaker%'s leg and the Oathtaker's countenance takes on an appearance of confusion. He asks the runt if he is lost. The boy springs back.%SPEECH_ON%Lost? No, I'm not lost! I thought I'd never see your sort again, the vaunted Oathbringers!%SPEECH_OFF%%oathtaker%'s eye twitches, his hands tightens around the handle of his weapon. You're not sure when his screaming started and when the boy ended up on the ground with a blackened eye, but the righteous rage cracked from the Oathtaker like a bolt of holy fury, and you watch as he pushes the boy into the mud screaming and frothing that he is an Oathtaker, not some horrible, ugly, and inglorious Oathbringer, and he smooshes the boy's face into the grass and drags him into a pile of horse dung and sleds him across the road on the rolls of ordure until the boy cries out and runs for his life. Finished, %oathtaker% straightens up, affixing his attire, regirding his disheveled weaponry.%SPEECH_ON%Let us leave this hellhole of filthy degenerates, captain.%SPEECH_OFF%As he struts off, you turn around to see the townspeople staring at you in horror.}"
+        ja = "%townImage%{突然、少年が傭兵団へ駆け寄ってくる。%oathtaker%の脚へまとわりつき、誓約者は困惑した表情を浮かべる。迷子かと尋ねると、少年は跳び退く。%SPEECH_ON%迷子？　違うよ！　もう二度と会えないと思ってたんだ。名高きオースブリンガーに！%SPEECH_OFF%%oathtaker%の目元が引きつり、武器の柄を握る手へ力がこもる。いつ怒鳴り始め、いつ少年が目の周りを黒く腫らして地面へ倒れたのか、あなたにはわからなかった。正義の怒りが、聖なる憤怒の雷のように誓約者から炸裂する。俺は誓約者であり、あの醜く、不名誉で、おぞましいオースブリンガーではないと泡を飛ばして叫びながら、少年を泥へ突き倒す。その顔を草へ押しつけ、馬糞の山へ引きずり込み、糞塊の上へ乗せて街道を滑らせる。少年は悲鳴を上げ、命からがら逃げ去った。気が済むと、%oathtaker%は背筋を伸ばし、服装を整え、乱れた武具を締め直す。%SPEECH_ON%隊長、この汚らわしい堕落者どもの地獄から立ち去りましょう。%SPEECH_OFF%男が大股で立ち去る。振り向くと、町人たちが恐怖に満ちた目であなたを見つめている。}"
+    }
+    {
         en = "%walker%, you've travelled up there. Say something."
         ja = "%walker%、お前はあそこまで旅したことがあるな。何か言ってやれ。"
     }
     {
+        en = "%witchhunter%, do you know this man?"
+        ja = "%witchhunter%、この男を知っているか？"
+    }
+    {
         en = "1 day"
         ja = "1日"
+    }
+    {
+        en = "A Band of Poachers"
+        ja = "密猟者の一団"
     }
     {
         en = "A Direwolf's frenzy and bloodlust can be attributed to substances produced by this gland. Someone, somewhere will probably have a use for it."
@@ -6971,8 +7183,16 @@
         ja = "簡素なメイルシャツ。斬撃と刺突に対し、手頃な価格で十分な防護を得られる。"
     }
     {
+        en = "A better bargain!"
+        ja = "もっと有利な取引だ！"
+    }
+    {
         en = "A big harbor city relying on trade and fishing, and an important hub for travellers arriving or leaving by ship."
         ja = "交易と漁業で成り立つ大きな港湾都市で、船で訪れる者や旅立つ者にとって重要な中継地でもある。"
+    }
+    {
+        en = "A bit messier than expected..."
+        ja = "予想より少し面倒なことになった……"
     }
     {
         en = "A blow to the neck injured the windpipe, making it very hard and painful to draw breath, let alone to keep fighting."
@@ -7015,6 +7235,10 @@
         ja = "リントヴルムの鱗で作られた外套。希少で目を引く戦利品というだけでなく、防御力も高め、腐食性のリントヴルムの血にも侵されない。"
     }
     {
+        en = "A close call."
+        ja = "危ないところだった。"
+    }
+    {
         en = "A closed metal helm with breathing holes. Great in the way of protection but hard to breathe in and limiting the field of view."
         ja = "通気孔を備えた密閉式の金属兜。防護には優れるが、息苦しく、視野も狭まる。"
     }
@@ -7027,12 +7251,32 @@
         ja = "樹皮と木から成る怪物。木々に紛れ、地中へ根を食い込ませながら、ゆっくりと歩き回る。"
     }
     {
+        en = "A damn shame."
+        ja = "まったく残念だ。"
+    }
+    {
+        en = "A death in battle for %hedgeknight1%, at least."
+        ja = "少なくとも、%hedgeknight1%は戦いの中で死ねた。"
+    }
+    {
+        en = "A death in battle for %hedgeknight2%, at least."
+        ja = "少なくとも、%hedgeknight2%は戦いの中で死ねた。"
+    }
+    {
+        en = "A decent hunt."
+        ja = "まずまずの狩りだった。"
+    }
+    {
         en = "A deep cut at the arm makes it difficult to use."
         ja = "腕の深い裂傷により、その腕を動かすことが難しい。"
     }
     {
         en = "A developed village thriving on lumber and game"
         ja = "木材と森の獲物で栄える発展した村"
+    }
+    {
+        en = "A fearsome armor to behold."
+        ja = "恐るべき威容の鎧だ。"
     }
     {
         en = "A flock of scavenging nachzehrers."
@@ -7043,8 +7287,24 @@
         ja = "遠距離でも狙った標的に当てやすい、集中して慎重に狙う射撃。近接戦闘中は使用できない。"
     }
     {
+        en = "A frightening prospect."
+        ja = "恐ろしい話だ。"
+    }
+    {
         en = "A golden helmet and facemask, showing the visage of an emperor from an age long past, imbued with mystical energies. When you hold it into the light, it almost looks as if the face were moving and making expressions of disgust."
         ja = "遥か昔の皇帝の顔をかたどった黄金の兜と仮面。神秘の力を宿している。光にかざすと、その顔が動き、嫌悪の表情を浮かべているようにさえ見える。"
+    }
+    {
+        en = "A good deed was done here this day."
+        ja = "今日はここで善行をなした。"
+    }
+    {
+        en = "A good hunt."
+        ja = "いい狩りだった。"
+    }
+    {
+        en = "A good man doesn't come cheap."
+        ja = "腕の立つ男は安くはない。"
     }
     {
         en = "A good mason is used to physical labor and studying to improve his craft."
@@ -7089,6 +7349,10 @@
     {
         en = "A heavy lamellar armor that covers most parts of the body with thick, overlapping metal plates for maximum protection."
         ja = "厚い金属板を重ね合わせ、全身の大部分を覆う重厚なラメラーアーマー。最大限の防護をもたらす。"
+    }
+    {
+        en = "A hidden talent."
+        ja = "隠れた才能だ。"
     }
     {
         en = "A horde of greenskins marching to war."
@@ -7167,12 +7431,28 @@
         ja = "かつて自らのものだった地を生者から奪い返すため戻ってきた、歩く死者の軍勢。"
     }
     {
+        en = "A little, aye."
+        ja = "少しはな。"
+    }
+    {
         en = "A lumberjack, %fullname% {spent most of his days in the woods, chopping down trees | earned his crowns by chopping trees for firewood | was never seen without either axe or wood on his shoulder | always was a quiet man that prefered the serenity of the woods to the company of people | was eyed by many a young woman for his good stature and strong hands | always used to day-dream he was a knight, swinging his axe not against trees but orcs and trolls}. {A large and sturdy man, working outside came easily to him | He loved his collection of axes, having named every single one after a woman he once knew | He worked hard every day, but it was honest work | Alone in the woods he would talk to the trees and have them tell him which ones would give the best wood | Few men could swing an axe like he did, having a tree fall just like he wanted it | With his large and sturdy build he could carry on his back what other people would be crushed by}. {Like most people, he took on the profession of his father. Yet over the years, it dawned on him that he wanted to see more from the world than the same woods every day. After thinking long and hard, he made up his mind to | His life collapsed on him as his beloved wife died in childbirth. With everything taken from him, he became more and more reclusive, and not even the woods could bring him peace anymore. Just wanting to get away, he decided to | Returning from the woods one day, he saw smoke from afar. His village was burning, the people slaughtered or taken. His home destroyed. Full of anger he set off and decided to | Over time, strange creatures began to appear in the woods. One villager after the other disappared, some moved away. After a long night with no sleep, he decided it was time for him to leave as well. With nothing to live off, he was desperate to | Curious to all the villagers, it seemed %name% lost his interest in the woods with time, speaking of going away every more often if he spoke at all. One fateful day, they saw him volunteer to | One fateful day a tree he fell slew a deer. %name% did not want to waste it and so took it home, only to find himself accused of poaching. Before a sentence was cast he decided to leave the village in haste and attempt to} join a travelling mercenary company."
         ja = "木こりの%fullname%は、{日がな森で木を伐って過ごしていた | 薪にする木を伐ってクラウンを稼いでいた | 肩に斧か材木を担がずにいるところを見られたためしがない | いつも寡黙で、人付き合いより森の静けさを好んだ | 恵まれた体格と逞しい手で、多くの若い女から熱い視線を浴びていた | いつも騎士になる夢を見て、木ではなくオークやトロールを相手に斧を振るっているつもりだった}。{大柄で頑健な男には、野外仕事など造作もなかった | 斧を集めるのが大好きで、一本一本にかつて知り合った女の名を付けていた | 毎日懸命に働いたが、まっとうな仕事だった | 森で一人になると木々に話しかけ、どれが最良の材になるか教えてもらっていた | 彼ほど巧みに斧を振るい、狙いどおりに木を倒せる者はほとんどいなかった | 大柄で頑丈な体のおかげで、他人なら押し潰される荷を背負えた}。{大半の者と同じく父の職を継いだ。だが年月が経つうちに、毎日同じ森を見るだけでなく、もっと世界を見たいと気づいた。長く考えた末、彼は旅する傭兵団に | 愛する妻が産褥で死に、人生が崩れ落ちた。すべてを失って次第に人を避けるようになり、森でさえ心の安らぎをくれなくなった。ただここから逃れようと、彼は旅する傭兵団に | ある日森から戻ると、遠くに煙が見えた。村は燃え、人々は殺されるか連れ去られ、家も失った。怒りに満ちた彼は旅する傭兵団に | 時とともに奇妙な怪物が森へ現れ始めた。村人は一人また一人と消え、逃げ出す者もいた。眠れぬ長い夜の末、自分も去る時だと決めた。食う当てもなく、必死になって旅する傭兵団に | 村人たちが不思議がる中、%name%は次第に森への興味を失ったらしく、口を開けば以前にも増して遠くへ行く話をするようになった。運命の日、人々は彼が自ら旅する傭兵団に | ある運命の日、彼が倒した木が鹿を殺した。%name%は無駄にするまいと家へ持ち帰ったが、密猟の罪を着せられた。裁きが下る前に村から急いで逃げ、旅する傭兵団に}加わることを決めた。"
     }
     {
+        en = "A man knows what he loves."
+        ja = "男は自分の愛するものを心得ている。"
+    }
+    {
+        en = "A man left to torture himself can find the truest of horrors."
+        ja = "己を責め続ける男は、真の恐怖を見いだしてしまう。"
+    }
+    {
         en = "A man like %name% the graverobber came to the company to help escape from his most unlawful and immoral errors, and what better way to do that than killing people for money? Unfortunately, the %companyname% slowly began to fall apart. You learned that %name% eventually left the company and joined with a similar, competing outfit. You're not sure where he is now, and you're not sure whether to be insulted by his betrayal or understand the reasoning behind it. Business is only business, after all."
         ja = "墓荒らしの%name%のような男は、あまりに非合法で不道徳な過ちから逃れるため傭兵団へ来た。金のために人を殺す以上にうってつけの方法があるだろうか？　残念ながら、%companyname%は次第に瓦解していった。%name%もやがて傭兵団を離れ、似たような競合組織に加わったと知った。今どこにいるかはわからない。裏切りを侮辱と受け取るべきか、その理由を理解すべきかもわからない。結局のところ、商売は商売だ。"
+    }
+    {
+        en = "A man to go down fighting with."
+        ja = "共に戦い、倒れるに足る男だ。"
     }
     {
         en = "A mantle crafted from the thin and shimmering scales of desert serpents, especially resistant to heat and flames."
@@ -7195,6 +7475,10 @@
         ja = "険しい山中に築かれた巨大な石造城塞"
     }
     {
+        en = "A master of his craft, indeed."
+        ja = "まさしく、その道の達人だ。"
+    }
+    {
         en = "A masterwork!"
         ja = "傑作だ！"
     }
@@ -7205,6 +7489,14 @@
     {
         en = "A medium sized village covered in snow throughout most of the year."
         ja = "一年の大半を雪に覆われる中規模の村。"
+    }
+    {
+        en = "A melon thief?"
+        ja = "メロン泥棒だと？"
+    }
+    {
+        en = "A mercenary company is no place to talk religion!"
+        ja = "傭兵団は宗教を語る場所ではない！"
     }
     {
         en = "A mighty citadel towering above the surrounding steppe"
@@ -7239,6 +7531,10 @@
         ja = "気高い獣だ。"
     }
     {
+        en = "A noble tale, stranger."
+        ja = "立派な話だ、旅の人。"
+    }
+    {
         en = "A pack of esurient hyenas on the hunt for prey."
         ja = "獲物を求めて徘徊する、飢えたハイエナの群れ。"
     }
@@ -7251,12 +7547,20 @@
         ja = "腕の腱が一部切れており、どのような一撃にも力を込めることが難しい。"
     }
     {
+        en = "A pleasure to do business with you."
+        ja = "取引できて何よりだ。"
+    }
+    {
         en = "A pointy hat with a broad rim."
         ja = "広いつばの付いた、とんがり帽子。"
     }
     {
         en = "A powerful chopping attack that bears full force on any target."
         ja = "全力を叩きつける強烈な斬撃。"
+    }
+    {
+        en = "A promising research specimen turned out to be useless"
+        ja = "有望だった研究標本が役立たずと判明した"
     }
     {
         en = "A prospering city located close to the forest with its main produce being valuable timber and venison."
@@ -7283,12 +7587,20 @@
         ja = "長い年月のうちに一部が失われた、補強されたメイルシャツ。"
     }
     {
+        en = "A reminder for us all."
+        ja = "誰もが心に留めるべき教訓だ。"
+    }
+    {
         en = "A rough and tough band of brigands out to hunt for food."
         ja = "食糧を求めて狩りに出た、荒くれ盗賊の一団。"
     }
     {
         en = "A rough and tough band of brigands preying on the weak."
         ja = "弱者を食い物にする、荒くれ盗賊の一団。"
+    }
+    {
+        en = "A round for the whole company!"
+        ja = "傭兵団全員に一杯ずつだ！"
     }
     {
         en = "A rugged apron worn by butchers to protect against accidental cuts."
@@ -7309,6 +7621,10 @@
     {
         en = "A shining armor once worn by the emperor of an age long past, made from the most woundrous of materials, imbued with mystical energies. Light reflects easily off the polished armor, turning the wearer into a shimmering figure of light during the day."
         ja = "遥か昔の皇帝が身に着けていた、まばゆい鎧。世にも稀な素材で作られ、神秘の力を宿している。磨き上げられた表面は光をよく反射し、日中は着用者をきらめく光の人影へと変える。"
+    }
+    {
+        en = "A show's a show."
+        ja = "見世物は見世物だ。"
     }
     {
         en = "A small and crude settlement in a swampy area"
@@ -7403,6 +7719,14 @@
         ja = "周囲の山々を見下ろして高くそびえる石造城砦。塔の見張りは、何マイルも先から接近する軍勢を発見できる。"
     }
     {
+        en = "A strange time."
+        ja = "奇妙な時代だ。"
+    }
+    {
+        en = "A strangely terse retort, %anatomist%..."
+        ja = "妙にそっけない返事だな、%anatomist%……"
+    }
+    {
         en = "A stretched out settlement nestled into the surrounding mountains"
         ja = "周囲の山々に抱かれ、細長く広がる集落"
     }
@@ -7479,6 +7803,10 @@
         ja = "目の詰まった羊毛を詰め、打撃から身を守る厚布のベスト。"
     }
     {
+        en = "A thousand crowns to both of you to stop this madness now!"
+        ja = "二人とも、この狂気を今すぐやめるなら1000クラウンずつ払う！"
+    }
+    {
         en = "A thrusting attack that is difficult to defend against. Followed up by a strike with the axehead if the target is staggered."
         ja = "防ぎにくい刺突攻撃。対象がよろめいている場合は、斧頭による一撃を続けて放つ。"
     }
@@ -7501,6 +7829,10 @@
     {
         en = "A well-placed attack at the opponent armor's weakspots. Ignores all armor but is harder to hit with and can not land critical hits for additional damage, nor inflict additional damage with double grip."
         ja = "敵の防具の弱点を正確に狙う攻撃。装甲を完全に無視するが命中させにくく、クリティカルによる追加ダメージも、両手持ちによる追加ダメージも与えられない。"
+    }
+    {
+        en = "A win's a win."
+        ja = "勝ちは勝ちだ。"
     }
     {
         en = "A wooden motte towering above the tundra"
@@ -7527,6 +7859,10 @@
         ja = "AColorfulBand"
     }
     {
+        en = "Aaaaahh."
+        ja = "ああああっ。"
+    }
+    {
         en = "Aalbek"
         ja = "アールベック"
     }
@@ -7539,6 +7875,30 @@
         ja = "アールフェステ"
     }
     {
+        en = "About to advance my fist into your..."
+        ja = "今からこの拳をお前の……"
+    }
+    {
+        en = "Absolutely disgusting. He's perfect."
+        ja = "反吐が出るほど気持ち悪い。完璧だ。"
+    }
+    {
+        en = "Absolutely not!"
+        ja = "絶対に駄目だ！"
+    }
+    {
+        en = "Accidentally crippled a little boy"
+        ja = "誤って少年を不具にした"
+    }
+    {
+        en = "Accidentally killed someone's dog"
+        ja = "誤って他人の犬を殺した"
+    }
+    {
+        en = "Accidentally shot a little girl's pet cat"
+        ja = "誤って少女の飼い猫を撃った"
+    }
+    {
         en = "Acid Blood"
         ja = "酸性血"
     }
@@ -7549,6 +7909,10 @@
     {
         en = "Acidic blood"
         ja = "酸性の血"
+    }
+    {
+        en = "Acquired a promising research specimen"
+        ja = "有望な研究標本を手に入れた"
     }
     {
         en = "Acquired an unusual skull to study"
@@ -7607,6 +7971,10 @@
         ja = "怯え"
     }
     {
+        en = "Afraid to be dismissed on account of his injury"
+        ja = "負傷を理由に解雇されるのではないかと恐れている"
+    }
+    {
         en = "After a long talk with a monk, %name% was converted to a more peaceful means of expressing his faith. Now when he picks up a weapon you can be assured it will only be pointed at someone other than himself."
         ja = "修道士とじっくり話した後、%name%は信仰をより穏やかに表す道へ改宗した。今では彼が武器を手にしても、少なくとも自分自身へ向けることはないと安心できる。"
     }
@@ -7639,8 +8007,32 @@
         ja = "アーガーステッド"
     }
     {
+        en = "Ah well."
+        ja = "まあ、仕方ない。"
+    }
+    {
+        en = "Ah well. Two of the vials are ours."
+        ja = "まあいい。小瓶を二本手に入れた。"
+    }
+    {
         en = "Ah, %name%. What an addition to the %companyname%! The minstrel not only became an excellent fighter, but was crucial in keeping the men's spirits high in the toughest of times. A poet and actor at heart, he eventually retired from the company and started up a theater company. He current performs plays for both the nobility and laymen. The minstrel does not yet realize it, but his playful wit and sharp commentary are slowly bringing the classes together."
         ja = "ああ、%name%か。%companyname%にとって、何と見事な拾い物だったことか！　吟遊詩人は優れた戦士になったばかりか、最も苦しい時にも男たちの士気を高く保つうえで欠かせなかった。根っからの詩人で役者だった彼は、やがて傭兵団を引退して劇団を立ち上げた。今では貴族にも庶民にも芝居を披露している。本人はまだ気づいていないが、その軽妙な機知と鋭い風刺は、少しずつ身分の垣根を取り払いつつある。"
+    }
+    {
+        en = "Ah, he'll fit in with the rest of the misfits."
+        ja = "ああ、ほかのはみ出し者たちとうまく馴染むだろう。"
+    }
+    {
+        en = "Ah, the always safe measurement of manliness."
+        ja = "ああ、いつだって安全な男らしさの測り方だな。"
+    }
+    {
+        en = "Ah, we'll be fine."
+        ja = "ああ、何とかなるさ。"
+    }
+    {
+        en = "Ahh..."
+        ja = "ああ……"
     }
     {
         en = "Ahlen"
@@ -7675,6 +8067,18 @@
         ja = "錬金術師"
     }
     {
+        en = "All for naught."
+        ja = "すべて無駄だった。"
+    }
+    {
+        en = "All in a day's work."
+        ja = "これも一日の仕事のうちだ。"
+    }
+    {
+        en = "All sorts of strange in these wastes."
+        ja = "この荒野には妙なものが何でもいやがる。"
+    }
+    {
         en = "All worked out in the end."
         ja = "結局、すべて丸く収まった。"
     }
@@ -7693,6 +8097,10 @@
     {
         en = "Almost consumed alive by webknechts"
         ja = "ウェブクネヒトに生きたまま食われかけた"
+    }
+    {
+        en = "Almost got executed by a technological marvel in spectacular fashion"
+        ja = "技術の驚異によって、壮絶に処刑されかけた"
     }
     {
         en = "Almost got tarred and feathered"
@@ -7715,16 +8123,104 @@
         ja = "アルプ"
     }
     {
+        en = "Alright I'll pay a bit to have a look."
+        ja = "いいだろう。少し払って見せてもらう。"
+    }
+    {
+        en = "Alright that's enough. We've got actual work to do."
+        ja = "よし、もう十分だ。本来の仕事に戻るぞ。"
+    }
+    {
+        en = "Alright, I can spare a man or few."
+        ja = "いいだろう。一人や二人なら出せる。"
+    }
+    {
+        en = "Alright, I'll go and find them."
+        ja = "いいだろう。探しに行く。"
+    }
+    {
         en = "Alright, I'll send a man in."
         ja = "わかった。ひとり中へ送ろう。"
+    }
+    {
+        en = "Alright, alright, let's go."
+        ja = "わかった、わかった。行くぞ。"
     }
     {
         en = "Alright, but I'm going with you."
         ja = "わかった。だが俺も一緒に行く。"
     }
     {
+        en = "Alright, deal."
+        ja = "よし、取引成立だ。"
+    }
+    {
+        en = "Alright, fine."
+        ja = "わかった、いいだろう。"
+    }
+    {
+        en = "Alright, go on ahead and read."
+        ja = "いいだろう。さあ、読んでみろ。"
+    }
+    {
+        en = "Alright, let's give those poor folks some food."
+        ja = "よし、あの哀れな者たちへ食料を分けよう。"
+    }
+    {
+        en = "Alright, let's go dig it up."
+        ja = "よし、掘り返しに行こう。"
+    }
+    {
+        en = "Alright, show me what's been found."
+        ja = "いいだろう。見つけた物を見せてくれ。"
+    }
+    {
+        en = "Alright, show the way."
+        ja = "いいだろう。案内しろ。"
+    }
+    {
+        en = "Alright, take it."
+        ja = "いいだろう。持っていけ。"
+    }
+    {
+        en = "Alright, talk."
+        ja = "いいだろう。話せ。"
+    }
+    {
+        en = "Alright, uh, good luck then."
+        ja = "わかった。それじゃあ、幸運を。"
+    }
+    {
+        en = "Alright, we'll pay the 'fine.'"
+        ja = "わかった。その「罰金」を払おう。"
+    }
+    {
+        en = "Alright, we'll step off."
+        ja = "わかった。こちらが退こう。"
+    }
+    {
+        en = "Alright, we'll take him."
+        ja = "いいだろう。そいつを引き取る。"
+    }
+    {
         en = "Alright, we'll take you."
         ja = "わかった。お前を迎えよう。"
+    }
+    {
+        en = "Alright, you little mutt..."
+        ja = "よし、このちび犬め……"
+    }
+    {
+        en = "Alright."
+        ja = "いいだろう。"
+    }
+    {
+        en = "Alright. Here goes nothing"
+        ja = "よし。やるしかない"
+    }
+    {
+        en = "Alright..."
+        ja = "わかった……"
     }
     {
         en = "Alsliv"
@@ -7751,6 +8247,14 @@
         ja = "戦闘の第1ラウンドでは必ず最初に行動する"
     }
     {
+        en = "Always nice to be in %townname%."
+        ja = "%townname%はいつ来てもいい所だ。"
+    }
+    {
+        en = "Amazing!"
+        ja = "見事だ！"
+    }
+    {
         en = "Ambushed some of their men"
         ja = "相手方の兵を何人か待ち伏せした"
     }
@@ -7759,12 +8263,24 @@
         ja = "矢弾"
     }
     {
+        en = "An Ambition Fulfilled"
+        ja = "野望の達成"
+    }
+    {
         en = "An artery has been cut, leading to massive hemorrhaging and ultimately death if not treated out of combat. If survived, it is followed by severely lowered constitution due to loss of blood."
         ja = "動脈が切断され、大量出血している。戦闘外で手当てを受けなければ、やがて死に至る。生き延びても、失血によって体力が大幅に低下する。"
     }
     {
         en = "An assassin has to be quick on his feet and skilled with the use of weapons."
         ja = "暗殺者には身のこなしの速さと、武器を扱う腕が必要だ。"
+    }
+    {
+        en = "An assassin tired of the killing life, %name% offered to join your company at a large price which you were quick to match. He is extremely skilled with a short-blade, twirling daggers around with more dexterity and control than some men have over their own fingers."
+        ja = "殺しに明け暮れる暮らしに倦んだ暗殺者%name%は、高額の報酬で傭兵団へ加わると申し出た。あなたはすぐにその額を用意した。短い刃の扱いに並外れて熟達し、並の男が自分の指を操る以上の器用さと正確さで短剣を舞わせる。"
+    }
+    {
+        en = "An enemy such as this shouldn't be taken lightly."
+        ja = "このような敵を侮ってはならない。"
     }
     {
         en = "An epic for all the wrong reasons!"
@@ -7791,8 +8307,24 @@
         ja = "厳しいツンドラに根づき、一帯の人々が集う場所となっている村。"
     }
     {
+        en = "An honorable man if there ever was one."
+        ja = "名誉ある男とは、まさに彼のことだ。"
+    }
+    {
+        en = "An impatient student of a fencing and swordmaster, %name% didn't have the mental aptitude to stick with the trials and tribulations of becoming a master of the blade himself. But what he lacks in mental fortitude he more than makes up for in effort. You 'hired' him simply by taking him off the old man's hands."
+        ja = "剣術師範に学ぶせっかちな弟子だった%name%には、自ら剣の達人となるまでの試練と苦難を耐え抜く精神的な資質がなかった。だが、精神的な粘り強さに欠ける分を、努力で補って余りある。あなたは老人の手から引き取るだけで、彼を「雇った」。"
+    }
+    {
         en = "An injury like this makes even the quickest man hobble across the battlefield."
         ja = "この負傷では、どれほど足の速い者でも戦場を足を引きずって進むほかない。"
+    }
+    {
+        en = "An old patient thanked him for his medical help"
+        ja = "治療した昔の患者に感謝された"
+    }
+    {
+        en = "An uneasy thought."
+        ja = "不安を呼ぶ考えだ。"
     }
     {
         en = "An unlucky hit crushed a finger, making it painful to maintain a firm grip."
@@ -7827,32 +8359,112 @@
         ja = "古代のスケイルハーネス"
     }
     {
+        en = "And I'm about to make even more after you're dead."
+        ja = "お前が死ねば、さらに儲けられる。"
+    }
+    {
+        en = "And cut your nails."
+        ja = "それと、爪を切れ。"
+    }
+    {
+        en = "And death to the Oathbringers..."
+        ja = "そしてオースブリンガーに死を……"
+    }
+    {
         en = "And don't come back!"
         ja = "二度と戻ってくるな！"
+    }
+    {
+        en = "And don't come back."
+        ja = "二度と戻ってくるな。"
+    }
+    {
+        en = "And keep your wits about you."
+        ja = "気を抜くな。"
+    }
+    {
+        en = "And may you find shine as well."
+        ja = "お前も輝きを見つけられますように。"
+    }
+    {
+        en = "And see that you don't fling anymore mud around on your way out."
+        ja = "立ち去る途中で、これ以上泥を撒き散らすなよ。"
     }
     {
         en = "And stay away!"
         ja = "二度と近づくな！"
     }
     {
+        en = "And that's what I'll do."
+        ja = "そうするとしよう。"
+    }
+    {
+        en = "And to think I used to roam these lands alone..."
+        ja = "昔はこの地を一人で歩き回っていたとはな……"
+    }
+    {
+        en = "And what if I do or don't agree to this insanity?"
+        ja = "それで、この狂気に同意した場合と断った場合はどうなる？"
+    }
+    {
+        en = "And who are you?"
+        ja = "それで、お前は何者だ？"
+    }
+    {
+        en = "And with him, darkness."
+        ja = "そしてダヴクルとともに、闇も我らを待つ。"
+    }
+    {
+        en = "And work is waiting for you, get moving."
+        ja = "仕事が待っている。さっさと動け。"
+    }
+    {
+        en = "And you're sure this is edible still?"
+        ja = "本当に、まだ食べられるのか？"
+    }
+    {
         en = "Angeln"
         ja = "アンゲルン"
+    }
+    {
+        en = "Angry about lack of justice under your command"
+        ja = "あなたの指揮下で正義が行われていないことに怒っている"
+    }
+    {
+        en = "Angry about you bribing men to stop their fight"
+        ja = "賄賂で喧嘩を止めたことに怒っている"
     }
     {
         en = "Animal Hide Armor"
         ja = "獣皮鎧"
     }
     {
+        en = "Another casualty of war."
+        ja = "また一人、戦争の犠牲者が出た。"
+    }
+    {
         en = "Any nomad that survived out in the desert will have some expertise in fighting."
         ja = "砂漠を生き延びてきた遊牧民なら、戦いの心得をいくらか備えている。"
+    }
+    {
+        en = "Any of you tiny enough to fit into that hole?"
+        ja = "あの穴に入れるほど小柄な者はいないか？"
     }
     {
         en = "Any raider that survived so far will have some expertise in fighting."
         ja = "ここまで生き延びた略奪者なら、戦いの心得をいくらか備えている。"
     }
     {
+        en = "Any volunteers?"
+        ja = "志願者はいるか？"
+    }
+    {
         en = "Anyone that's been in the militia will have received at least some basic training in matters of combat."
         ja = "民兵を務めた者なら、戦闘に関する基礎訓練を少なくとも多少は受けている。"
+    }
+    {
+        en = "Anytime."
+        ja = "いつでもどうぞ。"
     }
     {
         en = "Apotheosis"
@@ -7861,6 +8473,14 @@
     {
         en = "Appeased Davkul"
         ja = "ダヴクルを満足させた"
+    }
+    {
+        en = "Applied his expertise on creatures"
+        ja = "怪物についての専門知識を活かした"
+    }
+    {
+        en = "Appreciated the food variety"
+        ja = "食事の種類が豊富なことを喜んだ"
     }
     {
         en = "Apprentice"
@@ -7877,6 +8497,18 @@
     {
         en = "Approved of your decision to end the suffering of fellow northerners"
         ja = "同じ北方人の苦しみを終わらせる決断を支持した"
+    }
+    {
+        en = "Approved of your decision to leave northern invaders judged by the Gilder"
+        ja = "北方の侵略者をギルダーの裁きに委ねる決断を支持した"
+    }
+    {
+        en = "Approved of your decision to leave southern invaders to die"
+        ja = "南方の侵略者を見殺しにする決断を支持した"
+    }
+    {
+        en = "Are those vultures circling above?"
+        ja = "上で禿鷹が旋回していないか？"
     }
     {
         en = "Are we losing this war?"
@@ -7911,6 +8543,10 @@
         ja = "アルサステッド"
     }
     {
+        en = "As it should be."
+        ja = "そうあるべきだ。"
+    }
+    {
         en = "As it turns out, %name% the servant had been stowing away every last crown he had earned with the %companyname%. When he had enough, he retired and bought himself some land and slowly worked his way up the social ladder. He died in a comfortable bed, surrounded by friends, family, and loyal servants."
         ja = "実のところ、従僕の%name%は%companyname%で稼いだクラウンを一枚残らず蓄えていた。十分貯まると引退して土地を買い、少しずつ社会的地位を高めていった。友人や家族、忠実な使用人に囲まれ、安らかな寝台で息を引き取った。"
     }
@@ -7925,6 +8561,10 @@
     {
         en = "As you approach..."
         ja = "接近すると……"
+    }
+    {
+        en = "As yours."
+        ja = "お前の道もそうあれ。"
     }
     {
         en = "Asaholm"
@@ -7971,8 +8611,16 @@
         ja = "強襲"
     }
     {
+        en = "Assault the fort!"
+        ja = "砦を襲撃しろ！"
+    }
+    {
         en = "Assaulted"
         ja = "強襲による死亡"
+    }
+    {
+        en = "Assured of his importance in the world"
+        ja = "自分が世界にとって重要だと確信した"
     }
     {
         en = "Asthmatic"
@@ -7991,8 +8639,44 @@
         ja = "%objective%にて"
     }
     {
+        en = "At %town%"
+        ja = "%town%にて"
+    }
+    {
+        en = "At %town%..."
+        ja = "%town%にて……"
+    }
+    {
         en = "At %townname%"
         ja = "%townname%にて"
+    }
+    {
+        en = "At %townname%..."
+        ja = "%townname%にて……"
+    }
+    {
+        en = "At least he didn't kill himself."
+        ja = "少なくとも、自ら命を絶ちはしなかった。"
+    }
+    {
+        en = "At least he's feeling energetic..."
+        ja = "少なくとも、元気はあるようだ……"
+    }
+    {
+        en = "At least the anatomist took it in stride."
+        ja = "少なくとも、解剖学者は平然と受け止めた。"
+    }
+    {
+        en = "At least the men won't go hungry tonight."
+        ja = "少なくとも今夜、団員たちは空腹で眠らずに済む。"
+    }
+    {
+        en = "At least the most monstrous of the lot is dead."
+        ja = "少なくとも、一番の怪物は死んだ。"
+    }
+    {
+        en = "At least we got the armor."
+        ja = "少なくとも、鎧は手に入れた。"
     }
     {
         en = "At least we put an end to those beasts."
@@ -8009,6 +8693,10 @@
     {
         en = "Attack!"
         ja = "攻撃だ！"
+    }
+    {
+        en = "Attacked some of their men"
+        ja = "彼らの仲間を何人か襲った"
     }
     {
         en = "Attendorn"
@@ -8071,8 +8759,20 @@
         ja = "ああ、そろそろ皆の給金を上げる頃合いだ。"
     }
     {
+        en = "Aye."
+        ja = "ああ。"
+    }
+    {
+        en = "Back off, men."
+        ja = "下がれ、みんな。"
+    }
+    {
         en = "Back to %townname%!"
         ja = "%townname%へ戻るぞ！"
+    }
+    {
+        en = "Back to the road."
+        ja = "街道へ戻ろう。"
     }
     {
         en = "Back where it belongs."
@@ -8103,6 +8803,10 @@
         ja = "床屋"
     }
     {
+        en = "Barnabas' Dagger"
+        ja = "バルナバスの短剣"
+    }
+    {
         en = "Barrier"
         ja = "障壁"
     }
@@ -8113,6 +8817,10 @@
     {
         en = "Basic Mail Shirt"
         ja = "簡素なメイルシャツ"
+    }
+    {
+        en = "Basked in the admiration of a crowd"
+        ja = "群衆の称賛を浴びた"
     }
     {
         en = "Bastard"
@@ -8135,6 +8843,14 @@
         ja = "警戒を怠るな！"
     }
     {
+        en = "Be on your guard."
+        ja = "警戒を怠るな。"
+    }
+    {
+        en = "Be on your way then, manhunters."
+        ja = "ならば行け、人狩りども。"
+    }
+    {
         en = "Bear Headpiece"
         ja = "熊頭の被り物"
     }
@@ -8149,6 +8865,10 @@
     {
         en = "Beast, men... what matters is the crowns."
         ja = "獣だろうが人間だろうが……大事なのはクラウンだ。"
+    }
+    {
+        en = "Beautiful."
+        ja = "見事だ。"
     }
     {
         en = "Before the attack..."
@@ -8183,8 +8903,52 @@
         ja = "狂戦士の憤怒"
     }
     {
+        en = "Best keep the company in shape for bigger threats."
+        ja = "より大きな脅威に備え、傭兵団を万全にしておくべきだ。"
+    }
+    {
+        en = "Best keep this somewhere safe."
+        ja = "これは安全な場所へ保管した方がいい。"
+    }
+    {
+        en = "Best throw that crockpot away."
+        ja = "その土鍋は捨てた方がいい。"
+    }
+    {
+        en = "Better luck next time."
+        ja = "次はうまくいくさ。"
+    }
+    {
+        en = "Better not dwell here."
+        ja = "ここには長居しない方がいい。"
+    }
+    {
+        en = "Better safe than sorry. We'll cut down the tree."
+        ja = "用心に越したことはない。木を切り倒そう。"
+    }
+    {
+        en = "Better they don't suffer any longer."
+        ja = "これでもう苦しまずに済む。"
+    }
+    {
+        en = "Better to kill that thing now."
+        ja = "今のうちに、あれを殺した方がいい。"
+    }
+    {
+        en = "Better to leave the man and his crowns alone."
+        ja = "あの男と金には関わらない方がいい。"
+    }
+    {
         en = "Better to put it down now before it steals any of our supplies later."
         ja = "後で食糧を盗まれる前に、今ここで始末した方がいい。"
+    }
+    {
+        en = "Better understands the limits of his volition"
+        ja = "自らの意志が及ぶ限界をより深く理解した"
+    }
+    {
+        en = "Better wise up, wiseacre."
+        ja = "利口ぶるなら、もう少し賢くなれ。"
     }
     {
         en = "Bieberburg"
@@ -8303,6 +9067,14 @@
         ja = "出血"
     }
     {
+        en = "Bless them."
+        ja = "祝福あれ。"
+    }
+    {
+        en = "Blind leading the seeing."
+        ja = "盲人が目明きを導くとはな。"
+    }
+    {
         en = "Blood Vial of the Holy Mother"
         ja = "聖母の血の小瓶"
     }
@@ -8383,12 +9155,24 @@
         ja = "勇敢"
     }
     {
+        en = "Brave little guy."
+        ja = "勇敢なちびだ。"
+    }
+    {
         en = "Brave men defending their homes with their lives. Farmers, craftsmen, artisans - but not one real soldier."
         ja = "命を懸けて故郷を守る勇敢な者たち。農夫、職人、工匠――だが本物の兵士は一人もいない。"
     }
     {
         en = "Bravo!"
         ja = "見事だ！"
+    }
+    {
+        en = "Bravo! Give that guy a few coins from me, %wildman%."
+        ja = "見事だ！　%wildman%、あの男へ俺から何枚か硬貨を渡せ。"
+    }
+    {
+        en = "Bravo! Here's a few coins for you."
+        ja = "見事だ！　ほら、硬貨を何枚かやろう。"
     }
     {
         en = "Brawler"
@@ -8471,6 +9255,10 @@
         ja = "ブルックヴァル"
     }
     {
+        en = "Brought his blacksmithing skills to bear"
+        ja = "鍛冶の腕を発揮した"
+    }
+    {
         en = "Bruchburg"
         ja = "ブルッフブルク"
     }
@@ -8481,6 +9269,10 @@
     {
         en = "Bruised Leg"
         ja = "脚の打撲"
+    }
+    {
+        en = "Bruised his leg when sliding down a sand dune"
+        ja = "砂丘を滑り下りて脚を打撲した"
     }
     {
         en = "Brunnburg"
@@ -8539,6 +9331,14 @@
         ja = "防塁"
     }
     {
+        en = "Burn it in the fire!"
+        ja = "火で焼け！"
+    }
+    {
+        en = "Burn the witch!"
+        ja = "魔女を焼け！"
+    }
+    {
         en = "Burn wounds on the legs limit mobility and make it painful to move quickly."
         ja = "脚の火傷によって動きが制限され、素早く動けば痛みが走る。"
     }
@@ -8567,6 +9367,14 @@
         ja = "両手の火傷により、素早く正確な動きが著しく妨げられている。しかも、地獄のように痛む。"
     }
     {
+        en = "But it took so much to get it..."
+        ja = "だが、手に入れるまでにあれほど苦労した……"
+    }
+    {
+        en = "But..."
+        ja = "だが……"
+    }
+    {
         en = "Butcher"
         ja = "肉屋"
     }
@@ -8577,6 +9385,18 @@
     {
         en = "Butchers are used to bloodshed."
         ja = "肉屋は流血に慣れている。"
+    }
+    {
+        en = "Buzz all you want, this honey is ours!"
+        ja = "いくら羽音を立てても、この蜂蜜は俺たちのものだ！"
+    }
+    {
+        en = "By the old gods."
+        ja = "古き神々にかけて。"
+    }
+    {
+        en = "Bye."
+        ja = "じゃあな。"
     }
     {
         en = "Can hit up to 2 targets"
@@ -8599,12 +9419,32 @@
         ja = "現在敵から見えている場合は使用できない"
     }
     {
+        en = "Can't believe everything you read."
+        ja = "読んだことを何でも信じるものではない。"
+    }
+    {
+        en = "Can't escape these strange bastards."
+        ja = "あの奇妙な連中からは逃れられない。"
+    }
+    {
+        en = "Can't leave you men alone for two seconds!"
+        ja = "お前たちは二秒たりとも目を離せないな！"
+    }
+    {
+        en = "Can't you tell they were going to rob us anyway?"
+        ja = "どのみち奴らが俺たちを襲うつもりだったと、わからないのか？"
+    }
+    {
         en = "Cancel"
         ja = "キャンセル"
     }
     {
         en = "Captain Bernhard"
         ja = "ベルンハルト隊長"
+    }
+    {
+        en = "Captivating."
+        ja = "実に引き込まれる話だ。"
     }
     {
         en = "Caravan"
@@ -8619,6 +9459,14 @@
         ja = "隊商の従者は、長く過酷な旅に慣れている。"
     }
     {
+        en = "Careful!"
+        ja = "気をつけろ！"
+    }
+    {
+        en = "Carry on with the execution then."
+        ja = "では、処刑を続けろ。"
+    }
+    {
         en = "Cascade"
         ja = "三連打"
     }
@@ -8629,6 +9477,14 @@
     {
         en = "Cat"
         ja = "猫"
+    }
+    {
+        en = "Caught a thief at night"
+        ja = "夜中に盗賊を捕らえた"
+    }
+    {
+        en = "Celebrated with the company"
+        ja = "傭兵団と祝った"
     }
     {
         en = "Censer Strike"
@@ -8663,8 +9519,20 @@
         ja = "魅了"
     }
     {
+        en = "Chase that mongrel away!"
+        ja = "その野良犬を追い払え！"
+    }
+    {
+        en = "Cheeky little git."
+        ja = "生意気な小僧だ。"
+    }
+    {
         en = "Chilled"
         ja = "凍え"
+    }
+    {
+        en = "Chirp. Chirp chirp chirp?"
+        ja = "ピッ。ピピ、ピピッ？"
     }
     {
         en = "Chop"
@@ -8723,8 +9591,16 @@
         ja = "自信過剰"
     }
     {
+        en = "Come on, %hedgeknight%. Stop it!"
+        ja = "やめろ、%hedgeknight%。もうよせ！"
+    }
+    {
         en = "Companion"
         ja = "古参の仲間"
+    }
+    {
+        en = "Completed all of Young Anselm's oaths"
+        ja = "若きアンセルムの誓約をすべて果たした"
     }
     {
         en = "Completely absorbs the first hit of every combat encounter which doesn't ignore armor"
@@ -8735,12 +9611,28 @@
         ja = "装甲を完全に無視する"
     }
     {
+        en = "Concerned about carrying around a Petrified Scream artifact"
+        ja = "『石化した叫び』を持ち歩くことへ不安を抱いている"
+    }
+    {
         en = "Concerned about lack of discipline"
         ja = "規律の欠如を懸念した"
     }
     {
+        en = "Concerned about you bribing men to stop their fight"
+        ja = "賄賂で喧嘩を止めたことへ不安を抱いている"
+    }
+    {
         en = "Concerned that there's something big out there"
         ja = "外に何か巨大なものがいるのではと不安になった"
+    }
+    {
+        en = "Concerned that you didn't act on a possible threat"
+        ja = "脅威になりうるものへ対処しなかったことを懸念している"
+    }
+    {
+        en = "Confused about his role as your squire"
+        ja = "あなたの従者としての役割に戸惑っている"
     }
     {
         en = "Conscripted soldiers loyal to their city state."
@@ -8751,12 +9643,24 @@
         ja = "改宗した十字軍兵"
     }
     {
+        en = "Convinced he hasn't upheld the oaths as well as he should"
+        ja = "果たすべきほど十分に誓約を守れていないと確信している"
+    }
+    {
         en = "Corpse Explosion"
         ja = "死体爆発"
     }
     {
         en = "Corpse Hurl"
         ja = "死体投げ"
+    }
+    {
+        en = "Could this be an omen?"
+        ja = "これは前兆なのか？"
+    }
+    {
+        en = "Count me in!"
+        ja = "俺も混ぜろ！"
     }
     {
         en = "Covered by Smoke"
@@ -8851,6 +9755,14 @@
         ja = "腕の腱損傷"
     }
     {
+        en = "Cut a pimp down to size"
+        ja = "女衒を叩きのめし、身の程を思い知らせた"
+    }
+    {
+        en = "Cut down their populace"
+        ja = "彼らの住民を斬り殺した"
+    }
+    {
         en = "Dagewall"
         ja = "ダーゲヴァル"
     }
@@ -8859,8 +9771,68 @@
         ja = "短剣"
     }
     {
+        en = "Damn Oathbringer scum."
+        ja = "忌々しいオースブリンガーの屑め。"
+    }
+    {
+        en = "Damn eggheads."
+        ja = "忌々しい頭でっかちどもめ。"
+    }
+    {
+        en = "Damn fool."
+        ja = "大馬鹿者め。"
+    }
+    {
+        en = "Damn it!"
+        ja = "くそっ！"
+    }
+    {
+        en = "Damn kids."
+        ja = "忌々しいガキどもめ。"
+    }
+    {
+        en = "Damn scamps."
+        ja = "忌々しい悪童どもめ。"
+    }
+    {
+        en = "Damn thieves!"
+        ja = "くそったれな盗賊どもめ！"
+    }
+    {
+        en = "Damn this incense is some good stuff."
+        ja = "くそ、この香は上物だ。"
+    }
+    {
+        en = "Damn this place!"
+        ja = "こんな場所、くそくらえだ！"
+    }
+    {
+        en = "Damn those scroundels!"
+        ja = "あの悪党どもめ！"
+    }
+    {
+        en = "Damn, he really would have fit in."
+        ja = "くそ、本当にうちに馴染めただろうにな。"
+    }
+    {
+        en = "Damn, the little runt found us!"
+        ja = "くそ、あのちびに見つかった！"
+    }
+    {
         en = "Damn."
         ja = "くそっ。"
+    }
+    {
+        en = "Damn. Thought he had a stronger pimp game."
+        ja = "くそ。もっと腕の立つ女衒だと思っていた。"
+    }
+    {
+        en = "Damned runt."
+        ja = "忌々しいちびめ。"
+    }
+    {
+        en = "Damnit!"
+        ja = "くそったれ！"
     }
     {
         en = "Damwald"
@@ -8889,6 +9861,26 @@
     {
         en = "Dates"
         ja = "ナツメヤシの実"
+    }
+    {
+        en = "Davkul awaits"
+        ja = "ダヴクルが待っている"
+    }
+    {
+        en = "Davkul awaits us all."
+        ja = "ダヴクルは我らすべてを待っている。"
+    }
+    {
+        en = "Davkul awaits, we need not go to him."
+        ja = "ダヴクルは待っている。我らから赴く必要はない。"
+    }
+    {
+        en = "Davkul awaits."
+        ja = "ダヴクルが待っている。"
+    }
+    {
+        en = "Davkul does not want him."
+        ja = "ダヴクルは彼を望んでいない。"
     }
     {
         en = "Daytaler"
@@ -8963,6 +9955,10 @@
         ja = "積荷を届けた"
     }
     {
+        en = "Demands better food"
+        ja = "もっとましな食事を要求している"
+    }
+    {
         en = "Demolish Armor"
         ja = "防具を粉砕"
     }
@@ -9019,8 +10015,32 @@
         ja = "運命の賽"
     }
     {
+        en = "Did a bad trade"
+        ja = "損な取引をした"
+    }
+    {
+        en = "Did we do good here?"
+        ja = "俺たちはここで善いことをしたのか？"
+    }
+    {
         en = "Didn't get a good night's sleep"
         ja = "一晩よく眠れなかった"
+    }
+    {
+        en = "Didn't get along with the company's wardogs"
+        ja = "傭兵団の軍用犬とうまく馴染めなかった"
+    }
+    {
+        en = "Didn't get the entertainment he had hoped for"
+        ja = "期待していた見世物を楽しめなかった"
+    }
+    {
+        en = "Didn't need to know that."
+        ja = "それは知りたくなかった。"
+    }
+    {
+        en = "Die with some dignity at last."
+        ja = "せめて最後くらい、誇りを持って死ね。"
     }
     {
         en = "Dinkelsmark"
@@ -9043,6 +10063,10 @@
         ja = "ダイアウルフ"
     }
     {
+        en = "Disappointed that you avoided battle and let peasants die"
+        ja = "戦いを避けて農民を死なせたことに失望した"
+    }
+    {
         en = "Disarm"
         ja = "武装解除"
     }
@@ -9059,6 +10083,22 @@
         ja = "南方からの侵略者の苦しみを終わらせたことを不快に思った"
     }
     {
+        en = "Disliked that you killed and robbed your hosts"
+        ja = "もてなしてくれた者たちを殺して奪ったことを嫌悪した"
+    }
+    {
+        en = "Disliked that you left fellow Gilded to suffer a slow death"
+        ja = "同じギルダーの民を苦しみながら死なせたことを嫌悪した"
+    }
+    {
+        en = "Disliked that you left fellow northerners to suffer a slow death"
+        ja = "同じ北方人を苦しみながら死なせたことを嫌悪した"
+    }
+    {
+        en = "Disliked that you prevented rightful punishment for betraying the old gods"
+        ja = "古き神々を裏切った者への正当な罰を妨げたことを嫌悪した"
+    }
+    {
         en = "Disliked that you slew a captive in cold blood"
         ja = "捕虜を冷酷に殺したことを不快に思った"
     }
@@ -9067,24 +10107,112 @@
         ja = "不忠"
     }
     {
+        en = "Dismayed that fallen comrades were left to rot on the battlefield"
+        ja = "戦死した仲間を戦場で朽ちるままにしたことへ落胆した"
+    }
+    {
         en = "Disowned Noble"
         ja = "勘当された貴族"
+    }
+    {
+        en = "Dispatched of a youngling alp"
+        ja = "若いアルプを始末した"
+    }
+    {
+        en = "Disperse them you shall."
+        ja = "団員たちへ配るのだ。"
+    }
+    {
+        en = "Displayed his archery skills"
+        ja = "弓術の腕を披露した"
     }
     {
         en = "Distracted"
         ja = "注意散漫"
     }
     {
+        en = "Disturbing."
+        ja = "不気味だ。"
+    }
+    {
         en = "Diviner's Fury"
         ja = "大占術師の憤怒"
+    }
+    {
+        en = "Do as you wish, as long as you don't forget what I hired you to do."
+        ja = "雇われた仕事を忘れないなら、好きにしろ。"
+    }
+    {
+        en = "Do it, and use whatever means necessary."
+        ja = "やれ。必要ならどんな手段でも使え。"
+    }
+    {
+        en = "Do it, but be careful."
+        ja = "やれ。ただし気をつけろ。"
+    }
+    {
+        en = "Do it, work your trade."
+        ja = "やれ。お前の技を使え。"
+    }
+    {
+        en = "Do what is necessary."
+        ja = "必要なことをしろ。"
+    }
+    {
+        en = "Do what must be done."
+        ja = "為すべきことを為せ。"
+    }
+    {
+        en = "Do you have something to say, %cultist% the Cultist?"
+        ja = "%cultist%、教団員として何か言うことはあるか？"
     }
     {
         en = "Dodge"
         ja = "回避"
     }
     {
+        en = "Does %minstrel% the minstrel know something?"
+        ja = "吟遊詩人の%minstrel%は何か知っているか？"
+    }
+    {
+        en = "Does our monk wish to speak about this... trade?"
+        ja = "修道士殿は、この……取引について何か言いたいか？"
+    }
+    {
+        en = "Dogs are smart, too, but what do we do with the bad ones?"
+        ja = "犬も賢い。だが、悪い犬はどうする？"
+    }
+    {
         en = "Dogs were not simply 'hounds' to %name%, despite his title as 'houndmaster.' To him, they were the most loyal friends of his life. After leaving the company, he discovered an ingenious way to breed the animals specifically tailored to the desires of the nobility. Wanted a brutish beast for a guard dog? He could do it. Wanted something small and cuddly for the children? He could do that, too. The former mercenary now earns an incredible earning doing what he loves - working with dogs."
         ja = "「猟犬使い」という肩書きがあっても、%name%にとって犬は単なる「猟犬」ではなかった。犬たちは人生で最も忠実な友だった。傭兵団を去った後、彼は貴族の望みにぴったり合うよう犬を繁殖させる、巧妙な方法を編み出した。番犬に獰猛な大犬が欲しい？　作れる。子供向けに小さく愛らしい犬が欲しい？　それもできる。元傭兵の彼は今、大好きな犬と働きながら驚くほどの稼ぎを得ている。"
+    }
+    {
+        en = "Doing mercenary work for them would further mend relations."
+        ja = "彼らのために傭兵仕事をすれば、関係はさらに修復されるだろう。"
+    }
+    {
+        en = "Don't challenge the %companyname%!"
+        ja = "%companyname%に挑むな！"
+    }
+    {
+        en = "Don't get too used to this kind of work, men."
+        ja = "この手の仕事に慣れすぎるな、団員たちよ。"
+    }
+    {
+        en = "Don't let his insecurity rub off on you, %eunuch%."
+        ja = "あいつの自信のなさに影響されるな、%eunuch%。"
+    }
+    {
+        en = "Don't let your White Nach' earn you a black eye, bloody loggerhead."
+        ja = "白いナハツェーラーのせいで目の周りを黒くするな、この大間抜け。"
+    }
+    {
+        en = "Don't look at me like that, you know what you did."
+        ja = "そんな目で見るな。自分が何をしたか、わかっているだろう。"
+    }
+    {
+        en = "Don't make me repeat this."
+        ja = "二度は言わせるな。"
     }
     {
         en = "Don't think about it."
@@ -9199,6 +10327,10 @@
         ja = "解毒剤を飲む／与える"
     }
     {
+        en = "Drop the pork. Now."
+        ja = "その豚肉を置け。今すぐだ。"
+    }
+    {
         en = "Drum"
         ja = "太鼓"
     }
@@ -9275,6 +10407,10 @@
         ja = "デュルフェステ"
     }
     {
+        en = "Dust."
+        ja = "塵だ。"
+    }
+    {
         en = "Dusterburg"
         ja = "デュスターブルク"
     }
@@ -9307,8 +10443,28 @@
         ja = "地上者"
     }
     {
+        en = "Easy as it gets."
+        ja = "これ以上ないほど簡単だ。"
+    }
+    {
+        en = "Easy crowns."
+        ja = "楽な稼ぎだ。"
+    }
+    {
+        en = "Easy enough."
+        ja = "造作もない。"
+    }
+    {
+        en = "Eat dirt, you little runts."
+        ja = "泥でも食ってろ、ちびども。"
+    }
+    {
         en = "Eat or Give Strange Mushrooms"
         ja = "奇妙なキノコを食べる／渡す"
+    }
+    {
+        en = "Eat up, fool!"
+        ja = "さっさと食え、馬鹿者！"
     }
     {
         en = "Ebbenwacht"
@@ -9463,6 +10619,22 @@
         ja = "エレングルーベ"
     }
     {
+        en = "Embarrassed himself trying to slay a monster"
+        ja = "怪物を倒そうとして恥をさらした"
+    }
+    {
+        en = "Embarrassing."
+        ja = "情けない。"
+    }
+    {
+        en = "Emboldened by learning of the weakness of young alps"
+        ja = "若いアルプの弱点を知り、勇気づけられた"
+    }
+    {
+        en = "Enchanted by his own poetry"
+        ja = "自作の詩に酔いしれた"
+    }
+    {
         en = "Enhanced Bravery"
         ja = "強化された勇気"
     }
@@ -9483,8 +10655,24 @@
         ja = "強化された持久力"
     }
     {
+        en = "Enjoy the dungeon."
+        ja = "地下牢を楽しめ。"
+    }
+    {
+        en = "Enjoy your freedom."
+        ja = "自由を楽しめ。"
+    }
+    {
+        en = "Enjoy."
+        ja = "楽しめ。"
+    }
+    {
         en = "Enjoyed beating up a traveling troupe"
         ja = "旅芸人一座を痛めつけて楽しんだ"
+    }
+    {
+        en = "Enjoyed being in a forest"
+        ja = "森にいることを楽しんだ"
     }
     {
         en = "Enjoyed raiding and pillaging"

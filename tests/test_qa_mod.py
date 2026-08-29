@@ -96,5 +96,42 @@ class LedgerPartitionTests(unittest.TestCase):
         self.assertTrue(errors["entry_errors"])
 
 
+class TranslationReviewTrancheTests(unittest.TestCase):
+    def test_exact_tranche_accounting_is_accepted(self) -> None:
+        units = {
+            "units": [
+                {"status": "TRANSLATED", "review_status": "REVIEWED"},
+                {"status": "TRANSLATED", "review_status": "REVIEWED"},
+                {"status": "UNTRANSLATED", "review_status": "NOT_REVIEWED"},
+            ]
+        }
+        tranches = {
+            "canonical_reviewed_units": 2,
+            "translated_needs_review_units": 0,
+            "tranches": [
+                {"name": "first", "reviewed_units": 1},
+                {"name": "second", "reviewed_units": 9, "canonical_count_delta": 1},
+            ],
+        }
+        errors = MODULE.translation_review_tranche_errors(units, tranches)
+        self.assertFalse(errors["malformed_tranche_indexes"])
+        self.assertFalse(errors["duplicate_tranche_names"])
+        self.assertFalse(errors["count_mismatches"])
+
+    def test_stale_or_duplicate_tranche_report_is_rejected(self) -> None:
+        units = {"units": [{"status": "TRANSLATED", "review_status": "REVIEWED"}]}
+        tranches = {
+            "canonical_reviewed_units": 2,
+            "translated_needs_review_units": 1,
+            "tranches": [
+                {"name": "same", "reviewed_units": 1},
+                {"name": "same", "reviewed_units": 1},
+            ],
+        }
+        errors = MODULE.translation_review_tranche_errors(units, tranches)
+        self.assertEqual(errors["duplicate_tranche_names"], ["same"])
+        self.assertEqual(len(errors["count_mismatches"]), 3)
+
+
 if __name__ == "__main__":
     unittest.main()

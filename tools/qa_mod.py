@@ -553,6 +553,95 @@ def check_ledger_partition(repo: Path) -> dict[str, Any]:
     return result("canonical_ledger_partition", passed, errors)
 
 
+def translation_review_tranche_errors(
+    units_payload: dict[str, Any], tranche_payload: dict[str, Any]
+) -> dict[str, Any]:
+    units = units_payload.get("units", [])
+    canonical_reviewed = sum(
+        unit.get("status") == "TRANSLATED" and unit.get("review_status") == "REVIEWED"
+        for unit in units
+    )
+    canonical_needs_review = sum(
+        unit.get("status") == "TRANSLATED" and unit.get("review_status") != "REVIEWED"
+        for unit in units
+    )
+    malformed_tranches = []
+    duplicate_names = []
+    seen_names = set()
+    tranche_total = 0
+    for index, tranche in enumerate(tranche_payload.get("tranches", [])):
+        name = tranche.get("name")
+        contribution = tranche.get("canonical_count_delta", tranche.get("reviewed_units"))
+        if not isinstance(name, str) or not name or not isinstance(contribution, int) or contribution < 0:
+            malformed_tranches.append(index)
+            continue
+        if name in seen_names:
+            duplicate_names.append(name)
+        seen_names.add(name)
+        tranche_total += contribution
+
+    declared_reviewed = tranche_payload.get("canonical_reviewed_units")
+    declared_needs_review = tranche_payload.get("translated_needs_review_units")
+    return {
+        "canonical_reviewed_units": canonical_reviewed,
+        "declared_reviewed_units": declared_reviewed,
+        "tranche_contribution_sum": tranche_total,
+        "canonical_translated_needs_review_units": canonical_needs_review,
+        "declared_translated_needs_review_units": declared_needs_review,
+        "malformed_tranche_indexes": malformed_tranches,
+        "duplicate_tranche_names": duplicate_names,
+        "count_mismatches": [
+            mismatch
+            for mismatch, failed in (
+                (
+                    {
+                        "field": "canonical_reviewed_units",
+                        "canonical": canonical_reviewed,
+                        "declared": declared_reviewed,
+                    },
+                    declared_reviewed != canonical_reviewed,
+                ),
+                (
+                    {
+                        "field": "tranche_contribution_sum",
+                        "canonical": canonical_reviewed,
+                        "declared": tranche_total,
+                    },
+                    tranche_total != canonical_reviewed,
+                ),
+                (
+                    {
+                        "field": "translated_needs_review_units",
+                        "canonical": canonical_needs_review,
+                        "declared": declared_needs_review,
+                    },
+                    declared_needs_review != canonical_needs_review,
+                ),
+            )
+            if failed
+        ],
+    }
+
+
+def check_translation_review_tranches(repo: Path) -> dict[str, Any]:
+    paths = {
+        "units": repo / "work" / "ledger" / "translation-units.json",
+        "tranches": repo / "reports" / "translation-review-tranches.json",
+    }
+    missing = [name for name, path in paths.items() if not path.is_file()]
+    if missing:
+        return result("translation_review_tranche_accounting", False, {"missing": missing})
+    units = json.loads(paths["units"].read_text(encoding="utf-8"))
+    tranches = json.loads(paths["tranches"].read_text(encoding="utf-8"))
+    errors = translation_review_tranche_errors(units, tranches)
+    passed = not (
+        errors["malformed_tranche_indexes"]
+        or errors["duplicate_tranche_names"]
+        or errors["count_mismatches"]
+    )
+    return result("translation_review_tranche_accounting", passed, errors)
+
+
 def check_semantic_limitation_tracking(repo: Path) -> dict[str, Any]:
     path = repo / "reports" / "upstream-source-limitations.json"
     if not path.is_file():
@@ -1087,6 +1176,7 @@ def main() -> int:
         *check_runtime_translation_manifest(repo, src),
         check_literal_reachability_remediation(repo, src),
         check_ledger_partition(repo),
+        check_translation_review_tranches(repo),
         check_supported_snapshot_lock(repo),
         check_semantic_limitation_tracking(repo),
         check_legends_event_boundary_audit(repo, src),

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at_utc": "2026-08-29T21:54:45.233576+00:00",
+  "generated_at_utc": "2026-08-29T21:59:26.587254+00:00",
   "scope": "static repository-owned MOD sources only",
   "status": "PASS",
   "checks": [
@@ -17,7 +17,7 @@
       "name": "translation_pair_parse",
       "status": "PASS",
       "detail": {
-        "pairs": 3470,
+        "pairs": 3767,
         "errors": []
       }
     },
@@ -51,7 +51,7 @@
         "entries": 19,
         "rosetta_entries": 7,
         "js_entries": 12,
-        "additional_reviewed_rosetta_pairs": 3463,
+        "additional_reviewed_rosetta_pairs": 3760,
         "additional_reviewed_js_pairs": 73,
         "runtime_proof": "NOT_TESTED",
         "errors": {
@@ -71,9 +71,9 @@
       "name": "reviewed_runtime_accounting",
       "status": "PASS",
       "detail": {
-        "reviewed_units": 3581,
-        "accounted_units": 3581,
-        "literal_emitted": 3567,
+        "reviewed_units": 3878,
+        "accounted_units": 3878,
+        "literal_emitted": 3864,
         "boundary_hooks": 14,
         "pending_patterns": 0,
         "ledger_hash_match": true,
@@ -118,12 +118,12 @@
         "count_mismatches": [],
         "canonical_counts": {
           "total_occurrences": 48158,
-          "resolved_exclusion_occurrences": 3561,
-          "translatable_occurrences": 44597,
-          "unique_translation_units": 31827,
-          "untranslated_units": 28246,
+          "resolved_exclusion_occurrences": 3564,
+          "translatable_occurrences": 44594,
+          "unique_translation_units": 31824,
+          "untranslated_units": 27946,
           "translated_needs_review_units": 0,
-          "reviewed_units": 3581
+          "reviewed_units": 3878
         }
       }
     },
@@ -131,9 +131,9 @@
       "name": "translation_review_tranche_accounting",
       "status": "PASS",
       "detail": {
-        "canonical_reviewed_units": 3581,
-        "declared_reviewed_units": 3581,
-        "tranche_contribution_sum": 3581,
+        "canonical_reviewed_units": 3878,
+        "declared_reviewed_units": 3878,
+        "tranche_contribution_sum": 3878,
         "canonical_translated_needs_review_units": 0,
         "declared_translated_needs_review_units": 0,
         "malformed_tranche_indexes": [],
@@ -261,7 +261,7 @@
       "name": "font_glyph_coverage",
       "status": "PASS",
       "detail": {
-        "required_codepoints": 2119,
+        "required_codepoints": 2161,
         "missing": [],
         "sha256": "68A3FC98800B2A27B371F2FB79991DAF3633BD89309D4FFAA6946FD587F375B5"
       }
@@ -278,7 +278,7 @@
         "optional_mod_objects_defined": false,
         "marker_found": true,
         "returncode": 0,
-        "output_tail": "rosetta: Adding 23 ru pairs in mod_rosetta\nrosetta: Adding 1583 ja pairs in mod_legends\nrosetta: Adding 25 ja pairs in mod_msu\nrosetta: Adding 1861 ja pairs in vanilla\nrosetta: Adding 1 ja pairs in mod_legends\nrosetta: NOT FOUND Dame\nrosetta: NOT FOUND Madame Roderick\nrosetta: NOT FOUND Not in the vertical slice\nVERTICAL_SLICE_ROSETTA_TEST_OK\n"
+        "output_tail": "rosetta: Adding 23 ru pairs in mod_rosetta\nrosetta: Adding 1583 ja pairs in mod_legends\nrosetta: Adding 25 ja pairs in mod_msu\nrosetta: Adding 2158 ja pairs in vanilla\nrosetta: Adding 1 ja pairs in mod_legends\nrosetta: NOT FOUND Dame\nrosetta: NOT FOUND Madame Roderick\nrosetta: NOT FOUND Not in the vertical slice\nVERTICAL_SLICE_ROSETTA_TEST_OK\n"
       }
     },
     {
@@ -287,7 +287,7 @@
       "detail": {
         "marker_found": true,
         "returncode": 0,
-        "output_tail": "rosetta: Adding 23 ru pairs in mod_rosetta\nrosetta: Adding 1583 ja pairs in mod_legends\nrosetta: Adding 25 ja pairs in mod_msu\nrosetta: Adding 1861 ja pairs in vanilla\nrosetta: Adding 1 ja pairs in mod_legends\nREVIEWED_RUNTIME_PATTERNS_OK\n"
+        "output_tail": "rosetta: Adding 23 ru pairs in mod_rosetta\nrosetta: Adding 1583 ja pairs in mod_legends\nrosetta: Adding 25 ja pairs in mod_msu\nrosetta: Adding 2158 ja pairs in vanilla\nrosetta: Adding 1 ja pairs in mod_legends\nREVIEWED_RUNTIME_PATTERNS_OK\n"
       }
     },
     {
@@ -332,7 +332,7 @@
       "detail": {
         "marker_found": true,
         "returncode": 0,
-        "output_tail": "rosetta: Adding 23 ru pairs in mod_rosetta\nrosetta: Adding 1583 ja pairs in mod_legends\nrosetta: Adding 25 ja pairs in mod_msu\nrosetta: Adding 1861 ja pairs in vanilla\nrosetta: Adding 1 ja pairs in mod_legends\nRUNTIME_PATTERN_COLLISION_AUDIT_OK\n"
+        "output_tail": "rosetta: Adding 23 ru pairs in mod_rosetta\nrosetta: Adding 1583 ja pairs in mod_legends\nrosetta: Adding 25 ja pairs in mod_msu\nrosetta: Adding 2158 ja pairs in vanilla\nrosetta: Adding 1 ja pairs in mod_legends\nRUNTIME_PATTERN_COLLISION_AUDIT_OK\n"
       }
     },
     {
@@ -353,7 +353,7 @@
       "name": "archive_structure_and_content",
       "status": "PASS",
       "detail": {
-        "artifact_sha256": "B7CD5FE86D5D0EE6E8DBAA3AF9746A232657695AADCFB67B9C26BD4E28858870",
+        "artifact_sha256": "B49C8C859C4854972B94F90FE36F40414437A67769A5DFED6DD9E91DA88FEB2C",
         "archive_entries": 13,
         "source_entries": 13,
         "errors": []

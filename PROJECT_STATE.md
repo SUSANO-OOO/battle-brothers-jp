@@ -1,14 +1,14 @@
 # Project State
 
-Updated: 2026-08-30 06:35 (Asia/Tokyo)
+Updated: 2026-08-30 06:59 (Asia/Tokyo)
 
 ## Current phase
 
-Phase 7 — 3,581 canonical units independently reviewed; the next 300-unit Vanilla events translation tranche is in draft preparation.
+Phase 7 — 3,878 canonical units independently reviewed; Vanilla events 003 is awaiting independent review and 004 is in draft preparation.
 
 ## Current commit
 
-Local checkpoint: `968a113bb3a16f0b1b68e10f59857bef7c660ca8` on `codex/integrated-jp-mod`. GitHub authentication is blocked, so no remote commit is claimed.
+Local checkpoint: `c086597d5fcb0d7f11421b4e1ab68628372c7fce` on `codex/integrated-jp-mod`. GitHub authentication is blocked, so no remote commit is claimed.
 
 ## Installed snapshot ID
 
@@ -83,9 +83,10 @@ Snapshot basis SHA-256: `CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E
 - Independently translated and reviewed 300 Vanilla settlement units; 21 draft translations changed during review.
 - Completed the first 300-unit Legends event tranche: 294 player-facing units are independently reviewed with 61 total review corrections, while six internal units covering seven occurrences are resolved exclusions.
 - Added exact clone-only Legends pronoun/person mappings and a five-cause obituary DTO boundary. Independent re-audit confirmed known-family unknown values and unknown obituary causes fail closed, all 48 remediation literals are generated, and caller variables, PronounTable, actor/event state, Statistics, persistence, and saves remain raw.
+- Independently reviewed the second 300-unit Vanilla event tranche: 297 translations were adopted with 46 draft corrections, while two exact screen-routing IDs and one player-facing language-invariant numeric value were resolved as three reasoned exclusions. `Barnabas' Dagger` is localized only through the existing `item.getName()` return boundary; raw `m.Name`, stash, serialization, and save identity remain unchanged.
 - Rejected and removed a tentative `getMoodChanges()` return translation after source audit found an installed gameplay comparison against the raw English mood reason. Mood and relation history remain raw in state and are localized only at the existing final tooltip boundaries.
 - Fixed the exclusion pipeline after a canonical application exposed a mixed-context deduplication risk: the ignored ledger was restored before regeneration, exact stable-key coverage is now mandatory, mixed unresolved units are split first, and canonical ledger partition QA prevents exclusions from hiding inside translation units.
-- Latest local checkpoint is `968a113bb3a16f0b1b68e10f59857bef7c660ca8` on `codex/integrated-jp-mod`; the 3,581-unit tranche is not yet committed at this line's timestamp and no remote claim is made.
+- The reviewed-3,581 tranche is committed locally at `c086597d5fcb0d7f11421b4e1ab68628372c7fce` on `codex/integrated-jp-mod`; no remote claim is made.
 - Portable GitHub Actions workflow added for repository-only Python/JS checks. Hosted CI has not run because no authenticated remote exists.
 - Graph-first `scan`, `extract`, `diff`, `coverage`, `validate`, `build`, `qa`, and `update` commands are exposed through `tools/bbjp.py`; `update` deliberately stops before extraction when installed fingerprints changed.
 - Deterministic development-only ZIPs are built below `work/qa`; none is a release artifact.
@@ -94,29 +95,29 @@ Snapshot basis SHA-256: `CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E
 ## Translation counts and coverage
 
 - Extracted occurrences: `48,158`
-- Reasoned resolved-exclusion occurrences: `3,561`
-- Translatable occurrences: `44,597`
-- Unique translation units: `31,827` (ambiguous global units use context-specific partitions)
-- Untranslated units: `28,246`
+- Reasoned resolved-exclusion occurrences: `3,564`
+- Translatable occurrences: `44,594`
+- Unique translation units: `31,824` (ambiguous global units use context-specific partitions)
+- Untranslated units: `27,946`
 - Translated-needs-review units: `0`
-- Reviewed units: `3,581`
-- Reviewed unique-unit coverage: `11.2515%` (`3,581 / 31,827`)
-- Reviewed occurrence coverage: `18.3017%` (`8,162 / 44,597`)
+- Reviewed units: `3,878`
+- Reviewed unique-unit coverage: `12.1858%` (`3,878 / 31,824`)
+- Reviewed occurrence coverage: `19.0340%` (`8,488 / 44,594`)
 - Extraction failures: `0`
 - Extraction fallback warnings: `8` source files / `601` candidates
 - Release coverage gate: `NOT_MET`
 
 ## Last green tests
 
-- Project Python unit tests: `59/59 PASS`.
+- Project Python unit tests: `61/61 PASS`.
 - Rosetta official Python extractor suite: `102 PASS, 1 XFAIL`.
 - Vertical Slice Squirrel syntax: preload and translation files compile with Squirrel `3.0.7`.
 - Vertical Slice Rosetta harness: Japanese literals and `%dragonslayer%` token preservation PASS.
 - JS syntax and button/dialog/popup wrapper behavior: PASS (`UI_TRANSLATION_TEST_OK`).
 - Last fully green Vertical Slice static MOD QA: all 17 checks PASS in `reports/qa-vertical-slice.json`.
-- Current development-tranche static QA: `30/30 PASS` in `reports/qa-reviewed-3581.json`, including exact canonical ledger partitioning, event-boundary evidence, runtime accounting, Late-bucket registration, pending patterns 0, all-rule collision audit, semantic-name/event-variable/source-defect/UI/JS harnesses, canonical snapshot/ledger lock, exact archive parity, third-party allowlist, glyph coverage, and write-scope.
+- Current development-tranche static QA: `31/31 PASS` for reviewed-3,878 in `reports/qa-reviewed-3878.json`, including canonical ledger/tranche accounting, snapshot lock, syntax, boundary/collision harnesses, glyph coverage, archive parity, third-party allowlist, and write-scope.
 - Font static QA for the current generated tranche: 2,119 required non-ASCII code points, missing 0.
-- The current 3,581-unit source generation contains 3,567 emitted units plus 14 exact boundary units; pending runtime patterns are 0. The 13-entry development ZIP matches repository-owned source 13/13. Runtime game QA remains `NOT_TESTED`.
+- The current 3,878-unit source generation contains 3,864 emitted units plus 14 exact boundary units; pending runtime patterns are 0. The 13-entry development ZIP matches repository-owned source 13/13. Runtime game QA remains `NOT_TESTED`.
 
 Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's standard `sq.exe`: it reports a runtime wrong-parameter error while returning exit code 0. `sq_taro.exe` only compiles it. This is not reported as PASS and needs compatible runtime or isolated game confirmation.
 
@@ -125,7 +126,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 - GitHub: `gh auth status` reports the stored token for `SUSANO-OOO` is invalid; repository existence/ownership/create/push/read-back remain unverified.
 - Runtime dependencies: Rosetta `0.5.0` and stdlib `>=2.5` are not installed in the user's current game. The project will not install them automatically.
 - Runtime QA: fully isolated game + Documents/config/save/log environment is not yet proven safe. The real environment remains untouched.
-- Release coverage: 28,246 unique units remain untranslated.
+- Release coverage: 27,946 unique units remain untranslated.
 
 ## Unresolved items
 
@@ -140,13 +141,13 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Next exact action
 
-Finish the prepared 300-unit Vanilla events draft, send it through a separate context/mechanics/lore/placeholder review pass, apply only independently approved entries, then regenerate and repeat the locked clean-build QA.
+Independently review the prepared Vanilla events 003 tranche using its separate boundary audit, apply only approved translations/exclusions, then regenerate and repeat the locked clean-build QA while Vanilla events 004 drafting continues.
 
 ## Artifact state
 
 - Release artifact: `NOT_BUILT`.
-- Latest fully checked development tranche only: `work/qa/mod_battle_brothers_jp_REVIEWED_3581.zip`.
-- Development-tranche SHA-256: `B7CD5FE86D5D0EE6E8DBAA3AF9746A232657695AADCFB67B9C26BD4E28858870`; exact 13/13 source/archive parity PASS. It is not a release artifact.
+- Latest fully checked development tranche only: `work/qa/mod_battle_brothers_jp_REVIEWED_3878.zip`.
+- Development-tranche SHA-256: `B49C8C859C4854972B94F90FE36F40414437A67769A5DFED6DD9E91DA88FEB2C`; exact 13/13 source/archive parity PASS. It is not a release artifact.
 - `dist/mod_battle_brothers_jp.zip` does not exist and no RC claim is made.
 
 ## Runtime state

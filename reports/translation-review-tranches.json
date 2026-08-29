@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
-  "canonical_reviewed_units": 3581,
+  "canonical_reviewed_units": 3878,
   "translated_needs_review_units": 0,
   "tranches": [
     {
@@ -293,6 +293,37 @@
           "path": "work/review_batches/legends_events_boundary_remediation_reviewed_001.json (gitignored)",
           "units": 48,
           "sha256": "23E5F9C79A32942C42D08A9D8077FA20FDFB2E9E9275946ACDDAD735882BD120"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-events-literal-002",
+      "source_units": 300,
+      "reviewed_units": 297,
+      "resolved_exclusion_units": 3,
+      "resolved_exclusion_occurrences": 3,
+      "draft_changes_by_independent_reviewer": 46,
+      "player_facing_unresolved": 0,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_events_literal_source_002.json (gitignored)",
+          "sha256": "CF8732F66C927C02E0B0A9F2E1850EA1F792DDE415D578FCB40EF57413729D83"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_source_audit_002.json (gitignored)",
+          "sha256": "9A40BD284191285962A15CC324E80317A5C0FF192ADEB4BDFF2AD68E53BF547A"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_reviewed_002.json (gitignored)",
+          "sha256": "95339DDF6684C43B45BD61C5FE02DBD203CDEF7136457674C0468A73DC0A587A"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_exclusion_batch_002.json (gitignored)",
+          "sha256": "D6E7DF4584AD423B6203D04DBB743D23B8F66CA00B97CF8B0BF8490D15F20651"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_002_boundary_audit.json (gitignored)",
+          "sha256": "C9F74F96A29F57259D9D0B417ABEDE4F2B2603A535DF697015F4596143213501"
         }
       ]
     }

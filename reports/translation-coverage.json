@@ -5,19 +5,19 @@
   "status": "TRANSLATION_IN_PROGRESS",
   "detailed_ledger_location": "work/ledger/translation-ledger.json (gitignored)",
   "translation_units_location": "work/ledger/translation-units.json (gitignored)",
-  "detailed_ledger_sha256": "DD28695F2F1A99C65D91C3484DC75682E26D64D3558A885867292894AB6410F5",
-  "translation_units_sha256": "76B4A020F9888E7805096326C8E3E9FDBB4891562F28AC84915E059F87C4AD54",
+  "detailed_ledger_sha256": "A9F70D4080EEEC3C133F1FD37C73DF79A8EDC079E7015698AB97088148776267",
+  "translation_units_sha256": "517269397B7DD7F73C77893F78FA3CDEBE4CDC88202FDB9F62D8159C7D254BEE",
   "rosetta_extractor": {
     "version": "0.5.0",
     "commit": "dde98e99fd95ed0e7474a4328555144b4e913678"
   },
   "total_occurrences": 48158,
-  "resolved_exclusion_occurrences": 3561,
-  "translatable_occurrences": 44597,
-  "unique_translation_units": 31827,
-  "untranslated_units": 28246,
+  "resolved_exclusion_occurrences": 3564,
+  "translatable_occurrences": 44594,
+  "unique_translation_units": 31824,
+  "untranslated_units": 27946,
   "translated_needs_review_units": 0,
-  "reviewed_units": 3581,
+  "reviewed_units": 3878,
   "extraction_failures": [],
   "extraction_warnings": [
     {
@@ -102,8 +102,10 @@
     "RESOURCE_OR_SCRIPT_PATH": 2,
     "TECHNICAL_REGEX_OR_FORMAT_PATTERN": 6,
     "debug_diagnostic": 2,
+    "internal_screen_id": 2,
     "item_pool_id": 17,
     "markup_control_token": 2,
+    "nonlinguistic_template_value": 1,
     "template_variable_key": 368
   },
   "per_module": {
@@ -137,10 +139,10 @@
     },
     "vanilla": {
       "occurrences": 22581,
-      "resolved_exclusions": 2454,
-      "translatable_occurrences": 20127,
-      "translated_occurrences": 3617,
-      "reviewed_occurrences": 3617
+      "resolved_exclusions": 2457,
+      "translatable_occurrences": 20124,
+      "translated_occurrences": 3943,
+      "reviewed_occurrences": 3943
     },
     "vanilla_ui": {
       "occurrences": 376,
@@ -151,7 +153,7 @@
     }
   },
   "release_gate": "NOT_MET",
-  "updated_at_utc": "2026-08-29T21:29:16.911443+00:00",
+  "updated_at_utc": "2026-08-29T21:57:30.125762+00:00",
   "runtime_pattern_resolved_units": 129,
   "runtime_pattern_unresolved_units": 0
 }

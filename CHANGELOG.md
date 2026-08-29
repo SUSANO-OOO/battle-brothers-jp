@@ -46,3 +46,7 @@
 - Added clone-only installed PronounTable family/value localization and an exact five-cause obituary DTO boundary; independent re-audit confirmed unknown values fail closed and all persisted/raw data remains unchanged.
 - Added a machine-readable Legends event boundary audit and release QA check covering canonical emission, evidence fingerprints, implementation guards, and negative samples.
 - Built and fully static-QA-verified the reviewed-3,581 development tranche; all 30 repository-owned checks pass and the 13-entry archive matches source exactly.
+- Added a translation-tranche accounting gate after detecting stale review metadata; canonical REVIEWED units, declared totals, and per-tranche contributions must now agree. The reviewed-3,581 development tranche is green on all 31 checks.
+- Independently reviewed and adopted 297 translations from the second Vanilla event tranche with 46 corrections; resolved two internal after-combat screen IDs and one language-invariant numeric display value as exact exclusions.
+- Proved `Barnabas' Dagger` is safely localized by the existing item getter return boundary while raw item identity, stash state, serialization, and saves remain unchanged.
+- Built and fully static-QA-verified the reviewed-3,878 development tranche; all 31 repository-owned checks pass and the 13-entry archive matches source exactly.
