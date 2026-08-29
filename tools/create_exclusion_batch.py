@@ -10,6 +10,18 @@ from pathlib import Path
 from typing import Any
 
 
+def exclusion_reason_code(finding: dict[str, Any]) -> str | None:
+    """Read the reviewer reason code from audit schema v1 or v2."""
+    value = finding.get("prior_note_classification")
+    if isinstance(value, str):
+        return value
+    if isinstance(value, dict):
+        classification = value.get("classification")
+        return classification if isinstance(classification, str) else None
+    fallback = finding.get("candidate_classification")
+    return fallback if isinstance(fallback, str) and fallback.strip() else None
+
+
 def build_batch(
     audit: dict[str, Any], units_payload: dict[str, Any], batch_id: str
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
@@ -39,16 +51,23 @@ def build_batch(
                 }
             )
             continue
-        reason_codes = {finding.get("prior_note_classification") for finding in findings}
-        if None in reason_codes or len(reason_codes) != 1:
-            raise ValueError(f"Whole unit must have one exclusion reason code: {unit_id}")
+        reason_codes = {exclusion_reason_code(finding) for finding in findings}
+        if None in reason_codes:
+            raise ValueError(f"Whole unit has a missing exclusion reason code: {unit_id}")
+        sorted_reason_codes = sorted(reason_codes)
+        reason = (
+            sorted_reason_codes[0]
+            if len(sorted_reason_codes) == 1
+            else "MULTIPLE_RESOLVED_EXCLUSION_REASONS"
+        )
         notes = list(dict.fromkeys(finding["reason"] for finding in findings))
         entries.append(
             {
                 "translation_unit": unit_id,
                 "english": unit["english"],
                 "review_status": "NOT_APPLICABLE",
-                "reason": next(iter(reason_codes)),
+                "reason": reason,
+                "reason_codes": sorted_reason_codes,
                 "stable_keys": stable_keys,
                 "notes": notes,
             }

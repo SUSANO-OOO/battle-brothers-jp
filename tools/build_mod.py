@@ -19,6 +19,17 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest().upper()
 
 
+def verify_semantic_limitations(repo: Path) -> None:
+    path = repo / "reports" / "upstream-source-limitations.json"
+    if not path.is_file():
+        raise ValueError("Release build requires upstream-source limitation audit")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("status") != "RESOLVED":
+        raise ValueError(
+            f"Release build refuses open upstream semantic limitations: {payload.get('status')}"
+        )
+
+
 def verify_release_inputs(
     repo: Path, snapshot_report_path: Path | None, max_snapshot_age_hours: float
 ) -> dict[str, object]:
@@ -104,6 +115,7 @@ def build(
             raise ValueError(f"Release build refuses development version: {version}")
         if coverage.get("release_gate") != "MET":
             raise ValueError("Release build refuses unmet translation coverage gate")
+        verify_semantic_limitations(repo)
         release_inputs = verify_release_inputs(repo, snapshot_report_path, max_snapshot_age_hours)
 
     files = []

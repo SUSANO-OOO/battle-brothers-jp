@@ -16,13 +16,23 @@ Rosetta `0.5.0`には`ja`定義があるが、actual source自身がJapanese aut
 
 Rosetta `0.5.0`をexternal dependencyとして使う。Rosettaはitems、skills、actors、backgrounds、origins、events、contracts、tooltips、loading tips、combat results、template substitution、MSU settings等の実境界をhookする。特に`buildTextFromTemplate`の前で翻訳するため、`%name%`等のruntime tokenを翻訳前の形で保持できる。
 
+ただしactual Rosetta sourceはitem `getName()`、background `getNameOnly()`、world entity `getName()`を表示境界より前に翻訳する。独立した全consumer監査では、installed Legends `perk_legend_specialist_poacher`が`"Piercing"` / `"Broad Head"`を検索してdamage/effectを分岐し、Donkey backgroundがliteral equalityでtooltip branchを選び、Beggar originがsettlement nameをflagへ保存して後で`getName()`一致検索することを確認した。Vanilla/Legendsのunique world-name生成もraw候補と`getName()`を比較し、派生party名はgetter結果から保存名を作る。よってglobal name getter翻訳はcurrent snapshotへ無条件適用できない。
+
+日本語化MODはRosettaと同じLate bucketでRosettaより後にwrapperを登録する。itemはPoacherの2 method、backgroundはDonkey判定の1 methodだけsemantic scopeを開き、その中のgetter呼出しに限ってRosettaのactive languageを`null`へ退避する。これにより通常のinventory/tooltip表示は翻訳を保ちながら、damage/effectとDonkey branchにはraw Englishを渡す。通常終了・例外の両方でlanguageとscopeを復元する。
+
+world `getName()`はsave flag、contract objective、faction/party name、unique-name比較などconsumerが広範で将来も開放的なため、getter全体をsource-languageに固定する。world-map labelは`updateStrength`、deserialize、location/party initializerの完了後に表示文字列だけ翻訳し、settlement `getUIInformation()`はJS DTOの`Title`/`SubTitle`だけを翻訳する。template変数は後述のclone上で翻訳する。tooltip、event log、event/contract list等はRosetta既存の完成後boundaryを使う。`m.Name`、PronounTable、ID、save値、matcher、damage値、item stateは変更しない。
+
+Rosettaは`buildTextFromTemplate`へ渡すraw templateを先に翻訳するため、後から挿入する変数値には通常literal ruleが届かない。ここはcallerの`_vars`を変更せず各pairをcloneし、一般のstring値を最終rendering用にRosettaへ通す。これによりworld getterをrawに保ってもsettlement/item/skill/faction名をtemplate内だけ翻訳できる。その上でexact `noble` / `sibling` / `sib`、`justbeggar`、`nemesisS`のkey/valueだけはcontext固有訳を適用する。current snapshotで実きょうだいを指すdisowned-noble templateはraw templateの固有句で分岐する。語呂合わせを含むteamplayer等の全文は別の翻訳unitとしてreviewし、単語global replacementは行わない。
+
 翻訳データはmodule/category別の`.nut`へ生成し、`::Rosetta.add`で登録する。literal、stable ID、patternを区別する。Rosetta parserが扱えないsourceは未解決のまま黙殺せず、fallback抽出とreason付きexclusionへ送る。
 
 ### C. JavaScript/UI translation
 
 Rosetta `0.5.0`はJS-origin stringsを処理しない。Modern Hooks `0.6.0`の`::Hooks.registerJS`をqueued function内で使い、vanilla/Legendsのscreenがinstantiateされる前に共通UI controlをwrapする。`$.fn.createTextButton`、`$.fn.createDialog`、`$.fn.createPopupDialog`に加え、exact-stringの`html`、`text`、`append` setterだけを翻訳する。getter、DOM object、未知文字列はそのまま通す。
 
-actual call path監査でRosettaが到達しない境界が判明したため、whole-file replacementではなく限定的Squirrel hookを追加した。`ambition.getUIText()`、skillの`getKilledString()`、Legends camp crafting `queryLoad()`の`Title`/`SubTitle`、および4つのexact Legends perk classで完成後のtooltip textだけを処理する。Adaptiveの列挙は固定prefixとcolor境界内のgroup名だけを再構成し、metric wrapperは計算済みcolor値をbyte-for-byte保持する。いずれもgameplay state、数値、id/type/icon、save dataを変更しない。
+actual call path監査でRosettaが到達しない境界が判明したため、whole-file replacementではなく限定的Squirrel hookを追加した。`ambition.getUIText()`、skillの`getKilledString()`、Legends camp crafting `queryLoad()`、settlement `getUIInformation()`の表示field、port buildingの独立travel-roster DTO、named armor/helmetの`getName()`戻り値、および4つのexact Legends perk classで完成後のtextだけを処理する。港はraw settlement nameを先に捕捉し、返却DTOの`Name`とexact一致する`ListName`だけを翻訳する。`ID`、cost、image、route、settlement object、raw identityは変更せず、`BackgroundText`はraw description prefixだけを訳して既にrender済みのsuffixをbyte-for-byte保持する。Adaptiveの列挙は固定prefixとcolor境界内のgroup名だけを再構成し、metric wrapperは計算済みcolor値をbyte-for-byte保持する。`Play`の文脈訳も定数配列やpersisted `m.Name`ではなく戻り値のsuffixだけを変換する。いずれもgameplay state、数値、id/type/icon、save dataを変更しない。
+
+installed Legends `legend_ranger_commander_background`には`%name's face`と`h%name%`という2つのplayer-facing source typoがある。canonical翻訳はsource signatureを保持し、同じLate bucketでRosettaより後に登録するexact-class `hookTree`を外側wrapperにして、Rosetta返却templateだけを`%name%の顔` / `%name%`へ正規化する。通常のexact `hook`はModern Hooksのfinalization順でRosetta tree hookの内側になるため採用しない。合成fixtureでsource → Rosetta inner → JP remediation outer、inner 1回、unrelated/non-string不変を検証する。
 
 reviewed literalはignored canonical ledgerからdeterministic generatorでSquirrel/JS mapへ出力する。同じ英語が異なる意味を持つ場合はcontext unitへ分割し、global mapで安全な文脈だけを登録する。残りはexact translation-only boundaryを使う。既存Vanilla/Legends JS全体の差替えは行わない。internal ID、CSS class、HTML scaffoldは翻訳対象外である。
 
@@ -50,7 +60,9 @@ future MODはdependency graphへrequirement/incompatibility/queue/hook targetを
 
 ## Queue design
 
-preloadは`mod_battle_brothers_jp`としてregisterする。translation/UI registrationは`mod_rosetta`、`mod_msu`、`mod_legends`より後にqueueする。一方、Rosetta自身はMSU前のearly hooksとMSU後のLate hooksを別々に登録済みである。このMODはRosettaの一般hookを再実装せず、actual sourceで未到達またはglobal pattern collisionが避けられないと確認したdisplay-string境界だけを補完する。
+preloadは`mod_battle_brothers_jp`としてregisterする。Rosettaの主getter/template hookは`QueueBucket.Late`で登録されるため、このMODも必ず同じLate bucketを指定し、そのbucket内で`>mod_rosetta`、`>mod_msu`、`>mod_legends`とする。requirementとqueue relationは別に記述する。このMODはRosettaの一般hookを再実装せず、actual sourceで未到達またはglobal pattern collisionが避けられないと確認したdisplay-string境界だけを補完する。
+
+semantic-name safetyはRosettaのitem/background/world hookより後に登録するcompatibility guardである。専用Squirrel harnessは、通常item/background表示の日本語化、semantic scope内の`Broad Head` matcher/Donkey equality、global world raw identity、map labelのみの表示翻訳、active language/scope復元を検証する。event-variable harnessはcaller-owned array不変、一般変数値の表示翻訳、ordinary sibling、disowned-noble kinship、sib/noble、exact beggar/nemesis branches、portの`destname` clone-only翻訳を検証する。UI harnessは港DTOのoriginal 1回、raw source identity、non-display field、malformed inputを検証し、source-defect harnessはRosettaとのtree-hook合成順を検証する。runtime game QAは未実施である。
 
 ## Vertical Slice evidence
 
@@ -65,5 +77,7 @@ preloadは`mod_battle_brothers_jp`としてregisterする。translation/UI regis
 - optional MOD objectを定義しないtranslation-registration harness
 - 19登録語すべてのsource call pathとtranslation boundaryを記録した`reports/vertical-slice-reachability.json`
 - exact allowlistされたtranslation-only UI boundary hookと、値・metadata不変を検証する専用Squirrel harness
+- Rosetta item/background/world name hookを隔離し、名称依存gameplay・identity・persistence consumerを元入力のまま保つsemantic-name safety harness
+- post-template Legends表示変数をclone上だけで翻訳し、caller dataとinternal keyを不変に保つevent-variable boundary harness
 
 Squirrel 3 filesは`Squirrel 3.0.7` compilerでsyntax green、JSはbundled Nodeの`--check`とwrapper unit testでgreen。runtime未実施のため、end-to-end成立や表示品質をPASSとはしない。

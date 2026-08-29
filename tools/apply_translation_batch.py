@@ -20,6 +20,13 @@ TOKEN_PATTERNS = {
     "captures": re.compile(r"<[^>\r\n]+>"),
 }
 
+RUNTIME_STRATEGIES = {
+    "ROSETTA_LITERAL",
+    "JAVASCRIPT_LITERAL",
+    "ROSETTA_PATTERN",
+    "BOUNDARY_HOOK",
+}
+
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest().upper()
@@ -81,6 +88,17 @@ def validate_batch(batch: dict[str, Any], units: dict[str, dict[str, Any]]) -> l
         review_status = entry.get("review_status")
         if review_status not in {"DRAFT_INDEPENDENT_REVIEW_REQUIRED", "REVIEWED"}:
             raise ValueError(f"Entry {index} has invalid review_status: {review_status}")
+        runtime_strategy = entry.get("runtime_strategy")
+        if runtime_strategy is not None and runtime_strategy not in RUNTIME_STRATEGIES:
+            raise ValueError(f"Entry {index} has invalid runtime_strategy: {runtime_strategy}")
+        runtime_contract = entry.get("runtime_contract")
+        if runtime_strategy == "BOUNDARY_HOOK":
+            if not isinstance(runtime_contract, dict):
+                raise ValueError(f"Entry {index} BOUNDARY_HOOK requires runtime_contract: {unit_id}")
+            if runtime_contract.get("strategy") != runtime_strategy:
+                raise ValueError(f"Entry {index} runtime_contract strategy mismatch: {unit_id}")
+            if runtime_contract.get("resolution_status") != "RESOLVED":
+                raise ValueError(f"Entry {index} BOUNDARY_HOOK is not resolved: {unit_id}")
         entry["notes"] = normalize_notes(entry.get("notes"))
         validated.append(entry)
     return validated
@@ -184,12 +202,20 @@ def main() -> int:
         unit["status"] = "TRANSLATED"
         unit["review_status"] = entry["review_status"]
         unit["notes"] = entry["notes"]
+        if entry.get("runtime_strategy") is not None:
+            unit["runtime_strategy"] = entry["runtime_strategy"]
+        if entry.get("runtime_contract") is not None:
+            unit["runtime_contract"] = entry["runtime_contract"]
         for stable_key in unit["occurrences"]:
             occurrence = occurrence_index[stable_key]
             occurrence["japanese"] = entry["japanese"]
             occurrence["status"] = "TRANSLATED"
             occurrence["review_status"] = entry["review_status"]
             occurrence["notes"] = entry["notes"]
+            if entry.get("runtime_strategy") is not None:
+                occurrence["runtime_strategy"] = entry["runtime_strategy"]
+            if entry.get("runtime_contract") is not None:
+                occurrence["runtime_contract_status"] = entry["runtime_contract"].get("resolution_status")
 
     applied_at = datetime.now(tz=timezone.utc).isoformat()
     ledger["last_translation_batch"] = {"batch_id": batch.get("batch_id"), "applied_at_utc": applied_at}

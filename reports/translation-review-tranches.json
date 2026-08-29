@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
-  "canonical_reviewed_units": 1302,
+  "canonical_reviewed_units": 2681,
   "translated_needs_review_units": 0,
   "tranches": [
     {
@@ -74,6 +74,131 @@
           "sha256": "7A3182DE82173904E58617C55D307EFB9210E6E3059AC3A58444C1404CAF40BE"
         }
       ]
+    },
+    {
+      "name": "legends-skills-literal-001",
+      "reviewed_units": 295,
+      "draft_changes_by_independent_reviewer": 47,
+      "resolved_exclusion_occurrences": 8,
+      "batches": [
+        {
+          "path": "work/review_batches/legends_skills_literal_reviewed_001.json (gitignored)",
+          "sha256": "D4E5C8CEFFAFE814030325D70BC6131FC84EDCC3D322E69E2898E41F23BBD7D9"
+        },
+        {
+          "path": "work/review_batches/legends_skills_exclusion_occurrence_audit_001.json (gitignored)",
+          "sha256": "EB8FCC4F077EF627BDDEA98ADB2B5ABD432DCBA1EA1386F7A926079D16AA39D8"
+        },
+        {
+          "path": "work/review_batches/legends_skills_exclusion_batch_001.json (gitignored)",
+          "sha256": "E5BBDEF2715BA01D6AAF33FEAFF60B7EB88E05741EC0EE8DF820CB40039E818E"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-contracts-literal-001",
+      "reviewed_units": 254,
+      "draft_changes_by_independent_reviewer": 21,
+      "resolved_exclusion_occurrences": 413,
+      "player_facing_contexts_retained_untranslated": 11,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_contracts_literal_reviewed_001.json (gitignored)",
+          "sha256": "18CCC942459D8D69F486416C40E4EB47B2BD12082B4B949B97A8769AD50D6E96"
+        },
+        {
+          "path": "work/review_batches/vanilla_contracts_exclusion_occurrence_audit_001.json (gitignored)",
+          "sha256": "68AFE9DE38201E7FE1FDD01F989511E26425855EB76DC67187C3B6224EA63CE5"
+        },
+        {
+          "path": "work/review_batches/vanilla_contracts_exclusion_batch_001.json (gitignored)",
+          "sha256": "46442A9ADA9908805D53AE5E7DD7F91555A7FB106C436135558012A93B8E30AC"
+        },
+        {
+          "path": "work/review_batches/vanilla_contracts_context_split_001.json (gitignored)",
+          "sha256": "C4E86A0D3585A9D338B779D12570F13753F057EB7D8AFCB8B8F3A8F31E1C9F03"
+        },
+        {
+          "path": "work/review_batches/vanilla_contracts_mixed_player_facing_reviewed_001.json (gitignored)",
+          "sha256": "2B8B5DF85B239F6FFD1EF824AEC8D830074338D4ADF71D96433E808D3B80B9B5"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-events-literal-001",
+      "reviewed_units": 233,
+      "draft_changes_by_independent_reviewer": 33,
+      "mixed_surface_changes_by_independent_reviewer": 1,
+      "resolved_exclusion_occurrences": 389,
+      "player_facing_contexts_reviewed": 4,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_events_literal_reviewed_001.json (gitignored)",
+          "sha256": "419C5296CD72585EF7E67213C81674516C8A8D272CEDBA1FE52B72A162941FF7"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_exclusion_occurrence_audit_001.json (gitignored)",
+          "sha256": "6DFEE11D8C2FB3E8FE4796E8B63033D65CEB13AFE387D760DCB93852F367EAA4"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_exclusion_batch_001.json (gitignored)",
+          "sha256": "6BB405A92453B80BFB67316CCF9ECE6EC398B0628DAA05523120B141DC5D0011"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_context_split_001.json (gitignored)",
+          "sha256": "8658AD5EA8032B48A8A9DE5B1040CCE127157F00A1A9DBA0C67693E6D4117800"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_mixed_player_facing_reviewed_001.json (gitignored)",
+          "sha256": "896F7047F72E7BF38795810D86008F662D378E079D82C64ACF4E6986960ABE7A",
+          "independent_review_sha256_before_runtime_contract_integration": "2657C6610576CC21D75709B6E303DC65EA7CD8B0C58EC7F81AF037820028A4FF"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-backgrounds-literal-001",
+      "reviewed_units": 295,
+      "draft_changes_by_independent_reviewer": 57,
+      "resolved_exclusion_occurrences": 30,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_backgrounds_literal_reviewed_001.json (gitignored)",
+          "sha256": "BE14A76BFA3BCF9F58351DCA365FAF0CE7CA1070A0DAC497A0320CF00A790E43"
+        },
+        {
+          "path": "work/review_batches/vanilla_backgrounds_whole_unit_exclusions_reviewed_001.json (gitignored)",
+          "sha256": "BA9BBB5368667443D5B71A2DE6FFAF15CAD9A4CF2800FD520B4C1ACC6CF563E1"
+        }
+      ]
+    },
+    {
+      "name": "legends-backgrounds-literal-001",
+      "reviewed_units": 299,
+      "draft_changes_by_independent_reviewer": 60,
+      "resolved_exclusion_occurrences": 1,
+      "source_defect_boundary_units": 1,
+      "transparent_upstream_todo_units": 1,
+      "batches": [
+        {
+          "path": "work/review_batches/legends_backgrounds_literal_reviewed_001.json (gitignored)",
+          "sha256": "3AB1CC745A7C2A3FDD0C17B5111BCEF415E83C1C63F0992AB4047F5954C912A8"
+        },
+        {
+          "path": "work/review_batches/legends_backgrounds_exclusion_batch_001.json (gitignored)",
+          "sha256": "1865F362CC6C84A0880C32FF2331314499FC7E650A1A43030CCDF32CAB71895B"
+        },
+        {
+          "path": "work/review_batches/legends_backgrounds_remediation_reviewed_001.json (gitignored)",
+          "sha256": "B076D1C4A30CB9C602D1BC485D870DA1EBD2BC35F9DB9D52CC3D31B369CD84B7"
+        }
+      ]
+    },
+    {
+      "name": "port-world-name-boundary-001",
+      "reviewed_units": 3,
+      "boundary_hook_units": 1,
+      "batch": "work/review_batches/port_world_name_boundary_reviewed_001.json (gitignored)",
+      "sha256": "547531CCBC96DD4EF6BA7A8A75B5C8821AF595B7830D50582C3885AFD7DAD555"
     }
   ],
   "runtime_contract_reviews": [

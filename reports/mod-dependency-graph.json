@@ -78,9 +78,9 @@
     {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "mod_modern_hooks", "condition": ">=0.6.0", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:11-19"},
     {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "mod_rosetta", "condition": "=0.5.0", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:11-19"},
     {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "stdlib", "condition": ">=2.5", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:11-19"},
-    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_rosetta", "condition": "explicit > relation", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:21"},
-    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_msu", "condition": "explicit > relation", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:21"},
-    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_legends", "condition": "explicit > relation", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:21"}
+    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_rosetta", "condition": "explicit > relation in shared QueueBucket.Late", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:22-47; Rosetta 0.5.0 rosetta/hooks.nut:42-246"},
+    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_msu", "condition": "explicit > relation in QueueBucket.Late", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:22-47"},
+    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_legends", "condition": "explicit > relation in QueueBucket.Late", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:22-47"}
   ],
   "runtime_evidence": {
     "source": "read-only user log.html captured in reports/source-snapshot.json",

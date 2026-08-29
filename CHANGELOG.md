@@ -20,3 +20,17 @@
 - Audited 92 deduplicated internal-key candidates occurrence by occurrence, excluded 90, and retained two player-facing `Barrage` contexts as untranslated.
 - Added exact whole-unit exclusion validation, unresolved context splitting, and canonical ledger partition QA after detecting and repairing an over-broad canonical exclusion.
 - Built and fully static-QA-verified the reviewed-1,302 development tranche; all 25 current static checks pass while release coverage and runtime gates remain closed.
+- Independently reviewed and adopted 295 Legends skills/effects units and 250 Vanilla contract units; unresolved machine candidates remain occurrence-audited rather than inferred.
+- Audited eight Legends skill machine-token occurrences and excluded all eight with exact stable-key coverage.
+- Expanded semantic-name safety after a 15-finding independent consumer audit: exact item/background semantic scopes preserve Poacher and Donkey logic while normal display stays localized; world names stay source-language for identity/persistence and are translated only at map/UI/template display boundaries.
+- Completed the Vanilla contract/event occurrence audits, independently reviewed eight retained mixed-context terms, and added four exact post-template Legends display-variable contracts without mutating caller arrays, PronounTable, IDs, or save values.
+- Built and fully static-QA-verified the reviewed-2,084 development tranche; all 28 current repository-owned checks pass, while release coverage, GitHub, upstream semantic limitation, and runtime gates remain closed.
+- Added an upstream semantic-limitation release gate for the installed unfinished Vala tooltip/implementation defect; release builds remain blocked until the limitation is explicitly resolved.
+- Independently reviewed and adopted 295 Vanilla background units; 57 drafts changed, and all 30 occurrences of five internal-key exclusions were audited before resolution.
+- Corrected the post-Rosetta queue to the same Late bucket and removed three localization leaks into persisted armor names, contract flags, and caller-owned event variables.
+- Built and fully static-QA-verified the reviewed-2,379 development tranche; all 28 repository-owned checks pass while release coverage, GitHub, upstream semantic limitation, and runtime gates remain closed.
+- Independently completed the 300-unit Legends background tranche: 299 translations reviewed, 60 drafts corrected, and one internal sprite ID excluded after exact source review.
+- Added a post-Rosetta exact-class tree boundary for two installed ranger-description placeholder typos; an independent review caught the normal-hook/tree-hook ordering defect before adoption, and the composition harness now proves the intended wrapper order.
+- Transparently localized the installed `{ TODO | TODO }` background as `{未実装 | 未実装}` without inventing lore or mechanics.
+- Added and independently audited a display-only port travel-roster boundary that preserves raw settlement identity, travel state, costs, images, ordering, and rendered dynamic suffixes.
+- Built and fully static-QA-verified the reviewed-2,681 development tranche; all 29 repository-owned checks pass while release coverage, GitHub, upstream Vala limitation, and runtime gates remain closed.

@@ -123,24 +123,100 @@ mod.hook("scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_modu
     }
 });
 
-// Context-split localization: "Play" is also a scenario button.  Only the
-// Legends generated armor-name component receives the noun "戯れ" here.
-if ("LegendArmorLayers" in ::Const.Strings) {
-    foreach (index, value in ::Const.Strings.LegendArmorLayers) {
-        if (value == "Play") ::Const.Strings.LegendArmorLayers[index] = "戯れ";
+// world_entity.getName() intentionally stays source-language because the
+// installed game and Legends also use it for identity, unique-name selection,
+// and persisted values. Settlement information is a direct JS DTO, so
+// localize its display fields here instead of localizing the semantic getter.
+mod.hook("scripts/entity/world/settlement", function (q) {
+    q.getUIInformation = @(__original) function () {
+        local ret = __original();
+        if (ret == null) return ret;
+        if ("Title" in ret && ret.Title != null) ret.Title = ::Rosetta._(ret.Title);
+        if ("SubTitle" in ret && ret.SubTitle != null) ret.SubTitle = ::Rosetta._(ret.SubTitle);
+        return ret;
     }
+});
+
+// The port building does not use settlement.getUIInformation(). It assembles a
+// separate travel-dialog DTO from semantic settlement names, so translate only
+// that returned DTO. The raw settlement objects and their getName() values stay
+// unchanged for identity, routing, costs, ownership, and persistence.
+mod.hook("scripts/entity/world/settlements/buildings/port_building", function (q) {
+    q.getUITravelRoster = @(__original) function () {
+        local ret = __original();
+        if (typeof ret != "table") return ret;
+
+        if ("Title" in ret && typeof ret.Title == "string") ret.Title = ::Rosetta._(ret.Title);
+        if ("SubTitle" in ret && typeof ret.SubTitle == "string") ret.SubTitle = ::Rosetta._(ret.SubTitle);
+        if (!("Roster" in ret) || typeof ret.Roster != "array") return ret;
+
+        foreach (entry in ret.Roster)
+        {
+            if (typeof entry != "table") continue;
+
+            local rawName = "Name" in entry && typeof entry.Name == "string" ? entry.Name : null;
+            if (rawName != null)
+            {
+                local translatedName = ::Rosetta._(rawName);
+                entry.Name = translatedName;
+
+                if ("ListName" in entry && typeof entry.ListName == "string")
+                {
+                    local exactEnglishListName = "Sail to " + rawName;
+                    entry.ListName = entry.ListName == exactEnglishListName
+                        ? "船で" + translatedName + "へ向かう"
+                        : ::Rosetta._(entry.ListName);
+                }
+            }
+
+            if ("BackgroundText" in entry && typeof entry.BackgroundText == "string")
+            {
+                // getRandomDescription() has already passed through the global
+                // template boundary. Only the settlement-description prefix is
+                // a raw direct getter; preserve the rendered suffix byte-for-byte.
+                local separator = "<br><br>";
+                local separatorAt = entry.BackgroundText.find(separator);
+                entry.BackgroundText = separatorAt == null
+                    ? ::Rosetta._(entry.BackgroundText)
+                    : ::Rosetta._(entry.BackgroundText.slice(0, separatorAt))
+                        + separator + entry.BackgroundText.slice(separatorAt + separator.len());
+            }
+        }
+
+        return ret;
+    }
+});
+
+// Context-split localization: "Play" is also a scenario button. Named armor
+// persists m.Name, so never translate Const.Strings.NameList or m.Name itself.
+// Replace the exact generated suffix only in the value returned for display.
+local function translateGeneratedArmorName(_name)
+{
+    if (typeof _name != "string") return _name;
+    if (_name == "Play") return "戯れ";
+    if (::std.Str.endswith(_name, " Play"))
+    {
+        return ::std.Str.cutsuffix(_name, " Play") + " 戯れ";
+    }
+    return _name;
 }
 
-// Context-split localization: MSU uses "General" for its settings page while
-// this contract uses it as a generated enemy title.  Change only the display
-// flag after the original start logic has selected the title.
-mod.hook("scripts/contracts/contracts/find_artifact_contract", function (q) {
-    q.start = @(__original) function () {
-        __original();
-        if (this.m.Flags.get("NemesisNameS") == "General") {
-            this.m.Flags.set("NemesisNameS", "将軍");
-        }
-    }
+local generatedArmorNameHook = @(__original) function (...) {
+    vargv.insert(0, this);
+    return translateGeneratedArmorName(__original.acall(vargv));
+};
+
+mod.hook("scripts/items/legend_armor/legend_named_armor", function (q) {
+    q.getName = generatedArmorNameHook;
+});
+mod.hook("scripts/items/legend_armor/legend_named_armor_upgrade", function (q) {
+    q.getName = generatedArmorNameHook;
+});
+mod.hook("scripts/items/legend_helmets/legend_named_helmet", function (q) {
+    q.getName = generatedArmorNameHook;
+});
+mod.hook("scripts/items/legend_helmets/legend_named_helmet_upgrade", function (q) {
+    q.getName = generatedArmorNameHook;
 });
 
 // Legends Adaptive returns a completed dynamic sentence that cannot be

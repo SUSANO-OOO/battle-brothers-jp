@@ -74,6 +74,43 @@ class TranslationBatchValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "notes must be"):
             MODULE.normalize_notes({"unexpected": "mapping"})
 
+    def test_resolved_boundary_hook_contract_is_accepted(self) -> None:
+        batch = {
+            "entries": [
+                {
+                    "translation_unit": "unit:test",
+                    "english": "Welcome, %name%.",
+                    "japanese": "%name%、ようこそ。",
+                    "placeholder_signature": self.unit["placeholder_signature"],
+                    "review_status": "REVIEWED",
+                    "runtime_strategy": "BOUNDARY_HOOK",
+                    "runtime_contract": {
+                        "strategy": "BOUNDARY_HOOK",
+                        "resolution_status": "RESOLVED",
+                        "hook_target": "global::buildTextFromTemplate",
+                    },
+                }
+            ]
+        }
+        validated = MODULE.validate_batch(batch, {"unit:test": self.unit})
+        self.assertEqual(validated[0]["runtime_strategy"], "BOUNDARY_HOOK")
+
+    def test_boundary_hook_without_contract_is_rejected(self) -> None:
+        batch = {
+            "entries": [
+                {
+                    "translation_unit": "unit:test",
+                    "english": "Welcome, %name%.",
+                    "japanese": "%name%、ようこそ。",
+                    "placeholder_signature": self.unit["placeholder_signature"],
+                    "review_status": "REVIEWED",
+                    "runtime_strategy": "BOUNDARY_HOOK",
+                }
+            ]
+        }
+        with self.assertRaisesRegex(ValueError, "requires runtime_contract"):
+            MODULE.validate_batch(batch, {"unit:test": self.unit})
+
 
 if __name__ == "__main__":
     unittest.main()

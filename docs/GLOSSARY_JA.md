@@ -10,7 +10,9 @@ actual installed source `BBJP-CF88150E7B355ECD32D9`を基準にした初期canon
 |---|---|---|
 | company / mercenary company | 傭兵団 | 固有のcompany nameは翻訳しない。短い戦闘文脈で「戦団」としない。 |
 | mercenary | 傭兵 | `brother`を常に「傭兵」とはしない。 |
-| brother / bro | 団員 | 呼びかけは人物像に応じ「兄弟」「お前」「あんた」等を許容。 |
+| brother / sibling | 団員 | 傭兵団の構成員を指す通常形。実際の血縁なら「兄」「姉」「きょうだい」等をsource contextで選ぶ。 |
+| bro / sib | 仲間 | 砕けた人物指示。呼びかけや語呂合わせでは「兄弟」「お前」「あんた」等を全文単位で再構成し、global置換しない。 |
+| beggar | 物乞い | background名・人物描写・動的変数を区別し、internal key/IDは変更しない。 |
 | campaign | 戦役 | save/load/menuのcanonical UI語。 |
 | origin | 出自 | `starting scenario`と混同しない。 |
 | scenario | シナリオ | 固有scenario titleは別途監査。 |
@@ -87,7 +89,7 @@ actual installed source `BBJP-CF88150E7B355ECD32D9`を基準にした初期canon
 | employer | 依頼主 | noble固有titleを落とさない。 |
 | settlement | 集落 | town/city/village/fortはactual typeに応じ訳し分ける。 |
 | noble house | 貴族家 | 固有家名は音写監査。 |
-| noble | 貴族 | |
+| noble / nobleman / noblewoman | 貴族 | 日本語では通常、性別を表示語へ持ち込まない。固有titleがある場合はtitleを優先。 |
 | official | 役人 | titleが判明する場合は「代官」「執政官」等を使う。 |
 | commoner | 庶民 | |
 | militia | 民兵 | |
@@ -117,5 +119,14 @@ actual installed source `BBJP-CF88150E7B355ECD32D9`を基準にした初期canon
 | southern / northern | 南方 / 北方 | `South`固有政治圏は出現contextを監査。 |
 
 ## Provisional terms
+
+### Legends Vala / occult skills
+
+| English | 日本語 | 適用範囲・注記 |
+|---|---|---|
+| Vala | ヴァラ | 旅する予見者・巫女・女魔術師というLegends固有class。固有呼称として音写する。 |
+| trance | トランス状態 | Vala関連skill/effect。文中では「トランス状態に入る」とする。 |
+| Entrancer | 魅了術師 | background/class表示名。 |
+| Choked (status) | 首絞め | effect/status表示。死亡原因を返す`KilledString`だけは「絞殺」とする。 |
 
 Legends固有class、perk tree、magic、camp building、rune、enemy、named itemは未監査のままこの表へ固定しない。`Webknecht`等の造語はsource全出現とmechanicsを確認してから音写または意訳を決める。

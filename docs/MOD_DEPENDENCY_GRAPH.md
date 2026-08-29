@@ -21,6 +21,6 @@ dependencyであることだけからload順を推測していない。actual pr
 
 Rosetta `0.5.0`をSquirrel境界として採用した。Rosetta自身はMSU `>=1.6.0`と`stdlib >=2.5`をrequireし、MSU前の早期hookとMSU後のLate hookを別queueとして登録する。現在snapshotにRosettaとstdlibは存在しないためexternal dependencyであり、今回ZIPへは内包しない。
 
-`mod_battle_brothers_jp`からはVanilla、Legends、Legends Assets、MSU、Modern Hooks、Rosetta、stdlibへの7 requirement edgeと、Rosetta/MSU/Legendsへの3 queue-after edgeを個別に記録した。requirementとqueueを合成したrelation typeは使用しない。
+`mod_battle_brothers_jp`からはVanilla、Legends、Legends Assets、MSU、Modern Hooks、Rosetta、stdlibへの7 requirement edgeと、Rosetta/MSU/Legendsへの3 queue-after edgeを個別に記録した。Rosettaの主getter/template hookはLate bucketであるため、JP MODも同じ`QueueBucket.Late`を指定した上で`>mod_rosetta`を適用する。bucketが異なると`>` relationだけではwrapper順が保証されない。requirementとqueueを合成したrelation typeは使用しない。
 
 JS-origin文字列はRosetta `0.5.0`の対象外なので、Modern Hooks `registerJS`/`registerCSS`を使う独立UI層が必要である。

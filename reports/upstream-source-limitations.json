@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "status": "OPEN_SEMANTIC_LIMITATION",
+  "entries": [
+    {
+      "translation_unit": "unit:59964EA1A5B96DEF01C6424A",
+      "module": "legends",
+      "source": "scripts/skills/perks/perk_legend_vala_trance_perspective.nut",
+      "context": "perk_legend_vala_trance_perspective.getTooltip.ret.push().text",
+      "installed_source_text": "Enter a trance and bla bla bla.",
+      "reviewed_japanese": "トランス状態に入り、うんぬんかんぬん。",
+      "source_evidence": [
+        {
+          "line": 70,
+          "finding": "Player-facing tooltip is an unfinished placeholder in the installed Legends source."
+        },
+        {
+          "line": 123,
+          "finding": "The implementation references undefined identifier t while iterating e; intended runtime behavior cannot be asserted from this source."
+        }
+      ],
+      "localization_action": "Faithfully translate the installed placeholder without inventing mechanics; preserve the upstream defect as an explicit limitation.",
+      "gameplay_change": "NONE",
+      "runtime_qa": "NOT_TESTED",
+      "release_resolution": "Requires an authoritative upstream description or an explicit release decision to retain the faithful placeholder translation as a known limitation."
+    },
+    {
+      "translation_unit": "unit:44A4E3DBF3F21D9A682865FE",
+      "module": "legends",
+      "source": "scripts/skills/backgrounds/legend_ranger_commander_background.nut",
+      "context": "legend_ranger_commander_background.onBuildDescription",
+      "installed_source_text": "Two branches contain malformed display fragments %name's face and h%name%.",
+      "reviewed_japanese": "Canonical translation retains the installed signature; a reviewed post-Rosetta display boundary normalizes both fragments before final name substitution.",
+      "source_evidence": [
+        {
+          "finding": "The description is player-facing and character_background.buildDescription performs a later final %name% substitution."
+        },
+        {
+          "finding": "Modern Hooks tree-hook order requires the Japanese exact-class hookTree to be registered after Rosetta in the same Late bucket."
+        }
+      ],
+      "localization_action": "Normalize only the post-Rosetta returned display template: %name's face to %name%の顔 and h%name% to %name%; preserve all state and canonical source signatures.",
+      "gameplay_change": "NONE",
+      "runtime_qa": "NOT_TESTED",
+      "release_resolution": "RESOLVED_STATICALLY_BY_INDEPENDENTLY_REVIEWED_BOUNDARY_AND_COMPOSITION_HARNESS"
+    },
+    {
+      "translation_unit": "unit:281A07103FD867F898A90135",
+      "module": "legends",
+      "source": "scripts/skills/backgrounds/legend_legion_legate_background.nut",
+      "context": "legend_legion_legate_background.onBuildDescription",
+      "installed_source_text": "{ TODO | TODO }",
+      "reviewed_japanese": "{未実装 | 未実装}",
+      "source_evidence": [
+        {
+          "finding": "The installed source explicitly marks the description as unfinished and both random alternatives are identical TODO tokens."
+        }
+      ],
+      "localization_action": "Translate the factual unfinished state transparently without inventing lore or mechanics; preserve brace and template-pipe structure.",
+      "gameplay_change": "NONE",
+      "runtime_qa": "NOT_TESTED",
+      "release_resolution": "RESOLVED_FOR_LOCALIZATION_BY_INDEPENDENT_REVIEW; UPSTREAM_CONTENT_REMAINS_UNFINISHED"
+    }
+  ]
+}

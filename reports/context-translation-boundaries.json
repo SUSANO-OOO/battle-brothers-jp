@@ -9,8 +9,8 @@
       "japanese": "戯れ",
       "source": "Legends mod_legends/!!config/item_names.nut:256",
       "context": "Const.Strings.LegendArmorLayers generated armor-name component",
-      "boundary": "src/battle_brothers_jp/hooks/ui_boundaries.nut exact array member replacement",
-      "gameplay_effect": "NONE; array length and selection probability unchanged",
+      "boundary": "src/battle_brothers_jp/hooks/ui_boundaries.nut named armor/helmet getName return-value suffix translation",
+      "gameplay_effect": "NONE; Const.Strings name lists and persisted item m.Name remain source-language and unchanged",
       "runtime_qa": "NOT_TESTED"
     },
     {
@@ -18,9 +18,69 @@
       "english": "General",
       "japanese": "将軍",
       "source": "Vanilla scripts/contracts/contracts/find_artifact_contract.nut:71",
-      "context": "NemesisNameS display flag after random index selection",
-      "boundary": "src/battle_brothers_jp/hooks/ui_boundaries.nut post-original start wrapper",
-      "gameplay_effect": "NONE; selection, payment, state, probability, and control flow unchanged",
+      "context": "nemesisS display variable cloned at final template rendering",
+      "boundary": "src/battle_brothers_jp/hooks/event_variable_boundaries.nut exact cloned key/value mapping",
+      "gameplay_effect": "NONE; persisted contract Flags, random selection, payment, state, and caller variable array remain unchanged",
+      "runtime_qa": "NOT_TESTED"
+    },
+    {
+      "translation_unit": "unitctx:782145616606560F62C9239B",
+      "english": "beggar",
+      "japanese": "物乞い",
+      "source": "Legends mod_legends/hooks/events/events/beggar_begs_event.nut:71-85",
+      "context": "justbeggar display variable appended after Rosetta translates the event template",
+      "boundary": "src/battle_brothers_jp/hooks/event_variable_boundaries.nut exact cloned key/value mapping at final template rendering",
+      "gameplay_effect": "NONE; caller variable pair, variable key, gender branch, event state, and caller control flow remain unchanged",
+      "runtime_qa": "NOT_TESTED"
+    },
+    {
+      "translation_unit": "unitctx:F08DCB4E125B5D2B0F8036B3",
+      "english": "bro",
+      "japanese": "仲間",
+      "source": "Legends mod_legends/config/z_legends_language.nut:48",
+      "context": "sib placeholder-family display value inserted after template translation",
+      "boundary": "src/battle_brothers_jp/hooks/event_variable_boundaries.nut cloned buildTextFromTemplate variable list",
+      "gameplay_effect": "NONE; PronounTable, placeholder keys, caller-owned variable arrays, and source templates unchanged",
+      "runtime_qa": "NOT_TESTED"
+    },
+    {
+      "translation_unit": "unitctx:CEBBE38E9CEB0AC57E1318E4",
+      "english": "brother",
+      "japanese": "団員",
+      "source": "Legends mod_legends/config/z_legends_language.nut:47",
+      "context": "sibling placeholder-family display value with current-snapshot disowned-noble kinship exception",
+      "boundary": "src/battle_brothers_jp/hooks/event_variable_boundaries.nut cloned buildTextFromTemplate variable list",
+      "gameplay_effect": "NONE; only copied display values change and the installed kinship template receives きょうだい",
+      "runtime_qa": "NOT_TESTED"
+    },
+    {
+      "translation_unit": "unitctx:9D71C7B95AB3E2372E37D3C3",
+      "english": "nobleman",
+      "japanese": "貴族",
+      "source": "Legends mod_legends/config/z_legends_language.nut:46",
+      "context": "noble placeholder-family display value inserted after template translation",
+      "boundary": "src/battle_brothers_jp/hooks/event_variable_boundaries.nut cloned buildTextFromTemplate variable list",
+      "gameplay_effect": "NONE; PronounTable, internal noble IDs, keys, and caller-owned values unchanged",
+      "runtime_qa": "NOT_TESTED"
+    },
+    {
+      "translation_unit": "unit:2FF9E58973B541A9CA070734",
+      "english": "Sail to <s.getName()>",
+      "japanese": "船で<s.getName()>へ向かう",
+      "source": "Vanilla scripts/entity/world/settlements/buildings/port_building.nut:221",
+      "context": "port travel roster dynamic destination label assembled from semantic settlement name",
+      "boundary": "src/battle_brothers_jp/hooks/ui_boundaries.nut port_building getUITravelRoster returned DTO",
+      "gameplay_effect": "NONE; settlement objects, raw identity names, costs, routes, ownership, persistence, roster order, and non-display fields remain unchanged",
+      "runtime_qa": "NOT_TESTED"
+    },
+    {
+      "translation_unit": "unit:44A4E3DBF3F21D9A682865FE",
+      "english": "Legends ranger commander description with malformed %name's face and h%name% source fragments",
+      "japanese": "reviewed Japanese template with the source signature retained in canonical data",
+      "source": "Legends scripts/skills/backgrounds/legend_ranger_commander_background.nut onBuildDescription",
+      "context": "player-facing background description before RawDescription and final actor-name substitution",
+      "boundary": "src/battle_brothers_jp/hooks/source_defect_boundaries.nut post-Rosetta exact-class hookTree",
+      "gameplay_effect": "NONE; only the returned display template normalizes the two installed source typos before final substitution; background, actor, save, stats, and random selection remain unchanged",
       "runtime_qa": "NOT_TESTED"
     }
   ]

@@ -133,8 +133,11 @@ def check_registration(src: Path) -> dict[str, Any]:
         '"mod_rosetta = 0.5.0"': "Rosetta pin",
         '"stdlib >= 2.5"': "stdlib requirement",
         '">mod_rosetta"': "queue after Rosetta",
+        '::Hooks.QueueBucket.Late': "same Late queue bucket as Rosetta hooks",
         '">mod_legends"': "queue after Legends",
         '::Rosetta.activate("ja")': "explicit Japanese activation",
+        '::include("battle_brothers_jp/hooks/semantic_name_safety")': "semantic name safety hooks",
+        '::include("battle_brothers_jp/hooks/event_variable_boundaries")': "event-variable boundary hooks",
         '::include("battle_brothers_jp/hooks/ui_boundaries")': "UI-boundary hooks",
         '::include("battle_brothers_jp/translations/reviewed_literals")': "reviewed translation include",
         '::include("battle_brothers_jp/translations/context_patterns")': "context pattern include",
@@ -177,7 +180,10 @@ def check_reachability(repo: Path, src: Path) -> dict[str, Any]:
     }
     manifest_js = {entry["english"] for entry in entries if str(entry.get("channel", "")).startswith("js_")}
 
-    hook_source = (src / "battle_brothers_jp" / "hooks" / "ui_boundaries.nut").read_text(encoding="utf-8")
+    hook_source = "\n".join(
+        (src / "battle_brothers_jp" / "hooks" / name).read_text(encoding="utf-8")
+        for name in ("ui_boundaries.nut", "event_variable_boundaries.nut", "source_defect_boundaries.nut")
+    )
     main_js = (src / "ui" / "mods" / "mod_battle_brothers_jp" / "main.js").read_text(encoding="utf-8")
     boundary_tokens = {
         "bbjp_ambition_get_ui_text": 'hookTree("scripts/ambitions/ambition"',
@@ -224,9 +230,10 @@ def check_runtime_translation_manifest(repo: Path, src: Path) -> list[dict[str, 
     coverage_path = repo / "reports" / "translation-coverage.json"
     boundary_path = repo / "reports" / "context-translation-boundaries.json"
     runtime_boundary_path = repo / "reports" / "runtime-pattern-boundaries.json"
+    units_path = repo / "work" / "ledger" / "translation-units.json"
     missing = [
         str(path.relative_to(repo))
-        for path in (manifest_path, coverage_path, boundary_path, runtime_boundary_path)
+        for path in (manifest_path, coverage_path, boundary_path, runtime_boundary_path, units_path)
         if not path.is_file()
     ]
     if missing:
@@ -235,6 +242,7 @@ def check_runtime_translation_manifest(repo: Path, src: Path) -> list[dict[str, 
     coverage = json.loads(coverage_path.read_text(encoding="utf-8"))
     boundaries = json.loads(boundary_path.read_text(encoding="utf-8"))
     runtime_boundaries = json.loads(runtime_boundary_path.read_text(encoding="utf-8"))
+    units_payload = json.loads(units_path.read_text(encoding="utf-8"))
     output_mismatches = []
     for relative, expected_hash in manifest.get("outputs", {}).items():
         path = repo / relative
@@ -250,16 +258,33 @@ def check_runtime_translation_manifest(repo: Path, src: Path) -> list[dict[str, 
         and manifest.get("translation_units_sha256") == coverage.get("translation_units_sha256")
     )
     boundary_entries = boundaries.get("entries", []) + runtime_boundaries.get("entries", [])
-    hook_source = (src / "battle_brothers_jp" / "hooks" / "ui_boundaries.nut").read_text(encoding="utf-8")
+    hook_source = "\n".join(
+        (src / "battle_brothers_jp" / "hooks" / name).read_text(encoding="utf-8")
+        for name in ("ui_boundaries.nut", "event_variable_boundaries.nut", "source_defect_boundaries.nut")
+    )
     boundary_tokens = {
-        "unitctx:007A8E49C6608DAD89C7B212": ['value == "Play"', '= "戯れ"'],
-        "unitctx:9EEB2A948FF195DB1859FB7E": ['get("NemesisNameS") == "General"', 'set("NemesisNameS", "将軍")'],
+        "unitctx:007A8E49C6608DAD89C7B212": ['_name == "Play"', 'return "戯れ"', 'scripts/items/legend_armor/legend_named_armor'],
+        "unitctx:9EEB2A948FF195DB1859FB7E": ['key == "nemesiss"', 'copiedPair[1] = "将軍"'],
         "unit:41E565CD32CA5352335D1980": ['hook("scripts/skills/perks/perk_legend_adaptive"', 'translatedList += "、または "'],
         "unit:8D0924A29562F179D3CA3621": ['hook("scripts/skills/perks/perk_legend_barter_greed"', '" Melee Defense", "近接防御"'],
         "unit:88561C218D4FB8A7A6212629": ['hook("scripts/skills/perks/perk_legend_barter_greed"', '" Ranged Defense", "射撃防御"'],
         "unit:FAE4E7959008C0721E12BACD": ['hook("scripts/skills/perks/perk_legend_perfect_fit"', '" Initiative", "先制値"'],
         "unit:C010FE228CD6B0BD27C1B5B0": ['hook("scripts/skills/perks/perk_legend_small_target"', '" Melee Defense", "近接防御"'],
         "unit:6C197E5C6CF0F7073AA7F2D9": ['hook("scripts/skills/perks/perk_legend_small_target"', '" Ranged Defense", "射撃防御"'],
+        "unitctx:782145616606560F62C9239B": ['key == "justbeggar"', 'copiedPair[1] = "物乞い"'],
+        "unitctx:F08DCB4E125B5D2B0F8036B3": ['family == "sib"', 'copiedPair[1] = "仲間"'],
+        "unitctx:CEBBE38E9CEB0AC57E1318E4": ['family == "sibling"', '? "きょうだい"', ': "団員"'],
+        "unitctx:9D71C7B95AB3E2372E37D3C3": ['family == "noble"', 'copiedPair[1] = "貴族"'],
+        "unit:2FF9E58973B541A9CA070734": [
+            'hook("scripts/entity/world/settlements/buildings/port_building"',
+            'entry.ListName == exactEnglishListName',
+            '? "船で" + translatedName + "へ向かう"',
+        ],
+        "unit:44A4E3DBF3F21D9A682865FE": [
+            'hookTree("scripts/skills/backgrounds/legend_ranger_commander_background"',
+            'replace(ret, "%name\'s face", "%name%の顔")',
+            'replace(ret, "h%name%", "%name%")',
+        ],
     }
     missing_boundary_tokens = {
         entry["translation_unit"]: [token for token in boundary_tokens.get(entry["translation_unit"], []) if token not in hook_source]
@@ -268,6 +293,31 @@ def check_runtime_translation_manifest(repo: Path, src: Path) -> list[dict[str, 
     }
     boundary_ids = {entry.get("translation_unit") for entry in boundary_entries}
     expected_boundary_ids = set(boundary_tokens)
+    unit_index = {unit["translation_unit"]: unit for unit in units_payload.get("units", [])}
+    contract_expectations = {
+        "unitctx:782145616606560F62C9239B": {
+            "hook_target": "global::buildTextFromTemplate",
+            "hook_method": "variable-copy wrapper",
+        },
+        "unit:2FF9E58973B541A9CA070734": {
+            "hook_target": "scripts/entity/world/settlements/buildings/port_building",
+            "hook_method": "getUITravelRoster",
+        },
+        "unit:44A4E3DBF3F21D9A682865FE": {
+            "hook_target": "scripts/skills/backgrounds/legend_ranger_commander_background.onBuildDescription",
+            "hook_method": "mod.hookTree on the exact ranger class, registered in QueueBucket.Late after mod_rosetta",
+        },
+    }
+    contract_mismatches = {}
+    for unit_id, expected in contract_expectations.items():
+        contract = unit_index.get(unit_id, {}).get("runtime_contract", {})
+        actual = {key: contract.get(key) for key in expected}
+        if actual != expected or contract.get("resolution_status") != "RESOLVED":
+            contract_mismatches[unit_id] = {
+                "expected": expected,
+                "actual": actual,
+                "resolution_status": contract.get("resolution_status"),
+            }
     accounting_passed = (
         not output_mismatches
         and ledger_hash_match
@@ -275,6 +325,7 @@ def check_runtime_translation_manifest(repo: Path, src: Path) -> list[dict[str, 
         and manifest.get("reviewed_boundary_hook_units") == len(boundary_entries)
         and boundary_ids == expected_boundary_ids
         and not missing_boundary_tokens
+        and not contract_mismatches
     )
     return [
         result(
@@ -290,6 +341,7 @@ def check_runtime_translation_manifest(repo: Path, src: Path) -> list[dict[str, 
                 "output_mismatches": output_mismatches,
                 "boundary_ids_match": boundary_ids == expected_boundary_ids,
                 "missing_boundary_tokens": missing_boundary_tokens,
+                "canonical_contract_mismatches": contract_mismatches,
             },
         ),
         result(
@@ -371,6 +423,7 @@ def check_supported_snapshot_lock(repo: Path) -> dict[str, Any]:
         "snapshot_basis_sha256",
         "ledger_files",
         "write_count_to_user_environment",
+        "verify_semantic_limitations",
     ]
     missing_gate_tokens = [token for token in gate_tokens if token not in build_source]
     passed = not mismatches and not ledger_mismatches and not missing_gate_tokens
@@ -500,6 +553,49 @@ def check_ledger_partition(repo: Path) -> dict[str, Any]:
     return result("canonical_ledger_partition", passed, errors)
 
 
+def check_semantic_limitation_tracking(repo: Path) -> dict[str, Any]:
+    path = repo / "reports" / "upstream-source-limitations.json"
+    if not path.is_file():
+        return result("upstream_semantic_limitation_tracking", False, {"error": "report missing"})
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    entries = payload.get("entries", [])
+    malformed = []
+    for index, entry in enumerate(entries):
+        missing = [
+            field
+            for field in (
+                "translation_unit",
+                "module",
+                "source",
+                "context",
+                "installed_source_text",
+                "reviewed_japanese",
+                "source_evidence",
+                "localization_action",
+                "gameplay_change",
+                "runtime_qa",
+                "release_resolution",
+            )
+            if not entry.get(field)
+        ]
+        if missing or entry.get("gameplay_change") != "NONE":
+            malformed.append(
+                {"index": index, "missing": missing, "gameplay_change": entry.get("gameplay_change")}
+            )
+    allowed_statuses = {"OPEN_SEMANTIC_LIMITATION", "RESOLVED"}
+    passed = payload.get("status") in allowed_statuses and not malformed
+    return result(
+        "upstream_semantic_limitation_tracking",
+        passed,
+        {
+            "status": payload.get("status"),
+            "entries": len(entries),
+            "release_blocked": payload.get("status") != "RESOLVED",
+            "malformed": malformed,
+        },
+    )
+
+
 def check_dependency_graph(repo: Path) -> dict[str, Any]:
     path = repo / "reports" / "mod-dependency-graph.json"
     graph = json.loads(path.read_text(encoding="utf-8"))
@@ -562,12 +658,25 @@ def check_scope(src: Path) -> list[dict[str, Any]]:
         )
     allowed_translation_hooks = {
         "scripts/ambitions/ambition",
-        "scripts/contracts/contracts/find_artifact_contract",
+        "scripts/entity/world/location",
+        "scripts/entity/world/party",
+        "scripts/entity/world/settlement",
+        "scripts/entity/world/settlements/buildings/port_building",
+        "scripts/entity/world/world_entity",
+        "scripts/items/item",
+        "scripts/items/legend_armor/legend_named_armor",
+        "scripts/items/legend_armor/legend_named_armor_upgrade",
+        "scripts/items/legend_helmets/legend_named_helmet",
+        "scripts/items/legend_helmets/legend_named_helmet_upgrade",
+        "scripts/skills/backgrounds/character_background",
+        "scripts/skills/backgrounds/legend_ranger_commander_background",
         "scripts/skills/skill",
         "scripts/skills/perks/perk_legend_adaptive",
         "scripts/skills/perks/perk_legend_barter_greed",
         "scripts/skills/perks/perk_legend_perfect_fit",
         "scripts/skills/perks/perk_legend_small_target",
+        "scripts/skills/perks/perk_legend_specialist_poacher",
+        "scripts/skills/traits/legend_intensive_training_trait",
         "scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module",
     }
     unexpected_hooks = sorted(set(hook_targets) - allowed_translation_hooks)
@@ -701,6 +810,60 @@ def check_syntax(repo: Path, src: Path, sq: Path | None, node: Path | None) -> l
                         },
                     )
                 )
+            semantic_harness = repo / "tests" / "squirrel" / "test_semantic_name_safety.nut"
+            if semantic_harness.exists():
+                completed = subprocess.run(
+                    [str(sq), str(semantic_harness)], capture_output=True, text=True, env=environment
+                )
+                output = completed.stdout + completed.stderr
+                passed = completed.returncode == 0 and "SEMANTIC_NAME_SAFETY_TEST_OK" in output
+                checks.append(
+                    result(
+                        "squirrel_semantic_name_safety_harness",
+                        passed,
+                        {
+                            "marker_found": "SEMANTIC_NAME_SAFETY_TEST_OK" in output,
+                            "returncode": completed.returncode,
+                            "output_tail": output[-4000:],
+                        },
+                    )
+                )
+            event_variable_harness = repo / "tests" / "squirrel" / "test_event_variable_boundaries.nut"
+            if event_variable_harness.exists():
+                completed = subprocess.run(
+                    [str(sq), str(event_variable_harness)], capture_output=True, text=True, env=environment
+                )
+                output = completed.stdout + completed.stderr
+                passed = completed.returncode == 0 and "EVENT_VARIABLE_BOUNDARIES_TEST_OK" in output
+                checks.append(
+                    result(
+                        "squirrel_event_variable_boundary_harness",
+                        passed,
+                        {
+                            "marker_found": "EVENT_VARIABLE_BOUNDARIES_TEST_OK" in output,
+                            "returncode": completed.returncode,
+                            "output_tail": output[-4000:],
+                        },
+                    )
+                )
+            source_defect_harness = repo / "tests" / "squirrel" / "test_source_defect_boundaries.nut"
+            if source_defect_harness.exists():
+                completed = subprocess.run(
+                    [str(sq), str(source_defect_harness)], capture_output=True, text=True, env=environment
+                )
+                output = completed.stdout + completed.stderr
+                passed = completed.returncode == 0 and "SOURCE_DEFECT_BOUNDARIES_TEST_OK" in output
+                checks.append(
+                    result(
+                        "squirrel_source_defect_boundary_harness",
+                        passed,
+                        {
+                            "marker_found": "SOURCE_DEFECT_BOUNDARIES_TEST_OK" in output,
+                            "returncode": completed.returncode,
+                            "output_tail": output[-4000:],
+                        },
+                    )
+                )
             collision_harness = repo / "tests" / "squirrel" / "test_runtime_pattern_collisions.nut"
             if collision_harness.exists():
                 completed = subprocess.run(
@@ -774,6 +937,8 @@ def check_archive(src: Path, archive_path: Path | None) -> dict[str, Any]:
             "scripts/!mods_preload/mod_battle_brothers_jp.nut",
             "battle_brothers_jp/translations/reviewed_literals.nut",
             "battle_brothers_jp/translations/context_patterns.nut",
+            "battle_brothers_jp/hooks/semantic_name_safety.nut",
+            "battle_brothers_jp/hooks/event_variable_boundaries.nut",
             "battle_brothers_jp/hooks/ui_boundaries.nut",
             "ui/mods/mod_battle_brothers_jp/generated_strings.js",
             "ui/mods/mod_battle_brothers_jp/main.js",
@@ -829,6 +994,7 @@ def main() -> int:
         check_literal_reachability_remediation(repo, src),
         check_ledger_partition(repo),
         check_supported_snapshot_lock(repo),
+        check_semantic_limitation_tracking(repo),
         check_dependency_graph(repo),
         *check_scope(src),
         check_third_party(src),

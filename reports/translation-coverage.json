@@ -5,19 +5,19 @@
   "status": "TRANSLATION_IN_PROGRESS",
   "detailed_ledger_location": "work/ledger/translation-ledger.json (gitignored)",
   "translation_units_location": "work/ledger/translation-units.json (gitignored)",
-  "detailed_ledger_sha256": "ADD0FBA28DB42C2B0ECAEC79C7399246A79D44AA22A8592AE10EFC13654BC88A",
-  "translation_units_sha256": "15783C24FF30BD83800767A27AB7141CD3E0D603F07DCD9DF6B56AA610EC8AED",
+  "detailed_ledger_sha256": "DFC087D7E39D0F5036B8AC8525126328F4302805F8CD5BF8F7E36B7A342CC782",
+  "translation_units_sha256": "2AFC8B960D8B7C5F737DFF13A830C78BBA66CE66DDDD1BAFC947BE8F8BEFCA3F",
   "rosetta_extractor": {
     "version": "0.5.0",
     "commit": "dde98e99fd95ed0e7474a4328555144b4e913678"
   },
   "total_occurrences": 48158,
-  "resolved_exclusion_occurrences": 2690,
-  "translatable_occurrences": 45468,
-  "unique_translation_units": 31971,
-  "untranslated_units": 30669,
+  "resolved_exclusion_occurrences": 3531,
+  "translatable_occurrences": 44627,
+  "unique_translation_units": 31848,
+  "untranslated_units": 29167,
   "translated_needs_review_units": 0,
-  "reviewed_units": 1302,
+  "reviewed_units": 2681,
   "extraction_failures": [],
   "extraction_warnings": [
     {
@@ -80,22 +80,33 @@
   "duplicate_stable_keys": [],
   "resolved_exclusion_reasons": {
     "DEBUG_ONLY_SOURCE": 5,
-    "INTERNAL_ACHIEVEMENT_ID": 1,
+    "INTERNAL_ACHIEVEMENT_ID": 7,
+    "INTERNAL_COMBAT_ID": 29,
+    "INTERNAL_CONTRACT_STATE_ID": 44,
     "INTERNAL_CONTROL_OR_SCREEN_ID": 2542,
-    "INTERNAL_TEMPLATE_VARIABLE_KEY": 12,
+    "INTERNAL_GAMEPLAY_MATCH_TOKEN": 1,
+    "INTERNAL_HIDDEN_SKILL_LABEL": 6,
+    "INTERNAL_ICON_TOKEN": 1,
+    "INTERNAL_RUNTIME_IDENTIFIER_OR_TEMPLATE_KEY": 16,
+    "INTERNAL_TEMPLATE_VARIABLE_KEY": 322,
     "INTERNAL_TILE_PROPERTY_KEY": 77,
     "LOG_DIAGNOSTIC_ONLY": 41,
-    "RESOURCE_OR_ENGINE_KEY": 4,
+    "MULTIPLE_RESOLVED_EXCLUSION_REASONS": 38,
+    "RESOURCE_OR_ENGINE_KEY": 5,
     "RESOURCE_OR_SCRIPT_PATH": 2,
-    "TECHNICAL_REGEX_OR_FORMAT_PATTERN": 6
+    "TECHNICAL_REGEX_OR_FORMAT_PATTERN": 6,
+    "debug_diagnostic": 2,
+    "item_pool_id": 17,
+    "markup_control_token": 2,
+    "template_variable_key": 368
   },
   "per_module": {
     "legends": {
       "occurrences": 24619,
-      "resolved_exclusions": 739,
-      "translatable_occurrences": 23880,
-      "translated_occurrences": 1438,
-      "reviewed_occurrences": 1438
+      "resolved_exclusions": 1063,
+      "translatable_occurrences": 23556,
+      "translated_occurrences": 3445,
+      "reviewed_occurrences": 3445
     },
     "legends_assets": {
       "occurrences": 1,
@@ -113,17 +124,17 @@
     },
     "msu": {
       "occurrences": 470,
-      "resolved_exclusions": 8,
-      "translatable_occurrences": 462,
+      "resolved_exclusions": 9,
+      "translatable_occurrences": 461,
       "translated_occurrences": 49,
       "reviewed_occurrences": 49
     },
     "vanilla": {
       "occurrences": 22581,
-      "resolved_exclusions": 1938,
-      "translatable_occurrences": 20643,
-      "translated_occurrences": 1416,
-      "reviewed_occurrences": 1416
+      "resolved_exclusions": 2454,
+      "translatable_occurrences": 20127,
+      "translated_occurrences": 3226,
+      "reviewed_occurrences": 3226
     },
     "vanilla_ui": {
       "occurrences": 376,
@@ -134,7 +145,7 @@
     }
   },
   "release_gate": "NOT_MET",
-  "updated_at_utc": "2026-08-29T18:33:31.091144+00:00",
+  "updated_at_utc": "2026-08-29T20:07:38.838328+00:00",
   "runtime_pattern_resolved_units": 127,
   "runtime_pattern_unresolved_units": 0
 }
