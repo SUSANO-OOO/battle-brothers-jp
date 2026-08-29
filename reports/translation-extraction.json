@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "status": "candidate_extraction",
+  "detailed_ledger_location": "work/ledger/translation-ledger.json (gitignored)",
+  "detailed_ledger_sha256": "D87436524451E19BB44B95423AA8C71C05D45DD5CFB2FC6EF13A385499530267",
+  "rosetta_extractor": {
+    "version": "0.5.0",
+    "commit": "dde98e99fd95ed0e7474a4328555144b4e913678"
+  },
+  "total_candidates": 48158,
+  "untranslated": 48158,
+  "translated_needs_review": 0,
+  "reviewed": 0,
+  "resolved_exclusions": 0,
+  "extraction_failures": [],
+  "extraction_warnings": [
+    {
+      "module": "legends",
+      "source": "mod_legends/!!config/perk_strings.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\";', 1, 1))",
+      "fallback_candidates": 205
+    },
+    {
+      "module": "legends",
+      "source": "mod_legends/config/runes_armor.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\",', 1, 1))",
+      "fallback_candidates": 6
+    },
+    {
+      "module": "legends",
+      "source": "mod_legends/config/runes_helmet.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\",', 1, 1))",
+      "fallback_candidates": 8
+    },
+    {
+      "module": "legends",
+      "source": "mod_legends/config/runes_shield.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\",', 1, 1))",
+      "fallback_candidates": 6
+    },
+    {
+      "module": "legends",
+      "source": "mod_legends/config/runes_weapon.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\",', 1, 1))",
+      "fallback_candidates": 14
+    },
+    {
+      "module": "legends",
+      "source": "mod_legends/hooks/config/perk_strings.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\";', 1, 1))",
+      "fallback_candidates": 5
+    },
+    {
+      "module": "msu",
+      "source": "msu/systems/registry/mod_sources/mod_source_githubtags.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\");', 1, 1))",
+      "fallback_candidates": 4
+    },
+    {
+      "module": "modern_hooks",
+      "source": "scripts/config/modern_hooks.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\"),', 1, 1))",
+      "fallback_candidates": 13
+    }
+  ],
+  "duplicate_stable_keys": [],
+  "per_module": {
+    "legends": {
+      "candidates": 24619,
+      "squirrel": 24221,
+      "squirrel_fallback": 244,
+      "javascript": 398,
+      "untranslated": 24619,
+      "translated_needs_review": 0,
+      "reviewed": 0,
+      "resolved_exclusions": 0
+    },
+    "legends_assets": {
+      "candidates": 1,
+      "squirrel": 1,
+      "squirrel_fallback": 0,
+      "javascript": 0,
+      "untranslated": 1,
+      "translated_needs_review": 0,
+      "reviewed": 0,
+      "resolved_exclusions": 0
+    },
+    "modern_hooks": {
+      "candidates": 111,
+      "squirrel": 105,
+      "squirrel_fallback": 13,
+      "javascript": 6,
+      "untranslated": 111,
+      "translated_needs_review": 0,
+      "reviewed": 0,
+      "resolved_exclusions": 0
+    },
+    "msu": {
+      "candidates": 470,
+      "squirrel": 434,
+      "squirrel_fallback": 4,
+      "javascript": 36,
+      "untranslated": 470,
+      "translated_needs_review": 0,
+      "reviewed": 0,
+      "resolved_exclusions": 0
+    },
+    "vanilla": {
+      "candidates": 22581,
+      "squirrel": 22581,
+      "squirrel_fallback": 0,
+      "javascript": 0,
+      "untranslated": 22581,
+      "translated_needs_review": 0,
+      "reviewed": 0,
+      "resolved_exclusions": 0
+    },
+    "vanilla_ui": {
+      "candidates": 376,
+      "squirrel": 0,
+      "squirrel_fallback": 0,
+      "javascript": 376,
+      "untranslated": 376,
+      "translated_needs_review": 0,
+      "reviewed": 0,
+      "resolved_exclusions": 0
+    }
+  },
+  "release_gate": "NOT_MET"
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "source_audit": "work/review_batches/literal_reachability_audit_001.json",
+  "source_audit_sha256": "6BD64E08ED9DAA0034889AF9CEFA517F1349C3C435C084998B2981726010C3CD",
+  "audited_reviewed_literal_units": 277,
+  "initial_classification": {
+    "REACHABLE_ROSETTA": 181,
+    "REACHABLE_JS": 32,
+    "NEEDS_BOUNDARY_HOOK": 64,
+    "UNRESOLVED": 0
+  },
+  "remediation": {
+    "JQUERY_HTML_CONSTRUCTOR_UNITS": {
+      "units": 53,
+      "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
+      "implementation": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.init argument 0 with exact reviewed-string lookup"
+    },
+    "SKILL_KILLED_STRING_UNITS": {
+      "units": 8,
+      "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
+      "implementation": "src/battle_brothers_jp/hooks/ui_boundaries.nut hookTree scripts/skills/skill getKilledString"
+    },
+    "BACKGROUND_CRAFTING_UNIT": {
+      "units": 1,
+      "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
+      "implementation": "src/battle_brothers_jp/translations/context_patterns.nut matches Crafting plus val_tag"
+    },
+    "ADAPTIVE_TOOLTIP_PREFIX_UNITS": {
+      "units": 2,
+      "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
+      "translation_units": [
+        "unit:70CC6E76D01363BF261BEC0B",
+        "unit:ECA29FCBB48BFD32756F757A"
+      ],
+      "implementation": "src/battle_brothers_jp/hooks/ui_boundaries.nut class-scoped perk_legend_adaptive getUnactivatedPerkTooltipHints wrapper"
+    }
+  },
+  "remediated_units": 64,
+  "remaining_unreachable_units": 0,
+  "runtime_qa": "NOT_TESTED",
+  "release_gate": "NOT_MET"
+}

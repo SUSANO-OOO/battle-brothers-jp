@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "source_batch": "work/review_batches/legends_runtime_patterns_001.json",
+  "source_batch_sha256": "205224159A0F3ABE69603D91BDFC72CF15727E6BE26DC675CE3E71764610C13B",
+  "runtime_qa": "NOT_TESTED",
+  "entries": [
+    {
+      "translation_unit": "unit:41E565CD32CA5352335D1980",
+      "module": "legends",
+      "hook_target": "scripts/skills/perks/perk_legend_adaptive",
+      "hook_method": "getUnactivatedPerkTooltipHints",
+      "operation": "translate the two exact prefixes and the isolated colored perk-group enumeration",
+      "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED"
+    },
+    {
+      "translation_unit": "unit:8D0924A29562F179D3CA3621",
+      "module": "legends",
+      "hook_target": "scripts/skills/perks/perk_legend_barter_greed",
+      "hook_method": "getTooltip",
+      "operation": "translate the exact melee-defense suffix while preserving the computed colorized value",
+      "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED"
+    },
+    {
+      "translation_unit": "unit:88561C218D4FB8A7A6212629",
+      "module": "legends",
+      "hook_target": "scripts/skills/perks/perk_legend_barter_greed",
+      "hook_method": "getTooltip",
+      "operation": "translate the exact ranged-defense suffix while preserving the computed colorized value",
+      "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED"
+    },
+    {
+      "translation_unit": "unit:FAE4E7959008C0721E12BACD",
+      "module": "legends",
+      "hook_target": "scripts/skills/perks/perk_legend_perfect_fit",
+      "hook_method": "getTooltip and getUnactivatedPerkTooltipHints",
+      "operation": "translate the exact initiative suffix on both tooltip paths while preserving the computed colorized value",
+      "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED"
+    },
+    {
+      "translation_unit": "unit:C010FE228CD6B0BD27C1B5B0",
+      "module": "legends",
+      "hook_target": "scripts/skills/perks/perk_legend_small_target",
+      "hook_method": "getTooltip",
+      "operation": "translate the exact melee-defense suffix while preserving the computed colorized value",
+      "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED"
+    },
+    {
+      "translation_unit": "unit:6C197E5C6CF0F7073AA7F2D9",
+      "module": "legends",
+      "hook_target": "scripts/skills/perks/perk_legend_small_target",
+      "hook_method": "getTooltip",
+      "operation": "translate the exact ranged-defense suffix while preserving the computed colorized value",
+      "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED"
+    }
+  ]
+}

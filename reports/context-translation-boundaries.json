@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
+  "entries": [
+    {
+      "translation_unit": "unitctx:007A8E49C6608DAD89C7B212",
+      "english": "Play",
+      "japanese": "戯れ",
+      "source": "Legends mod_legends/!!config/item_names.nut:256",
+      "context": "Const.Strings.LegendArmorLayers generated armor-name component",
+      "boundary": "src/battle_brothers_jp/hooks/ui_boundaries.nut exact array member replacement",
+      "gameplay_effect": "NONE; array length and selection probability unchanged",
+      "runtime_qa": "NOT_TESTED"
+    },
+    {
+      "translation_unit": "unitctx:9EEB2A948FF195DB1859FB7E",
+      "english": "General",
+      "japanese": "将軍",
+      "source": "Vanilla scripts/contracts/contracts/find_artifact_contract.nut:71",
+      "context": "NemesisNameS display flag after random index selection",
+      "boundary": "src/battle_brothers_jp/hooks/ui_boundaries.nut post-original start wrapper",
+      "gameplay_effect": "NONE; selection, payment, state, probability, and control flow unchanged",
+      "runtime_qa": "NOT_TESTED"
+    }
+  ]
+}

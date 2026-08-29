@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "rosetta_version": "0.5.0",
+  "initial_audit": {
+    "report": "reports/qa-runtime-pattern-collision-audit.json",
+    "sha256": "9A0029472517A58942C6AD7F8899F47603E01CD1E1C60650D06B5709AF289762",
+    "conflicting_representative_samples": 21,
+    "status": "FAIL_RECORDED"
+  },
+  "independent_review": {
+    "batch": "work/review_batches/runtime_metric_pattern_collision_reviewed_001.json (gitignored)",
+    "batch_sha256": "5E57DDE3D26074CB040251CF84C3863D7F7FC2EE526387065241F5E50F2DB21D",
+    "reviewed_entries": 26,
+    "canonical_rules": 6,
+    "fixed_rule_aliases": 20,
+    "actual_source_occurrences_audited": 72,
+    "semantic_differences_found": 0,
+    "unresolved": 0
+  },
+  "canonical_metric_rules": {
+    "Initiative": "先制値 <bonus>",
+    "Melee Skill": "近接技能 <bonus>",
+    "Ranged Skill": "射撃技能 <bonus>",
+    "Melee Defense": "近接防御 <bonus>",
+    "Ranged Defense": "射撃防御 <bonus>",
+    "Fatigue Recovery per turn": "毎ターンの疲労回復量 <bonus>"
+  },
+  "verification": {
+    "report": "reports/qa-reviewed-1006.json",
+    "sha256": "5DFA997DA18C8B77FBA55021349922CCA24F0C85B47CD0012EFA5C7B730ABEEF",
+    "representative_samples": 121,
+    "effective_rule_matches_required_per_sample": 1,
+    "representative_output_harness": "PASS",
+    "all_rule_collision_harness": "PASS",
+    "runtime_game_qa": "NOT_TESTED"
+  }
+}

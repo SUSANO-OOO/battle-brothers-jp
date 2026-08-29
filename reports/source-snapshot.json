@@ -1,0 +1,536 @@
+{
+  "schema_version": 1,
+  "status": "captured",
+  "captured_at_utc": "2026-08-29T16:04:25.160276+00:00",
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "source_of_truth": "actual installed files",
+  "paths": {
+    "game_root": "D:\\SteamLibrary\\steamapps\\common\\Battle Brothers",
+    "data_root": "D:\\SteamLibrary\\steamapps\\common\\Battle Brothers\\data",
+    "user_data": "C:\\Users\\okait\\OneDrive\\ドキュメント\\Battle Brothers",
+    "steam_manifest": "D:\\SteamLibrary\\steamapps\\appmanifest_365360.acf"
+  },
+  "steam": {
+    "appid": "365360",
+    "name": "Battle Brothers",
+    "installdir": "Battle Brothers",
+    "buildid": "23856902",
+    "TargetBuildID": "23856902",
+    "installed_depots": [
+      {
+        "depot_id": "365361",
+        "manifest_id": "6452737217385047608",
+        "size": "1389693283",
+        "dlc_appid": null
+      },
+      {
+        "depot_id": "732460",
+        "manifest_id": "7710260447017320527",
+        "size": "1517",
+        "dlc_appid": "732460"
+      },
+      {
+        "depot_id": "961930",
+        "manifest_id": "4519483112451416244",
+        "size": "95329421",
+        "dlc_appid": "961930"
+      },
+      {
+        "depot_id": "1067690",
+        "manifest_id": "5969268974658547535",
+        "size": "14967496",
+        "dlc_appid": "1067690"
+      },
+      {
+        "depot_id": "1361280",
+        "manifest_id": "6237496906187000595",
+        "size": "155163776",
+        "dlc_appid": "1361280"
+      },
+      {
+        "depot_id": "1910050",
+        "manifest_id": "4723208085527760083",
+        "size": "66946007",
+        "dlc_appid": "1910050"
+      }
+    ]
+  },
+  "executable": {
+    "relative_path": "win32/BattleBrothers.exe",
+    "size": 2835616,
+    "mtime_utc": "2026-08-28T04:14:07.867999+00:00",
+    "sha256": "345126B48B57719E71C80CD21B778F1A0BFDA52295CC136CE3895EF43BBAFD6A"
+  },
+  "data_files": [
+    {
+      "relative_path": "data_001.dat",
+      "size": 1327562516,
+      "mtime_utc": "2026-08-28T04:14:07.860273+00:00",
+      "sha256": "3621875B5D76D0DCAD7838AA2A72406CB65FCC5F9134F8D7AB6A21ED64FDDBFD",
+      "kind": "official_archive",
+      "presence_classification": "GAME_OR_DLC",
+      "archive": {
+        "entry_count": 9104,
+        "uncompressed_size": 1325709996,
+        "extension_counts": {
+          ".0": 2,
+          ".1": 1,
+          ".2": 1,
+          ".3": 1,
+          ".brush": 26,
+          ".cnut": 3104,
+          ".css": 96,
+          ".fnt": 3,
+          ".fs": 9,
+          ".html": 2,
+          ".jpg": 37,
+          ".js": 123,
+          ".ogg": 42,
+          ".png": 4001,
+          ".ttf": 10,
+          ".txt": 7,
+          ".vs": 8,
+          ".wav": 1631
+        },
+        "preload_entries": [],
+        "registration_candidates": []
+      }
+    },
+    {
+      "relative_path": "data_003.dat",
+      "size": 1517,
+      "mtime_utc": "2026-08-28T04:16:03.089305+00:00",
+      "sha256": "17F10219D26F616351C268A2AE9A43DF5F506E690BD96A63FA72308AF2B6F6D6",
+      "kind": "official_archive",
+      "presence_classification": "GAME_OR_DLC",
+      "archive": {
+        "entry_count": 1,
+        "uncompressed_size": 1061,
+        "extension_counts": {
+          ".cnut": 1
+        },
+        "preload_entries": [],
+        "registration_candidates": []
+      }
+    },
+    {
+      "relative_path": "data_004.dat",
+      "size": 95329421,
+      "mtime_utc": "2026-08-28T04:14:07.929678+00:00",
+      "sha256": "C65490CFD816E9B1A57EA1DA1DF750C850FD4BA7E8D2D4633F75BDFA1BEACF0F",
+      "kind": "official_archive",
+      "presence_classification": "GAME_OR_DLC",
+      "archive": {
+        "entry_count": 362,
+        "uncompressed_size": 95258625,
+        "extension_counts": {
+          ".cnut": 1,
+          ".wav": 361
+        },
+        "preload_entries": [],
+        "registration_candidates": []
+      }
+    },
+    {
+      "relative_path": "data_006.dat",
+      "size": 14967496,
+      "mtime_utc": "2026-08-28T04:14:07.937856+00:00",
+      "sha256": "9C41633D2AB36B14D8E6B07689AE1D5D1A2300EA37D40B2BCAEA17E001AA2506",
+      "kind": "official_archive",
+      "presence_classification": "GAME_OR_DLC",
+      "archive": {
+        "entry_count": 77,
+        "uncompressed_size": 14952040,
+        "extension_counts": {
+          ".cnut": 1,
+          ".wav": 76
+        },
+        "preload_entries": [],
+        "registration_candidates": []
+      }
+    },
+    {
+      "relative_path": "data_008.dat",
+      "size": 155163776,
+      "mtime_utc": "2026-08-28T04:14:07.960462+00:00",
+      "sha256": "1BE9278FEDB1B2F05A4C4357636972D989EF747B263E29A3C47CAA27A29C0D4E",
+      "kind": "official_archive",
+      "presence_classification": "GAME_OR_DLC",
+      "archive": {
+        "entry_count": 358,
+        "uncompressed_size": 155091494,
+        "extension_counts": {
+          ".cnut": 1,
+          ".wav": 357
+        },
+        "preload_entries": [],
+        "registration_candidates": []
+      }
+    },
+    {
+      "relative_path": "data_010.dat",
+      "size": 2078,
+      "mtime_utc": "2026-08-28T04:16:32.121237+00:00",
+      "sha256": "B2934459ACE570D91850FE21B903455287824A1E28087D95C22FCD3D2EBD026E",
+      "kind": "official_archive",
+      "presence_classification": "GAME_OR_DLC",
+      "archive": {
+        "entry_count": 1,
+        "uncompressed_size": 1622,
+        "extension_counts": {
+          ".cnut": 1
+        },
+        "preload_entries": [],
+        "registration_candidates": []
+      }
+    },
+    {
+      "relative_path": "mod_legends-19.4.20 60 19.4.20 2026-08-15T12-57Z qTxKH71VJ.zip",
+      "size": 5453255,
+      "mtime_utc": "2026-08-29T05:52:03.845407+00:00",
+      "sha256": "6A1E1482BF909EEC2E0ECE70C3992BA80FAB5A948B9CD0625063B1729B002A71",
+      "kind": "mod_archive",
+      "presence_classification": "LOAD_CANDIDATE",
+      "archive": {
+        "entry_count": 4364,
+        "uncompressed_size": 16254048,
+        "extension_counts": {
+          ".css": 55,
+          ".html": 1,
+          ".js": 80,
+          ".nut": 4228
+        },
+        "preload_entries": [
+          "scripts/!mods_preload/!!redirect.nut",
+          "scripts/!mods_preload/!config/highlight_named_roll.nut",
+          "scripts/!mods_preload/!config/tnf_debugMode_lib.nut",
+          "scripts/!mods_preload/inherit_fix.nut",
+          "scripts/!mods_preload/mod_Jimmys_Tooltips.nut",
+          "scripts/!mods_preload/mod_events_delayed_fix.nut",
+          "scripts/!mods_preload/register_legends.nut",
+          "scripts/!mods_preload/~legends_finalize.nut",
+          "scripts/!mods_preload/~~finalize.nut"
+        ],
+        "registration_candidates": [
+          "scripts/!mods_preload/!!redirect.nut",
+          "scripts/!mods_preload/!config/highlight_named_roll.nut",
+          "scripts/!mods_preload/!config/tnf_debugMode_lib.nut",
+          "scripts/!mods_preload/inherit_fix.nut",
+          "scripts/!mods_preload/mod_Jimmys_Tooltips.nut",
+          "scripts/!mods_preload/mod_events_delayed_fix.nut",
+          "scripts/!mods_preload/register_legends.nut",
+          "scripts/!mods_preload/~legends_finalize.nut",
+          "scripts/!mods_preload/~~finalize.nut",
+          "scripts/preload.nut",
+          "scripts/skills/actives/legend_alp_nightmare_manifestation_skill.nut"
+        ]
+      }
+    },
+    {
+      "relative_path": "mod_legends-assets-19.4.3 60 19.4.3 2026-06-26T21-39Z tSEX1vInI.zip",
+      "size": 357981216,
+      "mtime_utc": "2026-08-29T05:53:10.092979+00:00",
+      "sha256": "0B0BADFC70B615828020A69BBE2A085F377F8564EB8390F8C12D62DAFD260C8C",
+      "kind": "mod_archive",
+      "presence_classification": "LOAD_CANDIDATE",
+      "archive": {
+        "entry_count": 8554,
+        "uncompressed_size": 436880043,
+        "extension_counts": {
+          ".brush": 89,
+          ".jpg": 20,
+          ".nut": 1,
+          ".ogg": 30,
+          ".png": 7974,
+          ".txt": 2,
+          ".wav": 438
+        },
+        "preload_entries": [
+          "scripts/!mods_preload/mod_legends_assets.nut"
+        ],
+        "registration_candidates": [
+          "scripts/!mods_preload/mod_legends_assets.nut"
+        ]
+      }
+    },
+    {
+      "relative_path": "mod_modern_hooks-685-0-6-0-1748620177.zip",
+      "size": 25220,
+      "mtime_utc": "2026-08-29T05:50:15.834221+00:00",
+      "sha256": "18FBF059480A09483693B8EEF9C97C3A32450885B1971DDA49B5CC14A66D7ED1",
+      "kind": "mod_archive",
+      "presence_classification": "FRAMEWORK",
+      "archive": {
+        "entry_count": 22,
+        "uncompressed_size": 74141,
+        "extension_counts": {
+          ".css": 1,
+          ".js": 1,
+          ".nut": 20
+        },
+        "preload_entries": [
+          "scripts/!mods_preload/!!zz_modern_hooks_patch_mod_hooks.nut",
+          "scripts/!mods_preload/mod_modern_hooks.nut",
+          "scripts/!mods_preload/~~modern_hooks.nut"
+        ],
+        "registration_candidates": [
+          "modern_hooks/queue/compatibility_data.nut",
+          "modern_hooks/queue/mod.nut",
+          "modern_hooks/queue/mod_hooks_queue_graph.nut",
+          "modern_hooks/queue/mod_version.nut",
+          "modern_hooks/queue/queued_function.nut",
+          "scripts/!mods_preload/!!zz_modern_hooks_patch_mod_hooks.nut",
+          "scripts/!mods_preload/mod_modern_hooks.nut",
+          "scripts/!mods_preload/~~modern_hooks.nut"
+        ]
+      }
+    },
+    {
+      "relative_path": "mod_msu 479 1.9.0 2026-06-23T04-27Z eVJjKbX9c.zip",
+      "size": 2453031,
+      "mtime_utc": "2026-08-29T05:50:57.867930+00:00",
+      "sha256": "617AF64BD4B354408B91F8B8618F94F664491EDCD2CF4649B8AD52673C81B37B",
+      "kind": "mod_archive",
+      "presence_classification": "FRAMEWORK",
+      "archive": {
+        "entry_count": 213,
+        "uncompressed_size": 3501029,
+        "extension_counts": {
+          ".brush": 1,
+          ".css": 4,
+          ".js": 27,
+          ".nut": 161,
+          ".png": 9,
+          ".ttf": 8,
+          ".txt": 3
+        },
+        "preload_entries": [
+          "scripts/!mods_preload/!!z_msu_preload.nut",
+          "scripts/!mods_preload/msu.nut",
+          "scripts/!mods_preload/~~~msu_connect_screens.nut"
+        ],
+        "registration_candidates": [
+          "msu/systems/serialization/metadata_emulator.nut",
+          "scripts/!mods_preload/!!z_msu_preload.nut",
+          "scripts/!mods_preload/msu.nut",
+          "scripts/!mods_preload/~~~msu_connect_screens.nut"
+        ]
+      }
+    }
+  ],
+  "loose_files": [
+    {
+      "relative_path": "gfx/fonts/cinzel/Cinzel-Black.ttf",
+      "size": 66492,
+      "mtime_utc": "2026-08-28T04:15:32.633002+00:00",
+      "sha256": "EFF099EFB2E558DC5FEF89B9DF62A37F884C5184D0345DEAFC381CB83F90128A"
+    },
+    {
+      "relative_path": "gfx/fonts/cinzel/Cinzel-Bold.ttf",
+      "size": 66096,
+      "mtime_utc": "2026-08-28T04:15:36.927691+00:00",
+      "sha256": "E71DCF0F28AB71F33BA6628F972A7786F71400DFFB6E1F6F2DB2434EC63DA2FE"
+    },
+    {
+      "relative_path": "gfx/fonts/cinzel/Cinzel-Regular.ttf",
+      "size": 65296,
+      "mtime_utc": "2026-08-28T04:15:25.699437+00:00",
+      "sha256": "4BBA3CCF90D840DB5784276AFCBF141265DA1E5634CEC650CA7289D2C2E297B2"
+    },
+    {
+      "relative_path": "gfx/fonts/cinzel/OFL.txt",
+      "size": 4484,
+      "mtime_utc": "2026-08-28T04:15:35.257228+00:00",
+      "sha256": "C5C8BFF2215C5FD49871FF0E6809DEA150976C782548F78D8BE68B4BA55D5C1C"
+    },
+    {
+      "relative_path": "gfx/fonts/free_universal/FreeUniversal-Bold-edited.ttf",
+      "size": 49624,
+      "mtime_utc": "2026-08-28T04:15:19.816728+00:00",
+      "sha256": "EEC8783850254E5196549B3DE3E55099253D44ACA5C4F6FC80F8AC715BA359DE"
+    },
+    {
+      "relative_path": "gfx/fonts/free_universal/FreeUniversal-Bold.ttf",
+      "size": 36704,
+      "mtime_utc": "2026-08-28T04:15:28.695560+00:00",
+      "sha256": "DCBB9ADA66B73922E7367414AD18396DE55FD6990BF358C868A431F6009BEDCF"
+    },
+    {
+      "relative_path": "gfx/fonts/free_universal/FreeUniversal-BoldItalic.ttf",
+      "size": 37848,
+      "mtime_utc": "2026-08-28T04:15:48.556460+00:00",
+      "sha256": "48FA9D94203641DE5163A75C92C95808D87B1EAC192AF491A3668401C85295E0"
+    },
+    {
+      "relative_path": "gfx/fonts/free_universal/FreeUniversal-Italic-edited.ttf",
+      "size": 47124,
+      "mtime_utc": "2026-08-28T04:15:28.695560+00:00",
+      "sha256": "649D982E1AE967F40B3183ACF438B93473220904B288CBC32E1531AA103B3629"
+    },
+    {
+      "relative_path": "gfx/fonts/free_universal/FreeUniversal-Italic.ttf",
+      "size": 24572,
+      "mtime_utc": "2026-08-28T04:15:25.646431+00:00",
+      "sha256": "E0A1070926E24A210ECCA507D05B01F6C29137757749F038049E968DE3F615F1"
+    },
+    {
+      "relative_path": "gfx/fonts/free_universal/FreeUniversal-Regular-edited.ttf",
+      "size": 49320,
+      "mtime_utc": "2026-08-28T04:15:46.237225+00:00",
+      "sha256": "EA58F027E89043EFE5A56E73B2BC5D7D9B6DBFEE7DBA10E4C62B0529F628EC74"
+    },
+    {
+      "relative_path": "gfx/fonts/free_universal/FreeUniversal-Regular.ttf",
+      "size": 36780,
+      "mtime_utc": "2026-08-28T04:15:28.695560+00:00",
+      "sha256": "338907519907F979093CC34B8E250244A45FDD2D7B964D0E35E798145F3556C7"
+    },
+    {
+      "relative_path": "gfx/fonts/free_universal/SIL Open Font License.txt",
+      "size": 4299,
+      "mtime_utc": "2026-08-28T04:15:32.288097+00:00",
+      "sha256": "130B55D0F6564114388C1DDAA88A517A945155BCB6344439F879AAA07BA19B81"
+    }
+  ],
+  "runtime_evidence": {
+    "path": "C:\\Users\\okait\\OneDrive\\ドキュメント\\Battle Brothers\\log.html",
+    "exists": true,
+    "size": 582623,
+    "mtime_utc": "2026-08-29T14:57:43.677817+00:00",
+    "sha256": "86DD418B11427042A435BC62926E264BF6FC6136A58695AAF243D22B98AAE726",
+    "engine_write_path": "C:\\Users\\okait\\OneDrive\\ドキュメント\\Battle Brothers",
+    "registrations": [
+      {
+        "name": "modding script hooks",
+        "id": "mod_hooks",
+        "version": "21.1"
+      },
+      {
+        "name": "ModJimmysTooltips",
+        "id": "mod_Jimmys_Tooltips_legends",
+        "version": "1.0.5"
+      },
+      {
+        "name": "Events and Ambitions Delayed Fix",
+        "id": "mod_events_delayed_fix_legends",
+        "version": "0.7"
+      },
+      {
+        "name": "Legends assets",
+        "id": "mod_legends_assets",
+        "version": "19.4.3"
+      },
+      {
+        "name": "Vanilla",
+        "id": "vanilla",
+        "version": "1.5.2-3"
+      },
+      {
+        "name": "DLC: Beasts & Exploration",
+        "id": "dlc_unhold",
+        "version": "1.0.0"
+      },
+      {
+        "name": "DLC: Lindwurm",
+        "id": "dlc_lindwurm",
+        "version": "1.0.0"
+      },
+      {
+        "name": "DLC: Of Flesh and Faith",
+        "id": "dlc_paladins",
+        "version": "1.0.0"
+      },
+      {
+        "name": "DLC: Blazing Deserts",
+        "id": "dlc_desert",
+        "version": "1.0.0"
+      },
+      {
+        "name": "DLC: Warriors of the North",
+        "id": "dlc_wildmen",
+        "version": "1.0.0"
+      },
+      {
+        "name": "Modern Hooks",
+        "id": "mod_modern_hooks",
+        "version": "0.6.0"
+      },
+      {
+        "name": "Modding Standards & Utilities (MSU)",
+        "id": "mod_msu",
+        "version": "1.9.0"
+      },
+      {
+        "name": "Legends Mod",
+        "id": "mod_legends",
+        "version": "19.4.20"
+      },
+      {
+        "name": "Legends Mod - Load order fix",
+        "id": "mod_legends_load_order_fix",
+        "version": "19.4.20"
+      },
+      {
+        "name": "Legends Mod - Compat",
+        "id": "mod_legends_compat_check",
+        "version": "19.4.20"
+      }
+    ],
+    "queue": [
+      "-----------------Running queue bucket First-----------------",
+      "Executing queued function 2 for Modding Standards & Utilities (MSU) (mod_msu) version 1.9.0.",
+      "-----------------Running queue bucket Normal-----------------",
+      "Executing queued function 1 for Modding Standards & Utilities (MSU) (mod_msu) version 1.9.0.",
+      "Executing queued function 1 [After: mod_hooks] for Events and Ambitions Delayed Fix (mod_events_delayed_fix_legends) version 0.7.",
+      "Executing queued function 1 [After: mod_legends_assets, mod_msu, vanilla, vanilla, dlc_lindwurm, dlc_unhold, dlc_wildmen, dlc_desert, dlc_paladins, mod_events_delayed_fix_legends] for Legends Mod (mod_legends) version 19.4.20.",
+      "Executing queued function 2 [After: mod_msu] for Modern Hooks (mod_modern_hooks) version 0.6.0.",
+      "Executing queued function 1 [After: mod_legends, mod_msu] for ModJimmysTooltips (mod_Jimmys_Tooltips_legends) version 1.0.5.",
+      "Executing queued function 1 [Before: mod_prepare_carefully | After: mod_legends] for Legends Mod - Load order fix (mod_legends_load_order_fix) version 19.4.20.",
+      "Executing queued function 1 [After: mod_legends] for Legends Mod - Compat (mod_legends_compat_check) version 19.4.20.",
+      "-----------------Running queue bucket VeryLate-----------------",
+      "Executing queued function 2 [After: mod_legends] for ModJimmysTooltips (mod_Jimmys_Tooltips_legends) version 1.0.5.",
+      "Executing queued function 3 for Modding Standards & Utilities (MSU) (mod_msu) version 1.9.0.",
+      "-----------------Running queue bucket Last-----------------",
+      "Executing queued function 1 for Modern Hooks (mod_modern_hooks) version 0.6.0.",
+      "-----------------Running queue bucket AfterHooks-----------------",
+      "Executing queued function 4 for Modding Standards & Utilities (MSU) (mod_msu) version 1.9.0.",
+      "-----------------Running queue bucket FirstWorldInit-----------------",
+      "Executing queued function 5 for Modding Standards & Utilities (MSU) (mod_msu) version 1.9.0."
+    ],
+    "log_severity_counts": {
+      "error": 0,
+      "warning": 15,
+      "critical": 0
+    }
+  },
+  "write_audit": {
+    "before": {
+      "game_root": {
+        "exists": true,
+        "digest": "50C3848E64244EA0CB8C81131911E2669906BDA68221562B535BEC54C7610FC3",
+        "files": 97
+      },
+      "user_data": {
+        "exists": true,
+        "digest": "6DC305C32CFC49B2C878CF1C31BDE1AD78BFC17C264A152C7479A0B797F6F7EE",
+        "files": 28
+      }
+    },
+    "after": {
+      "game_root": {
+        "exists": true,
+        "digest": "50C3848E64244EA0CB8C81131911E2669906BDA68221562B535BEC54C7610FC3",
+        "files": 97
+      },
+      "user_data": {
+        "exists": true,
+        "digest": "6DC305C32CFC49B2C878CF1C31BDE1AD78BFC17C264A152C7479A0B797F6F7EE",
+        "files": 28
+      }
+    },
+    "changed_roots": [],
+    "write_count_to_user_environment": 0,
+    "scope": "mtime/size/path tree comparison; file access times are intentionally excluded"
+  },
+  "snapshot_basis_sha256": "CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E6FCED8697"
+}

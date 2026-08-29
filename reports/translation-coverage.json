@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "snapshot_basis_sha256": "CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E6FCED8697",
+  "status": "TRANSLATION_IN_PROGRESS",
+  "detailed_ledger_location": "work/ledger/translation-ledger.json (gitignored)",
+  "translation_units_location": "work/ledger/translation-units.json (gitignored)",
+  "detailed_ledger_sha256": "4234358C635AA184B0559B252A0F15DD3193C31E1711010A92EB3D0393D93E9A",
+  "translation_units_sha256": "47216BB7F38D52CA2D4E93601D08E079279AADCD183118CB2E6C8462C84A7F21",
+  "rosetta_extractor": {
+    "version": "0.5.0",
+    "commit": "dde98e99fd95ed0e7474a4328555144b4e913678"
+  },
+  "total_occurrences": 48158,
+  "resolved_exclusion_occurrences": 2600,
+  "translatable_occurrences": 45558,
+  "unique_translation_units": 31973,
+  "untranslated_units": 30967,
+  "translated_needs_review_units": 0,
+  "reviewed_units": 1006,
+  "extraction_failures": [],
+  "extraction_warnings": [
+    {
+      "module": "legends",
+      "source": "mod_legends/!!config/perk_strings.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\";', 1, 1))",
+      "fallback_candidates": 205
+    },
+    {
+      "module": "legends",
+      "source": "mod_legends/config/runes_armor.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\",', 1, 1))",
+      "fallback_candidates": 6
+    },
+    {
+      "module": "legends",
+      "source": "mod_legends/config/runes_helmet.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\",', 1, 1))",
+      "fallback_candidates": 8
+    },
+    {
+      "module": "legends",
+      "source": "mod_legends/config/runes_shield.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\",', 1, 1))",
+      "fallback_candidates": 6
+    },
+    {
+      "module": "legends",
+      "source": "mod_legends/config/runes_weapon.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\",', 1, 1))",
+      "fallback_candidates": 14
+    },
+    {
+      "module": "legends",
+      "source": "mod_legends/hooks/config/perk_strings.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\";', 1, 1))",
+      "fallback_candidates": 5
+    },
+    {
+      "module": "msu",
+      "source": "msu/systems/registry/mod_sources/mod_source_githubtags.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\");', 1, 1))",
+      "fallback_candidates": 4
+    },
+    {
+      "module": "modern_hooks",
+      "source": "scripts/config/modern_hooks.nut",
+      "warning": "ROSETTA_PARSER_FALLBACK",
+      "error": "SyntaxError('unterminated string literal (detected at line 1)', ('<unknown>', 1, 1, '\"),', 1, 1))",
+      "fallback_candidates": 13
+    }
+  ],
+  "duplicate_stable_keys": [],
+  "resolved_exclusion_reasons": {
+    "DEBUG_ONLY_SOURCE": 5,
+    "INTERNAL_CONTROL_OR_SCREEN_ID": 2542,
+    "LOG_DIAGNOSTIC_ONLY": 41,
+    "RESOURCE_OR_ENGINE_KEY": 4,
+    "RESOURCE_OR_SCRIPT_PATH": 2,
+    "TECHNICAL_REGEX_OR_FORMAT_PATTERN": 6
+  },
+  "per_module": {
+    "legends": {
+      "occurrences": 24619,
+      "resolved_exclusions": 692,
+      "translatable_occurrences": 23927,
+      "translated_occurrences": 1054,
+      "reviewed_occurrences": 1054
+    },
+    "legends_assets": {
+      "occurrences": 1,
+      "resolved_exclusions": 0,
+      "translatable_occurrences": 1,
+      "translated_occurrences": 0,
+      "reviewed_occurrences": 0
+    },
+    "modern_hooks": {
+      "occurrences": 111,
+      "resolved_exclusions": 5,
+      "translatable_occurrences": 106,
+      "translated_occurrences": 2,
+      "reviewed_occurrences": 2
+    },
+    "msu": {
+      "occurrences": 470,
+      "resolved_exclusions": 8,
+      "translatable_occurrences": 462,
+      "translated_occurrences": 49,
+      "reviewed_occurrences": 49
+    },
+    "vanilla": {
+      "occurrences": 22581,
+      "resolved_exclusions": 1895,
+      "translatable_occurrences": 20686,
+      "translated_occurrences": 1034,
+      "reviewed_occurrences": 1034
+    },
+    "vanilla_ui": {
+      "occurrences": 376,
+      "resolved_exclusions": 0,
+      "translatable_occurrences": 376,
+      "translated_occurrences": 93,
+      "reviewed_occurrences": 93
+    }
+  },
+  "release_gate": "NOT_MET",
+  "updated_at_utc": "2026-08-29T18:14:02.742511+00:00",
+  "runtime_pattern_resolved_units": 127,
+  "runtime_pattern_unresolved_units": 0
+}

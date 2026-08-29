@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "canonical_reviewed_units": 1006,
+  "translated_needs_review_units": 0,
+  "tranches": [
+    {
+      "name": "vertical-slice-001",
+      "reviewed_units": 19,
+      "batch": "work/review_batches/vertical_slice_reviewed_001.json (gitignored)",
+      "sha256": "11F2AD4A0BA0B055FAD68EF5ABD0C91F8F3DEB1E2E1EC42E19603DCD25D64EA7"
+    },
+    {
+      "name": "core-ui-001-with-context-split",
+      "reviewed_units": 96,
+      "batches": [
+        {
+          "path": "work/review_batches/core_ui_reviewed_001.json (gitignored)",
+          "sha256": "8BA1B43E041D1253A2EA319603590DB3CE056218D98FA39E511214A029B497FE"
+        },
+        {
+          "path": "work/review_batches/core_ui_context_split_001.json (gitignored)",
+          "sha256": "44F94FD2860A7B551F9C2E6DD56ED3EBAEF4FC31E698F48D03EEBA2A23FE05D6"
+        }
+      ]
+    },
+    {
+      "name": "legends-mechanics-001",
+      "reviewed_units": 91,
+      "batch": "work/review_batches/legends_mechanics_reviewed_001.json (gitignored)",
+      "sha256": "245A81587E0B2CCCD118BCD0D5343D3164E9A6C84888D4985E4CE341984308BC"
+    },
+    {
+      "name": "vanilla-mechanics-001",
+      "reviewed_units": 200,
+      "batch": "work/review_batches/vanilla_mechanics_reviewed_001.json (gitignored)",
+      "sha256": "9A31421532DB242CF003B69A5C43F8062366288476B8A3AE53A28A4B040B8980"
+    },
+    {
+      "name": "vanilla-items-literal-001",
+      "reviewed_units": 300,
+      "draft_changes_by_independent_reviewer": 56,
+      "batch": "work/review_batches/vanilla_items_literal_reviewed_001.json (gitignored)",
+      "sha256": "C9C280E488A7CD680CD2CF4DE4A362485CA2D7A074329A6EFAD5217397DCC255"
+    },
+    {
+      "name": "legends-items-literal-001",
+      "reviewed_units": 300,
+      "draft_changes_by_independent_reviewer": 46,
+      "batch": "work/review_batches/legends_items_literal_reviewed_001.json (gitignored)",
+      "sha256": "1756B123FCE3D9939B0D2AD58D3066BF9048BEED9C2E43131DF6570ED9D212DE"
+    }
+  ],
+  "runtime_contract_reviews": [
+    {
+      "name": "vanilla-runtime-patterns-001",
+      "units": 87,
+      "sha256": "7B9EBB20933C11EDE528FE1DD9F41764E98FFCCE8280D1712E4954535B409145"
+    },
+    {
+      "name": "legends-runtime-patterns-001",
+      "units": 40,
+      "sha256": "205224159A0F3ABE69603D91BDFC72CF15727E6BE26DC675CE3E71764610C13B"
+    },
+    {
+      "name": "runtime-metric-pattern-collision-reviewed-001",
+      "units": 26,
+      "sha256": "5E57DDE3D26074CB040251CF84C3863D7F7FC2EE526387065241F5E50F2DB21D"
+    }
+  ]
+}

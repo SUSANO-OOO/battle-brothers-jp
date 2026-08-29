@@ -1,0 +1,168 @@
+{
+  "schema_version": 2,
+  "generated_at_utc": "2026-08-29T16:57:38.383514+00:00",
+  "scope": "static repository-owned MOD sources only",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "encoding_bom_mojibake",
+      "status": "PASS",
+      "detail": {
+        "utf8_errors": [],
+        "boms": [],
+        "markers": []
+      }
+    },
+    {
+      "name": "translation_pair_parse",
+      "status": "PASS",
+      "detail": {
+        "pairs": 7,
+        "errors": []
+      }
+    },
+    {
+      "name": "duplicate_literal_keys",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "untranslated_generated_pairs",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "placeholder_tag_integrity",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "preload_registration_dependency_queue",
+      "status": "PASS",
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "vertical_slice_static_reachability",
+      "status": "PASS",
+      "detail": {
+        "manifest_status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
+        "entries": 19,
+        "rosetta_entries": 7,
+        "js_entries": 12,
+        "runtime_proof": "NOT_TESTED",
+        "errors": {
+          "malformed_entry_indexes": [],
+          "non_reachable": [],
+          "duplicate_manifest_keys": [],
+          "pair_parse_errors": [],
+          "rosetta_missing_from_manifest": [],
+          "rosetta_missing_from_source": [],
+          "js_missing_from_manifest": [],
+          "js_missing_from_source": [],
+          "missing_boundary_implementations": []
+        }
+      }
+    },
+    {
+      "name": "supported_snapshot_fingerprint_lock",
+      "status": "PASS",
+      "detail": {
+        "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+        "data_files": 10,
+        "ledger_files": 2,
+        "mismatches": [],
+        "ledger_mismatches": [],
+        "missing_release_gate_tokens": [],
+        "freshness": "ENFORCED_AT_RELEASE_BUILD_NOT_THIS_STATIC_CHECK"
+      }
+    },
+    {
+      "name": "dependency_graph_semantics",
+      "status": "PASS",
+      "detail": {
+        "nodes": 22,
+        "relations": 48,
+        "allowed_types": [
+          "incompatibility",
+          "queue_after",
+          "queue_before",
+          "requirement"
+        ],
+        "invalid_types": [],
+        "dangling_relations": [],
+        "jp_relation_count": 10,
+        "missing_jp_relations": [],
+        "extra_jp_relations": []
+      }
+    },
+    {
+      "name": "actual_game_path_write_absence",
+      "status": "PASS",
+      "detail": {
+        "paths": [],
+        "write_apis": []
+      }
+    },
+    {
+      "name": "translation_only_hook_scope",
+      "status": "PASS",
+      "detail": {
+        "allowed_ui_boundaries": [
+          "scripts/ambitions/ambition",
+          "scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module"
+        ],
+        "unexpected": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "third_party_allowlist_and_license",
+      "status": "PASS",
+      "detail": {
+        "unexpected": [],
+        "license": true
+      }
+    },
+    {
+      "name": "font_glyph_coverage",
+      "status": "PASS",
+      "detail": {
+        "required_codepoints": 95,
+        "missing": [],
+        "sha256": "68A3FC98800B2A27B371F2FB79991DAF3633BD89309D4FFAA6946FD587F375B5"
+      }
+    },
+    {
+      "name": "squirrel_syntax",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "optional_target_absence_harness",
+      "status": "PASS",
+      "detail": {
+        "optional_mod_objects_defined": false,
+        "marker_found": true,
+        "returncode": 0,
+        "output_tail": "rosetta: Adding 23 ru pairs in mod_rosetta\nrosetta: Adding 3 ja pairs in vanilla\nrosetta: Adding 3 ja pairs in mod_legends\nrosetta: Adding 1 ja pairs in mod_Jimmys_Tooltips_legends\nrosetta: NOT FOUND Not in the vertical slice\nVERTICAL_SLICE_ROSETTA_TEST_OK\n"
+      }
+    },
+    {
+      "name": "javascript_syntax",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "archive_structure_and_content",
+      "status": "PASS",
+      "detail": {
+        "artifact_sha256": "47F4CBD6A5225CEE6890279CB1F2A8331797DC3A01DF72A286BCC91A328D648E",
+        "archive_entries": 8,
+        "source_entries": 8,
+        "errors": []
+      }
+    }
+  ]
+}

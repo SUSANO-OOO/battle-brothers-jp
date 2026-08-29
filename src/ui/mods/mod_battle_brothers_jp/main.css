@@ -1,0 +1,32 @@
+/* Noto Sans CJK JP is distributed under the SIL Open Font License 1.1. */
+@font-face {
+    font-family: "BBJP-NotoSansCJK";
+    font-style: normal;
+    font-weight: normal;
+    src: url("coui://gfx/fonts/battle_brothers_jp/NotoSansCJKjp-Regular.otf") format("opentype");
+}
+
+.default-font-very-small,
+.default-font-small,
+.default-font-normal,
+.default-font-big,
+.default-font-very-big,
+.title-font-very-small,
+.title-font-small,
+.title-font-normal,
+.title-font-big,
+.title-font-very-big,
+.text-font-very-small,
+.text-font-small,
+.text-font-medium,
+.text-font-normal,
+.text-font-big,
+.text-font-very-big,
+.description-font-very-small,
+.description-font-small,
+.description-font-medium,
+.description-font-normal,
+.description-font-big,
+.description-font-very-big {
+    font-family: "BBJP-NotoSansCJK", sans-serif !important;
+}

@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
+  "method": "Each registered Vertical Slice string is traced from its pinned-source call site to an installed-framework or repository-owned translation boundary. This is static evidence, not runtime proof.",
+  "entries": [
+    {
+      "english": "Have at least 50,000 crowns.",
+      "channel": "rosetta",
+      "module": "vanilla",
+      "source_evidence": "Vanilla scripts/ambitions/ambitions/have_z_crowns_ambition.nut:9 -> ambition.getUIText() -> ambition_manager.nut:311 -> TopbarAmbitionModule.setText()",
+      "boundary_id": "bbjp_ambition_get_ui_text",
+      "boundary_evidence": "src/battle_brothers_jp/hooks/ui_boundaries.nut hookTree scripts/ambitions/ambition getUIText",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Welcome to the company, %dragonslayer%.",
+      "channel": "rosetta",
+      "module": "vanilla",
+      "source_evidence": "Vanilla scripts/events/events/dlc8/lindwurm_slayer_event.nut:174 -> event.start() option.Text -> event.buildText() -> buildTextFromTemplate()",
+      "boundary_id": "rosetta_build_text_from_template",
+      "boundary_evidence": "Rosetta 0.5.0 rosetta/hooks.nut:194-197 translates before runtime placeholder substitution",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Bronze Statue",
+      "channel": "rosetta",
+      "module": "vanilla",
+      "source_evidence": "Vanilla scripts/entity/tactical/objects/southern_ruins_statue.nut:5 -> entity.getTooltip().text -> tooltip_events.onQueryEntityTooltipData()",
+      "boundary_id": "rosetta_tooltip_boundary",
+      "boundary_evidence": "Rosetta 0.5.0 rosetta/hooks.nut:133-148 translates tooltip entry.text",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Crafting",
+      "channel": "rosetta",
+      "module": "mod_legends",
+      "source_evidence": "Legends scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module.nut:queryLoad() returns Title -> JS loadFromData().findDialogTitle().html()",
+      "boundary_id": "bbjp_legends_camp_query_load",
+      "boundary_evidence": "src/battle_brothers_jp/hooks/ui_boundaries.nut exact hook translates queryLoad Title/SubTitle",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Fishermen and Ratcatchers can develop powerful net skills.",
+      "channel": "rosetta",
+      "module": "mod_legends",
+      "source_evidence": "Legends mod_legends/hooks/config/tip_of_the_day.nut:179 extends Const.TipOfTheDay -> loading_screen.onQueryData().text",
+      "boundary_id": "rosetta_loading_screen",
+      "boundary_evidence": "Rosetta 0.5.0 rosetta/hooks.nut:105-111 translates loading screen ret.text",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Ancient Southern Face Mask",
+      "channel": "rosetta",
+      "module": "mod_legends",
+      "source_evidence": "Legends scripts/items/legend_helmets/top/legend_helmet_mummy_mask.nut:8 m.Name -> item.getName()",
+      "boundary_id": "rosetta_item_get_name",
+      "boundary_evidence": "Rosetta 0.5.0 rosetta/hooks.nut:176-179 hookTree scripts/items/item getName",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "You can edit what you see on the Tactical Tooltip",
+      "channel": "rosetta",
+      "module": "mod_Jimmys_Tooltips_legends",
+      "source_evidence": "Jimmy's Tooltips scripts/!mods_preload/mod_Jimmys_Tooltips.nut:12 addTitle() -> MSU SettingsTitle.getUIData()",
+      "boundary_id": "rosetta_msu_settings_title",
+      "boundary_evidence": "Rosetta 0.5.0 rosetta/hooks.nut:223-244 translates MSU settings getUIData().name",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "New Campaign",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:122 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Load Campaign",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:135,226 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Scenarios",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:148 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Options",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:157,247,313 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Tutorial Videos",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:166 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Credits",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:175 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Quit",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:188 and world_game_finish_screen.js:102 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Resume",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:217,304 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Save Campaign",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:235 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Retire",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:259 createTextButton and :261 createPopupDialog",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton and $.fn.createPopupDialog argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Save & Quit",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:284 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    },
+    {
+      "english": "Retreat",
+      "channel": "js_create_text_button",
+      "module": "vanilla_ui",
+      "source_evidence": "Vanilla ui/screens/menu/modules/main_menu/main_menu_module.js:325 createTextButton",
+      "boundary_id": "bbjp_create_text_button",
+      "boundary_evidence": "src/ui/mods/mod_battle_brothers_jp/main.js wraps $.fn.createTextButton argument 0",
+      "status": "STATICALLY_REACHABLE"
+    }
+  ]
+}

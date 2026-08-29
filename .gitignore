@@ -1,0 +1,20 @@
+# Local copies and derived material from proprietary game/mod installations.
+work/**
+!work/.gitkeep
+
+# Build products are reproducible and are not source.
+dist/*.zip
+dist/*.sha256
+
+# Python caches and local environments.
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local QA output that may contain installation paths or runtime logs.
+reports/local/
+
+# Editor/OS noise.
+.DS_Store
+Thumbs.db
+desktop.ini

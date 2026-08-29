@@ -1,0 +1,34 @@
+name: repository-static-tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  portable-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Python unit tests
+        run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Python syntax
+        run: python -m compileall -q tools tests
+      - name: JavaScript UI tests
+        run: node tests/js/test_ui_translation.js
+      - name: JavaScript syntax
+        run: |
+          node --check src/ui/mods/mod_battle_brothers_jp/generated_strings.js
+          node --check src/ui/mods/mod_battle_brothers_jp/main.js
+
+# Deliberately excluded from hosted CI: proprietary installed-source scanning,
+# canonical ignored ledger checks, Squirrel/game runtime, archive composition
+# against local source fingerprints, font rendering, and isolated game QA.
