@@ -8,7 +8,7 @@ Phase 7 — 5,676 canonical units independently reviewed; Vanilla events 005–0
 
 ## Current commit
 
-The fully checked 5,676-unit working checkpoint is being prepared on `codex/integrated-jp-mod`; its base commit is `3d299879fc04aa8dacb513df08d31f701cb2da6f`. GitHub authentication is blocked, so no remote commit is claimed.
+Fully checked 5,676-unit implementation checkpoint: `eaf950682286578bfbd00629fca2b3e2f8862bab` on `codex/integrated-jp-mod`. This state bookkeeping update may be one local commit newer. GitHub authentication is blocked, so no remote commit is claimed.
 
 ## Installed snapshot ID
 
