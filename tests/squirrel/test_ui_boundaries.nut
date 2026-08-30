@@ -21,6 +21,8 @@ local groupNames = {
     ["Hanged for attempted murder"] = "殺人未遂で絞首刑に処された",
     ["Left to claim their birthright"] = "生まれながらの権利を求めて去った",
     ["Murdered by his fellow brothers"] = "同じ傭兵団の仲間たちに殺された",
+    ["The Lone Wolf"] = "一匹狼",
+    ["Weeds"] = "雑草",
     ["Brigands have stolen the %s from his lordship. He wants it back."] = "盗賊が領主の%sを盗んだ。領主は取り戻すことを望んでいる。"
 };
 
@@ -35,6 +37,10 @@ local groupNames = {
 
 ::Rosetta <- {
     _ = function (_text) {
+        if (typeof _text == "string" && _text.len() > 5 && _text.slice(0, 5) == "Dame ")
+        {
+            return "デイム・" + _text.slice(5);
+        }
         return _text in groupNames ? groupNames[_text] : _text;
     }
 };
@@ -42,12 +48,14 @@ local groupNames = {
 local hooks = {};
 local methodShapes = {
     ["scripts/ambitions/ambition"] = ["getUIText"],
-    ["scripts/skills/skill"] = ["getKilledString"],
     ["scripts/contracts/contract"] = ["getDescription"],
-    ["scripts/ui/global/data_helper"] = ["convertContractToUIData"],
+    ["scripts/ui/global/data_helper"] = ["convertContractToUIData", "convertStatisticsEntityToUIData", "convertEntityHireInformationToUIData", "addCharacterToUIData"],
+    ["scripts/states/world/asset_manager"] = ["getRosterDescription"],
     ["scripts/contracts/contracts/arena_contract"] = ["getUIContent"],
-    ["scripts/ui/screens/tooltip/tooltip_events"] = ["onQueryUIElementTooltipData"],
+    ["scripts/ui/screens/tooltip/tooltip_events"] = ["onQueryUIElementTooltipData", "onQueryTileTooltipData", "onQuerySkillTooltipData", "onQueryUIItemTooltipData"],
     ["scripts/ui/screens/world/world_obituary_screen"] = ["convertFallenToUIData"],
+    ["scripts/entity/tactical/player_corpse_stub"] = ["getName", "getTitle"],
+    ["scripts/events/event"] = ["getUIList"],
     ["scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module"] = ["queryLoad"],
     ["scripts/entity/world/settlement"] = ["getUIInformation"],
     ["scripts/entity/world/settlements/buildings/port_building"] = ["getUITravelRoster"],
@@ -70,6 +78,17 @@ local function registerHook(_target, _callback)
 }
 
 ::BattleBrothersJP <- {
+    ActorTitleDisplayFragments = [
+        {english = "The Lone Wolf", japanese = "一匹狼"},
+        {english = "Weeds", japanese = "雑草"},
+        {english = "the Lone Wolf", japanese = "一匹狼"},
+        {english = "the Holy", japanese = "聖なる者"},
+        {english = "the Old", japanese = "老人"}
+    ],
+    ActorTitleGenericDisplayFragments = [
+        {english = "The Lone Wolf", japanese = "一匹狼"},
+        {english = "Weeds", japanese = "雑草"}
+    ],
     Mod = {
         hook = registerHook,
         hookTree = registerHook
@@ -223,6 +242,102 @@ catch (error)
 }
 if (!contractDtoExceptionPropagated) throw "contract DTO exception did not propagate";
 
+local function testActorDTOBoundaries()
+{
+local statsDtoSource = {
+    id = 81,
+    name = "Aldric The Lone Wolf",
+    title = "The Lone Wolf",
+    killsMade = 7
+};
+local statsDtoWrapper = hooks["scripts/ui/global/data_helper"].convertStatisticsEntityToUIData(
+    function (_entity) {
+        assertEqual(_entity, rawContract);
+        return statsDtoSource;
+    }
+);
+local statsDtoResult = statsDtoWrapper(rawContract);
+assertEqual(statsDtoResult.name, "Aldric 一匹狼");
+assertEqual(statsDtoResult.title, "一匹狼");
+assertEqual(statsDtoResult.id, 81);
+assertEqual(statsDtoResult.killsMade, 7);
+assertEqual(statsDtoSource.name, "Aldric The Lone Wolf");
+assertEqual(statsDtoSource.title, "The Lone Wolf");
+if (statsDtoResult == statsDtoSource) throw "statistics actor DTO was not cloned";
+local unknownStatsSource = {name = "WolfgangThe Lone Wolf", title = "The Lone Wolfish"};
+local unknownStatsWrapper = hooks["scripts/ui/global/data_helper"].convertStatisticsEntityToUIData(
+    function (_entity) { return unknownStatsSource; }
+);
+if (unknownStatsWrapper(rawContract) != unknownStatsSource) throw "unknown statistics actor DTO must retain identity";
+local dameStatsSource = {name = "Dame Roderick", title = "Dame", killsMade = 3};
+local dameStatsWrapper = hooks["scripts/ui/global/data_helper"].convertStatisticsEntityToUIData(
+    function (_entity) { return dameStatsSource; }
+);
+local dameStatsResult = dameStatsWrapper(rawContract);
+assertEqual(dameStatsResult.name, "デイム・Roderick");
+assertEqual(dameStatsResult.title, "Dame");
+assertEqual(dameStatsResult.killsMade, 3);
+assertEqual(dameStatsSource.name, "Dame Roderick");
+assertEqual(dameStatsSource.title, "Dame");
+
+local hireDtoSource = {ID = 91, Name = "Asta Weeds", Level = 4};
+local hireDtoWrapper = hooks["scripts/ui/global/data_helper"].convertEntityHireInformationToUIData(
+    function (_entity) { return hireDtoSource; }
+);
+local hireDtoResult = hireDtoWrapper(rawContract);
+assertEqual(hireDtoResult.Name, "Asta 雑草");
+assertEqual(hireDtoResult.ID, 91);
+assertEqual(hireDtoResult.Level, 4);
+assertEqual(hireDtoSource.Name, "Asta Weeds");
+if (hireDtoResult == hireDtoSource) throw "hire actor DTO was not cloned";
+
+local characterTarget = {name = "Aldric The Lone Wolf", title = "The Lone Wolf", level = 9};
+local addCharacterCalls = 0;
+local addCharacterWrapper = hooks["scripts/ui/global/data_helper"].addCharacterToUIData(
+    function (_entity, _target) {
+        addCharacterCalls += 1;
+        assertEqual(_entity, rawContract);
+        if (_target != characterTarget) throw "character target identity changed";
+        return 97;
+    }
+);
+assertEqual(addCharacterWrapper(rawContract, characterTarget), 97);
+assertEqual(addCharacterCalls, 1);
+assertEqual(characterTarget.name, "Aldric 一匹狼");
+assertEqual(characterTarget.title, "一匹狼");
+assertEqual(characterTarget.level, 9);
+
+local rosterDescriptionSource = {
+    TerrainModifiers = [["Plains", 100.0]],
+    Brothers = [
+        {Name = "Aldric The Lone Wolf", Mood = "mood1", Level = 8, Background = "Hedge Knight"},
+        {Name = "Asta Weeds", Mood = "mood2", Level = 3, Background = "Farmer"},
+        {Name = "WolfgangThe Lone Wolf", Mood = "mood3", Level = 2, Background = "Unknown"},
+        "malformed"
+    ]
+};
+local rosterDescriptionWrapper = hooks["scripts/states/world/asset_manager"].getRosterDescription(
+    function () { return rosterDescriptionSource; }
+);
+local rosterDescriptionResult = rosterDescriptionWrapper();
+assertEqual(rosterDescriptionResult.Brothers[0].Name, "Aldric 一匹狼");
+assertEqual(rosterDescriptionResult.Brothers[0].Level, 8);
+assertEqual(rosterDescriptionResult.Brothers[1].Name, "Asta 雑草");
+assertEqual(rosterDescriptionResult.Brothers[2].Name, "WolfgangThe Lone Wolf");
+assertEqual(rosterDescriptionResult.Brothers[3], "malformed");
+assertEqual(rosterDescriptionResult.TerrainModifiers[0][1], 100.0);
+assertEqual(rosterDescriptionSource.Brothers[0].Name, "Aldric The Lone Wolf");
+if (rosterDescriptionResult == rosterDescriptionSource
+    || rosterDescriptionResult.Brothers == rosterDescriptionSource.Brothers
+    || rosterDescriptionResult.Brothers[0] == rosterDescriptionSource.Brothers[0]) throw "roster description DTO was not cloned";
+local rosterDescriptionUnknownSource = {Brothers = [{Name = "The Lone Wolfish"}]};
+local rosterDescriptionUnknownWrapper = hooks["scripts/states/world/asset_manager"].getRosterDescription(
+    function () { return rosterDescriptionUnknownSource; }
+);
+if (rosterDescriptionUnknownWrapper() != rosterDescriptionUnknownSource) throw "unknown roster description must retain identity";
+}
+testActorDTOBoundaries();
+
 local arenaSource = [
     {id = 1, type = "description", text = "Prefix The arena master / The arena master suffix", icon = "event"},
     {id = 2, type = "list", text = " The arena master", icon = "list"},
@@ -330,15 +445,56 @@ local scalarRelationWrapper = hooks["scripts/ui/screens/tooltip/tooltip_events"]
 );
 assertEqual(scalarRelationWrapper(null, "world-relations-screen.Relations", null), 9);
 
+local tileTooltipSource = [
+    {id = 1, type = "title", text = "Ground", icon = "title"},
+    {id = 3, type = "description", text = "Aldric The Lone Wolf was slain here.", icon = "corpse", extra = 4},
+    {id = 4, type = "description", text = "Asta Weeds was slain here."},
+    {id = 5, type = "description", text = "The Lone Wolfish was slain here."},
+    "malformed"
+];
+local tileTooltipCalls = 0;
+local tileTooltipReceiver = {Marker = 71};
+local tileTooltipWrapper = hooks["scripts/ui/screens/tooltip/tooltip_events"].onQueryTileTooltipData(function () {
+    tileTooltipCalls += 1;
+    assertEqual(this.Marker, 71);
+    return tileTooltipSource;
+});
+local tileTooltipResult = tileTooltipWrapper.call(tileTooltipReceiver);
+assertEqual(tileTooltipCalls, 1);
+assertEqual(tileTooltipResult[0].text, "Ground");
+assertEqual(tileTooltipResult[1].text, "Aldric 一匹狼 was slain here.");
+assertEqual(tileTooltipResult[1].id, 3);
+assertEqual(tileTooltipResult[1].type, "description");
+assertEqual(tileTooltipResult[1].icon, "corpse");
+assertEqual(tileTooltipResult[1].extra, 4);
+assertEqual(tileTooltipResult[2].text, "Asta Weeds was slain here.");
+assertEqual(tileTooltipResult[3].text, "The Lone Wolfish was slain here.");
+assertEqual(tileTooltipResult[4], "malformed");
+assertEqual(tileTooltipSource[1].text, "Aldric The Lone Wolf was slain here.");
+if (tileTooltipResult == tileTooltipSource
+    || tileTooltipResult[1] == tileTooltipSource[1]) throw "tile tooltip display entry was not cloned";
+local unknownTileSource = [{id = 1, text = "Unknown corpse was slain here."}];
+local unknownTileWrapper = hooks["scripts/ui/screens/tooltip/tooltip_events"].onQueryTileTooltipData(function () {
+    return unknownTileSource;
+});
+if (unknownTileWrapper() != unknownTileSource) throw "unknown corpse tooltip must retain original array";
+local nullTileWrapper = hooks["scripts/ui/screens/tooltip/tooltip_events"].onQueryTileTooltipData(function () {
+    return null;
+});
+assertEqual(nullTileWrapper(), null);
+
 local obituarySource = {
     Fallen = [
-        {Name = "Aldric", KilledBy = "Deserted the company", Kills = 3, Traits = ["raw"]},
+        {Name = "Aldric The Lone Wolf", KilledBy = "Deserted the company", Kills = 3, Traits = ["raw"]},
         {Name = "Beatrix", KilledBy = "Got a better paying offer", Kills = 2},
         {Name = "Cedric", KilledBy = "Handed over to authorities", Kills = 1},
         {Name = "Dora", KilledBy = "Hanged for attempted murder", Kills = 0},
         {Name = "Edric", KilledBy = "Left to claim their birthright", Kills = 0},
         {Name = "Fara", KilledBy = "Murdered by his fellow brothers", Kills = 0},
         {Name = "Gernot", KilledBy = "Hohenburg", Kills = 0},
+        {Name = "The Lone Wolf", KilledBy = "Killed in a duel by The Lone Wolf", Kills = 0},
+        {Name = "WolfgangThe Lone Wolf", KilledBy = "The Lone Wolfish", Kills = 0},
+        {Name = "Asta Weeds", KilledBy = "Killed by Weeds", Kills = 0},
         {Name = "Hilde", KilledBy = 7},
         "malformed"
     ],
@@ -354,7 +510,7 @@ local obituaryWrapper = hooks["scripts/ui/screens/world/world_obituary_screen"].
 local obituaryResult = obituaryWrapper();
 assertEqual(obituaryCalls, 1);
 assertEqual(obituaryResult.Fallen[0].KilledBy, "傭兵団から脱走した");
-assertEqual(obituaryResult.Fallen[0].Name, "Aldric");
+assertEqual(obituaryResult.Fallen[0].Name, "Aldric 一匹狼");
 assertEqual(obituaryResult.Fallen[0].Kills, 3);
 assertEqual(obituaryResult.Fallen[0].Traits[0], "raw");
 assertEqual(obituaryResult.Fallen[1].KilledBy, "もっと割のいい仕事を持ちかけられた");
@@ -362,9 +518,15 @@ assertEqual(obituaryResult.Fallen[2].KilledBy, "当局へ引き渡された");
 assertEqual(obituaryResult.Fallen[3].KilledBy, "殺人未遂で絞首刑に処された");
 assertEqual(obituaryResult.Fallen[4].KilledBy, "生まれながらの権利を求めて去った");
 assertEqual(obituaryResult.Fallen[5].KilledBy, "同じ傭兵団の仲間たちに殺された");
-assertEqual(obituaryResult.Fallen[6].KilledBy, "Hohenburg");
-assertEqual(obituaryResult.Fallen[7].KilledBy, 7);
-assertEqual(obituaryResult.Fallen[8], "malformed");
+assertEqual(obituaryResult.Fallen[6].KilledBy, "ホーエンブルク");
+assertEqual(obituaryResult.Fallen[7].Name, "一匹狼");
+assertEqual(obituaryResult.Fallen[7].KilledBy, "Killed in a duel by 一匹狼");
+assertEqual(obituaryResult.Fallen[8].Name, "WolfgangThe Lone Wolf");
+assertEqual(obituaryResult.Fallen[8].KilledBy, "The Lone Wolfish");
+assertEqual(obituaryResult.Fallen[9].Name, "Asta 雑草");
+assertEqual(obituaryResult.Fallen[9].KilledBy, "Killed by 雑草");
+assertEqual(obituaryResult.Fallen[10].KilledBy, 7);
+assertEqual(obituaryResult.Fallen[11], "malformed");
 assertEqual(obituaryResult.Page, 2);
 assertEqual(obituarySource.Fallen[0].KilledBy, "Deserted the company");
 assertEqual(obituarySource.Fallen[1].KilledBy, "Got a better paying offer");
@@ -373,6 +535,8 @@ assertEqual(obituarySource.Fallen[3].KilledBy, "Hanged for attempted murder");
 assertEqual(obituarySource.Fallen[4].KilledBy, "Left to claim their birthright");
 assertEqual(obituarySource.Fallen[5].KilledBy, "Murdered by his fellow brothers");
 assertEqual(obituarySource.Fallen[6].KilledBy, "Hohenburg");
+assertEqual(obituarySource.Fallen[7].Name, "The Lone Wolf");
+assertEqual(obituarySource.Fallen[7].KilledBy, "Killed in a duel by The Lone Wolf");
 if (obituaryResult == obituarySource
     || obituaryResult.Fallen == obituarySource.Fallen
     || obituaryResult.Fallen[0] == obituarySource.Fallen[0]) throw "obituary DTO was not cloned";
@@ -389,6 +553,69 @@ local obituaryMalformedWrapper = hooks["scripts/ui/screens/world/world_obituary_
     function () { return {Fallen = 4, Page = 5}; }
 );
 assertEqual(obituaryMalformedWrapper().Fallen, 4);
+
+local corpseSource = {m = {Name = "Aldric", Title = "The Lone Wolf"}};
+local corpseNameCalls = 0;
+local corpseNameWrapper = hooks["scripts/entity/tactical/player_corpse_stub"].getName(function () {
+    corpseNameCalls += 1;
+    return this.m.Name + " " + this.m.Title;
+});
+local corpseTitleCalls = 0;
+local corpseTitleWrapper = hooks["scripts/entity/tactical/player_corpse_stub"].getTitle(function () {
+    corpseTitleCalls += 1;
+    return this.m.Title;
+});
+assertEqual(corpseNameWrapper.call(corpseSource), "Aldric 一匹狼");
+assertEqual(corpseTitleWrapper.call(corpseSource), "一匹狼");
+assertEqual(corpseNameCalls, 1);
+assertEqual(corpseTitleCalls, 1);
+assertEqual(corpseSource.m.Name, "Aldric");
+assertEqual(corpseSource.m.Title, "The Lone Wolf");
+local unknownCorpse = {m = {Name = "Ulrich", Title = "The Lone Wolfish"}};
+assertEqual(corpseTitleWrapper.call(unknownCorpse), "The Lone Wolfish");
+local weedsCorpse = {m = {Name = "Asta", Title = "Weeds"}};
+assertEqual(corpseNameWrapper.call(weedsCorpse), "Asta 雑草");
+assertEqual(corpseTitleWrapper.call(weedsCorpse), "雑草");
+assertEqual(weedsCorpse.m.Title, "Weeds");
+
+local eventListSource = [{
+    title = "",
+    fixed = false,
+    items = [
+        {id = 13, icon = "ui/icons/kills.png", text = "Aldric The Lone Wolf has died", extra = 9},
+        {id = 10, icon = "ui/icons/injury.png", text = "The Lone Wolf suffers an injury"},
+        {id = 11, icon = "ui/icons/other.png", text = "WolfgangThe Lone Wolf remains"},
+        {id = 12, icon = "ui/icons/other.png", text = "Honor and fear of the Old Gods"},
+        {id = 14, icon = "ui/icons/other.png", text = "Blood Vial of the Holy Mother"},
+        "malformed"
+    ]
+}];
+local eventListCalls = 0;
+local eventListWrapper = hooks["scripts/events/event"].getUIList(function () {
+    eventListCalls += 1;
+    return eventListSource;
+});
+local eventListResult = eventListWrapper();
+assertEqual(eventListCalls, 1);
+assertEqual(eventListResult[0].items[0].text, "Aldric 一匹狼 has died");
+assertEqual(eventListResult[0].items[0].id, 13);
+assertEqual(eventListResult[0].items[0].icon, "ui/icons/kills.png");
+assertEqual(eventListResult[0].items[0].extra, 9);
+assertEqual(eventListResult[0].items[1].text, "一匹狼 suffers an injury");
+assertEqual(eventListResult[0].items[2].text, "WolfgangThe Lone Wolf remains");
+assertEqual(eventListResult[0].items[3].text, "Honor and fear of the Old Gods");
+assertEqual(eventListResult[0].items[4].text, "Blood Vial of the Holy Mother");
+assertEqual(eventListResult[0].items[5], "malformed");
+assertEqual(eventListSource[0].items[0].text, "Aldric The Lone Wolf has died");
+if (eventListResult == eventListSource
+    || eventListResult[0] == eventListSource[0]
+    || eventListResult[0].items == eventListSource[0].items
+    || eventListResult[0].items[0] == eventListSource[0].items[0]) throw "event list DTO was not cloned";
+local eventListUnknownSource = [{title = "", items = [{text = "WolfgangThe Lone Wolf remains"}]}];
+local eventListUnknownWrapper = hooks["scripts/events/event"].getUIList(function () { return eventListUnknownSource; });
+if (eventListUnknownWrapper() != eventListUnknownSource) throw "unmatched event title must retain original DTO";
+local eventListNullWrapper = hooks["scripts/events/event"].getUIList(function () { return null; });
+assertEqual(eventListNullWrapper(), null);
 
 local adaptiveOriginal = function (_actor) {
     return [{

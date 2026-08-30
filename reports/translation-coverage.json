@@ -5,19 +5,19 @@
   "status": "TRANSLATION_IN_PROGRESS",
   "detailed_ledger_location": "work/ledger/translation-ledger.json (gitignored)",
   "translation_units_location": "work/ledger/translation-units.json (gitignored)",
-  "detailed_ledger_sha256": "5E62014EC985F57D2DD4F13DCA43978F50460E47B7FE11C4BCB805CCA3BEB348",
-  "translation_units_sha256": "1E3FD5BDEF99B993183229FC76F66152F2E21FBC8B84CD179FDEA729A59FDBD5",
+  "detailed_ledger_sha256": "F7868CCC4D49C7FBF3FDB51BBF9E5EF1DC64C96E0C9CEA8A42E56F08648BE181",
+  "translation_units_sha256": "004D4F3693A762FC2C320749E4F5F387562B1CF8595AF1ABE69BCC49F584C97C",
   "rosetta_extractor": {
     "version": "0.5.0",
     "commit": "dde98e99fd95ed0e7474a4328555144b4e913678"
   },
   "total_occurrences": 48158,
-  "resolved_exclusion_occurrences": 3565,
-  "translatable_occurrences": 44593,
-  "unique_translation_units": 31823,
-  "untranslated_units": 27346,
+  "resolved_exclusion_occurrences": 3570,
+  "translatable_occurrences": 44588,
+  "unique_translation_units": 31822,
+  "untranslated_units": 26146,
   "translated_needs_review_units": 0,
-  "reviewed_units": 4477,
+  "reviewed_units": 5676,
   "extraction_failures": [],
   "extraction_warnings": [
     {
@@ -102,7 +102,7 @@
     "RESOURCE_OR_SCRIPT_PATH": 2,
     "TECHNICAL_REGEX_OR_FORMAT_PATTERN": 6,
     "debug_diagnostic": 2,
-    "internal_achievement_id": 1,
+    "internal_achievement_id": 6,
     "internal_screen_id": 2,
     "item_pool_id": 17,
     "markup_control_token": 2,
@@ -140,10 +140,10 @@
     },
     "vanilla": {
       "occurrences": 22581,
-      "resolved_exclusions": 2458,
-      "translatable_occurrences": 20123,
-      "translated_occurrences": 4606,
-      "reviewed_occurrences": 4606
+      "resolved_exclusions": 2463,
+      "translatable_occurrences": 20118,
+      "translated_occurrences": 5905,
+      "reviewed_occurrences": 5905
     },
     "vanilla_ui": {
       "occurrences": 376,
@@ -154,7 +154,7 @@
     }
   },
   "release_gate": "NOT_MET",
-  "updated_at_utc": "2026-08-29T22:25:50.329414+00:00",
+  "updated_at_utc": "2026-08-30T00:19:30.963579+00:00",
   "runtime_pattern_resolved_units": 129,
   "runtime_pattern_unresolved_units": 0
 }

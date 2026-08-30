@@ -1,8 +1,9 @@
 // Rosetta 0.5.0 translates several name getters at their source. The pinned
-// game/Legends snapshot also consumes a few of those getters as gameplay,
-// identity, uniqueness, or persisted-data inputs. Keep normal display calls
-// localized, but expose source-language names inside only the audited semantic
-// consumers below. The scope counters are restored on success and exception.
+// game/Legends snapshot consumes those getters through a broad, open-ended set
+// of gameplay, identity, uniqueness, and persisted-data paths. Actor identity
+// getters therefore stay source-language globally, like world-entity names.
+// Localization is restored only at finite display boundaries in
+// ui_boundaries.nut, event_variable_boundaries.nut, and the final JS renderer.
 
 local mod = ::BattleBrothersJP.Mod;
 local scopes = ::BattleBrothersJP.SemanticNameScopes <- {
@@ -48,6 +49,49 @@ local function makeSemanticScopeWrapper(_scopeName)
     }
 }
 
+local function translateReviewedActorNameDisplay(_text)
+{
+    if (typeof _text != "string") return _text;
+
+    // Apply reviewed anchored full-value rules first (for example Dame plus a
+    // generated name), then handle literal title fragments embedded in a raw
+    // identity. Bare sources that require captures remain unchanged.
+    local translatedText = ::Rosetta._(_text);
+    foreach (pair in ::BattleBrothersJP.ActorTitleDisplayFragments)
+    {
+        local english = pair.english;
+        local japanese = pair.japanese;
+
+        local at = translatedText.find(english);
+        if (at == null) continue;
+        local after = at + english.len();
+        local beforeChar = at == 0 ? "" : translatedText.slice(at - 1, at);
+        local afterChar = after == translatedText.len() ? "" : translatedText.slice(after, after + 1);
+        local beforeOK = at == 0 || [" ", "\n", ">", "]", "(", ":", "\"", "'"].find(beforeChar) != null;
+        // Actor-derived named equipment uses the exact raw possessive shape
+        // "<actor getName()>'s ...". Do not apply the full actor-title registry
+        // to arbitrary item prose such as "Blood Vial of the Holy Mother".
+        if (!beforeOK || afterChar != "'" || translatedText.find(english, after) != null) continue;
+        translatedText = translatedText.slice(0, at) + japanese + translatedText.slice(after);
+    }
+    foreach (pair in ::BattleBrothersJP.ActorTitleGenericDisplayFragments)
+    {
+        local english = pair.english;
+        local japanese = pair.japanese;
+        local at = translatedText.find(english);
+        if (at == null) continue;
+        local after = at + english.len();
+        local beforeChar = at == 0 ? "" : translatedText.slice(at - 1, at);
+        local afterChar = after == translatedText.len() ? "" : translatedText.slice(after, after + 1);
+        local beforeOK = at == 0 || [" ", "\n", ">", "]", "(", ":", "\"", "'"].find(beforeChar) != null;
+        local afterOK = after == translatedText.len()
+            || [" ", "\n", "'", "<", "[", ")", ".", ",", ":", "!", "?", "\""].find(afterChar) != null;
+        if (!beforeOK || !afterOK || translatedText.find(english, after) != null) continue;
+        translatedText = translatedText.slice(0, at) + japanese + translatedText.slice(after);
+    }
+    return translatedText;
+}
+
 // Item display names stay translated. Only audited consumers that use an item
 // display name as an English matcher or copy it into a persistent/runtime
 // identity receive the raw source name.
@@ -56,7 +100,7 @@ mod.hookTree("scripts/items/item", function (q) {
         if (scopes.Item == 0)
         {
             vargv.insert(0, this);
-            return __original.acall(vargv);
+            return translateReviewedActorNameDisplay(__original.acall(vargv));
         }
         return callWithRosettaDisabled(__original, this, vargv);
     }
@@ -80,6 +124,44 @@ mod.hook("scripts/items/accessory/wardog_item", function (q) {
 
 mod.hook("scripts/items/accessory/legend_accessory_dog", function (q) {
     q.onActorDied = makeSemanticScopeWrapper("Item");
+});
+
+// HedgeKnightTitles doubles as player-facing actor titles and as a complete
+// generated troop name list. Rosetta's buildTextFromTemplate wrapper would
+// otherwise localize the selected name before Legends stores/serializes it.
+// Disable Rosetta only for this exact list reference and preserve the final
+// installed generator, receiver, RNG, arguments, and return value.
+local generateWorldName = ::Const.World.Common.generateName;
+::Const.World.Common.generateName = function (_list) {
+    if (_list != ::Const.Strings.HedgeKnightTitles)
+    {
+        return generateWorldName.call(this, _list);
+    }
+    return callWithRosettaDisabled(generateWorldName, this, [_list]);
+};
+
+// Actor name getters have an unbounded semantic surface in the installed
+// snapshot. Contracts persist getName() in flags, mood history coalesces and
+// serializes strings containing it, named equipment copies it into m.Name,
+// corpses copy it into resurrection identity, and mods may add more consumers.
+// Keep the complete family raw globally; display-only boundaries translate
+// reviewed title fragments without mutating actor, item, corpse, or save state.
+mod.hookTree("scripts/entity/tactical/actor", function (q) {
+    q.getName = @(__original) function (...) {
+        return callWithRosettaDisabled(__original, this, vargv);
+    }
+
+    q.getNameOnly = @(__original) function (...) {
+        return callWithRosettaDisabled(__original, this, vargv);
+    }
+
+    q.getTitle = @(__original) function (...) {
+        return callWithRosettaDisabled(__original, this, vargv);
+    }
+
+    q.getKilledName = @(__original) function (...) {
+        return callWithRosettaDisabled(__original, this, vargv);
+    }
 });
 
 // Background display names stay translated. This exact tooltip method is the

@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-08-29T22:25:55.933227+00:00",
+  "generated_at_utc": "2026-08-30T00:20:15.501467+00:00",
   "generator": "tools/generate_runtime_translations.py",
-  "canonical_ledger_sha256": "5E62014EC985F57D2DD4F13DCA43978F50460E47B7FE11C4BCB805CCA3BEB348",
-  "translation_units_sha256": "1E3FD5BDEF99B993183229FC76F66152F2E21FBC8B84CD179FDEA729A59FDBD5",
-  "reviewed_emitted_unit_count": 4463,
-  "reviewed_emitted_unit_ids_sha256": "50C6181CC942095CB463AFE156B56484A75C75D0C3F93CE3C44BB9576C2594C5",
+  "canonical_ledger_sha256": "F7868CCC4D49C7FBF3FDB51BBF9E5EF1DC64C96E0C9CEA8A42E56F08648BE181",
+  "translation_units_sha256": "004D4F3693A762FC2C320749E4F5F387562B1CF8595AF1ABE69BCC49F584C97C",
+  "reviewed_emitted_unit_count": 5662,
+  "reviewed_emitted_unit_ids_sha256": "06D738CB237F138433E3607FC1050C6324BED16F007BC940A7DF92EE94EE7007",
   "reviewed_literal_squirrel_pairs_by_module": {
     "legends": 1525,
     "msu": 25,
-    "vanilla": 2693
+    "vanilla": 3890
   },
   "reviewed_runtime_pattern_pairs_by_module": {
     "legends": 58,
@@ -17,6 +17,10 @@
   },
   "reviewed_runtime_pattern_samples": 146,
   "reviewed_literal_javascript_pairs": 85,
+  "reviewed_actor_title_display_fragments": 389,
+  "reviewed_actor_title_unit_ids_sha256": "3090396624C6CB503AFA3A862EBD32CB652A71154178CE0BA126D3154B99491B",
+  "reviewed_generic_actor_title_display_fragments": 2,
+  "reviewed_generic_actor_title_unit_ids_sha256": "0D18B2EE80F6030BBFC9344BEBEC615327337E1E84C04E2C460D97CA58BBCF46",
   "reviewed_pattern_units_pending_runtime_audit": 0,
   "pending_pattern_unit_ids_sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B",
   "reviewed_boundary_hook_units": 14,
@@ -25,8 +29,8 @@
   "static_reachability": "PAIR_EMITTED_ONLY; CALL_PATH_AUDIT_REMAINS_REQUIRED",
   "runtime_qa": "NOT_TESTED",
   "outputs": {
-    "src/battle_brothers_jp/translations/reviewed_literals.nut": "7C9D05948924B2AA4B141F70DF9EE1E945D87360514DA47A94FCAD4B7902DA2E",
-    "src/ui/mods/mod_battle_brothers_jp/generated_strings.js": "9A35EC81633EA94F1B60D39BFFEF128BD528134688499C23D1ADCDBF20725FAC",
+    "src/battle_brothers_jp/translations/reviewed_literals.nut": "53423E06DB09E0B32F3B436F83379738D8FB1026F71E5EB510AC372046708789",
+    "src/ui/mods/mod_battle_brothers_jp/generated_strings.js": "4E0EF30C8F3C2BB6CAC55C4923AA638F3DC48988429D1F889B288799A17F5BFC",
     "tests/squirrel/test_reviewed_runtime_patterns.nut": "3CD2ACE7DDCD799241408604A96EC8B1966D6A3C56480C54405BCF6C224A2094",
     "tests/squirrel/test_runtime_pattern_collisions.nut": "B79BE5D9A370CBA2E503C3E23CB1A0379CAC8ECA3A89FFE01C3B4BDFE105B816"
   }

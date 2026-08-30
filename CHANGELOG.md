@@ -56,3 +56,8 @@
 - Completed the fourth 300-unit Vanilla event tranche with 299 independently reviewed translations, 84 draft corrections, one exact internal achievement-ID exclusion, and no unresolved player-facing units.
 - Added and independently re-audited exact raw item-name scopes for three Legends dog identity consumers plus one clone-only obituary cause. Normal display remains localized while item/dog identity, Statistics, persistence, and saves remain raw.
 - Built and fully static-QA-verified the reviewed-4,477 development tranche; all 31 repository-owned checks pass, required glyph coverage is 2,182/2,182, and the 13-entry archive matches source exactly.
+- Completed Vanilla event tranches 005–008, bringing the canonical independently reviewed total to 5,676 with no translated-needs-review units.
+- Replaced broad actor-title fragment rewriting with a globally raw actor-identity layer, a 389-entry actor-provenance display registry, and a separately audited two-entry generic-safe subset; adversarial Old Gods/Holy Mother prose remains unchanged.
+- Independently approved `The Lone Wolf` and `Weeds` only after raw identity/save, clone-only display, registry parity/order/subset, prefix collision, and optional/malformed failure fixtures passed.
+- Added an exact final-display normalization for the installed Kraken cult B1 extra `}` source defect; independent audit verified inherited Modern Hooks composition, original-once behavior, and no reply/option/gameplay/save mutation.
+- Built and fully static-QA-verified the reviewed-5,676 development tranche; all 32 checks pass, required glyph coverage is 2,407/2,407, and the 13-entry development archive matches repository-owned source exactly.

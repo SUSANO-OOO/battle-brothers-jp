@@ -111,6 +111,70 @@ class TranslationBatchValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "requires runtime_contract"):
             MODULE.validate_batch(batch, {"unit:test": self.unit})
 
+    def test_actor_title_display_fragment_contract_is_accepted(self) -> None:
+        batch = {
+            "entries": [
+                {
+                    "translation_unit": "unit:test",
+                    "english": "Welcome, %name%.",
+                    "japanese": "%name%、ようこそ。",
+                    "placeholder_signature": self.unit["placeholder_signature"],
+                    "review_status": "REVIEWED",
+                    "runtime_strategy": "ACTOR_TITLE_DISPLAY_FRAGMENT",
+                    "runtime_contract": {
+                        "strategy": "ACTOR_TITLE_DISPLAY_FRAGMENT",
+                        "resolution_status": "RESOLVED",
+                        "targets": ["generated Squirrel actor-title display registry", "generated JavaScript actor-title display registry"],
+                        "operation": "Emit only through final display registries.",
+                        "raw_state": "Keep actor identity and saves source-language.",
+                        "acceptance": "Both registries contain the reviewed pair and raw state stays unchanged.",
+                    },
+                }
+            ]
+        }
+        validated = MODULE.validate_batch(batch, {"unit:test": self.unit})
+        self.assertEqual(validated[0]["runtime_strategy"], "ACTOR_TITLE_DISPLAY_FRAGMENT")
+
+    def test_actor_title_display_fragment_strategy_mismatch_is_rejected(self) -> None:
+        batch = {
+            "entries": [
+                {
+                    "translation_unit": "unit:test",
+                    "english": "Welcome, %name%.",
+                    "japanese": "%name%、ようこそ。",
+                    "placeholder_signature": self.unit["placeholder_signature"],
+                    "review_status": "REVIEWED",
+                    "runtime_strategy": "ACTOR_TITLE_DISPLAY_FRAGMENT",
+                    "runtime_contract": {
+                        "strategy": "BOUNDARY_HOOK",
+                        "resolution_status": "RESOLVED",
+                        "targets": ["registry"],
+                        "operation": "display only",
+                        "raw_state": "raw",
+                        "acceptance": "green",
+                    },
+                }
+            ]
+        }
+        with self.assertRaisesRegex(ValueError, "strategy mismatch"):
+            MODULE.validate_batch(batch, {"unit:test": self.unit})
+
+    def test_unknown_runtime_strategy_is_rejected(self) -> None:
+        batch = {
+            "entries": [
+                {
+                    "translation_unit": "unit:test",
+                    "english": "Welcome, %name%.",
+                    "japanese": "%name%、ようこそ。",
+                    "placeholder_signature": self.unit["placeholder_signature"],
+                    "review_status": "REVIEWED",
+                    "runtime_strategy": "UNKNOWN_DISPLAY_MODE",
+                }
+            ]
+        }
+        with self.assertRaisesRegex(ValueError, "invalid runtime_strategy"):
+            MODULE.validate_batch(batch, {"unit:test": self.unit})
+
 
 if __name__ == "__main__":
     unittest.main()

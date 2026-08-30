@@ -7,6 +7,33 @@
 local mod = ::BattleBrothersJP.Mod;
 local rosettaBuildTextFromTemplate = ::buildTextFromTemplate;
 
+local function translateReviewedActorNameDisplay(_text)
+{
+    if (typeof _text != "string") return _text;
+
+    local translatedText = ::Rosetta._(_text);
+    // Template variables are heterogeneous (items, settlements, factions,
+    // prose, and actor names). Only explicit identity-sensitive opt-ins may be
+    // fragment-rewritten without actor provenance; all other values receive
+    // exact/full Rosetta translation only.
+    foreach (pair in ::BattleBrothersJP.ActorTitleGenericDisplayFragments)
+    {
+        local english = pair.english;
+        local japanese = pair.japanese;
+        local at = translatedText.find(english);
+        if (at == null) continue;
+        local after = at + english.len();
+        local beforeChar = at == 0 ? "" : translatedText.slice(at - 1, at);
+        local afterChar = after == translatedText.len() ? "" : translatedText.slice(after, after + 1);
+        local beforeOK = at == 0 || [" ", "\n", ">", "]", "(", ":", "\"", "'"].find(beforeChar) != null;
+        local afterOK = after == translatedText.len()
+            || [" ", "\n", "'", "<", "[", ")", ".", ",", ":", "!", "?", "\""].find(afterChar) != null;
+        if (!beforeOK || !afterOK || translatedText.find(english, after) != null) continue;
+        translatedText = translatedText.slice(0, at) + japanese + translatedText.slice(after);
+    }
+    return translatedText;
+}
+
 // Legends extends the final template variable list with gender-aware English
 // pronouns and person words. They are not safe as global Rosetta literals, so
 // map only an exact PronounTable family/value pair on the cloned display list.
@@ -113,7 +140,7 @@ local pronounDisplayValues = {
                 // therefore safe to translate settlement/item/skill/faction
                 // display values here without changing the caller's save,
                 // identity, pronoun table, or gameplay data.
-                copiedPair[1] = ::Rosetta._(value);
+                copiedPair[1] = translateReviewedActorNameDisplay(::Rosetta._(value));
             }
         }
 

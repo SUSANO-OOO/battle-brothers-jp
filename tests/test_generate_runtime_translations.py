@@ -45,6 +45,45 @@ class RuntimeGenerationTests(unittest.TestCase):
         self.assertEqual(pending, [])
         self.assertEqual(boundary, ["general-title"])
 
+    def test_actor_title_display_strategy_uses_registry_not_global_literal(self) -> None:
+        ledger = {
+            "entries": [
+                {
+                    "stable_key": "w",
+                    "module": "vanilla",
+                    "channel": "squirrel",
+                    "source": "scripts/events/events/fisherman_vs_farmer_event.nut",
+                    "context": "fisherman_vs_farmer_event.start.titles",
+                }
+            ]
+        }
+        units = {
+            "units": [
+                {
+                    "translation_unit": "weeds",
+                    "english": "Weeds",
+                    "japanese": "雑草",
+                    "mode": "literal",
+                    "status": "TRANSLATED",
+                    "review_status": "REVIEWED",
+                    "occurrences": ["w"],
+                    "runtime_strategy": "ACTOR_TITLE_DISPLAY_FRAGMENT",
+                }
+            ]
+        }
+        squirrel, javascript, emitted, pending, boundary = MODULE.reviewed_literal_units(units, ledger)
+        self.assertEqual(squirrel, {})
+        self.assertEqual(javascript, {})
+        self.assertEqual(emitted, ["weeds"])
+        self.assertEqual(pending, [])
+        self.assertEqual(boundary, [])
+        fragments, fragment_units = MODULE.reviewed_actor_title_fragments(units, ledger)
+        self.assertEqual(fragments, {"Weeds": "雑草"})
+        self.assertEqual(fragment_units, ["weeds"])
+        generic_fragments, generic_units = MODULE.reviewed_generic_actor_title_fragments(units, ledger)
+        self.assertEqual(generic_fragments, {"Weeds": "雑草"})
+        self.assertEqual(generic_units, ["weeds"])
+
     def test_literal_source_can_emit_only_an_anchored_final_display_pattern(self) -> None:
         ledger = {"entries": [{"stable_key": "d", "module": "legends", "channel": "squirrel"}]}
         units = {"units": [{
@@ -111,6 +150,77 @@ class RuntimeGenerationTests(unittest.TestCase):
 
     def test_squirrel_quoting_is_json_compatible(self) -> None:
         self.assertEqual(MODULE.quoted('A "quoted" line\n'), '"A \\"quoted\\" line\\n"')
+
+    def test_actor_title_occurrence_uses_source_context_not_english_shape(self) -> None:
+        base = {"channel": "squirrel", "module": "legends"}
+        positives = [
+            {**base, "source": "mod_legends/scripts/skills/backgrounds/legend_adventurous_noble_background.nut", "context": "legend_adventurous_noble_background.m.Titles.[]"},
+            {**base, "source": "mod_legends/hooks/events/lone_wolf_event.nut", "context": "lone_wolf_event.m.Dude.setTitle()"},
+            {**base, "source": "mod_legends/scripts/entity/tactical/enemies/bandit.nut", "context": "bandit.m.Title"},
+            {**base, "source": "mod_legends/scripts/skills/traits/legend_named_trait.nut", "context": "legend_named_trait.m.Title"},
+            {**base, "source": "mod_legends/!!config/_global.nut", "context": "::Const.Strings.HedgeKnightTitles.[]"},
+        ]
+        negatives = [
+            {**base, "source": "mod_legends/hooks/events/location_event.nut", "context": "location_event.m.Title"},
+            {**base, "source": "mod_legends/scripts/items/legend_named_item.nut", "context": "legend_named_item.m.Title"},
+            {**base, "source": "mod_legends/scripts/ui/screens/world/world_screen.nut", "context": "world_screen.m.Title"},
+            {**base, "channel": "javascript", "source": "ui/mods/legends/main.js", "context": "titles"},
+        ]
+        self.assertTrue(all(MODULE.is_actor_title_occurrence(item) for item in positives))
+        self.assertFalse(any(MODULE.is_actor_title_occurrence(item) for item in negatives))
+
+    def test_actor_title_registry_contains_only_reviewed_squirrel_titles(self) -> None:
+        ledger = {
+            "entries": [
+                {"stable_key": "titles", "module": "vanilla", "channel": "squirrel", "source": "scripts/skills/backgrounds/hunter_background.nut", "context": "hunter_background.m.Titles.[]"},
+                {"stable_key": "setter", "module": "legends", "channel": "squirrel", "source": "mod_legends/hooks/events/lone_wolf_event.nut", "context": "lone_wolf_event.m.Dude.setTitle()"},
+                {"stable_key": "event", "module": "legends", "channel": "squirrel", "source": "mod_legends/hooks/events/location_event.nut", "context": "location_event.m.Title"},
+                {"stable_key": "js", "module": "vanilla_ui", "channel": "javascript", "source": "ui/screens/world/world_screen.js", "context": "titles"},
+                {"stable_key": "draft", "module": "vanilla", "channel": "squirrel", "source": "scripts/entity/tactical/humans/lone_wolf.nut", "context": "lone_wolf.m.Title"},
+                {"stable_key": "pattern", "module": "legends", "channel": "squirrel", "source": "mod_legends/scripts/skills/backgrounds/legend_commander_background.nut", "context": "legend_commander_background.m.Titles.[]"},
+            ]
+        }
+        reviewed = {"mode": "literal", "status": "TRANSLATED", "review_status": "REVIEWED"}
+        units = {
+            "units": [
+                {**reviewed, "translation_unit": "hunter", "english": "the Hunter", "japanese": "狩人", "occurrences": ["titles"]},
+                {**reviewed, "translation_unit": "squire", "english": "the Squire", "japanese": "従士", "occurrences": ["setter"]},
+                {**reviewed, "translation_unit": "approach", "english": "As you approach...", "japanese": "接近すると……", "occurrences": ["event"]},
+                {**reviewed, "translation_unit": "js-title", "english": "Title", "japanese": "称号", "occurrences": ["js"]},
+                {"translation_unit": "lone-wolf", "english": "The Lone Wolf", "japanese": "一匹狼", "mode": "literal", "status": "TRANSLATED", "review_status": "DRAFT_INDEPENDENT_REVIEW_REQUIRED", "occurrences": ["draft"]},
+                {**reviewed, "translation_unit": "dame", "english": "Dame", "japanese": "デイム", "occurrences": ["pattern"], "runtime_strategy": "ROSETTA_PATTERN"},
+            ]
+        }
+        fragments, emitted = MODULE.reviewed_actor_title_fragments(units, ledger)
+        self.assertEqual(fragments, {"the Hunter": "狩人", "the Squire": "従士"})
+        self.assertEqual(emitted, ["hunter", "squire"])
+
+    def test_actor_title_registry_is_rendered_for_both_runtime_layers(self) -> None:
+        titles = {
+            "the Holy": "聖なる者",
+            "the Holy Avenger": "聖なる復讐者",
+            "the Old": "老人",
+            "the Old Guard": "古参兵",
+            "the Lone Wolf": "一匹狼",
+            "the White": "白き者",
+            "the White Death": "白き死",
+        }
+        generic_titles = {"the Old Guard": "古参兵"}
+        squirrel = MODULE.render_squirrel({}, titles, generic_titles)
+        javascript = MODULE.render_javascript({}, titles, generic_titles)
+        self.assertIn("::BattleBrothersJP.ActorTitleDisplayFragments <- [", squirrel)
+        self.assertIn('english = "the Lone Wolf"', squirrel)
+        self.assertIn('japanese = "一匹狼"', squirrel)
+        self.assertIn("window.BattleBrothersJPActorTitleFragments", javascript)
+        self.assertIn("window.BattleBrothersJPGenericActorTitleFragments", javascript)
+        self.assertIn('"the Lone Wolf": "一匹狼"', javascript)
+        self.assertIn("::BattleBrothersJP.ActorTitleGenericDisplayFragments <- [", squirrel)
+        self.assertLess(squirrel.index('english = "the Old Guard"'), squirrel.index('english = "the Old"'))
+        self.assertLess(javascript.index('"the Old Guard"'), javascript.index('"the Old"'))
+        self.assertLess(squirrel.index('english = "the Holy Avenger"'), squirrel.index('english = "the Holy"'))
+        self.assertLess(javascript.index('"the Holy Avenger"'), javascript.index('"the Holy"'))
+        self.assertLess(squirrel.index('english = "the White Death"'), squirrel.index('english = "the White"'))
+        self.assertLess(javascript.index('"the White Death"'), javascript.index('"the White"'))
 
     def test_regex_equivalent_capture_names_are_rejected(self) -> None:
         ledger = {"entries": [

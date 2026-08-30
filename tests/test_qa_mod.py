@@ -133,5 +133,78 @@ class TranslationReviewTrancheTests(unittest.TestCase):
         self.assertEqual(len(errors["count_mismatches"]), 3)
 
 
+class ActorTitleRegistryTests(unittest.TestCase):
+    def test_cross_layer_longest_first_registry_is_accepted(self) -> None:
+        squirrel = '''
+::BattleBrothersJP.ActorTitleDisplayFragments <- [
+    { english = "the Old Guard" japanese = "古参兵" }
+    { english = "the Old" japanese = "老人" }
+];
+::BattleBrothersJP.ActorTitleGenericDisplayFragments <- [
+    { english = "the Old Guard" japanese = "古参兵" }
+];
+'''
+        javascript = '''
+window.BattleBrothersJPActorTitleFragments = {
+    "the Old Guard": "古参兵",
+    "the Old": "老人"
+};
+window.BattleBrothersJPGenericActorTitleFragments = {
+    "the Old Guard": "古参兵"
+};
+'''
+        errors = MODULE.actor_title_registry_errors(
+            squirrel,
+            javascript,
+            {
+                "reviewed_actor_title_display_fragments": 2,
+                "reviewed_generic_actor_title_display_fragments": 1,
+            },
+        )
+        self.assertEqual(errors["squirrel_block_count"], 1)
+        self.assertEqual(errors["javascript_block_count"], 1)
+        self.assertFalse(any(
+            value for key, value in errors.items()
+            if key not in {
+                "squirrel_block_count",
+                "javascript_block_count",
+                "generic_squirrel_block_count",
+                "generic_javascript_block_count",
+            }
+        ))
+
+    def test_short_prefix_first_and_cross_layer_drift_are_rejected(self) -> None:
+        squirrel = '''
+::BattleBrothersJP.ActorTitleDisplayFragments <- [
+    { english = "the Old" japanese = "老人" }
+    { english = "the Old Guard" japanese = "古参兵" }
+];
+::BattleBrothersJP.ActorTitleGenericDisplayFragments <- [
+    { english = "the Stranger" japanese = "よそ者" }
+];
+'''
+        javascript = '''
+window.BattleBrothersJPActorTitleFragments = {
+    "the Old Guard": "古参兵",
+    "the Old": "古老"
+};
+window.BattleBrothersJPGenericActorTitleFragments = {
+    "the Stranger": "よそ者"
+};
+'''
+        errors = MODULE.actor_title_registry_errors(
+            squirrel,
+            javascript,
+            {
+                "reviewed_actor_title_display_fragments": 3,
+                "reviewed_generic_actor_title_display_fragments": 1,
+            },
+        )
+        self.assertTrue(errors["order_mismatch"])
+        self.assertTrue(errors["cross_layer_mismatch"])
+        self.assertTrue(errors["manifest_count_mismatch"])
+        self.assertTrue(errors["generic_not_subset"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -19,7 +19,7 @@
     "SKILL_KILLED_STRING_UNITS": {
       "units": 8,
       "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
-      "implementation": "src/battle_brothers_jp/hooks/ui_boundaries.nut hookTree scripts/skills/skill getKilledString"
+      "implementation": "src/battle_brothers_jp/hooks/ui_boundaries.nut translates cloned world_obituary_screen.convertFallenToUIData KilledBy display fields; scripts/skills/skill.getKilledString and persisted World.Statistics.Fallen remain source-language"
     },
     "BACKGROUND_CRAFTING_UNIT": {
       "units": 1,

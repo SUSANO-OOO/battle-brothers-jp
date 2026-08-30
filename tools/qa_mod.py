@@ -33,6 +33,27 @@ JS_PAIR_RE = re.compile(
     r'(?P<ja>"(?:\\.|[^"\\])*")\s*,?\s*$',
     re.M,
 )
+ACTOR_TITLE_BLOCK_RE = re.compile(
+    r"::BattleBrothersJP\.ActorTitleDisplayFragments\s*<-\s*\[(?P<body>.*?)\];",
+    re.S,
+)
+GENERIC_ACTOR_TITLE_BLOCK_RE = re.compile(
+    r"::BattleBrothersJP\.ActorTitleGenericDisplayFragments\s*<-\s*\[(?P<body>.*?)\];",
+    re.S,
+)
+ACTOR_TITLE_PAIR_RE = re.compile(
+    r"\{\s*english\s*=\s*(?P<en>\"(?:\\.|[^\"\\])*\")\s*"
+    r"japanese\s*=\s*(?P<ja>\"(?:\\.|[^\"\\])*\")\s*\}",
+    re.S,
+)
+JS_ACTOR_TITLE_BLOCK_RE = re.compile(
+    r"window\.BattleBrothersJPActorTitleFragments\s*=\s*(?P<body>\{.*?\});",
+    re.S,
+)
+JS_GENERIC_ACTOR_TITLE_BLOCK_RE = re.compile(
+    r"window\.BattleBrothersJPGenericActorTitleFragments\s*=\s*(?P<body>\{.*?\});",
+    re.S,
+)
 DISTRIBUTABLE_ROOTS = {"scripts", "battle_brothers_jp", "ui", "gfx"}
 
 
@@ -121,6 +142,150 @@ def check_translation_pairs(src: Path) -> list[dict[str, Any]]:
         result("untranslated_generated_pairs", not empty, empty),
         result("placeholder_tag_integrity", not placeholder_errors, placeholder_errors),
     ]
+
+
+def actor_title_registry_errors(
+    squirrel_text: str, javascript_text: str, manifest: dict[str, Any]
+) -> dict[str, Any]:
+    errors: dict[str, Any] = {
+        "squirrel_block_count": 0,
+        "javascript_block_count": 0,
+        "generic_squirrel_block_count": 0,
+        "generic_javascript_block_count": 0,
+        "unparsed_tables": [],
+        "duplicate_keys": [],
+        "order_mismatch": [],
+        "cross_layer_mismatch": [],
+        "generic_not_subset": [],
+        "manifest_count_mismatch": [],
+        "parse_errors": [],
+    }
+
+    def parse_squirrel(pattern: re.Pattern[str], label: str) -> list[tuple[str, str]] | None:
+        blocks = list(pattern.finditer(squirrel_text))
+        errors[f"{label}squirrel_block_count"] = len(blocks)
+        if len(blocks) != 1:
+            return None
+        body = blocks[0].group("body")
+        pairs: list[tuple[str, str]] = []
+        for match in ACTOR_TITLE_PAIR_RE.finditer(body):
+            try:
+                pairs.append(
+                    (decode_squirrel_string(match.group("en")), decode_squirrel_string(match.group("ja")))
+                )
+            except (ValueError, json.JSONDecodeError) as error:
+                errors["parse_errors"].append(f"{label}squirrel: {error}")
+        unparsed = len(re.findall(r"\{\s*english\s*=", body)) - len(pairs)
+        if unparsed:
+            errors["unparsed_tables"].append({"registry": label or "full", "count": unparsed})
+        duplicates = sorted(
+            english for english, count in Counter(english for english, _ in pairs).items() if count > 1
+        )
+        if duplicates:
+            errors["duplicate_keys"].append({"registry": label or "full", "keys": duplicates})
+        expected = sorted(pairs, key=lambda pair: (-len(pair[0]), pair[0], pair[1]))
+        if pairs != expected:
+            errors["order_mismatch"].append({"registry": f"{label}squirrel", "actual": pairs[:20]})
+        return pairs
+
+    def parse_javascript(pattern: re.Pattern[str], label: str) -> dict[str, str] | None:
+        blocks = list(pattern.finditer(javascript_text))
+        errors[f"{label}javascript_block_count"] = len(blocks)
+        if len(blocks) != 1:
+            return None
+        try:
+            pairs = json.loads(blocks[0].group("body"))
+        except (TypeError, json.JSONDecodeError) as error:
+            errors["parse_errors"].append(f"{label}javascript: {error}")
+            return None
+        if not isinstance(pairs, dict) or any(
+            not isinstance(english, str) or not isinstance(japanese, str)
+            for english, japanese in pairs.items()
+        ):
+            errors["parse_errors"].append(f"{label}javascript registry is not string-to-string JSON")
+            return None
+        items = list(pairs.items())
+        expected = sorted(items, key=lambda pair: (-len(pair[0]), pair[0], pair[1]))
+        if items != expected:
+            errors["order_mismatch"].append({"registry": f"{label}javascript", "actual": items[:20]})
+        return pairs
+
+    squirrel_pairs = parse_squirrel(ACTOR_TITLE_BLOCK_RE, "")
+    javascript_pairs = parse_javascript(JS_ACTOR_TITLE_BLOCK_RE, "")
+    generic_squirrel_pairs = parse_squirrel(GENERIC_ACTOR_TITLE_BLOCK_RE, "generic_")
+    generic_javascript_pairs = parse_javascript(JS_GENERIC_ACTOR_TITLE_BLOCK_RE, "generic_")
+    if any(value is None for value in (squirrel_pairs, javascript_pairs, generic_squirrel_pairs, generic_javascript_pairs)):
+        return errors
+
+    squirrel_map = dict(squirrel_pairs)
+    generic_squirrel_map = dict(generic_squirrel_pairs)
+    for label, left, right in (
+        ("full", squirrel_map, javascript_pairs),
+        ("generic", generic_squirrel_map, generic_javascript_pairs),
+    ):
+        if left != right:
+            errors["cross_layer_mismatch"].append(
+                {"registry": label, "pairs": sorted(set(left.items()) ^ set(right.items()))[:20]}
+            )
+    if any(squirrel_map.get(english) != japanese for english, japanese in generic_squirrel_map.items()):
+        errors["generic_not_subset"] = sorted(
+            set(generic_squirrel_map.items()) - set(squirrel_map.items())
+        )[:20]
+    counts = (
+        ("full", manifest.get("reviewed_actor_title_display_fragments"), len(squirrel_map), len(javascript_pairs)),
+        ("generic", manifest.get("reviewed_generic_actor_title_display_fragments"), len(generic_squirrel_map), len(generic_javascript_pairs)),
+    )
+    for label, expected, squirrel_count, javascript_count in counts:
+        if expected != squirrel_count or expected != javascript_count:
+            errors["manifest_count_mismatch"].append(
+                {"registry": label, "manifest": expected, "squirrel": squirrel_count, "javascript": javascript_count}
+            )
+    return errors
+
+
+def check_actor_title_registry(repo: Path, src: Path) -> dict[str, Any]:
+    squirrel_path = src / "battle_brothers_jp" / "translations" / "reviewed_literals.nut"
+    javascript_path = src / "ui" / "mods" / "mod_battle_brothers_jp" / "generated_strings.js"
+    manifest_path = repo / "reports" / "runtime-translation-manifest.json"
+    missing = [
+        path.relative_to(repo).as_posix()
+        for path in (squirrel_path, javascript_path, manifest_path)
+        if not path.is_file()
+    ]
+    if missing:
+        return result("actor_title_display_registry", False, {"missing": missing})
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    errors = actor_title_registry_errors(
+        squirrel_path.read_text(encoding="utf-8"),
+        javascript_path.read_text(encoding="utf-8"),
+        manifest,
+    )
+    passed = (
+        errors["squirrel_block_count"] == 1
+        and errors["javascript_block_count"] == 1
+        and errors["generic_squirrel_block_count"] == 1
+        and errors["generic_javascript_block_count"] == 1
+        and all(
+            not value
+            for key, value in errors.items()
+            if key not in {
+                "squirrel_block_count",
+                "javascript_block_count",
+                "generic_squirrel_block_count",
+                "generic_javascript_block_count",
+            }
+        )
+    )
+    return result(
+        "actor_title_display_registry",
+        passed,
+        {
+            "fragments": manifest.get("reviewed_actor_title_display_fragments"),
+            "generic_fragments": manifest.get("reviewed_generic_actor_title_display_fragments"),
+            "ordering": "ENGLISH_LENGTH_DESCENDING_THEN_LEXICOGRAPHIC",
+            "errors": errors,
+        },
+    )
 
 
 def check_registration(src: Path) -> dict[str, Any]:
@@ -362,7 +527,9 @@ def check_literal_reachability_remediation(repo: Path, src: Path) -> dict[str, A
     pattern_source = (src / "battle_brothers_jp" / "translations" / "context_patterns.nut").read_text(encoding="utf-8")
     tokens = {
         "jquery_init": "$.fn.init = function" in js_source,
-        "killed_string": 'hookTree("scripts/skills/skill"' in hook_source and "getKilledString" in hook_source,
+        "killed_string": 'hook("scripts/ui/screens/world/world_obituary_screen"' in hook_source
+        and "translatedCause = ::Rosetta._(fallen.KilledBy)" in hook_source
+        and 'hookTree("scripts/skills/skill"' not in hook_source,
         "crafting_pattern": 'en = "Crafting <value:val_tag>"' in pattern_source,
         "adaptive_tooltip": 'hook("scripts/skills/perks/perk_legend_adaptive"' in hook_source
         and "translateAdaptiveHintText" in hook_source,
@@ -732,7 +899,14 @@ def check_legends_event_boundary_audit(repo: Path, src: Path) -> dict[str, Any]:
     required_tokens = {
         "pronoun_family_map": "pronounDisplayValues" in event_source,
         "pronoun_unknown_fail_closed": 'family in pronounDisplayValues)' in event_source,
-        "obituary_allowlist": "obituaryDisplayCauses" in ui_source,
+        "obituary_exact_reviewed_display_clone": all(
+            token in ui_source
+            for token in (
+                "translatedCause = ::Rosetta._(fallen.KilledBy)",
+                "translatedCause = translateGenericActorTitleText(translatedCause)",
+                "copiedEntry.KilledBy = translatedCause",
+            )
+        ),
         "obituary_dto_hook": 'hook("scripts/ui/screens/world/world_obituary_screen"' in ui_source,
         "production_obituary_pairs": all(
             value in vertical_source
@@ -838,11 +1012,16 @@ def check_scope(src: Path) -> list[dict[str, Any]]:
         "scripts/ambitions/ambition",
         "scripts/contracts/contract",
         "scripts/contracts/contracts/arena_contract",
+        "scripts/states/world/asset_manager",
         "scripts/entity/world/location",
         "scripts/entity/world/party",
         "scripts/entity/world/settlement",
         "scripts/entity/world/settlements/buildings/port_building",
         "scripts/entity/world/world_entity",
+        "scripts/entity/tactical/actor",
+        "scripts/entity/tactical/player_corpse_stub",
+        "scripts/events/event",
+        "scripts/events/events/dlc2/location/kraken_cult_enter_event",
         "scripts/items/item",
         "scripts/items/accessory/legend_accessory_dog",
         "scripts/items/accessory/wardog_item",
@@ -853,7 +1032,6 @@ def check_scope(src: Path) -> list[dict[str, Any]]:
         "scripts/skills/backgrounds/character_background",
         "scripts/skills/backgrounds/legend_ranger_commander_background",
         "scripts/skills/actives/unleash_wardog",
-        "scripts/skills/skill",
         "scripts/skills/perks/perk_legend_adaptive",
         "scripts/skills/perks/perk_legend_barter_greed",
         "scripts/skills/perks/perk_legend_perfect_fit",
@@ -1174,6 +1352,7 @@ def main() -> int:
     checks = [
         check_text_encoding(src),
         *check_translation_pairs(src),
+        check_actor_title_registry(repo, src),
         check_registration(src),
         check_reachability(repo, src),
         *check_runtime_translation_manifest(repo, src),

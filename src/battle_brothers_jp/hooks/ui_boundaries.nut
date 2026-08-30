@@ -4,6 +4,144 @@
 
 local mod = ::BattleBrothersJP.Mod;
 
+// A reviewed actor title can be either the full generated Hedge Knight name or
+// the suffix of a named brother. Replace only the exact token at conservative
+// word boundaries, and only in final display values. Raw actor, casualty, and
+// obituary state remains source-language for identity and serialization.
+local function translateWithActorTitleFragments(_text, _fragments)
+{
+    if (typeof _text != "string") return _text;
+
+    // Full-value Rosetta patterns have priority over literal fragments. This
+    // preserves reviewed punctuation/word-order contracts such as Dame plus a
+    // generated actor name while leaving bare, capture-requiring sources raw.
+    local translatedText = ::Rosetta._(_text);
+    foreach (pair in _fragments)
+    {
+        local english = pair.english;
+        local japanese = pair.japanese;
+
+        local at = translatedText.find(english);
+        if (at == null) continue;
+        local after = at + english.len();
+        local beforeChar = at == 0 ? "" : translatedText.slice(at - 1, at);
+        local afterChar = after == translatedText.len() ? "" : translatedText.slice(after, after + 1);
+        local beforeOK = at == 0 || [" ", "\n", ">", "]", "(", ":", "\"", "'"].find(beforeChar) != null;
+        local afterOK = after == translatedText.len()
+            || [" ", "\n", "'", "<", "[", ")", ".", ",", ":", "!", "?", "\""].find(afterChar) != null;
+        if (!beforeOK || !afterOK) continue;
+        if (translatedText.find(english, after) != null) continue;
+
+        translatedText = translatedText.slice(0, at) + japanese + translatedText.slice(after);
+    }
+    return translatedText;
+}
+
+local function translateReviewedActorName(_text)
+{
+    return translateWithActorTitleFragments(_text, ::BattleBrothersJP.ActorTitleDisplayFragments);
+}
+
+local function translateGenericActorTitleText(_text)
+{
+    return translateWithActorTitleFragments(_text, ::BattleBrothersJP.ActorTitleGenericDisplayFragments);
+}
+
+local function translateEventActorNameDTO(_lists)
+{
+    if (typeof _lists != "array") return _lists;
+
+    local copiedLists = null;
+    foreach (listIndex, list in _lists)
+    {
+        if (typeof list != "table" || !("items" in list) || typeof list.items != "array") continue;
+
+        local copiedItems = null;
+        foreach (itemIndex, item in list.items)
+        {
+            if (typeof item != "table" || !("text" in item) || typeof item.text != "string") continue;
+            local translated = translateGenericActorTitleText(item.text);
+            if (translated == item.text) continue;
+
+            if (copiedItems == null) copiedItems = list.items.slice(0);
+            local copiedItem = clone item;
+            copiedItem.text = translated;
+            copiedItems[itemIndex] = copiedItem;
+        }
+        if (copiedItems == null) continue;
+
+        if (copiedLists == null) copiedLists = _lists.slice(0);
+        local copiedList = clone list;
+        copiedList.items = copiedItems;
+        copiedLists[listIndex] = copiedList;
+    }
+    return copiedLists != null ? copiedLists : _lists;
+}
+
+local function translateCorpseTileTooltip(_entries)
+{
+    if (typeof _entries != "array") return _entries;
+
+    local copied = null;
+    foreach (i, entry in _entries)
+    {
+        if (typeof entry != "table"
+            || !("id" in entry) || entry.id != 3
+            || !("type" in entry) || entry.type != "description"
+            || !("text" in entry) || typeof entry.text != "string") continue;
+        local suffix = " was slain here.";
+        if (!::std.Str.endswith(entry.text, suffix)) continue;
+        local rawName = ::std.Str.cutsuffix(entry.text, suffix);
+        local translatedName = translateReviewedActorName(rawName);
+        if (translatedName == rawName) continue;
+
+        if (copied == null) copied = _entries.slice(0);
+        local copiedEntry = clone entry;
+        copiedEntry.text = translatedName + suffix;
+        copied[i] = copiedEntry;
+    }
+    return copied != null ? copied : _entries;
+}
+
+// data_helper creates transient Squirrel-to-JS DTOs from actor getters. The
+// actor getters intentionally remain raw for save/identity safety, so translate
+// only the known name fields on these final DTOs. Return values that do not
+// contain a reviewed title fragment retain their original identity.
+local function translateActorNameFields(_data, _fields)
+{
+    if (typeof _data != "table") return _data;
+
+    local copied = null;
+    foreach (field in _fields)
+    {
+        if (!(field in _data) || typeof _data[field] != "string") continue;
+        local translated = translateReviewedActorName(_data[field]);
+        if (translated == _data[field]) continue;
+        if (copied == null) copied = clone _data;
+        copied[field] = translated;
+    }
+    return copied != null ? copied : _data;
+}
+
+local function translateRosterDescriptionDTO(_data)
+{
+    if (typeof _data != "table" || !("Brothers" in _data) || typeof _data.Brothers != "array") return _data;
+
+    local copiedBrothers = null;
+    foreach (i, brother in _data.Brothers)
+    {
+        local translated = translateActorNameFields(brother, ["Name"]);
+        if (translated == brother) continue;
+        if (copiedBrothers == null) copiedBrothers = _data.Brothers.slice(0);
+        copiedBrothers[i] = translated;
+    }
+    if (copiedBrothers == null) return _data;
+
+    local copiedData = clone _data;
+    copiedData.Brothers = copiedBrothers;
+    return copiedData;
+}
+
 // Legends formats one return-item description template with a colorized raw
 // Flags.Item before storing m.Description. Exact template rules cannot match
 // that completed string. Reconstruct the single-%s template from the returned
@@ -151,17 +289,9 @@ local function translateRelationChangeTooltip(_entries, _elementId)
     return copied != null ? copied : _entries;
 }
 
-// Fallen.KilledBy is persisted in statistics and consumed by gameplay events.
-// world_obituary_screen returns that raw array directly to JS, so clone only
-// the final DTO and translate exact reviewed demise strings on the clone.
-local obituaryDisplayCauses = {
-    ["Deserted the company"] = true,
-    ["Got a better paying offer"] = true,
-    ["Handed over to authorities"] = true,
-    ["Hanged for attempted murder"] = true,
-    ["Left to claim their birthright"] = true,
-    ["Murdered by his fellow brothers"] = true
-};
+// Fallen.Name/KilledBy are persisted in statistics and consumed by gameplay
+// events. world_obituary_screen returns that raw array directly to JS, so clone
+// only the final DTO and translate reviewed display values on the clone.
 local function translateObituaryDTO(_data)
 {
     if (typeof _data != "table" || !("Fallen" in _data) || typeof _data.Fallen != "array") return _data;
@@ -169,15 +299,30 @@ local function translateObituaryDTO(_data)
     local copiedFallen = null;
     foreach (i, fallen in _data.Fallen)
     {
-        if (typeof fallen != "table"
-            || !("KilledBy" in fallen) || typeof fallen.KilledBy != "string"
-            || !(fallen.KilledBy in obituaryDisplayCauses)) continue;
-        local translated = ::Rosetta._(fallen.KilledBy);
-        if (translated == fallen.KilledBy) continue;
+        if (typeof fallen != "table") continue;
+
+        local translatedName = "Name" in fallen
+            ? translateReviewedActorName(fallen.Name)
+            : null;
+        local translatedCause = null;
+        if ("KilledBy" in fallen && typeof fallen.KilledBy == "string")
+        {
+            // skill.getKilledString() is a persisted obituary input. It must
+            // remain raw at its source; translate any exact reviewed cause only
+            // on this cloned final display DTO.
+            translatedCause = ::Rosetta._(fallen.KilledBy);
+            translatedCause = translateGenericActorTitleText(translatedCause);
+        }
+
+        local nameChanged = "Name" in fallen && translatedName != fallen.Name;
+        local causeChanged = "KilledBy" in fallen && typeof fallen.KilledBy == "string"
+            && translatedCause != fallen.KilledBy;
+        if (!nameChanged && !causeChanged) continue;
 
         if (copiedFallen == null) copiedFallen = _data.Fallen.slice(0);
         local copiedEntry = clone fallen;
-        copiedEntry.KilledBy = translated;
+        if (nameChanged) copiedEntry.Name = translatedName;
+        if (causeChanged) copiedEntry.KilledBy = translatedCause;
         copiedFallen[i] = copiedEntry;
     }
     if (copiedFallen == null) return _data;
@@ -286,14 +431,6 @@ mod.hookTree("scripts/ambitions/ambition", function (q) {
     }
 });
 
-// Rosetta 0.5.0 translates skill names/descriptions and completed tooltips but
-// not the death-reason getter. Translate only its returned display string.
-mod.hookTree("scripts/skills/skill", function (q) {
-    q.getKilledString = @(__original) function () {
-        return ::Rosetta._(__original());
-    }
-});
-
 // Legends stores one selected contract DescriptionTemplate verbatim in
 // m.Description. Rosetta 0.5.0 translates contract titles/lists but does not
 // intercept this getter. Translate only the returned UI value so the selected
@@ -318,6 +455,39 @@ mod.hook("scripts/ui/global/data_helper", function (q) {
             ret.title = ::Rosetta._(ret.title);
         }
         return ret;
+    }
+
+    q.convertStatisticsEntityToUIData = @(__original) function (_entity) {
+        return translateActorNameFields(__original(_entity), ["name", "title"]);
+    }
+
+    q.convertEntityHireInformationToUIData = @(__original) function (_entity) {
+        return translateActorNameFields(__original(_entity), ["Name"]);
+    }
+
+    q.addCharacterToUIData = @(__original) function (_entity, _target) {
+        local ret = __original(_entity, _target);
+        if (typeof _target == "table")
+        {
+            if ("name" in _target && typeof _target.name == "string")
+            {
+                _target.name = translateReviewedActorName(_target.name);
+            }
+            if ("title" in _target && typeof _target.title == "string")
+            {
+                _target.title = translateReviewedActorName(_target.title);
+            }
+        }
+        return ret;
+    }
+});
+
+// Legends exposes a separate roster-description DTO outside data_helper.
+// Translate only each returned Brothers[].Name field; terrain modifiers,
+// sorting data, backgrounds, and the actor objects themselves remain untouched.
+mod.hook("scripts/states/world/asset_manager", function (q) {
+    q.getRosterDescription = @(__original) function () {
+        return translateRosterDescriptionDTO(__original());
     }
 });
 
@@ -358,11 +528,38 @@ mod.hook("scripts/ui/screens/tooltip/tooltip_events", function (q) {
         local ret = __original(_entityId, _elementId, _elementOwner);
         return translateRelationChangeTooltip(ret, _elementId);
     }
+
+    q.onQueryTileTooltipData = @(__original) function (...) {
+        vargv.insert(0, this);
+        return translateCorpseTileTooltip(__original.acall(vargv));
+    }
 });
 
 mod.hook("scripts/ui/screens/world/world_obituary_screen", function (q) {
     q.convertFallenToUIData = @(__original) function () {
         return translateObituaryDTO(__original());
+    }
+});
+
+// The casualty stub is a raw identity snapshot, not an actor subclass. Translate
+// only its display getters; m.Name/m.Title remain raw and data_helper/roster UI
+// receive localized return values without altering casualty or save state.
+mod.hook("scripts/entity/tactical/player_corpse_stub", function (q) {
+    q.getName = @(__original) function () {
+        return translateReviewedActorName(__original());
+    }
+
+    q.getTitle = @(__original) function () {
+        return translateReviewedActorName(__original());
+    }
+});
+
+// The lethal Hedge Knight duel is intentionally raw-scoped while it creates
+// Fallen statistics. Translate the reviewed title fragment only in the cloned
+// event result-list DTO returned after Rosetta's normal list translation.
+mod.hook("scripts/events/event", function (q) {
+    q.getUIList = @(__original) function () {
+        return translateEventActorNameDTO(__original());
     }
 });
 

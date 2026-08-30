@@ -40,9 +40,16 @@ assertEqual(::Rosetta.translate("Got a better paying offer"), "もっと割の�
 assertEqual(::Rosetta.translate("Handed over to authorities"), "当局へ引き渡された");
 assertEqual(::Rosetta.translate("Hanged for attempted murder"), "殺人未遂で絞首刑に処された");
 assertEqual(::Rosetta.translate("Left to claim their birthright"), "生まれながらの権利を求めて去った");
+assertEqual(::Rosetta.translate("Reproach of the Old Gods"), "古き神々の譴責");
+// The shared HedgeKnightTitles identity must never become a global literal.
+// Its split scenario-title occurrence is handled by an exact UI boundary.
+assertEqual(::Rosetta.translate("The Lone Wolf"), "The Lone Wolf");
 local rawPronounVars = [["their", "his"]];
 assertEqual(::buildTextFromTemplate("Is %their% former self again", rawPronounVars), "彼の本来の姿に戻った");
 assertEqual(rawPronounVars[0][1], "his");
+local rawLegendaryWeaponVars = [["weapon", "Reproach of the Old Gods"]];
+assertEqual(::buildTextFromTemplate("You carry %weapon%.", rawLegendaryWeaponVars), "You carry 古き神々の譴責.");
+assertEqual(rawLegendaryWeaponVars[0][1], "Reproach of the Old Gods");
 assertEqual(::Rosetta.translate("Not in the vertical slice"), "Not in the vertical slice");
 
 print("VERTICAL_SLICE_ROSETTA_TEST_OK\n");

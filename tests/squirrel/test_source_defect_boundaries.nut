@@ -3,6 +3,11 @@ dofile(getenv("STDLIB_DIR") + "load.nut", true);
 local hooks = {};
 ::BattleBrothersJP <- {
     Mod = {
+        hook = function (_target, _callback) {
+            local q = { buildText = null };
+            _callback(q);
+            hooks[_target] <- q;
+        },
         hookTree = function (_target, _callback) {
             local q = { onBuildDescription = null };
             _callback(q);
@@ -17,6 +22,34 @@ function assertEqual(_actual, _expected)
 {
     if (_actual != _expected) throw "Expected '" + _expected + "', got '" + _actual + "'";
 }
+
+local krakenSource = "[img]gfx/ui/events/event_120.png[/img]{She turns to her tomes and stares at them as though they were gravestones. Middle prose but that many tales is a little suspicious.}}";
+local krakenRendered = "女は書物へ向き直る。話の数が多すぎるのは少しばかり怪しい。}";
+local krakenCalls = 0;
+local krakenWrapper = hooks["scripts/events/events/dlc2/location/kraken_cult_enter_event"].buildText(function (_text) {
+    krakenCalls += 1;
+    return krakenRendered;
+});
+assertEqual(krakenWrapper(krakenSource), "女は書物へ向き直る。話の数が多すぎるのは少しばかり怪しい。");
+assertEqual(krakenCalls, 1);
+
+local balancedSource = "[img]gfx/ui/events/event_120.png[/img]{She turns to her tomes and stares at them as though they were gravestones. Middle prose but that many tales is a little suspicious.}";
+assertEqual(krakenWrapper(balancedSource), krakenRendered);
+assertEqual(krakenCalls, 2);
+
+local unrelatedKrakenText = "Option text ending in }";
+assertEqual(krakenWrapper(unrelatedKrakenText), krakenRendered);
+assertEqual(krakenCalls, 3);
+
+local alreadyCleanWrapper = hooks["scripts/events/events/dlc2/location/kraken_cult_enter_event"].buildText(function (_text) {
+    return "すでに正常な表示。";
+});
+assertEqual(alreadyCleanWrapper(krakenSource), "すでに正常な表示。");
+
+local nullKrakenWrapper = hooks["scripts/events/events/dlc2/location/kraken_cult_enter_event"].buildText(function (_text) {
+    return null;
+});
+assertEqual(nullKrakenWrapper(krakenSource), null);
 
 local sourceCalls = 0;
 local englishSource = function () {

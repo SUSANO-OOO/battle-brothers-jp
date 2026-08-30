@@ -25,6 +25,7 @@ RUNTIME_STRATEGIES = {
     "JAVASCRIPT_LITERAL",
     "ROSETTA_PATTERN",
     "BOUNDARY_HOOK",
+    "ACTOR_TITLE_DISPLAY_FRAGMENT",
 }
 
 
@@ -99,6 +100,36 @@ def validate_batch(batch: dict[str, Any], units: dict[str, dict[str, Any]]) -> l
                 raise ValueError(f"Entry {index} runtime_contract strategy mismatch: {unit_id}")
             if runtime_contract.get("resolution_status") != "RESOLVED":
                 raise ValueError(f"Entry {index} BOUNDARY_HOOK is not resolved: {unit_id}")
+        if runtime_strategy == "ACTOR_TITLE_DISPLAY_FRAGMENT":
+            if not isinstance(runtime_contract, dict):
+                raise ValueError(
+                    f"Entry {index} ACTOR_TITLE_DISPLAY_FRAGMENT requires runtime_contract: {unit_id}"
+                )
+            if runtime_contract.get("strategy") != runtime_strategy:
+                raise ValueError(f"Entry {index} runtime_contract strategy mismatch: {unit_id}")
+            if runtime_contract.get("resolution_status") != "RESOLVED":
+                raise ValueError(
+                    f"Entry {index} ACTOR_TITLE_DISPLAY_FRAGMENT is not resolved: {unit_id}"
+                )
+            targets = runtime_contract.get("targets")
+            required_text = ("operation", "raw_state", "acceptance")
+            if not isinstance(targets, list) or not targets or any(
+                not isinstance(target, str) or not target.strip() for target in targets
+            ):
+                raise ValueError(
+                    f"Entry {index} ACTOR_TITLE_DISPLAY_FRAGMENT requires non-empty targets: {unit_id}"
+                )
+            missing_text = [
+                field
+                for field in required_text
+                if not isinstance(runtime_contract.get(field), str)
+                or not runtime_contract[field].strip()
+            ]
+            if missing_text:
+                raise ValueError(
+                    f"Entry {index} ACTOR_TITLE_DISPLAY_FRAGMENT missing contract fields "
+                    f"{missing_text}: {unit_id}"
+                )
         entry["notes"] = normalize_notes(entry.get("notes"))
         validated.append(entry)
     return validated

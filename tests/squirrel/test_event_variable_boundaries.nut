@@ -1,4 +1,15 @@
 ::BattleBrothersJP <- {
+    ActorTitleDisplayFragments = [
+        {english = "The Lone Wolf", japanese = "一匹狼"},
+        {english = "Weeds", japanese = "雑草"},
+        {english = "the Lone Wolf", japanese = "一匹狼"},
+        {english = "the Holy", japanese = "聖なる者"},
+        {english = "the Old", japanese = "老人"}
+    ],
+    ActorTitleGenericDisplayFragments = [
+        {english = "The Lone Wolf", japanese = "一匹狼"},
+        {english = "Weeds", japanese = "雑草"}
+    ],
     Mod = {}
 };
 
@@ -6,6 +17,8 @@
     _ = function (_text) {
         local translations = {
             Hohenburg = "ホーエンブルク",
+            ["The Lone Wolf"] = "一匹狼",
+            ["Weeds"] = "雑草",
             ["Amber Wristguards"] = "琥珀の腕甲",
             ["Dame Roderick"] = "デイム・Roderick"
         };
@@ -38,7 +51,11 @@ local callerVars = [
     ["unrelated", "brother"],
     ["justbeggar", "beggar"],
     ["nemesisS", "General"],
-    ["home", "Hohenburg"]
+    ["home", "Hohenburg"],
+    ["dismissedName", "Aldric The Lone Wolf"],
+    ["weedsName", "Asta Weeds"],
+    ["oldGods", "Honor and fear of the Old Gods"],
+    ["holyMother", "Blood Vial of the Holy Mother"]
 ];
 local rendered = ::buildTextFromTemplate("The %sibling_bro% met a %noble_employer%.", callerVars);
 assertEqual(findValue(rendered.Vars, "sibling_bro"), "団員");
@@ -49,12 +66,18 @@ assertEqual(findValue(rendered.Vars, "unrelated"), "brother");
 assertEqual(findValue(rendered.Vars, "justbeggar"), "物乞い");
 assertEqual(findValue(rendered.Vars, "nemesisS"), "将軍");
 assertEqual(findValue(rendered.Vars, "home"), "ホーエンブルク");
+assertEqual(findValue(rendered.Vars, "dismissedName"), "Aldric 一匹狼");
+assertEqual(findValue(rendered.Vars, "weedsName"), "Asta 雑草");
+assertEqual(findValue(rendered.Vars, "oldGods"), "Honor and fear of the Old Gods");
+assertEqual(findValue(rendered.Vars, "holyMother"), "Blood Vial of the Holy Mother");
 // The wrapper must not mutate the caller-owned variable list.
 assertEqual(findValue(callerVars, "sibling_bro"), "brother");
 assertEqual(findValue(callerVars, "noble_employer"), "nobleman");
 assertEqual(findValue(callerVars, "justbeggar"), "beggar");
 assertEqual(findValue(callerVars, "nemesisS"), "General");
 assertEqual(findValue(callerVars, "home"), "Hohenburg");
+assertEqual(findValue(callerVars, "dismissedName"), "Aldric The Lone Wolf");
+assertEqual(findValue(callerVars, "weedsName"), "Asta Weeds");
 assertEqual(findValue(callerVars, "their_bro"), "his");
 
 local pronounVars = [

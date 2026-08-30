@@ -36,8 +36,8 @@ mod.queue(">mod_rosetta", ">mod_msu", ">mod_legends", function () {
     // Translate display-only values inserted after Rosetta's template pass.
     ::include("battle_brothers_jp/hooks/event_variable_boundaries");
 
-    // Normalize two reviewed player-facing placeholder typos in the exact
-    // installed Legends snapshot, after Rosetta and before final substitution.
+    // Normalize independently reviewed player-facing placeholder/brace defects
+    // in the exact installed snapshot at their narrow final-display boundaries.
     ::include("battle_brothers_jp/hooks/source_defect_boundaries");
 
     // Translation-only boundary hooks for player-facing strings that Rosetta

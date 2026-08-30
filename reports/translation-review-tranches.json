@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
-  "canonical_reviewed_units": 4477,
+  "canonical_reviewed_units": 5676,
   "translated_needs_review_units": 0,
   "tranches": [
     {
@@ -387,6 +387,112 @@
         {
           "path": "reports/vanilla-events-004-boundary-implementation-audit.json",
           "sha256": "51A1C5C98C715471A14D7F150D38F304175201843671A4E00FD37441530ABEA9"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-events-literal-005",
+      "source_units": 300,
+      "reviewed_units": 299,
+      "resolved_exclusion_units": 1,
+      "resolved_exclusion_occurrences": 5,
+      "draft_changes_by_independent_reviewer": 66,
+      "boundary_blocked_units": 0,
+      "player_facing_unresolved": 0,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_events_literal_source_005.json (gitignored)",
+          "sha256": "128998A7132461EF8C65421705AACA48AC8245E325F0D96DC9AAC72708C0F0AA"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_source_audit_005.json (gitignored)",
+          "sha256": "794BB9FAE93451E664E9417B7DB38925CFCDA9B128AA44FC301BE2108BC783BD"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_reviewed_005.json (gitignored)",
+          "sha256": "D7946929FA26A5FA950F468195B324980B93FFA7C95DD8E6C81ED609FF89CA33"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_005_exclusion_batch.json (gitignored)",
+          "sha256": "50CD6DAB0A4AA207883BC0E47708C8E65C366D56000F2CBAD91DC7A5EA853726"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_005_boundary_audit.json (gitignored)",
+          "sha256": "7A360398BA5A701AC2C3421196B03D2EDC71AF17C24416072586B08442CCA5F7"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-events-literal-006",
+      "source_units": 300,
+      "reviewed_units": 300,
+      "resolved_exclusion_units": 0,
+      "draft_changes_by_independent_reviewer": 56,
+      "boundary_blocked_units": 0,
+      "player_facing_unresolved": 0,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_events_literal_source_006.json (gitignored)",
+          "sha256": "7B971F8F4E5AF56188813D140E7CE2077EDB139688F1C3EB13A168798B5DC3FB"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_source_audit_006.json (gitignored)",
+          "sha256": "04B07CA95A2BD29139A7DBACBDA53327272FE3CE18908DDE150ECDE399D56CCD"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_reviewed_006.json (gitignored)",
+          "sha256": "9446BAFF97935D991AA0B1A18D17EDA4233B15FE85045C602C54019F77ACD173"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-events-literal-007",
+      "source_units": 300,
+      "reviewed_units": 300,
+      "resolved_exclusion_units": 0,
+      "draft_changes_by_independent_reviewer": 98,
+      "boundary_blocked_units": 0,
+      "player_facing_unresolved": 0,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_events_literal_source_007.json (gitignored)",
+          "sha256": "981CBD0908426BB54E799C0151F78A787CFFA944D156258A074980339F2AA3EF"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_source_audit_007.json (gitignored)",
+          "sha256": "7A0DE6ABE722E1A86287D31F11B4327CB7BE8071D7C11EF70A2F9068E290B3C8"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_reviewed_007.json (gitignored)",
+          "sha256": "4135966746F5127E3A98C62784EAE4013326E2D5683898314504775D08388C55"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-events-literal-008",
+      "source_units": 300,
+      "reviewed_units": 300,
+      "resolved_exclusion_units": 0,
+      "draft_changes_by_independent_reviewer": 145,
+      "boundary_implementation_units": 1,
+      "boundary_blocked_units": 0,
+      "player_facing_unresolved": 0,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_events_literal_source_008.json (gitignored)",
+          "sha256": "81BB56E73511486D2A695D02D54C07279A7E1BA3A7D9B0D7210A1F244781E815"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_source_audit_008.json (gitignored)",
+          "sha256": "0E7D214A9F46ABCF8DE5E9B227BCD856E9D33713C1F523770B4D559E3A08123D"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_reviewed_008.json (gitignored)",
+          "sha256": "B4A433049604DF83096774D6BEFF631E15CE6F9336F6AA10B376047332E0C85A"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_008_boundary_audit.json (gitignored)",
+          "sha256": "29408147928324DBADA411E9E01FCE1B6C9F785DF143493E85C665F5DC9879B0"
         }
       ]
     }
