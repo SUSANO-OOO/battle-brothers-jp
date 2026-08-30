@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
-  "canonical_reviewed_units": 5676,
+  "canonical_reviewed_units": 5975,
   "translated_needs_review_units": 0,
   "tranches": [
     {
@@ -493,6 +493,43 @@
         {
           "path": "work/review_batches/vanilla_events_008_boundary_audit.json (gitignored)",
           "sha256": "29408147928324DBADA411E9E01FCE1B6C9F785DF143493E85C665F5DC9879B0"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-events-literal-009",
+      "source_units": 300,
+      "reviewed_units": 299,
+      "existing_reviewed_duplicate_units": 1,
+      "draft_changes_by_independent_reviewer": 76,
+      "high_risk_reviewed_units": 214,
+      "boundary_implementation_units": 3,
+      "boundary_blocked_units": 0,
+      "player_facing_unresolved": 0,
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_events_literal_source_009.json (gitignored)",
+          "sha256": "FBCA76EBF9680742F207E3DBAF2F53ADA6B2F790F042431C7135EC0F9FBA0247"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_source_independent_audit_009.json (gitignored)",
+          "sha256": "5B2AA1C88AB3044705E6C73BDA82201CC53FCA4061E132F297F0265342620C3B"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_draft_009.json (gitignored)",
+          "sha256": "697BF034041E6B3D36CF57BB2BEDD25DDFA96205882F5B5659C2B7A8D30BF0AB"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_reviewed_009.json (gitignored)",
+          "sha256": "81D1AF5ACB8AE7592B9B0FBF5664AD713B930943D70F71BE872BB0E4006B245F"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_009_boundary_audit.json (gitignored)",
+          "sha256": "5003D9FC756BF1E103AEC6EBA0730B5DC28FF98C72E0262A054C938907D025DC"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_009_screen_override_boundary_audit.json (gitignored)",
+          "sha256": "032539BFC5FC8381D0BAE01FC05711AB31A528A7E2327C9E532CEAEB9BAA7EBE"
         }
       ]
     }

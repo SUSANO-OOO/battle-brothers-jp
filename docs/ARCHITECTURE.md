@@ -42,6 +42,10 @@ installed Legends `legend_ranger_commander_background`には`%name's face`と`h%
 
 Vanilla `kraken_cult_enter_event` B1には、variantを閉じる`}`の後に余分な`}`が1個ある。exact event classのinherited `buildText`だけをModern Hooksでwrapし、installed English prefixとsuffixが同時一致した入力に限ってnative/Rosetta後の最終返却値を検査する。raw `}`が末尾に残る場合だけ1文字除き、source screen、reply flag、option result、event state、saveには書き戻さない。malformed composition、正常なbalanced source、無関係option、already-clean、non-stringのfixtureを分離する。
 
+Vanilla `barbarian_tells_story_event` Aには、外側variantを閉じる`}`が1個不足している。canonical English/Japaneseはinstalled signature（open 2 / close 1 / pipe 2）を保持してsource driftを検出可能にし、exact subclass wrapperがRosetta訳済みの一時templateだけへ閉じbraceを1個補ってからinherited `buildText`を1回呼ぶ。raw/translated template双方のsignature guardによりbalanced inputや構造変更を過剰補正しない。3つのinner variant、`%barbarian%`、25% mood処理、Screen.Text/state/saveは変更しない。
+
+installed `greenskins_investigation_event`はscreen Iの処刑・報酬倍増proseを、秘密を守ってarming swordだけを受け取るscreen Jへ重複配置している。`graverobber_heist_event`も三択前のscreen E proseを、lootなし・mood低下の失敗screen Fへ重複配置している。normal Rosetta literalはI/Eの忠実訳に使い、exact class + ActiveScreen ID + installed prefix/suffix + placeholder/speech/newline countを全て満たすJ/Fだけ、独立review済みの最小mechanics-faithful Japanese displayへ差し替えてnative consumerを1回呼ぶ。malformed ActiveScreenはtable型guardでfail closedし、option routing、reward/item、mood、inventory、flags、identity、gameplay、persistence、saveには書き戻さない。
+
 reviewed literalはignored canonical ledgerからdeterministic generatorでSquirrel/JS mapへ出力する。同じ英語が異なる意味を持つ場合はcontext unitへ分割し、global mapで安全な文脈だけを登録する。残りはexact translation-only boundaryを使う。既存Vanilla/Legends JS全体の差替えは行わない。internal ID、CSS class、HTML scaffoldは翻訳対象外である。
 
 resolved exclusionはoccurrence-level source auditを先に行い、unit全stable keyが同じ非表示semanticsである場合だけwhole-unit除外できる。player-facingとmachine keyが同一unitへdeduplicateされた場合は、machine key occurrenceと未翻訳player-facing occurrenceへ先にcontext分割する。canonical QAは全translatable occurrenceがexactly one unitに属し、除外occurrenceがunitに属さないことを検証する。
@@ -73,6 +77,14 @@ future MODはdependency graphへrequirement/incompatibility/queue/hook targetを
 preloadは`mod_battle_brothers_jp`としてregisterする。Rosettaの主getter/template hookは`QueueBucket.Late`で登録されるため、このMODも必ず同じLate bucketを指定し、そのbucket内で`>mod_rosetta`、`>mod_msu`、`>mod_legends`とする。requirementとqueue relationは別に記述する。このMODはRosettaの一般hookを再実装せず、actual sourceで未到達またはglobal pattern collisionが避けられないと確認したdisplay-string境界だけを補完する。
 
 semantic-name safetyはRosettaのitem/background/world hookより後に登録するcompatibility guardである。専用Squirrel harnessは、通常item/background表示の日本語化、semantic scope内の`Broad Head` matcher/Donkey equality、3つのdog consumerへのraw item名コピー、source item/dog identity不変、global world raw identity、map labelのみの表示翻訳、成功・例外時のactive language/scope復元を検証する。event-variable harnessはcaller-owned array不変、一般変数値の表示翻訳、ordinary sibling、disowned-noble kinship、sib/noble、exact beggar/nemesis branches、portの`destname` clone-only翻訳を検証する。UI harnessはcontract descriptionのoriginal 1回とraw state不変、6件のobituary returned-DTO clone、および港DTOのraw source identity、non-display field、malformed inputを検証し、source-defect harnessはRosettaとのtree-hook合成順を検証する。`getMoodChanges()`等のraw semantic getterは翻訳しない。installed event codeがEnglish mood reasonをgameplay discriminatorとして比較するため、履歴文は保存値ではなく既存の最終tooltip境界でのみ翻訳する。runtime game QAは未実施である。
+
+## Supported snapshot semantic freeze
+
+`SUPPORTED SNAPSHOT semantic architecture FROZEN; new concrete destructive evidence only reopens`
+
+`reports/semantic-safety-residual-audit.json`で、既存のsource/call-site監査、境界実装監査、current generated data、focused harness、incremental QAを差分統合した。current SUPPORTED SNAPSHOTについて、item / background / world / actor / title / death / mood / relation / contract / event variable / save / identityのsemantic dataflowは静的・harness上で閉じており、既知blockerは0である。fully-isolated runtime game QAは未実施のため、live loader composition、rendering、clippingはこのfreezeの検証済み範囲に含めない。
+
+このarchitectureを再開するのは、supported source fingerprintまたはdependency versionの変更、新しいgetter consumerが翻訳済み値をbranch・lookup・state・save・identityへ渡す具体的証拠、current reviewed mappingによる同一consumer collection内の破壊的collision、またはhookがgameplay/persistenceを変える具体的証拠が得られた場合だけとする。翻訳本文の品質問題、未処理prose/source defect、coverage追加、runtime表示上の問題だけでは、破壊的dataflowが示されない限りsemantic architectureを再開しない。
 
 ## Vertical Slice evidence
 

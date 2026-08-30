@@ -1,0 +1,284 @@
+{
+  "schema_version": 1,
+  "audit_id": "semantic_safety_residual_audit_001",
+  "audited_at": "2026-08-30T10:34:59+09:00",
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "snapshot_basis_sha256": "CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E6FCED8697",
+  "result": "PASS",
+  "method": {
+    "mode": "existing-evidence consolidation plus residual-only delta audit",
+    "zero_from_scratch_reaudit_performed": false,
+    "already_proven_domains_not_reexecuted": [
+      "item",
+      "background",
+      "world",
+      "actor",
+      "title",
+      "death and corpse",
+      "mood and relation",
+      "contract",
+      "save and identity"
+    ],
+    "additional_source_investigation_limit": "Only previously unaudited Rosetta hook surfaces, previously unaudited semantic consumers, or a new concrete contradiction could be opened.",
+    "runtime_game_qa_performed": false,
+    "actual_game_or_user_data_write_count": 0
+  },
+  "classification_definitions": {
+    "AUDITED_CLOSED": "Existing source/call-site evidence and current implementation/tests close the destructive semantic risk for this exact supported snapshot.",
+    "RESIDUAL_UNAUDITED": "A verification surface is not executed or is unavailable, but no concrete destructive dataflow contradicts the static architecture.",
+    "NEW_CONTRADICTION": "New concrete evidence shows a translation hook can alter a branch, lookup, state, persistence, identity, save, or gameplay result."
+  },
+  "counts": {
+    "AUDITED_CLOSED": 23,
+    "RESIDUAL_UNAUDITED": 1,
+    "NEW_CONTRADICTION": 0,
+    "blockers": 0
+  },
+  "areas": [
+    {
+      "id": 1,
+      "area": "Modern Hooks and Rosetta queue composition",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "The localization callback is in Late after Rosetta, MSU, and Legends; generated tables precede compatibility wrappers and the wrappers are outer to the Rosetta getters they constrain.",
+      "evidence": ["docs/ARCHITECTURE.md#Queue-design", "reports/context-translation-boundaries.json", "tests/squirrel/test_semantic_name_safety.nut"]
+    },
+    {
+      "id": 2,
+      "area": "item getName and Poacher ammo semantics",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Only the two audited Poacher semantic methods receive raw ammo names; ordinary item display retains Rosetta translation and damage/effect branches remain source-equivalent.",
+      "evidence": ["work/review_batches/rosetta_name_semantics_audit_001.json", "src/battle_brothers_jp/hooks/semantic_name_safety.nut", "tests/squirrel/test_semantic_name_safety.nut"]
+    },
+    {
+      "id": 3,
+      "area": "item name copied to dog identity",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "The installed unleash_wardog, wardog_item, and legend_accessory_dog consumers receive raw item names while normal item display stays translated; actor identity and save state are not localized at the copy point.",
+      "evidence": ["src/battle_brothers_jp/hooks/semantic_name_safety.nut", "tests/squirrel/test_semantic_name_safety.nut"]
+    },
+    {
+      "id": 4,
+      "area": "background getNameOnly and Donkey branch",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "The exact Donkey semantic consumer is source-language scoped and ordinary background display remains localized; scope and Rosetta language restore on success and exception.",
+      "evidence": ["work/review_batches/rosetta_name_semantics_audit_001.json", "src/battle_brothers_jp/hooks/semantic_name_safety.nut", "tests/squirrel/test_semantic_name_safety.nut"]
+    },
+    {
+      "id": 5,
+      "area": "world name uniqueness, lookup, and persisted derived identity",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "world_entity.getName is globally raw because installed consumers compare unique names, recover settlement flags, and construct persisted party names; those consumers therefore remain language-independent.",
+      "evidence": ["work/review_batches/rosetta_name_semantics_audit_001.json", "src/battle_brothers_jp/hooks/semantic_name_safety.nut"]
+    },
+    {
+      "id": 6,
+      "area": "world display labels, settlement and port DTOs, and templates",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Map labels and returned settlement/port DTO display fields are translated after raw identity is captured; non-display fields, routes, objects, cost, and caller-owned template variables are unchanged.",
+      "evidence": ["reports/context-translation-boundaries.json", "work/review_batches/port_world_name_boundary_reviewed_001.json", "src/battle_brothers_jp/hooks/ui_boundaries.nut", "tests/squirrel/test_ui_boundaries.nut"]
+    },
+    {
+      "id": 7,
+      "area": "actor getName, getNameOnly, getTitle, and getKilledName",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "The actor getter family is globally raw for semantic consumers; actor-provenance display DTOs and final display getters restore reviewed Japanese without changing m.Name, m.Title, identity, or serialization.",
+      "evidence": ["work/review_batches/vanilla_events_005_boundary_audit.json", "src/battle_brothers_jp/hooks/semantic_name_safety.nut", "src/battle_brothers_jp/hooks/ui_boundaries.nut"]
+    },
+    {
+      "id": 8,
+      "area": "actor title generation and display registry separation",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "HedgeKnight title generation receives source values, the full actor-title registry is limited to proven actor-derived displays, and generic contexts use only explicit collision-audited opt-ins; length ordering and raw-identity negative fixtures are enforced.",
+      "evidence": ["work/review_batches/vanilla_events_005_boundary_audit.json", "tests/squirrel/test_semantic_name_safety.nut", "tests/squirrel/test_ui_boundaries.nut"]
+    },
+    {
+      "id": 9,
+      "area": "actor-derived named equipment",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "The 13 installed equipment methods that persist an actor-derived name run in the raw actor-name scope; final item display permits the reviewed title fragment only in the audited possessive shape.",
+      "evidence": ["work/review_batches/vanilla_events_005_boundary_audit.json", "src/battle_brothers_jp/hooks/semantic_name_safety.nut", "tests/squirrel/test_semantic_name_safety.nut"]
+    },
+    {
+      "id": 10,
+      "area": "player.onDeath, corpse, resurrection, and casualty stub",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Death processing receives raw actor names/titles, so corpse and casualty state remain source-language; corpse-stub and exact corpse tile display boundaries translate clones or returns only.",
+      "evidence": ["work/review_batches/vanilla_events_005_boundary_audit.json", "src/battle_brothers_jp/hooks/semantic_name_safety.nut", "src/battle_brothers_jp/hooks/ui_boundaries.nut"]
+    },
+    {
+      "id": 11,
+      "area": "Legends.addFallen and obituary DTO",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Fallen Name and KilledBy persistence stay raw; world_obituary_screen translates only the cloned returned DTO with exact reviewed cause mappings and unknown values fail closed.",
+      "evidence": ["reports/context-translation-boundaries.json", "src/battle_brothers_jp/hooks/ui_boundaries.nut", "tests/squirrel/test_ui_boundaries.nut"]
+    },
+    {
+      "id": 12,
+      "area": "mood history reasons",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Raw mood history is not wrapped at its getter or storage point because installed events can compare English reasons; translation occurs only in the existing final tooltip boundary.",
+      "evidence": ["work/review_batches/legends_contracts_source_audit_001.json", "docs/ARCHITECTURE.md#Queue-design"]
+    },
+    {
+      "id": 13,
+      "area": "faction relation history reasons",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Relation history and coalescing remain raw; the exact world-relations DTO entry is cloned and translated only after element, id, type, icon, prefix, class, and item allowlists match.",
+      "evidence": ["work/review_batches/legends_contracts_source_audit_001.json", "src/battle_brothers_jp/hooks/ui_boundaries.nut", "tests/squirrel/test_ui_boundaries.nut"]
+    },
+    {
+      "id": 14,
+      "area": "contract description state and return boundary",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "contract.getDescription translates its string return only; m.Description, state selection, flags, serialization, and all installed gameplay consumers remain unchanged.",
+      "evidence": ["work/review_batches/legends_contracts_source_audit_001.json", "src/battle_brothers_jp/hooks/ui_boundaries.nut", "tests/squirrel/test_ui_boundaries.nut"]
+    },
+    {
+      "id": 15,
+      "area": "contract names, open-contract DTO, arena, and return-item display",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Open-contract titles, arena entries, and return-item descriptions are translated in cloned return data; exact marker/cardinality/color guards fail closed and contract/item state remains raw.",
+      "evidence": ["work/review_batches/legends_contract_remaining_boundary_audit_001.json", "src/battle_brothers_jp/hooks/ui_boundaries.nut", "tests/squirrel/test_ui_boundaries.nut"]
+    },
+    {
+      "id": 16,
+      "area": "event template variables and contextual item/kinship values",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "The wrapper clones caller-owned variable pairs, translates display values, and applies only audited context-specific keys; raw Flags.Item, caller arrays, event state, and save values are not mutated.",
+      "evidence": ["reports/context-translation-boundaries.json", "src/battle_brothers_jp/hooks/event_variable_boundaries.nut", "tests/squirrel/test_event_variable_boundaries.nut"]
+    },
+    {
+      "id": 17,
+      "area": "Legends PronounTable families",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Only known family/value pairs are mapped on cloned template data; unknown family or value is raw and caller PronounTable/state/save remain unchanged.",
+      "evidence": ["src/battle_brothers_jp/hooks/event_variable_boundaries.nut", "tests/squirrel/test_event_variable_boundaries.nut"]
+    },
+    {
+      "id": 18,
+      "area": "Rosetta skill and item getter display surfaces including Jimmy tooltip keys",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "The prior theoretical non-injective name-key risk has no concrete same-entity or same-section destructive collision in the current reviewed skill/background set; broad skill/item fragment hooks are absent and current collisions are separated by type or collection.",
+      "evidence": ["work/review_batches/rosetta_name_semantics_audit_001.json", "work/review_batches/vanilla_events_005_boundary_audit.json"]
+    },
+    {
+      "id": 19,
+      "area": "Rosetta perk metadata in-place translation",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Residual-only inspection found Rosetta mutates perk Name and Tooltip, but installed consumers use those fields for tooltip/DTO display while gameplay selection uses Script/Unlocks and other semantic consumers use Icon/Const data; no save, identity, or gameplay comparison consumes localized Name/Tooltip.",
+      "evidence": ["work/upstream/battle-brothers-rosetta/scripts/!mods_preload/!rosetta.nut:412", "work/upstream/battle-brothers-rosetta/rosetta/hooks.nut"]
+    },
+    {
+      "id": 20,
+      "area": "Rosetta generic UI boundaries and item type labels",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Combat results, loading/dialog/log/tooltip boundaries and MSU settings/item-type consumers are display-only in the installed snapshot; Const.Items.getItemTypeName is consumed to build a display string rather than a bitmask or branch.",
+      "evidence": ["work/upstream/battle-brothers-rosetta/rosetta/hooks.nut", "work/upstream/battle-brothers-rosetta/scripts/!mods_preload/!rosetta.nut"]
+    },
+    {
+      "id": 21,
+      "area": "source-defect and exact screen-ID display wrappers",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Exact event class, screen ID, source-shape, placeholder, and newline guards restrict corrections to temporary display input/return data; native consumers are called once and event choices, rewards, mood, state, and save are unchanged.",
+      "evidence": ["work/review_batches/vanilla_events_009_screen_override_boundary_audit.json", "src/battle_brothers_jp/hooks/source_defect_boundaries.nut", "tests/squirrel/test_source_defect_boundaries.nut"]
+    },
+    {
+      "id": 22,
+      "area": "cross-cutting save, persistence, and identity invariants",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Current semantic wrappers either provide raw getter values to semantic consumers or translate cloned/final display data. The focused harnesses assert m.Name, m.Title, Flags, history, DTO sources, arrays, return identity where required, and exception restoration.",
+      "evidence": ["src/battle_brothers_jp/hooks/semantic_name_safety.nut", "src/battle_brothers_jp/hooks/event_variable_boundaries.nut", "src/battle_brothers_jp/hooks/ui_boundaries.nut", "reports/qa-reviewed-5975-incremental.json"]
+    },
+    {
+      "id": 23,
+      "area": "optional absence and future-mod semantic boundary",
+      "classification": "AUDITED_CLOSED",
+      "conclusion": "Optional targets are guarded and absent targets are not required. Rosetta's UPD mutation surface is not executable because mod_upd is absent from the supported snapshot. Any added or updated MOD requires dependency and semantic-consumer rescan before support is claimed.",
+      "evidence": ["reports/mod-dependency-graph.json", "work/review_batches/rosetta_name_semantics_audit_001.json", "docs/ARCHITECTURE.md#E-Currentoptional-MOD-compatibility"]
+    },
+    {
+      "id": 24,
+      "area": "fully isolated live game composition and rendering",
+      "classification": "RESIDUAL_UNAUDITED",
+      "conclusion": "The generated MOD has not been loaded in a fully isolated game/user-data environment. Live hook composition, Coherent UI rendering, clipping, and runtime-only exceptions remain NOT_RUN. This is not a static semantic-architecture blocker because no concrete destructive dataflow was found.",
+      "evidence": ["docs/ARCHITECTURE.md#Vertical-Slice-evidence", "reports/qa-reviewed-5975-incremental.json"]
+    }
+  ],
+  "residual_delta_investigations": [
+    {
+      "surface": "Rosetta translatePerk in-place Name/Tooltip mutation",
+      "reason_opened": "Previously unaudited Rosetta mutation surface.",
+      "consumer_result": "Installed consumers use Name/Tooltip for UI; gameplay paths use Script/Unlocks, Const data, or Icon.",
+      "classification": "AUDITED_CLOSED",
+      "reopen_trigger": "A new installed consumer compares or persists localized perk Name/Tooltip."
+    },
+    {
+      "surface": "Jimmy tooltip name-key collision",
+      "reason_opened": "Previously documented theoretical non-injective key risk.",
+      "consumer_result": "Current reviewed data has no demonstrated same-entity/same-section destructive collision; active/effect and background distinctions remain separate and broad fragment hooks are absent.",
+      "classification": "AUDITED_CLOSED",
+      "reopen_trigger": "A reviewed mapping creates two English semantic keys with one Japanese key in the same runtime collection."
+    }
+  ],
+  "historical_findings": [
+    {
+      "source": "work/review_batches/runtime_boundary_implementation_audit_001.json",
+      "historical_result": "FAIL",
+      "current_status": "SUPERSEDED_RESOLVED",
+      "resolution": "The port DTO boundary and its clone/state tests were implemented; the justbeggar contract moved to the cloned buildTextFromTemplate path; later actor-title and generic-context collision audits replaced the stale global-getter assumptions."
+    },
+    {
+      "source": "work/review_batches/rosetta_name_semantics_audit_001.json",
+      "historical_result": "DESTRUCTIVE_CONSUMERS_FOUND",
+      "current_status": "RESOLVED_BY_CURRENT_ARCHITECTURE",
+      "resolution": "Item/background semantic scopes and globally raw world/actor getter families now protect the identified branch, lookup, generation, death, persistence, and identity consumers."
+    }
+  ],
+  "blockers": [],
+  "freeze": {
+    "status": "FROZEN",
+    "declaration": "SUPPORTED SNAPSHOT semantic architecture FROZEN; new concrete destructive evidence only reopens",
+    "scope": "BBJP-CF88150E7B355ECD32D9 static semantic architecture and focused harness contract",
+    "does_not_claim": ["runtime game boot", "live Mod load", "Coherent UI rendering", "line wrapping", "clipping", "fully isolated save/load"],
+    "reopen_only_if": [
+      "Supported source fingerprint or dependency version changes.",
+      "A newly identified getter consumer feeds a localized value into a branch, lookup, state, save, persistence, or identity operation.",
+      "A current reviewed mapping creates a destructive collision within the same semantic runtime collection.",
+      "A localization hook is concretely shown to alter gameplay or persistence."
+    ]
+  },
+  "evidence_files": [
+    {"path": "docs/ARCHITECTURE.md", "sha256": "1ECCB754A3BAFE8B5C061A8AA96DB31DB60C64FCE4D6332F5356127F8F388EE0"},
+    {"path": "reports/context-translation-boundaries.json", "sha256": "BA8249CB119A0703A9832E2C0CFEB507A0792E71E82EEBF3BAECF4931D9653B1"},
+    {"path": "reports/qa-reviewed-5975-incremental.json", "sha256": "80DA057649F5C681D615285081772627B92DF0879EA989293BDE57EFC04135A6"},
+    {"path": "work/review_batches/rosetta_name_semantics_audit_001.json", "sha256": "BC774140F27586FF7FF997520951BF3EAEF17AC179D048267818C790376A6949"},
+    {"path": "work/review_batches/literal_reachability_audit_001.json", "sha256": "6BD64E08ED9DAA0034889AF9CEFA517F1349C3C435C084998B2981726010C3CD"},
+    {"path": "work/review_batches/runtime_boundary_implementation_audit_001.json", "sha256": "EBD28086D6F6CE39E4A522E45999094A022CDD035C45ECB1B4FA044E22637267"},
+    {"path": "work/review_batches/legends_contracts_source_audit_001.json", "sha256": "3480CFA903D143DA03683D5B64E6A8E1538DA5B547F2D497308E5B2B4692422A"},
+    {"path": "work/review_batches/vanilla_events_005_boundary_audit.json", "sha256": "7A360398BA5A701AC2C3421196B03D2EDC71AF17C24416072586B08442CCA5F7"},
+    {"path": "work/review_batches/vanilla_events_009_screen_override_boundary_audit.json", "sha256": "032539BFC5FC8381D0BAE01FC05711AB31A528A7E2327C9E532CEAEB9BAA7EBE"},
+    {"path": "work/upstream/battle-brothers-rosetta/rosetta/hooks.nut", "sha256": "F72C58054A8DD3F1DA1AC89018B97795AA972819C47C284937CAD96999F584AC"},
+    {"path": "work/upstream/battle-brothers-rosetta/scripts/!mods_preload/!rosetta.nut", "sha256": "05200321A83E39DAA49BF8B18DAD5C9566298BB55704D194F5F7FD829C8000EA"},
+    {"path": "src/battle_brothers_jp/hooks/semantic_name_safety.nut", "sha256": "7D4C18CD645DA5632FBA73169F66771A5D9BE677DE366D06644A56A8DF82F644"},
+    {"path": "src/battle_brothers_jp/hooks/event_variable_boundaries.nut", "sha256": "3B422204EF12AC8F4873DA99B7000C85E7106B1B08787384F35D379F72EF164A"},
+    {"path": "src/battle_brothers_jp/hooks/ui_boundaries.nut", "sha256": "0F085A277886DEBA1CC098A4FE0837D433A915D9F1F7FF8D87E279E324DA3B14"},
+    {"path": "src/battle_brothers_jp/hooks/source_defect_boundaries.nut", "sha256": "6FF51A217E411893451E1B121C7E4D07375D829F87CC46E7BD7CA03494CE3860"},
+    {"path": "tests/squirrel/test_semantic_name_safety.nut", "sha256": "D6B4D4308F67C5A79B1A4CBB10B32D38CAA375CA4ACA50D5DD849BB5230CA136"},
+    {"path": "tests/squirrel/test_event_variable_boundaries.nut", "sha256": "2F2B62224D23AE2A825F255E244DDAA426FAAC86EBB92AE4C35DE17C3D443151"},
+    {"path": "tests/squirrel/test_ui_boundaries.nut", "sha256": "D518FD65B8C11699A0D71641B01CFEF78687C912DDD9F5F1E924F7FFA7333143"},
+    {"path": "tests/squirrel/test_source_defect_boundaries.nut", "sha256": "B7021E4C5469DE239A8187F0087388A81EA246DF3F7FB605DC1B8C1E657671B9"}
+  ],
+  "qa_evidence": {
+    "latest_incremental_report": "reports/qa-reviewed-5975-incremental.json",
+    "latest_incremental_status": "PASS_WITH_NOT_RUN",
+    "not_run_in_latest_incremental": ["archive_structure_and_content"],
+    "current_audit_affected_checks": [
+      "JSON parse and enum/count consistency",
+      "freeze declaration exact-string check",
+      "git diff --check for the two changed files",
+      "evidence SHA-256 read-back"
+    ],
+    "full_test_rerun": "NOT_RUN because this audit changed documentation/reporting only and the directive required affected incremental checks only."
+  },
+  "final_conclusion": "PASS: 23 semantic hook/consumer areas are AUDITED_CLOSED, the only RESIDUAL_UNAUDITED area is fully isolated live runtime/rendering, no NEW_CONTRADICTION was found, and blocker_count is zero. The supported-snapshot semantic architecture is frozen under the stated evidence-based reopen policy."
+}

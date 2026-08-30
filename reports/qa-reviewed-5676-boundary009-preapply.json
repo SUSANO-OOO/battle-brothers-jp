@@ -1,0 +1,395 @@
+{
+  "schema_version": 2,
+  "generated_at_utc": "2026-08-30T01:06:07.415398+00:00",
+  "scope": "static repository-owned MOD sources only",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "encoding_bom_mojibake",
+      "status": "PASS",
+      "detail": {
+        "utf8_errors": [],
+        "boms": [],
+        "markers": []
+      }
+    },
+    {
+      "name": "translation_pair_parse",
+      "status": "PASS",
+      "detail": {
+        "pairs": 5563,
+        "errors": []
+      }
+    },
+    {
+      "name": "duplicate_literal_keys",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "untranslated_generated_pairs",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "placeholder_tag_integrity",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "actor_title_display_registry",
+      "status": "PASS",
+      "detail": {
+        "fragments": 389,
+        "generic_fragments": 2,
+        "ordering": "ENGLISH_LENGTH_DESCENDING_THEN_LEXICOGRAPHIC",
+        "errors": {
+          "squirrel_block_count": 1,
+          "javascript_block_count": 1,
+          "generic_squirrel_block_count": 1,
+          "generic_javascript_block_count": 1,
+          "unparsed_tables": [],
+          "duplicate_keys": [],
+          "order_mismatch": [],
+          "cross_layer_mismatch": [],
+          "generic_not_subset": [],
+          "manifest_count_mismatch": [],
+          "parse_errors": []
+        }
+      }
+    },
+    {
+      "name": "preload_registration_dependency_queue",
+      "status": "PASS",
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "vertical_slice_static_reachability",
+      "status": "PASS",
+      "detail": {
+        "manifest_status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
+        "entries": 19,
+        "rosetta_entries": 7,
+        "js_entries": 12,
+        "additional_reviewed_rosetta_pairs": 5556,
+        "additional_reviewed_js_pairs": 462,
+        "runtime_proof": "NOT_TESTED",
+        "errors": {
+          "malformed_entry_indexes": [],
+          "non_reachable": [],
+          "duplicate_manifest_keys": [],
+          "pair_parse_errors": [],
+          "rosetta_missing_from_manifest": [],
+          "rosetta_missing_from_source": [],
+          "js_missing_from_manifest": [],
+          "js_missing_from_source": [],
+          "missing_boundary_implementations": []
+        }
+      }
+    },
+    {
+      "name": "reviewed_runtime_accounting",
+      "status": "PASS",
+      "detail": {
+        "reviewed_units": 5676,
+        "accounted_units": 5676,
+        "literal_emitted": 5662,
+        "boundary_hooks": 14,
+        "pending_patterns": 0,
+        "ledger_hash_match": true,
+        "output_mismatches": [],
+        "boundary_ids_match": true,
+        "missing_boundary_tokens": {},
+        "canonical_contract_mismatches": {}
+      }
+    },
+    {
+      "name": "reviewed_runtime_pattern_completion",
+      "status": "PASS",
+      "detail": {
+        "pending": 0
+      }
+    },
+    {
+      "name": "reviewed_literal_static_reachability",
+      "status": "PASS",
+      "detail": {
+        "audited_units": 277,
+        "initial_accounting_sum": 277,
+        "remediated_units": 64,
+        "remaining_unreachable_units": 0,
+        "implementation_tokens": {
+          "jquery_init": true,
+          "killed_string": true,
+          "crafting_pattern": true,
+          "adaptive_tooltip": true
+        },
+        "runtime_qa": "NOT_TESTED"
+      }
+    },
+    {
+      "name": "canonical_ledger_partition",
+      "status": "PASS",
+      "detail": {
+        "duplicate_stable_keys": [],
+        "duplicate_unit_ids": [],
+        "unit_errors": [],
+        "entry_errors": [],
+        "count_mismatches": [],
+        "canonical_counts": {
+          "total_occurrences": 48158,
+          "resolved_exclusion_occurrences": 3570,
+          "translatable_occurrences": 44588,
+          "unique_translation_units": 31822,
+          "untranslated_units": 26146,
+          "translated_needs_review_units": 0,
+          "reviewed_units": 5676
+        }
+      }
+    },
+    {
+      "name": "translation_review_tranche_accounting",
+      "status": "PASS",
+      "detail": {
+        "canonical_reviewed_units": 5676,
+        "declared_reviewed_units": 5676,
+        "tranche_contribution_sum": 5676,
+        "canonical_translated_needs_review_units": 0,
+        "declared_translated_needs_review_units": 0,
+        "malformed_tranche_indexes": [],
+        "duplicate_tranche_names": [],
+        "count_mismatches": []
+      }
+    },
+    {
+      "name": "supported_snapshot_fingerprint_lock",
+      "status": "PASS",
+      "detail": {
+        "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+        "data_files": 10,
+        "ledger_files": 2,
+        "mismatches": [],
+        "ledger_mismatches": [],
+        "missing_release_gate_tokens": [],
+        "freshness": "ENFORCED_AT_RELEASE_BUILD_NOT_THIS_STATIC_CHECK"
+      }
+    },
+    {
+      "name": "upstream_semantic_limitation_tracking",
+      "status": "PASS",
+      "detail": {
+        "status": "RESOLVED_FOR_LOCALIZATION_WITH_KNOWN_UPSTREAM_LIMITATIONS",
+        "entries": 3,
+        "localization_release_blocked": false,
+        "known_upstream_runtime_limitations": true,
+        "malformed": []
+      }
+    },
+    {
+      "name": "legends_event_boundary_audit",
+      "status": "PASS",
+      "detail": {
+        "source_units": 300,
+        "reviewed_units": 294,
+        "resolved_internal_units": 6,
+        "remediation_units": 48,
+        "evidence_errors": [],
+        "unit_errors": [],
+        "implementation_tokens": {
+          "pronoun_family_map": true,
+          "pronoun_unknown_fail_closed": true,
+          "obituary_exact_reviewed_display_clone": true,
+          "obituary_dto_hook": true,
+          "production_obituary_pairs": true,
+          "production_pronoun_sample": true
+        },
+        "runtime_qa": "NOT_TESTED"
+      }
+    },
+    {
+      "name": "dependency_graph_semantics",
+      "status": "PASS",
+      "detail": {
+        "nodes": 22,
+        "relations": 48,
+        "allowed_types": [
+          "incompatibility",
+          "queue_after",
+          "queue_before",
+          "requirement"
+        ],
+        "invalid_types": [],
+        "dangling_relations": [],
+        "jp_relation_count": 10,
+        "missing_jp_relations": [],
+        "extra_jp_relations": []
+      }
+    },
+    {
+      "name": "actual_game_path_write_absence",
+      "status": "PASS",
+      "detail": {
+        "paths": [],
+        "write_apis": []
+      }
+    },
+    {
+      "name": "translation_only_hook_scope",
+      "status": "PASS",
+      "detail": {
+        "allowed_ui_boundaries": [
+          "scripts/ambitions/ambition",
+          "scripts/contracts/contract",
+          "scripts/contracts/contracts/arena_contract",
+          "scripts/entity/tactical/actor",
+          "scripts/entity/tactical/player_corpse_stub",
+          "scripts/entity/world/location",
+          "scripts/entity/world/party",
+          "scripts/entity/world/settlement",
+          "scripts/entity/world/settlements/buildings/port_building",
+          "scripts/entity/world/world_entity",
+          "scripts/events/event",
+          "scripts/events/events/crisis/greenskins_investigation_event",
+          "scripts/events/events/dlc2/location/kraken_cult_enter_event",
+          "scripts/events/events/dlc4/barbarian_tells_story_event",
+          "scripts/events/events/graverobber_heist_event",
+          "scripts/items/accessory/legend_accessory_dog",
+          "scripts/items/accessory/wardog_item",
+          "scripts/items/item",
+          "scripts/items/legend_armor/legend_named_armor",
+          "scripts/items/legend_armor/legend_named_armor_upgrade",
+          "scripts/items/legend_helmets/legend_named_helmet",
+          "scripts/items/legend_helmets/legend_named_helmet_upgrade",
+          "scripts/skills/actives/unleash_wardog",
+          "scripts/skills/backgrounds/character_background",
+          "scripts/skills/backgrounds/legend_ranger_commander_background",
+          "scripts/skills/perks/perk_legend_adaptive",
+          "scripts/skills/perks/perk_legend_barter_greed",
+          "scripts/skills/perks/perk_legend_perfect_fit",
+          "scripts/skills/perks/perk_legend_small_target",
+          "scripts/skills/perks/perk_legend_specialist_poacher",
+          "scripts/skills/traits/legend_intensive_training_trait",
+          "scripts/states/world/asset_manager",
+          "scripts/ui/global/data_helper",
+          "scripts/ui/screens/tooltip/tooltip_events",
+          "scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module",
+          "scripts/ui/screens/world/world_obituary_screen"
+        ],
+        "unexpected": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "third_party_allowlist_and_license",
+      "status": "PASS",
+      "detail": {
+        "unexpected": [],
+        "license": true
+      }
+    },
+    {
+      "name": "font_glyph_coverage",
+      "status": "PASS",
+      "detail": {
+        "required_codepoints": 2408,
+        "missing": [],
+        "sha256": "68A3FC98800B2A27B371F2FB79991DAF3633BD89309D4FFAA6946FD587F375B5"
+      }
+    },
+    {
+      "name": "squirrel_syntax",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "optional_target_absence_harness",
+      "status": "PASS",
+      "detail": {
+        "optional_mod_objects_defined": false,
+        "marker_found": true,
+        "returncode": 0,
+        "output_tail": "rosetta: Adding 23 ru pairs in mod_rosetta\nrosetta: Adding 1583 ja pairs in mod_legends\nrosetta: Adding 25 ja pairs in mod_msu\nrosetta: Adding 3954 ja pairs in vanilla\nrosetta: Adding 1 ja pairs in mod_legends\nrosetta: NOT FOUND Dame\nrosetta: NOT FOUND Madame Roderick\nrosetta: NOT FOUND The Lone Wolf\nrosetta: NOT FOUND You carry %weapon%.\nrosetta: NOT FOUND Not in the vertical slice\nVERTICAL_SLICE_ROSETTA_TEST_OK\n"
+      }
+    },
+    {
+      "name": "reviewed_runtime_pattern_harness",
+      "status": "PASS",
+      "detail": {
+        "marker_found": true,
+        "returncode": 0,
+        "output_tail": "rosetta: Adding 23 ru pairs in mod_rosetta\nrosetta: Adding 1583 ja pairs in mod_legends\nrosetta: Adding 25 ja pairs in mod_msu\nrosetta: Adding 3954 ja pairs in vanilla\nrosetta: Adding 1 ja pairs in mod_legends\nREVIEWED_RUNTIME_PATTERNS_OK\n"
+      }
+    },
+    {
+      "name": "ui_boundary_harness",
+      "status": "PASS",
+      "detail": {
+        "marker_found": true,
+        "returncode": 0,
+        "output_tail": "UI_BOUNDARIES_TEST_OK\n"
+      }
+    },
+    {
+      "name": "squirrel_semantic_name_safety_harness",
+      "status": "PASS",
+      "detail": {
+        "marker_found": true,
+        "returncode": 0,
+        "output_tail": "NCTION [callWithRosettaDisabled()] C:\\Users\\okait\\OneDrive\\ドキュメント\\ChatGPT\\battlebrothers日本語化\\src/battle_brothers_jp/hooks/semantic_name_safety.nut line [22]\n*FUNCTION [call()] NATIVE line [-1]\n*FUNCTION [main()] C:\\Users\\okait\\OneDrive\\ドキュメント\\ChatGPT\\battlebrothers日本語化\\tests\\squirrel\\test_semantic_name_safety.nut line [233]\n\nLOCALS\n[this] TABLE\n[activeLanguage] \"ja\"\n[_arguments] ARRAY\n[_self] TABLE\n[_original] CLOSURE\n[this] TABLE\n[actorErrorCaught] true\n[failingActorGetter] CLOSURE\n[prefixTitleItems] ARRAY\n[proseCollisionItems] ARRAY\n[collisionItem] TABLE\n[weedsItem] TABLE\n[namedItemDisplay] CLOSURE\n[resurrected] TABLE\n[corpse] TABLE\n[namedItem] TABLE\n[moodHistory] ARRAY\n[contractFlags] TABLE\n[farmer] TABLE\n[generatedActor] TABLE\n[titledActor] TABLE\n[actorKilledNameGetter] CLOSURE\n[actorTitleGetter] CLOSURE\n[actorNameOnlyGetter] CLOSURE\n[actorNameGetter] CLOSURE\n[generateNameErrorCaught] true\n[worldNameReceiver] TABLE\n[poacherUse] CLOSURE\n[poacherHit] CLOSURE\n[arrowItem] TABLE\n[itemGetter] CLOSURE\n[throwFromGenerateName] true\n[generateNameReceiver] TABLE\n[generateNameCalls] 3\n[registerHook] CLOSURE\n[methodShapes] TABLE\n[hooks] TABLE\n[vargv] ARRAY\n[this] TABLE\n\nAN ERROR HAS OCCURED [actor-getter-sentinel]\n\nCALLSTACK\n*FUNCTION [callWithRosettaDisabled()] C:\\Users\\okait\\OneDrive\\ドキュメント\\ChatGPT\\battlebrothers日本語化\\src/battle_brothers_jp/hooks/semantic_name_safety.nut line [29]\n*FUNCTION [call()] NATIVE line [-1]\n*FUNCTION [main()] C:\\Users\\okait\\OneDrive\\ドキュメント\\ChatGPT\\battlebrothers日本語化\\tests\\squirrel\\test_semantic_name_safety.nut line [233]\n\nLOCALS\n[error] \"actor-getter-sentinel\"\n[activeLanguage] \"ja\"\n[_arguments] ARRAY\n[_self] TABLE\n[_original] CLOSURE\n[this] TABLE\n[actorErrorCaught] true\n[failingActorGetter] CLOSURE\n[prefixTitleItems] ARRAY\n[proseCollisionItems] ARRAY\n[collisionItem] TABLE\n[weedsItem] TABLE\n[namedItemDisplay] CLOSURE\n[resurrected] TABLE\n[corpse] TABLE\n[namedItem] TABLE\n[moodHistory] ARRAY\n[contractFlags] TABLE\n[farmer] TABLE\n[generatedActor] TABLE\n[titledActor] TABLE\n[actorKilledNameGetter] CLOSURE\n[actorTitleGetter] CLOSURE\n[actorNameOnlyGetter] CLOSURE\n[actorNameGetter] CLOSURE\n[generateNameErrorCaught] true\n[worldNameReceiver] TABLE\n[poacherUse] CLOSURE\n[poacherHit] CLOSURE\n[arrowItem] TABLE\n[itemGetter] CLOSURE\n[throwFromGenerateName] true\n[generateNameReceiver] TABLE\n[generateNameCalls] 3\n[registerHook] CLOSURE\n[methodShapes] TABLE\n[hooks] TABLE\n[vargv] ARRAY\n[this] TABLE\n\nAN ERROR HAS OCCURED [dog-sentinel]\n\nCALLSTACK\n*FUNCTION [unknown()] C:\\Users\\okait\\OneDrive\\ドキュメント\\ChatGPT\\battlebrothers日本語化\\tests\\squirrel\\test_semantic_name_safety.nut line [274]\n*FUNCTION [acall()] NATIVE line [-1]\n*FUNCTION [unknown()] C:\\Users\\okait\\OneDrive\\ドキュメント\\ChatGPT\\battlebrothers日本語化\\src/battle_brothers_jp/hooks/semantic_name_safety.nut line [40]\n*FUNCTION [main()] C:\\Users\\okait\\OneDrive\\ドキュメント\\ChatGPT\\battlebrothers日本語化\\tests\\squirrel\\test_semantic_name_safety.nut line [279]\n\nLOCALS\n[dogItem] TABLE\n[vargv] ARRAY\n[this] TABLE\n[scopes] TABLE\n[_scopeName] \"Item\"\n[__original] CLOSURE\n[vargv] ARRAY\n[this] TABLE\n[dogErrorCaught] true\n[failingDog] CLOSURE\n[legendDogDeath] CLOSURE\n[legendDogCorpse] TABLE\n[wardogDeath] CLOSURE\n[wardogCorpse] TABLE\n[unleash] CLOSURE\n[unleashed] TABLE\n[dogItem] TABLE\n[actorErrorCaught] true\n[failingActorGetter] CLOSURE\n[prefixTitleItems] ARRAY\n[proseCollisionItems] ARRAY\n[collisionItem] TABLE\n[weedsItem] TABLE\n[namedItemDisplay] CLOSURE\n[resurrected] TABLE\n[corpse] TABLE\n[namedItem] TABLE\n[moodHistory] ARRAY\n[contractFlags] TABLE\n[farmer] TABLE\n[generatedActor] TABLE\n[titledActor] TABLE\n[actorKilledNameGetter] CLOSURE\n[actorTitleGetter] CLOSURE\n[actorNameOnlyGetter] CLOSURE\n[actorNameGetter] CLOSURE\n[generateNameErrorCaught] true\n[worldNameReceiver] TABLE\n[poacherUse] CLOSURE\n[poacherHit] CLOSURE\n[arrowItem] TABLE\n[itemGetter] CLOSURE\n[throwFromGenerateName] true\n[generateNameReceiver] TABLE\n[generateNameCalls] 3\n[registerHook] CLOSURE\n[methodShapes] TABLE\n[hooks] TABLE\n[vargv] ARRAY\n[this] TABLE\n"
+      }
+    },
+    {
+      "name": "squirrel_event_variable_boundary_harness",
+      "status": "PASS",
+      "detail": {
+        "marker_found": true,
+        "returncode": 0,
+        "output_tail": "EVENT_VARIABLE_BOUNDARIES_TEST_OK\n"
+      }
+    },
+    {
+      "name": "squirrel_source_defect_boundary_harness",
+      "status": "PASS",
+      "detail": {
+        "marker_found": true,
+        "returncode": 0,
+        "output_tail": "SOURCE_DEFECT_BOUNDARIES_TEST_OK\n"
+      }
+    },
+    {
+      "name": "runtime_pattern_collision_harness",
+      "status": "PASS",
+      "detail": {
+        "marker_found": true,
+        "returncode": 0,
+        "output_tail": "rosetta: Adding 23 ru pairs in mod_rosetta\nrosetta: Adding 1583 ja pairs in mod_legends\nrosetta: Adding 25 ja pairs in mod_msu\nrosetta: Adding 3954 ja pairs in vanilla\nrosetta: Adding 1 ja pairs in mod_legends\nRUNTIME_PATTERN_COLLISION_AUDIT_OK\n"
+      }
+    },
+    {
+      "name": "javascript_syntax",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "javascript_ui_boundary_harness",
+      "status": "PASS",
+      "detail": {
+        "marker_found": true,
+        "returncode": 0,
+        "output_tail": "UI_TRANSLATION_TEST_OK\n"
+      }
+    },
+    {
+      "name": "archive_structure_and_content",
+      "status": "PASS",
+      "detail": {
+        "artifact_sha256": "9A929E0F9B5010225166816C7E582CDCEC2C845F1889EB87CBC5DEE74F62A489",
+        "archive_entries": 13,
+        "source_entries": 13,
+        "errors": []
+      }
+    }
+  ]
+}
