@@ -8,7 +8,7 @@ Phase 7 — 5,975 canonical units independently reviewed. Vanilla events 009 is 
 
 ## Current commit
 
-Last committed checkpoint: `2bd70c7d01c623a0d90804092994c4eaf4dd6415` on `codex/integrated-jp-mod`. The current 5,975-unit ledger and events-009 runtime-boundary work are not yet committed; checkpoints are intentionally grouped. No remote commit is claimed.
+Fully checked 5,975-unit architecture checkpoint: `76acfe0a2ade2129c88bcf88aa91e55d717e5ec4` on `codex/integrated-jp-mod`. This state bookkeeping update may be one local commit newer. No remote commit is claimed.
 
 ## Installed snapshot ID
 
