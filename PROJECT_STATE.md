@@ -8,7 +8,7 @@ Phase 7 — 5,676 canonical units independently reviewed; Vanilla events 005–0
 
 ## Current commit
 
-Fully checked 5,676-unit implementation checkpoint: `eaf950682286578bfbd00629fca2b3e2f8862bab` on `codex/integrated-jp-mod`. This state bookkeeping update may be one local commit newer. GitHub authentication is blocked, so no remote commit is claimed.
+Fully checked 5,676-unit implementation checkpoint: `eaf950682286578bfbd00629fca2b3e2f8862bab` on `codex/integrated-jp-mod`. This state bookkeeping update may be one local commit newer. No remote commit is claimed.
 
 ## Installed snapshot ID
 
@@ -45,7 +45,7 @@ Snapshot basis SHA-256: `CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E
 
 ## Completed work
 
-- Required GitHub preflight attempted; invalid stored `SUSANO-OOO` token recorded without creating another-owner repository.
+- GitHub preflight rechecked outside the network sandbox: `gh api user` returned `SUSANO-OOO`, while `gh repo view SUSANO-OOO/battle-brothers-jp` confirmed the repository does not exist. The requested PRIVATE create was rejected by the platform safety reviewer pending explicit destination/export re-approval; no repository or remote was created.
 - Actual game/DLC/MOD archives, sizes, SHA-256, versions, archive contents, runtime registrations, queue log, and write paths captured read-only.
 - Installed snapshot and machine-readable inventory completed.
 - Existing Japanese MOD audit completed: no archive or runtime registration; loose fonts hash-match official archive entries.
@@ -131,7 +131,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Blockers
 
-- GitHub: `gh auth status` reports the stored token for `SUSANO-OOO` is invalid; repository existence/ownership/create/push/read-back remain unverified.
+- GitHub: authenticated API identity is `SUSANO-OOO` and repository absence is verified, but the platform safety reviewer rejected PRIVATE repository creation/payload export pending explicit re-approval of that exact owner/repository destination. Create/push/read-back remain blocked; no remote exists.
 - Runtime dependencies: Rosetta `0.5.0` and stdlib `>=2.5` are not installed in the user's current game. The project will not install them automatically.
 - Runtime QA: fully isolated game + Documents/config/save/log environment is not yet proven safe. The real environment remains untouched.
 - Release coverage: 26,146 unique units remain untranslated.
