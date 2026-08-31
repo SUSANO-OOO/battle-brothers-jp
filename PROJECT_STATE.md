@@ -14,7 +14,7 @@ Phase 7 — 6,417 canonical units independently reviewed. The JP-namespaced runt
 
 ## Current commit
 
-Last committed/pushed checkpoint: `b69b82fc024bfc5e9ee401b9662182019f7688e6` on `codex/integrated-jp-mod`; its hosted CI passed. The current namespaced-runtime/package/docs tranche is approved for a new checkpoint after clean global QA and independent review; commit/push/read-back is the immediate action.
+Namespaced-runtime/package checkpoint: `21a8f7dfd06398a9911ff08bfb46951005eb0480` on `codex/integrated-jp-mod`. The remote branch read back at the same SHA and hosted `repository-static-tests` run `33363642071` completed successfully. This following state-only record does not change canonical translation/runtime bytes.
 
 ## Installed snapshot ID
 
@@ -184,7 +184,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Blockers
 
-- GitHub: [SUSANO-OOO/battle-brothers-jp](https://github.com/SUSANO-OOO/battle-brothers-jp) is a user-authorized free PUBLIC repository. `codex/integrated-jp-mod` read back at `32f35b920765504ca81c4a05bc0964777a5c3e19` before this state-only update; hosted `repository-static-tests` succeeded for both the content checkpoint `2e49a5b...` and state child `32f35b9...`. `main` remains intentionally unchanged at `6ec7707d31dd5106b16164f8d1f1aa39a89d2699`. No force push or history rewrite was used.
+- GitHub: [SUSANO-OOO/battle-brothers-jp](https://github.com/SUSANO-OOO/battle-brothers-jp) is a user-authorized free PUBLIC repository. `codex/integrated-jp-mod` read back at namespaced-runtime checkpoint `21a8f7dfd06398a9911ff08bfb46951005eb0480`; hosted `repository-static-tests` run `33363642071` succeeded. `main` remains intentionally unchanged at `6ec7707d31dd5106b16164f8d1f1aa39a89d2699`. No force push or history rewrite was used.
 - Runtime QA: fully isolated game + Documents/config/save/log environment is not yet proven safe. The real environment remains untouched.
 - Release coverage: 25,190 unique units remain untranslated.
 
@@ -204,7 +204,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Next exact action
 
-Commit the independently approved namespaced-runtime/package checkpoint, push `codex/integrated-jp-mod`, verify remote SHA and hosted CI, then resume canonical work with the two player-facing `Barrage` contexts followed by the prepared Legends event batch.
+Resume canonical work with the two player-facing `Barrage` contexts, independently review/apply them through the source-bound pipeline, then consolidate and review the prepared Legends event batch without admitting its current drafts directly into canonical data.
 
 ## Artifact state
 
