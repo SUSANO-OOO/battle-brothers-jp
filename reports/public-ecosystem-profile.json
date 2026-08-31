@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-08-31",
+  "status": "ARCHITECTURE_EVIDENCE_CAPTURED_PUBLIC_LATEST_DELTA_CLASSIFIED_REMEDIATION_PENDING",
+  "refresh_triggers": [
+    "battle_brothers_release_changed",
+    "modern_hooks_release_changed",
+    "msu_release_changed",
+    "legends_or_assets_release_changed",
+    "next_public_release_target_changed"
+  ],
+  "current_verified_source_snapshot": {
+    "snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+    "battle_brothers": "1.5.2.3",
+    "vanilla_runtime": "1.5.2-3",
+    "steam_build_id": "23856902",
+    "legends": "19.4.20",
+    "legends_assets": "19.4.3",
+    "modern_hooks": "0.6.0",
+    "msu": "1.9.0",
+    "mod_hooks": "21.1"
+  },
+  "public_latest_observed": {
+    "battle_brothers": "1.5.2.3",
+    "legends": "19.4.21",
+    "legends_assets": "19.4.3",
+    "modern_hooks": "0.6.0",
+    "msu": "1.9.0",
+    "mod_hooks": "21.1",
+    "reforged": "0.9.3"
+  },
+  "next_public_release_target": {
+    "battle_brothers": "1.5.2.3",
+    "legends_verified_baseline": "19.4.20",
+    "legends_public_delta_candidate": "19.4.21",
+    "legends_public_delta_status": "CLASSIFIED_REMEDIATION_AND_RUNTIME_VERIFICATION_PENDING",
+    "legends_public_delta_evidence": {
+      "path": "work/review_batches/legends_19_4_20_to_19_4_21_delta_audit.json",
+      "sha256": "2EF23DD00A522C419ACB52651DC0FEF45F3474785B6B4A111327482F326B8CF1",
+      "official_compare_url": "https://github.com/Battle-Brothers-Legends/Legends-public/compare/19.4.20...19.4.21",
+      "base_commit_sha": "d0e0dc3c34ff87cd5a737038b1648ce135e66985",
+      "head_commit_sha": "3238e8a0dc326683e17f11777627ae971e6f2b29",
+      "release_assets": {
+        "19.4.20": {
+          "url": "https://github.com/Battle-Brothers-Legends/Legends-public/releases/download/19.4.20/mod_legends-19.4.20.zip",
+          "size": 5453255,
+          "sha256": "6A1E1482BF909EEC2E0ECE70C3992BA80FAB5A948B9CD0625063B1729B002A71"
+        },
+        "19.4.21": {
+          "url": "https://github.com/Battle-Brothers-Legends/Legends-public/releases/download/19.4.21/mod_legends-19.4.21.zip",
+          "size": 5453780,
+          "sha256": "A8468E36B43A8501A05900288308F2FEF629CB37B64F7126A001558A0CFD07FD"
+        }
+      },
+      "official_compare_commits": 8,
+      "semantic_files": 11,
+      "byte_different_files": 37,
+      "distinct_archive_files": 37,
+      "bom_or_newline_only_files": 26,
+      "classifications_are_nonexclusive": true,
+      "classifications": {
+        "SAFE_REUSE": 31,
+        "REVIEW_REQUIRED": 1,
+        "RETRANSLATION_REQUIRED": 3,
+        "BOUNDARY_REVALIDATION_REQUIRED": 5,
+        "DISABLE_SENSITIVE_BOUNDARY": 0,
+        "KNOWN_INCOMPATIBLE": 1
+      },
+      "runtime_qa": "NOT_TESTED"
+    },
+    "legends_assets": "19.4.3",
+    "modern_hooks": ">=0.6.0"
+  },
+  "selected_public_architecture": {
+    "package_topology": "SINGLE_ZIP_CONDITIONAL_MODULES",
+    "hard_dependencies": ["mod_modern_hooks >= 0.6.0"],
+    "optional_integrations": [
+      "official_dlc",
+      "mod_legends",
+      "mod_legends_assets",
+      "mod_msu",
+      "mod_hooks",
+      "mod_Jimmys_Tooltips_legends"
+    ],
+    "not_required_or_bundled_by_jp": [
+      "mod_rosetta",
+      "stdlib"
+    ],
+    "independently_installed_rosetta_stdlib_coexistence_allowed": true,
+    "runtime": "JP_NAMESPACED_MINIMUM_EXACT_AND_BOUNDED_PATTERN_RUNTIME",
+    "normal_gameplay_network_required": false,
+    "unknown_text_policy": "ORIGINAL_ENGLISH_PASS_THROUGH",
+    "unknown_mod_policy": "NO_SPECULATIVE_GLOBAL_TRANSLATION"
+  },
+  "components": [
+    {
+      "id": "vanilla",
+      "public_version": "1.5.2-3",
+      "role": "game",
+      "jp_dependency": "HARD_GAME_BASELINE",
+      "presence": "always"
+    },
+    {
+      "id": "mod_modern_hooks",
+      "public_version": "0.6.0",
+      "role": "hook_framework",
+      "jp_dependency": "HARD_DEPENDENCY",
+      "evidence": [
+        "https://github.com/MSUTeam/Modern-Hooks/releases/tag/0.6.0",
+        "https://bbmodding.enduriel.com/docs/modern-hooks/mod-object/",
+        "https://bbmodding.enduriel.com/docs/modern-hooks/queuing/"
+      ]
+    },
+    {
+      "id": "mod_msu",
+      "public_version": "1.9.0",
+      "role": "mod_utility_framework",
+      "jp_dependency": "OPTIONAL_PRESENT",
+      "reason": "JP Core does not need MSU APIs; Legends and other mods may require it",
+      "evidence": [
+        "https://github.com/MSUTeam/MSU/releases/tag/1.9.0",
+        "https://www.nexusmods.com/battlebrothers/mods/479"
+      ]
+    },
+    {
+      "id": "mod_hooks",
+      "public_version": "21.1",
+      "role": "legacy_hook_framework",
+      "jp_dependency": "OPTIONAL_COEXISTENCE",
+      "reason": "JP uses Modern Hooks but public mods may need both frameworks",
+      "evidence": [
+        "https://github.com/jcsato/modding_script_hooks/releases/tag/v21.1",
+        "https://www.nexusmods.com/battlebrothers/mods/top"
+      ]
+    },
+    {
+      "id": "mod_legends",
+      "public_version": "19.4.21",
+      "role": "overhaul",
+      "jp_dependency": "OPTIONAL_CONDITIONAL_SUPPORT",
+      "verified_version": "19.4.20",
+      "evidence": [
+        "https://github.com/Battle-Brothers-Legends/Legends-public/releases/tag/19.4.21",
+        "https://github.com/Battle-Brothers-Legends/Legends-public/wiki/Installation-Guide"
+      ]
+    },
+    {
+      "id": "mod_legends_assets",
+      "public_version": "19.4.3",
+      "role": "legends_assets",
+      "jp_dependency": "OPTIONAL_TRANSITIVE_FOR_LEGENDS",
+      "evidence": [
+        "https://github.com/Battle-Brothers-Legends/Legends-public/releases/tag/19.4.3"
+      ]
+    },
+    {
+      "id": "mod_rosetta",
+      "audited_version": "0.5.0",
+      "audited_commit": "dde98e99fd95ed0e7474a4328555144b4e913678",
+      "license": "BSD-2-Clause",
+      "role": "localization_framework_reference",
+      "jp_dependency": "NOT_EXTERNAL_DEPENDENCY",
+      "migration": "NAMESPACED_MINIMUM_RUNTIME_WITH_LICENSE_NOTICE_FOR_DERIVED_CODE",
+      "evidence": [
+        "https://github.com/Suor/battle-brothers-rosetta/tree/dde98e99fd95ed0e7474a4328555144b4e913678"
+      ]
+    },
+    {
+      "id": "stdlib",
+      "audited_version": "2.6",
+      "audited_commit": "3dfaa3ae85462aeb0f5892d3475102ce5a1bd50e",
+      "license": "BSD-2-Clause",
+      "role": "utility_library_reference",
+      "jp_dependency": "NOT_EXTERNAL_DEPENDENCY",
+      "migration": "ONLY_NEEDED_STRING_HELPERS_IN_JP_NAMESPACE",
+      "evidence": [
+        "https://github.com/Suor/battle-brothers-stdlib"
+      ]
+    },
+    {
+      "id": "mod_reforged",
+      "public_version": "0.9.3",
+      "role": "representative_overhaul",
+      "jp_dependency": "UNVERIFIED_MOD_ENGLISH_PASS_THROUGH",
+      "evidence": [
+        "https://github.com/Battle-Modders/mod-reforged/releases/tag/0.9.3"
+      ]
+    },
+    {
+      "id": "mod_autopilot_new",
+      "public_version": "unknown",
+      "role": "representative_qol_gameplay_mod",
+      "jp_dependency": "UNVERIFIED_MOD_COEXISTENCE_TARGET",
+      "declared_dependencies": ["stdlib", "mod_modern_hooks", "mod_msu"],
+      "evidence": [
+        "https://github.com/Suor/battle-brothers-mods/blob/master/autopilot/README.md"
+      ]
+    }
+  ],
+  "queue_semantics": {
+    "requirements_separate_from_order": true,
+    "default_bucket": "Normal",
+    "default_registration_bucket": "Normal",
+    "audited_final_display_bucket": "Late",
+    "bucket_assignment_scope": "PER_REGISTRATION_NOT_WHOLE_MOD",
+    "order_relations_scope": "SAME_BUCKET_ONLY",
+    "late_bucket_reason": "only audited final-display wrappers that must compose outside overhaul hooks; implementation tests must confirm each target",
+    "optional_absent_targets_must_not_fail": true
+  },
+  "runtime_migration_inventory": {
+    "generated_reviewed_pattern_rules": 122,
+    "manual_reviewed_context_pattern_rules": 1,
+    "effective_reviewed_pattern_rules": 123,
+    "effective_capture_types": [
+      "int",
+      "int_tag",
+      "str",
+      "str_tag",
+      "tag",
+      "val_tag",
+      "word"
+    ],
+    "val_capture_rules": 0,
+    "parity_target": "ALL_123_EFFECTIVE_REVIEWED_RULES"
+  },
+  "install_convention": {
+    "artifact_count": 1,
+    "artifact_name": "mod_battle_brothers_jp.zip",
+    "destination": "Battle Brothers/data",
+    "unzip": false,
+    "vanilla_user_requires_legends": false,
+    "vanilla_user_requires_msu": false,
+    "vanilla_user_requires_rosetta": false,
+    "vanilla_user_requires_stdlib": false
+  },
+  "compatibility_states": [
+    "VERIFIED",
+    "UNVERIFIED_COMPATIBLE",
+    "UNVERIFIED_MOD",
+    "UNSUPPORTED",
+    "KNOWN_CONFLICT",
+    "KNOWN_INCOMPATIBLE"
+  ],
+  "compatibility_state_mapping": {
+    "KNOWN_INCOMPATIBLE": "UNSUPPORTED",
+    "KNOWN_INCOMPATIBLE_meaning": "current artifact deliberately rejects the version or composition before runtime validation",
+    "KNOWN_CONFLICT_meaning": "concrete coexistence defect such as crash, corruption, or broken composition"
+  },
+  "actual_user_environment_writes": 0
+}

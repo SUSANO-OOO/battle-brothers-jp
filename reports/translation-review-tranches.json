@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
-  "canonical_reviewed_units": 6275,
+  "canonical_reviewed_units": 6417,
   "translated_needs_review_units": 0,
   "tranches": [
     {
@@ -563,6 +563,63 @@
         {
           "path": "work/review_batches/vanilla_events_literal_independent_review_010.json (gitignored)",
           "sha256": "E1CFDDCE626BCD78BBDF6CE62C4206743257040C3AC715238EE7254907791702"
+        }
+      ]
+    },
+    {
+      "name": "vanilla-events-literal-011-015",
+      "source_units": 357,
+      "reviewed_units": 142,
+      "direct_reviewed_display_units": 140,
+      "context_split_reviewed_display_units": 2,
+      "resolved_exclusion_units": 217,
+      "resolved_exclusion_occurrences": 363,
+      "draft_changes_by_independent_reviewer": 40,
+      "high_risk_reviewed_units": 31,
+      "boundary_implementation_shapes": 18,
+      "player_facing_unresolved": 0,
+      "reviewed_correction_count": 1,
+      "runtime_game_qa": "NOT_TESTED",
+      "batches": [
+        {
+          "path": "work/review_batches/vanilla_events_literal_source_bulk_011_015.json (gitignored)",
+          "sha256": "1EE9831AC137BD2286EA8FB9B8702F1112A23395AC4ABB6EF2EC59D3700CA733"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_source_audit_bulk_011_015_v2.json (gitignored)",
+          "sha256": "FEC994CD942342F70E180A370686C0DFFD591783CBF8959D033A83EC5C6CF067"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_reviewed_bulk_011_015.json (gitignored)",
+          "sha256": "D6B384002BD2F87504C1BA3045B12A0EA0C3A7DF16C372637D963597C6D8D569"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_context_split_reviewed_bulk_011_015.json (gitignored)",
+          "sha256": "C5570B35892D2464895B54D549E4C39BF9442A3904C512CE0E34AC4CC380365D"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_exclusion_reviewed_bulk_011_015.json (gitignored)",
+          "sha256": "8A8777F327D5697C422FF309DB70481EB63FA13460B5237D52E48E702091D4C6"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_boundary_audit_bulk_011_015.json (gitignored)",
+          "sha256": "F3E9EF32935275E4AB267EEE00FFA40D81380A97015744DABFD7C7AA1123C091"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_context_split_implementation_review_bulk_011_015.json (gitignored)",
+          "sha256": "B94829EAA208BBBDFACF4BB9B9F92219355205360CFA456AFC0115B3B5C6237A"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_literal_context_split_implementation_reaudit_bulk_011_015.json (gitignored)",
+          "sha256": "E73B06085C4E20AA0152A503F32E184B87B41E2F4761BF298DEEB84D426923D8"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_devanagari_correction_review_001.json (gitignored)",
+          "sha256": "A8724DED3C27F872EEBF9FCB30F1CFEE7DDB9BB00E246D421084702E2587C5C1"
+        },
+        {
+          "path": "work/review_batches/vanilla_events_devanagari_correction_batch_001.json (gitignored)",
+          "sha256": "542E5E032BC1F89CAC6F611A8F16DF1C2AA5C771E768F501C48BD69566897F21"
         }
       ]
     }

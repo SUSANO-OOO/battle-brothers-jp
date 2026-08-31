@@ -5,19 +5,19 @@
   "status": "TRANSLATION_IN_PROGRESS",
   "detailed_ledger_location": "work/ledger/translation-ledger.json (gitignored)",
   "translation_units_location": "work/ledger/translation-units.json (gitignored)",
-  "detailed_ledger_sha256": "BBA40F04D96F507D3D1230B9E2502444DEA37C0E7F890E3217C235B5964EF967",
-  "translation_units_sha256": "929056758724B9A994DCBE7DB8346D23C4EB2A7772FE0F88DDEBB3858AEDD40F",
+  "detailed_ledger_sha256": "895874C835B51FF61BE8B44D3B6DA7446BB0E8A3D3BE329CD179D1A73A6B393A",
+  "translation_units_sha256": "D409513A08715EB129B39BB82348144848B889337E48039C91FD41A8E8E2BF11",
   "rosetta_extractor": {
     "version": "0.5.0",
     "commit": "dde98e99fd95ed0e7474a4328555144b4e913678"
   },
   "total_occurrences": 48158,
-  "resolved_exclusion_occurrences": 3570,
-  "translatable_occurrences": 44588,
-  "unique_translation_units": 31822,
-  "untranslated_units": 25547,
+  "resolved_exclusion_occurrences": 3933,
+  "translatable_occurrences": 44225,
+  "unique_translation_units": 31607,
+  "untranslated_units": 25190,
   "translated_needs_review_units": 0,
-  "reviewed_units": 6275,
+  "reviewed_units": 6417,
   "extraction_failures": [],
   "extraction_warnings": [
     {
@@ -88,7 +88,7 @@
     "INTERNAL_HIDDEN_SKILL_LABEL": 6,
     "INTERNAL_ICON_TOKEN": 1,
     "INTERNAL_RUNTIME_IDENTIFIER_OR_TEMPLATE_KEY": 16,
-    "INTERNAL_TEMPLATE_VARIABLE_KEY": 322,
+    "INTERNAL_TEMPLATE_VARIABLE_KEY": 685,
     "INTERNAL_TILE_PROPERTY_KEY": 77,
     "LOG_DIAGNOSTIC_ONLY": 41,
     "MULTIPLE_RESOLVED_EXCLUSION_REASONS": 38,
@@ -140,10 +140,10 @@
     },
     "vanilla": {
       "occurrences": 22581,
-      "resolved_exclusions": 2463,
-      "translatable_occurrences": 20118,
-      "translated_occurrences": 6504,
-      "reviewed_occurrences": 6504
+      "resolved_exclusions": 2826,
+      "translatable_occurrences": 19755,
+      "translated_occurrences": 6646,
+      "reviewed_occurrences": 6646
     },
     "vanilla_ui": {
       "occurrences": 376,
@@ -154,7 +154,25 @@
     }
   },
   "release_gate": "NOT_MET",
-  "updated_at_utc": "2026-08-31T00:38:30.116582+00:00",
+  "updated_at_utc": "2026-08-31T02:52:29.127305+00:00",
   "runtime_pattern_resolved_units": 129,
-  "runtime_pattern_unresolved_units": 0
+  "runtime_pattern_unresolved_units": 0,
+  "last_context_split_batch": {
+    "audit_id": "vanilla-events-literal-boundary-audit-bulk-011-015",
+    "display_batch_id": "vanilla-events-literal-context-split-reviewed-bulk-011-015",
+    "exclusion_batch_id": "vanilla-events-literal-exclusion-reviewed-bulk-011-015",
+    "source_batch_sha256": "1EE9831AC137BD2286EA8FB9B8702F1112A23395AC4ABB6EF2EC59D3700CA733",
+    "input_sha256": {
+      "audit": "F3E9EF32935275E4AB267EEE00FFA40D81380A97015744DABFD7C7AA1123C091",
+      "source_audit": "FEC994CD942342F70E180A370686C0DFFD591783CBF8959D033A83EC5C6CF067",
+      "display": "C5570B35892D2464895B54D549E4C39BF9442A3904C512CE0E34AC4CC380365D",
+      "exclusion": "8A8777F327D5697C422FF309DB70481EB63FA13460B5237D52E48E702091D4C6",
+      "source": "1EE9831AC137BD2286EA8FB9B8702F1112A23395AC4ABB6EF2EC59D3700CA733",
+      "implementation_review": "B94829EAA208BBBDFACF4BB9B9F92219355205360CFA456AFC0115B3B5C6237A",
+      "ledger": "BBA40F04D96F507D3D1230B9E2502444DEA37C0E7F890E3217C235B5964EF967",
+      "units": "929056758724B9A994DCBE7DB8346D23C4EB2A7772FE0F88DDEBB3858AEDD40F",
+      "coverage": "26B7BE3C8422C80E7FB7558C238ACEFC658DD3826305D26EC34C0951A2A07D0F"
+    },
+    "applied_at_utc": "2026-08-31T02:42:15.248676+00:00"
+  }
 }

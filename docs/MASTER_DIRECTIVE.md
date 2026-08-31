@@ -1,5 +1,13 @@
 # Battle Brothers 統合日本語化MOD制作 — FINAL MASTER DIRECTIVE
 
+## 0. Final Producer Directive precedence and Project Goal
+
+2026-08-31のFinal Producer Directiveを本MASTER DIRECTIVEへ統合する。同テーマの過去記述と矛盾する場合、`docs/GOAL.md`と`docs/FINAL_PRODUCER_DIRECTIVE.md`を優先する。特に、過去のPRIVATE開始、1 ZIP前提、Rosetta/stdlibをユーザー外部dependencyとしてよいという記述は固定要件ではない。repositoryはproducer承認済みのfree PUBLICとし、package topologyとframework dependencyはactual/public evidenceから決定する。ただしVanilla利用者へLegendsを強制せず、Rosetta/stdlibを日本語化のため別途installさせない結果条件は固定する。
+
+Project Goalは、Battle Brothersを日本語で遊びたい一般ユーザーが、自分の本体・所有DLC・MOD構成に応じて容易に導入でき、game/save/other MODを極力壊さず、supported contentをactual source/mechanics/world contextに忠実な自然な日本語で遊べる、一般公開・継続保守可能な日本語化systemを完成させることである。unsupported/unknown contentは危険な推測よりEnglish pass-throughを優先し、review済みtranslationを維持して更新差分だけ再検証し、version/dependency/compatibility/install/update情報を非技術ユーザーにも明確に提供する。
+
+優先順位は、(1) game/save/other MOD safety、(2) supported player-facing translation quality、(3) user-specific easy installation、(4) unsupported/unknown English pass-through、(5) reviewed asset differential reuse、(6) clear compatibility/install documentationである。翻訳率のために(1)を犠牲にしない。
+
 あなたは本プロジェクトの実装責任者です。
 
 対象は **Battle Brothersの新しい統合日本語化MOD制作** のみです。他ゲーム、他リポジトリ、過去の別プロジェクトの情報・設計・コード・履歴・QAルールを持ち込まないでください。
