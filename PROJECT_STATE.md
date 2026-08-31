@@ -14,7 +14,7 @@ Phase 7 — 6,417 canonical units independently reviewed. The final Vanilla lite
 
 ## Current commit
 
-Pre-classifier HEAD: `c042f2f07b63c3ac7dde98869f52657eeef54f1b` on `codex/integrated-jp-mod`, with successful GitHub read-back and hosted CI. The reviewed classifier checkpoint is being committed from this cleanly tested working tree; its final SHA/read-back will replace this line in the next state sync.
+Classifier implementation checkpoint: `5912669` on `codex/integrated-jp-mod`. It preserves the canonical reviewed/hash state and passed independent review plus the 161-test repository suite. GitHub push/read-back and hosted CI are the remaining checkpoint bookkeeping before runtime migration changes are committed.
 
 ## Installed snapshot ID
 
