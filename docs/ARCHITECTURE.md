@@ -44,6 +44,8 @@ Vanilla `kraken_cult_enter_event` B1には、variantを閉じる`}`の後に余�
 
 Vanilla `barbarian_tells_story_event` Aには、外側variantを閉じる`}`が1個不足している。canonical English/Japaneseはinstalled signature（open 2 / close 1 / pipe 2）を保持してsource driftを検出可能にし、exact subclass wrapperがRosetta訳済みの一時templateだけへ閉じbraceを1個補ってからinherited `buildText`を1回呼ぶ。raw/translated template双方のsignature guardによりbalanced inputや構造変更を過剰補正しない。3つのinner variant、`%barbarian%`、25% mood処理、Screen.Text/state/saveは変更しない。
 
+Vanilla `enter_unfriendly_town_event` Aにも、住民呼称と敵対的歓迎の2つのnested variantを囲む外側variantの閉じ`}`が1個不足している。canonical English/Japaneseはinstalled signature（open 3 / close 2 / pipe 7 / `%townname%` 1個）を保持し、exact subclass wrapperがinstalled prefix/suffix・signature・token・newlineをすべて満たす場合だけRosetta訳済みの一時templateへ閉じbraceを1個補う。balanced input、pipe/token drift、invalid translation、non-stringはfail closedし、settlement identity、Screen.Text、event state、option/result、gameplay、persistence、saveへは書き戻さない。
+
 installed `greenskins_investigation_event`はscreen Iの処刑・報酬倍増proseを、秘密を守ってarming swordだけを受け取るscreen Jへ重複配置している。`graverobber_heist_event`も三択前のscreen E proseを、lootなし・mood低下の失敗screen Fへ重複配置している。normal Rosetta literalはI/Eの忠実訳に使い、exact class + ActiveScreen ID + installed prefix/suffix + placeholder/speech/newline countを全て満たすJ/Fだけ、独立review済みの最小mechanics-faithful Japanese displayへ差し替えてnative consumerを1回呼ぶ。malformed ActiveScreenはtable型guardでfail closedし、option routing、reward/item、mood、inventory、flags、identity、gameplay、persistence、saveには書き戻さない。
 
 reviewed literalはignored canonical ledgerからdeterministic generatorでSquirrel/JS mapへ出力する。同じ英語が異なる意味を持つ場合はcontext unitへ分割し、global mapで安全な文脈だけを登録する。残りはexact translation-only boundaryを使う。既存Vanilla/Legends JS全体の差替えは行わない。internal ID、CSS class、HTML scaffoldは翻訳対象外である。

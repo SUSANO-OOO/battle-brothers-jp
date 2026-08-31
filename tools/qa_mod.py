@@ -1023,6 +1023,7 @@ def check_scope(src: Path) -> list[dict[str, Any]]:
         "scripts/events/event",
         "scripts/events/events/dlc2/location/kraken_cult_enter_event",
         "scripts/events/events/dlc4/barbarian_tells_story_event",
+        "scripts/events/events/enter_unfriendly_town_event",
         "scripts/events/events/crisis/greenskins_investigation_event",
         "scripts/events/events/graverobber_heist_event",
         "scripts/items/item",

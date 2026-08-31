@@ -1,14 +1,14 @@
 # Project State
 
-Updated: 2026-08-30 10:25 (Asia/Tokyo)
+Updated: 2026-08-31 09:42 (Asia/Tokyo)
 
 ## Current phase
 
-Phase 7 — 5,975 canonical units independently reviewed. Vanilla events 009 is complete; events 010 and the final 357-unit Vanilla-events literal bulk tranche are in separated draft/review flow.
+Phase 7 — 6,275 canonical units independently reviewed. Vanilla events 010 and its exact malformed-template display boundary are complete and Full static QA is green; the final 357-unit Vanilla-events literal tranche remains in genuine-Japanese draft repair before independent review.
 
 ## Current commit
 
-Fully checked 5,975-unit architecture checkpoint: `76acfe0a2ade2129c88bcf88aa91e55d717e5ec4` on `codex/integrated-jp-mod`. This state bookkeeping update may be one local commit newer. No remote commit is claimed.
+Latest committed checkpoint before this working milestone: `106fb90b4bf1df83fccf670a878fd0c37c0272e0` on `codex/integrated-jp-mod`. The fully checked 6,275-unit changes are prepared for a grouped checkpoint commit; no remote commit is claimed yet.
 
 ## Installed snapshot ID
 
@@ -96,9 +96,13 @@ Snapshot basis SHA-256: `CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E
 - Completed Vanilla events 009: 299 new units were independently reviewed with 76 corrections, while the already-reviewed Kraken unit was not reapplied. All 214 non-Kraken high-risk entries were checked against the reusable source/mechanics evidence.
 - Resolved the installed Barbarian story missing outer brace by supplementing only the Rosetta-translated temporary template. Independent audit proved balanced/wrong-structure/non-string inputs fail closed and all three inner variants remain available.
 - Resolved two installed duplicated-result prose defects at exact screen IDs: Greenskin Investigation J now reports the selected secret-keeping/arming-sword outcome, and grave-heist F reports the actual no-loot failure. Independent audit matched both override strings byte-for-byte to their review contracts and verified original-once plus state/gameplay/save non-mutation.
+- Completed Vanilla events 010: all 300 units were independently reviewed, 71 draft translations were corrected, and all 292 HIGH-RISK mechanics/choice units were checked against installed source consumers. Player-facing unresolved and translation blockers are zero.
+- Resolved the installed `enter_unfriendly_town_event` missing outer variant brace at an exact display-only boundary. The canonical English/Japanese signature remains open 3 / close 2 / pipe 7 with `%townname%`; only the Rosetta-translated temporary template receives one closing brace. Balanced, pipe/token drift, invalid translation, and non-string fixtures fail closed without mutating settlement identity, Screen.Text, event state, gameplay, persistence, or save.
 - Adopted a risk-based completion pipeline: reuse existing semantic/call-site evidence, deep-audit only HIGH RISK residuals, bulk-review NORMAL/LOW prose from one reusable context pack, group Full QA and git checkpoints at architecture/category/2,000–3,000-unit milestones, and do not re-audit closed architecture without new contradictory evidence.
 - Closed the one-time semantic-safety residual audit without repeating prior consumer work: 23 areas are `AUDITED_CLOSED`, no new contradiction or architecture blocker exists, and the sole `RESIDUAL_UNAUDITED` item is fully isolated live runtime/rendering. The supported-snapshot semantic architecture is now frozen unless new concrete destructive evidence appears.
 - Prepared one reusable context pack for all 573 remaining Vanilla-event pattern units. None of the extractor expression hints is an executable Rosetta capture: 562 require exact-boundary review, eight require context splitting, and three are internal-exclusion candidates. No pattern was emitted or guessed.
+- Completed the independent residual audit for those 573 pattern units and all 659 physical assignments: 564 executable-boundary units, eight context splits, and one internal Kraken screen-routing exclusion are resolved across 11 grouped display families with zero audit blockers. The early-access title and generated shield name were restored to the player-facing set; translation/implementation remain non-canonical DRAFT work.
+- Rejected the original final 357-unit literal draft before adoption because all entries retained English-dominant placeholder prose. A separate v2 translation is in progress; any long-form generic placeholder output is likewise rejected and repaired before independent review.
 - The reviewed-5,676 development tranche is static-QA green `32/32`, including Squirrel/JS composition, collision, glyph, archive-structure, source/archive parity, third-party allowlist, dependency graph, snapshot lock, and write-scope checks.
 - The reviewed-4,477 tranche is committed locally at `3d299879fc04aa8dacb513df08d31f701cb2da6f` on `codex/integrated-jp-mod`; no remote claim is made.
 - Portable GitHub Actions workflow added for repository-only Python/JS checks. Hosted CI has not run because no authenticated remote exists.
@@ -112,16 +116,16 @@ Snapshot basis SHA-256: `CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E
 - Reasoned resolved-exclusion occurrences: `3,570`
 - Translatable occurrences: `44,588`
 - Unique translation units: `31,822` (ambiguous global units use context-specific partitions)
-- Untranslated units: `25,847`
+- Untranslated units: `25,547`
 - Translated-needs-review units: `0`
-- Reviewed units: `5,975`
-- Reviewed unique-unit coverage: `18.7763%` (`5,975 / 31,822`)
-- Reviewed occurrence coverage: `24.1074%` (`10,749 / 44,588`)
-- REVIEWED increase from the last fully checked 5,676 checkpoint: `+299`
+- Reviewed units: `6,275`
+- Reviewed unique-unit coverage: `19.7191%` (`6,275 / 31,822`)
+- Reviewed occurrence coverage: `24.7802%` (`11,049 / 44,588`)
+- REVIEWED increase from the last fully checked 5,676 checkpoint: `+599`
 - Unresolved HIGH RISK in canonical REVIEWED content: `0`; pending draft tranches are not canonical.
-- Architecture blockers: `0` in canonical content; one known events-010 malformed-template candidate remains outside canonical pending exact boundary proof. Semantic architecture is otherwise frozen.
+- Architecture blockers: `0` in canonical content. The events-010 malformed-template gate is implemented and harnessed; semantic architecture remains frozen.
 - Runtime blockers: Rosetta/stdlib are absent from the actual game, and fully isolated runtime QA is not yet proven safe.
-- Current overall completion estimate: `18.7763%` by unique supported translation units; release quality gates remain binary and unmet until 100%.
+- Current overall completion estimate: `19.7191%` by unique supported translation units; release quality gates remain binary and unmet until 100%.
 - Extraction failures: `0`
 - Extraction fallback warnings: `8` source files / `601` candidates
 - Release coverage gate: `NOT_MET`
@@ -134,19 +138,19 @@ Snapshot basis SHA-256: `CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E
 - Vertical Slice Rosetta harness: Japanese literals and `%dragonslayer%` token preservation PASS.
 - JS syntax and button/dialog/popup wrapper behavior: PASS (`UI_TRANSLATION_TEST_OK`).
 - Last fully green Vertical Slice static MOD QA: all 17 checks PASS in `reports/qa-vertical-slice.json`.
-- Last full archive QA remains `32/32 PASS` for reviewed-5,676 in `reports/qa-reviewed-5676.json`. The events-009 boundary code also passed a full pre-apply 5,676-unit development-archive regression in `reports/qa-reviewed-5676-boundary009-preapply.json`.
-- Post-apply 5,975 incremental validation: Python `70/70 PASS`, focused Squirrel source-defect/boundary harness PASS, deterministic generation PASS, reviewed-only batch validation `299/299`, and `git diff --check` PASS. A post-apply Full ZIP QA was intentionally not run under the grouped-QA policy.
-- Font static QA for the current generated tranche: 2,407 required non-ASCII code points, missing 0.
-- The current 5,676-unit source generation contains 5,662 emitted units plus 14 exact boundary units; pending runtime patterns are 0. The 13-entry development ZIP matches repository-owned source 13/13. Runtime game QA remains `NOT_TESTED`.
+- Latest Full archive QA is `32/32 PASS` for reviewed-6,275 in `reports/qa-reviewed-6275-boundary010.json`.
+- Post-apply 6,275 validation: Python `70/70 PASS`, focused Squirrel source-defect/boundary harness PASS, deterministic generation PASS, reviewed-only batch validation `300/300`, and `git diff --check` PASS.
+- Font static QA for the current generated tranche: 2,544 required non-ASCII code points, missing 0.
+- Current generation contains 6,261 emitted units plus 14 exact boundary-accounting units; pending reviewed runtime patterns are 0. The 13-entry development ZIP matches repository-owned source 13/13. Runtime game QA remains `NOT_TESTED`.
 
 Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's standard `sq.exe`: it reports a runtime wrong-parameter error while returning exit code 0. `sq_taro.exe` only compiles it. This is not reported as PASS and needs compatible runtime or isolated game confirmation.
 
 ## Blockers
 
-- GitHub: authenticated API identity is `SUSANO-OOO` and repository absence is verified, but the platform safety reviewer rejected PRIVATE repository creation/payload export pending explicit re-approval of that exact owner/repository destination. Create/push/read-back remain blocked; no remote exists.
+- GitHub: authenticated API identity is `SUSANO-OOO` and repository absence was verified. The user has now authorized GitHub use; PRIVATE creation/push/read-back to the exact directed repository `SUSANO-OOO/battle-brothers-jp` is the next external action.
 - Runtime dependencies: Rosetta `0.5.0` and stdlib `>=2.5` are not installed in the user's current game. The project will not install them automatically.
 - Runtime QA: fully isolated game + Documents/config/save/log environment is not yet proven safe. The real environment remains untouched.
-- Release coverage: 25,847 unique units remain untranslated.
+- Release coverage: 25,547 unique units remain untranslated.
 
 ## Unresolved items
 
@@ -161,13 +165,13 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Next exact action
 
-Finish the existing events-010 draft, then independently review events 010 together with the final 357-unit Vanilla-events literal context-pack tranche. Deep-audit only the flagged HIGH RISK/source-defect residuals and resolve the one known enter-unfriendly-town malformed-template boundary. Then use the already-built 573-unit pattern context pack to resolve its 562 exact-boundary, eight context-split, and three exclusion candidates as one HIGH-RISK dynamic tranche without regenerating prior literal audits.
+Create/push/read back the authorized PRIVATE GitHub repository after the 6,275-unit checkpoint commit. In parallel, finish and independently review the genuine-Japanese v2 draft for the final 357 Vanilla-event literals; do not promote the rejected English-dominant or generic-placeholder drafts. Then independently review the audited 572 player-facing pattern drafts plus one Kraken exclusion and implement only the 11 grouped final-display families.
 
 ## Artifact state
 
 - Release artifact: `NOT_BUILT`.
-- Latest fully checked development tranche only: `work/qa/mod_battle_brothers_jp_REVIEWED_5676.zip`.
-- Development-tranche SHA-256: `2EBE1334E38A623887D8BF42A8BEBF6972B373611CECFCC89CDD1DE8956F16BC`; exact 13/13 source/archive parity PASS. It is not a release artifact.
+- Latest fully checked development tranche only: `work/qa/mod_battle_brothers_jp_REVIEWED_6275_BOUNDARY010.zip`.
+- Development-tranche SHA-256: `55CCC27A3B9335F65424BA67B83729E789C5EE640DF2818FC993498B60F12FCF`; exact 13/13 source/archive parity PASS. It is not a release artifact.
 - `dist/mod_battle_brothers_jp.zip` does not exist and no RC claim is made.
 
 ## Runtime state

@@ -109,6 +109,46 @@ assertEqual(barbarianWrapper(invalidTranslationSource), "正常化された表�
 assertEqual(barbarianOriginalInput, invalidTranslationSource);
 assertEqual(barbarianCalls, 7);
 
+local unfriendlyTownSource = "[img]gfx/ui/events/event_43.png[/img]{The {denizens | citizens | peasants | laymen | townfolk} of %townname% greet you with {a few rotten eggs thrown at you. | a tarred doll. | a few children. | a burning effigy. They stand around it, making sure you can't see what's left of the you-shapened wood.}";
+local unfriendlyTownJapanese = "[img]gfx/ui/events/event_43.png[/img]{%townname%の{住民 | 市民 | 農民 | 庶民 | 町人}は、{腐った卵で迎える。 | 瀝青を塗った人形で迎える。 | 子供たちで迎える。 | 自分を象った燃える人形で迎える。豚の飼葉桶へ沈めた木の残骸を見せまいと、その周りへ立ちはだかる。}";
+::SourceDefectTestTranslations[unfriendlyTownSource] <- unfriendlyTownJapanese;
+local unfriendlyTownCalls = 0;
+local unfriendlyTownOriginalInput = null;
+local unfriendlyTownWrapper = hooks["scripts/events/events/enter_unfriendly_town_event"].buildText(function (_text) {
+    unfriendlyTownCalls += 1;
+    unfriendlyTownOriginalInput = _text;
+    return "敵対的な町の表示";
+});
+assertEqual(unfriendlyTownWrapper(unfriendlyTownSource), "敵対的な町の表示");
+assertEqual(unfriendlyTownOriginalInput, unfriendlyTownJapanese + "}");
+assertEqual(unfriendlyTownCalls, 1);
+
+local balancedUnfriendlyTownSource = unfriendlyTownSource + "}";
+assertEqual(unfriendlyTownWrapper(balancedUnfriendlyTownSource), "敵対的な町の表示");
+assertEqual(unfriendlyTownOriginalInput, balancedUnfriendlyTownSource);
+assertEqual(unfriendlyTownCalls, 2);
+
+local wrongPipeUnfriendlyTown = ::std.Str.replace(unfriendlyTownSource, " | a tarred doll.", " / a tarred doll.");
+assertEqual(unfriendlyTownWrapper(wrongPipeUnfriendlyTown), "敵対的な町の表示");
+assertEqual(unfriendlyTownOriginalInput, wrongPipeUnfriendlyTown);
+assertEqual(unfriendlyTownCalls, 3);
+
+local wrongTownTokenUnfriendlyTown = ::std.Str.replace(unfriendlyTownSource, "%townname%", "%townname%%townname%");
+assertEqual(unfriendlyTownWrapper(wrongTownTokenUnfriendlyTown), "敵対的な町の表示");
+assertEqual(unfriendlyTownOriginalInput, wrongTownTokenUnfriendlyTown);
+assertEqual(unfriendlyTownCalls, 4);
+
+local invalidUnfriendlyTownTranslation = ::std.Str.replace(unfriendlyTownJapanese, "%townname%", "町");
+::SourceDefectTestTranslations[unfriendlyTownSource] = invalidUnfriendlyTownTranslation;
+assertEqual(unfriendlyTownWrapper(unfriendlyTownSource), "敵対的な町の表示");
+assertEqual(unfriendlyTownOriginalInput, invalidUnfriendlyTownTranslation);
+assertEqual(unfriendlyTownCalls, 5);
+::SourceDefectTestTranslations[unfriendlyTownSource] = unfriendlyTownJapanese;
+
+assertEqual(unfriendlyTownWrapper(null), "敵対的な町の表示");
+assertEqual(unfriendlyTownOriginalInput, null);
+assertEqual(unfriendlyTownCalls, 6);
+
 local greenskinsSource = "[img]gfx/ui/events/event_31.png[/img]You close the door and lock it, ensuring that the murderer will not be able to flee.\n\n %nobleman% reports.%SPEECH_ON%Orders.%SPEECH_OFF%a litany of horrors to keep bored soldiers entertained for hours.";
 local greenskinsCalls = 0;
 local greenskinsOriginalInput = null;

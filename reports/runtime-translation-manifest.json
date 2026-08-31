@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-08-30T01:24:24.162346+00:00",
+  "generated_at_utc": "2026-08-31T00:38:35.784488+00:00",
   "generator": "tools/generate_runtime_translations.py",
-  "canonical_ledger_sha256": "BFFABC6EDFF7A588EB4CD31EC552EB391CDCF42A337D358637ED95AE3D3ED2FF",
-  "translation_units_sha256": "1489D2483269C2FAC27AAC87255812AC8C21DA97B479DF6B21E5B4FFA2E920A8",
-  "reviewed_emitted_unit_count": 5961,
-  "reviewed_emitted_unit_ids_sha256": "4F67522D824FE05545EABB7C8DBAA68B0F130E8A65289F164FD6F8A0EC759537",
+  "canonical_ledger_sha256": "BBA40F04D96F507D3D1230B9E2502444DEA37C0E7F890E3217C235B5964EF967",
+  "translation_units_sha256": "929056758724B9A994DCBE7DB8346D23C4EB2A7772FE0F88DDEBB3858AEDD40F",
+  "reviewed_emitted_unit_count": 6261,
+  "reviewed_emitted_unit_ids_sha256": "045656110015CC2A248F4E6C3773EF7BC6B28ED9CB25B3E0283ECE16C881E0B6",
   "reviewed_literal_squirrel_pairs_by_module": {
     "legends": 1525,
     "msu": 25,
-    "vanilla": 4189
+    "vanilla": 4489
   },
   "reviewed_runtime_pattern_pairs_by_module": {
     "legends": 58,
@@ -29,7 +29,7 @@
   "static_reachability": "PAIR_EMITTED_ONLY; CALL_PATH_AUDIT_REMAINS_REQUIRED",
   "runtime_qa": "NOT_TESTED",
   "outputs": {
-    "src/battle_brothers_jp/translations/reviewed_literals.nut": "190D19BFF2AB2BB13BDAC55960A4E783241AF1B493CC0A25846EBC7078C2601E",
+    "src/battle_brothers_jp/translations/reviewed_literals.nut": "EB9C7B6D1E716BFA30162C5299BB622533563E8B7B185B25066A4A532E2E9DEA",
     "src/ui/mods/mod_battle_brothers_jp/generated_strings.js": "4E0EF30C8F3C2BB6CAC55C4923AA638F3DC48988429D1F889B288799A17F5BFC",
     "tests/squirrel/test_reviewed_runtime_patterns.nut": "3CD2ACE7DDCD799241408604A96EC8B1966D6A3C56480C54405BCF6C224A2094",
     "tests/squirrel/test_runtime_pattern_collisions.nut": "B79BE5D9A370CBA2E503C3E23CB1A0379CAC8ECA3A89FFE01C3B4BDFE105B816"

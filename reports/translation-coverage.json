@@ -5,8 +5,8 @@
   "status": "TRANSLATION_IN_PROGRESS",
   "detailed_ledger_location": "work/ledger/translation-ledger.json (gitignored)",
   "translation_units_location": "work/ledger/translation-units.json (gitignored)",
-  "detailed_ledger_sha256": "BFFABC6EDFF7A588EB4CD31EC552EB391CDCF42A337D358637ED95AE3D3ED2FF",
-  "translation_units_sha256": "1489D2483269C2FAC27AAC87255812AC8C21DA97B479DF6B21E5B4FFA2E920A8",
+  "detailed_ledger_sha256": "BBA40F04D96F507D3D1230B9E2502444DEA37C0E7F890E3217C235B5964EF967",
+  "translation_units_sha256": "929056758724B9A994DCBE7DB8346D23C4EB2A7772FE0F88DDEBB3858AEDD40F",
   "rosetta_extractor": {
     "version": "0.5.0",
     "commit": "dde98e99fd95ed0e7474a4328555144b4e913678"
@@ -15,9 +15,9 @@
   "resolved_exclusion_occurrences": 3570,
   "translatable_occurrences": 44588,
   "unique_translation_units": 31822,
-  "untranslated_units": 25847,
+  "untranslated_units": 25547,
   "translated_needs_review_units": 0,
-  "reviewed_units": 5975,
+  "reviewed_units": 6275,
   "extraction_failures": [],
   "extraction_warnings": [
     {
@@ -142,8 +142,8 @@
       "occurrences": 22581,
       "resolved_exclusions": 2463,
       "translatable_occurrences": 20118,
-      "translated_occurrences": 6204,
-      "reviewed_occurrences": 6204
+      "translated_occurrences": 6504,
+      "reviewed_occurrences": 6504
     },
     "vanilla_ui": {
       "occurrences": 376,
@@ -154,7 +154,7 @@
     }
   },
   "release_gate": "NOT_MET",
-  "updated_at_utc": "2026-08-30T01:24:23.092345+00:00",
+  "updated_at_utc": "2026-08-31T00:38:30.116582+00:00",
   "runtime_pattern_resolved_units": 129,
   "runtime_pattern_unresolved_units": 0
 }

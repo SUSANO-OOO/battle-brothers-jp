@@ -80,6 +80,35 @@ mod.hook("scripts/events/events/dlc4/barbarian_tells_story_event", function (q) 
     }
 });
 
+// Vanilla 1.5.2-3 likewise leaves the outer variant group of the unfriendly
+// town greeting open. The two nested groups (resident synonym and hostile
+// greeting) are otherwise complete. Keep the reviewed canonical translation
+// at the installed open=3/close=2 signature for drift detection, then append
+// exactly one close brace only to the temporary template passed to the native
+// renderer. Settlement identity, Screen.Text, event state, and save stay raw.
+local unfriendlyTownPrefix = "[img]gfx/ui/events/event_43.png[/img]{The {denizens | citizens | peasants | laymen | townfolk} of %townname% greet you with {a few rotten eggs thrown";
+local unfriendlyTownSuffix = "They stand around it, making sure you can't see what's left of the you-shapened wood.}";
+
+mod.hook("scripts/events/events/enter_unfriendly_town_event", function (q) {
+    q.buildText = @(__original) function (_text) {
+        if (typeof _text != "string"
+            || !::std.Str.startswith(_text, unfriendlyTownPrefix)
+            || !::std.Str.endswith(_text, unfriendlyTownSuffix)
+            || !hasExactBraceSignature(_text, 3, 2)
+            || countOccurrences(_text, " | ") != 7
+            || countOccurrences(_text, "%townname%") != 1
+            || countOccurrences(_text, "\n") != 0) return __original(_text);
+
+        local translated = ::Rosetta._(_text);
+        if (typeof translated != "string") return __original(_text);
+        if (!hasExactBraceSignature(translated, 3, 2)
+            || countOccurrences(translated, " | ") != 7
+            || countOccurrences(translated, "%townname%") != 1
+            || countOccurrences(translated, "\n") != 0) return __original(translated);
+        return __original(translated + "}");
+    }
+});
+
 // The installed Greenskin Investigation event copies screen I's execution and
 // doubled-payment prose verbatim into screen J, even though J is reached by
 // keeping the apprentice's secret and grants only the promised arming sword.
