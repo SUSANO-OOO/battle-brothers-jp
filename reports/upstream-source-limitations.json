@@ -31,16 +31,16 @@
       "source": "scripts/skills/backgrounds/legend_ranger_commander_background.nut",
       "context": "legend_ranger_commander_background.onBuildDescription",
       "installed_source_text": "Two branches contain malformed display fragments %name's face and h%name%.",
-      "reviewed_japanese": "Canonical translation retains the installed signature; a reviewed post-Rosetta display boundary normalizes both fragments before final name substitution.",
+      "reviewed_japanese": "Canonical translation retains the installed signature; a reviewed JP-owned display boundary normalizes both fragments before final name substitution.",
       "source_evidence": [
         {
           "finding": "The description is player-facing and character_background.buildDescription performs a later final %name% substitution."
         },
         {
-          "finding": "Modern Hooks tree-hook order requires the Japanese exact-class hookTree to be registered after Rosetta in the same Late bucket."
+          "finding": "The exact Legends class original is executed once; the JP-owned safe translation and two placeholder repairs run only on its returned display string. Optional >mod_rosetta ordering preserves coexistence but is not a JP requirement."
         }
       ],
-      "localization_action": "Normalize only the post-Rosetta returned display template: %name's face to %name%の顔 and h%name% to %name%; preserve all state and canonical source signatures.",
+      "localization_action": "After safeTranslate(ret), normalize only the returned display template: %name's face to %name%の顔 and h%name% to %name%; preserve source signature, state, gameplay, persistence, and save data.",
       "gameplay_change": "NONE",
       "runtime_qa": "NOT_TESTED",
       "release_resolution": "RESOLVED_STATICALLY_BY_INDEPENDENTLY_REVIEWED_BOUNDARY_AND_COMPOSITION_HARNESS"

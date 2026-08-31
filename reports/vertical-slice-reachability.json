@@ -1,12 +1,12 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
   "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
-  "method": "Each registered Vertical Slice string is traced from its pinned-source call site to an installed-framework or repository-owned translation boundary. This is static evidence, not runtime proof.",
+  "method": "Each registered Vertical Slice string is traced from its pinned-source call site to a repository-owned namespaced runtime or JS display boundary. This is static evidence, not runtime proof.",
   "entries": [
     {
       "english": "Have at least 50,000 crowns.",
-      "channel": "rosetta",
+      "channel": "bbjp_runtime_exact",
       "module": "vanilla",
       "source_evidence": "Vanilla scripts/ambitions/ambitions/have_z_crowns_ambition.nut:9 -> ambition.getUIText() -> ambition_manager.nut:311 -> TopbarAmbitionModule.setText()",
       "boundary_id": "bbjp_ambition_get_ui_text",
@@ -15,25 +15,25 @@
     },
     {
       "english": "Welcome to the company, %dragonslayer%.",
-      "channel": "rosetta",
+      "channel": "bbjp_runtime_pattern",
       "module": "vanilla",
       "source_evidence": "Vanilla scripts/events/events/dlc8/lindwurm_slayer_event.nut:174 -> event.start() option.Text -> event.buildText() -> buildTextFromTemplate()",
-      "boundary_id": "rosetta_build_text_from_template",
-      "boundary_evidence": "Rosetta 0.5.0 rosetta/hooks.nut:194-197 translates before runtime placeholder substitution",
+      "boundary_id": "bbjp_build_text_before_substitution",
+      "boundary_evidence": "src/battle_brothers_jp/hooks/event_variable_boundaries.nut wraps buildTextFromTemplate exactly once and runs BattleBrothersJP.Runtime before placeholder substitution",
       "status": "STATICALLY_REACHABLE"
     },
     {
       "english": "Bronze Statue",
-      "channel": "rosetta",
+      "channel": "bbjp_runtime_exact",
       "module": "vanilla",
       "source_evidence": "Vanilla scripts/entity/tactical/objects/southern_ruins_statue.nut:5 -> entity.getTooltip().text -> tooltip_events.onQueryEntityTooltipData()",
-      "boundary_id": "rosetta_tooltip_boundary",
-      "boundary_evidence": "Rosetta 0.5.0 rosetta/hooks.nut:133-148 translates tooltip entry.text",
+      "boundary_id": "bbjp_tooltip_return_clone",
+      "boundary_evidence": "src/battle_brothers_jp/hooks/runtime_display_boundaries.nut translates cloned tooltip entry.text values after original returns",
       "status": "STATICALLY_REACHABLE"
     },
     {
       "english": "Crafting",
-      "channel": "rosetta",
+      "channel": "bbjp_runtime_exact",
       "module": "mod_legends",
       "source_evidence": "Legends scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module.nut:queryLoad() returns Title -> JS loadFromData().findDialogTitle().html()",
       "boundary_id": "bbjp_legends_camp_query_load",
@@ -42,29 +42,29 @@
     },
     {
       "english": "Fishermen and Ratcatchers can develop powerful net skills.",
-      "channel": "rosetta",
+      "channel": "bbjp_runtime_exact",
       "module": "mod_legends",
       "source_evidence": "Legends mod_legends/hooks/config/tip_of_the_day.nut:179 extends Const.TipOfTheDay -> loading_screen.onQueryData().text",
-      "boundary_id": "rosetta_loading_screen",
-      "boundary_evidence": "Rosetta 0.5.0 rosetta/hooks.nut:105-111 translates loading screen ret.text",
+      "boundary_id": "bbjp_loading_screen_return_clone",
+      "boundary_evidence": "src/battle_brothers_jp/hooks/runtime_display_boundaries.nut clones loading_screen onQueryData result and translates ret.text",
       "status": "STATICALLY_REACHABLE"
     },
     {
       "english": "Ancient Southern Face Mask",
-      "channel": "rosetta",
+      "channel": "bbjp_runtime_exact",
       "module": "mod_legends",
       "source_evidence": "Legends scripts/items/legend_helmets/top/legend_helmet_mummy_mask.nut:8 m.Name -> item.getName()",
-      "boundary_id": "rosetta_item_get_name",
-      "boundary_evidence": "Rosetta 0.5.0 rosetta/hooks.nut:176-179 hookTree scripts/items/item getName",
+      "boundary_id": "bbjp_display_scoped_item_getter",
+      "boundary_evidence": "src/battle_brothers_jp/hooks/semantic_name_safety.nut translates item getName only inside a bounded display scope and returns raw identity otherwise",
       "status": "STATICALLY_REACHABLE"
     },
     {
       "english": "You can edit what you see on the Tactical Tooltip",
-      "channel": "rosetta",
+      "channel": "bbjp_runtime_exact",
       "module": "mod_Jimmys_Tooltips_legends",
       "source_evidence": "Jimmy's Tooltips scripts/!mods_preload/mod_Jimmys_Tooltips.nut:12 addTitle() -> MSU SettingsTitle.getUIData()",
-      "boundary_id": "rosetta_msu_settings_title",
-      "boundary_evidence": "Rosetta 0.5.0 rosetta/hooks.nut:223-244 translates MSU settings getUIData().name",
+      "boundary_id": "bbjp_msu_settings_ui_data_clone",
+      "boundary_evidence": "src/battle_brothers_jp/hooks/msu_display_boundaries.nut clones MSU settings getUIData output and translates display name fields",
       "status": "STATICALLY_REACHABLE"
     },
     {

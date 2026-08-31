@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "mod_id": "mod_battle_brothers_jp",
+  "version": "0.1.0-dev",
+  "release_state": "DEVELOPMENT_NOT_RELEASE_CANDIDATE",
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "package_architecture": "SINGLE_ZIP_CONDITIONAL_MODULES",
+  "hard_dependencies": [
+    {"id": "mod_modern_hooks", "condition": ">=0.6.0"}
+  ],
+  "not_required_for_jp": ["mod_rosetta", "stdlib", "mod_legends", "mod_msu"],
+  "verified_profiles": {
+    "vanilla": "1.5.2-3",
+    "mod_modern_hooks": "0.6.0",
+    "mod_legends": "19.4.20",
+    "mod_legends_assets": "19.4.3",
+    "mod_msu": "1.9.0",
+    "mod_hooks": "21.1"
+  },
+  "unknown_version_policy": "ENGLISH_PASS_THROUGH_AND_SENSITIVE_BOUNDARY_DISABLE",
+  "normal_runtime_network_required": false,
+  "runtime_game_qa": "NOT_TESTED",
+  "old_japanese_mod_hidden_dependency": false
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "modern_hooks_queue_graph": {
+    "version": "0.6.0",
+    "source": "work/sources/modern_hooks/modern_hooks/queue/mod_hooks_queue_graph.nut",
+    "sha256": "18459B04E9467EE0198DAD4794DDD91EB1A6543D2CAFD8FF9DF952541373C276",
+    "local_execution": "tests/squirrel/test_actual_modern_hooks_queue_graph.nut"
+  },
+  "rosetta": {
+    "version": "0.5.0",
+    "source": "work/upstream/battle-brothers-rosetta/rosetta/hooks.nut",
+    "sha256": "F72C58054A8DD3F1DA1AC89018B97795AA972819C47C284937CAD96999F584AC",
+    "namespace_coexistence": "VERIFIED_BY_SENTINEL_TEST",
+    "hook_chain_order": "JP_QUEUED_AFTER_OPTIONAL_ROSETTA",
+    "no_active_language_pack": "UNVERIFIED_COMPATIBLE",
+    "active_non_japanese_language_pack": "UNSUPPORTED",
+    "active_existing_japanese_pack": "KNOWN_CONFLICT_REMOVE_OLD_JP_MOD"
+  },
+  "legacy_mod_hooks": {
+    "version": "21.1",
+    "namespace_coexistence": "VERIFIED_BY_SENTINEL_TEST"
+  },
+  "runtime_game_qa": "NOT_TESTED"
+}

@@ -1,5 +1,3 @@
-dofile(getenv("STDLIB_DIR") + "load.nut", true);
-
 local hooks = {};
 ::BattleBrothersJP <- {
     Mod = {
@@ -18,16 +16,37 @@ local hooks = {};
 
 ::SourceDefectTestTranslations <- {};
 ::SourceDefectTranslationCalls <- 0;
-::Rosetta <- {
-    _ = function (_text) {
-        ::SourceDefectTranslationCalls += 1;
-        return _text in ::SourceDefectTestTranslations
-            ? ::SourceDefectTestTranslations[_text]
-            : _text;
-    }
+
+dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/runtime/core.nut", true);
+::BattleBrothersJP.Runtime.translate = function (_text) {
+    ::SourceDefectTranslationCalls += 1;
+    return _text in ::SourceDefectTestTranslations
+        ? ::SourceDefectTestTranslations[_text]
+        : _text;
 };
 
+local function replaceText(_text, _needle, _replacement, _maximum = null)
+{
+    local ret = "";
+    local position = 0;
+    local replaced = 0;
+    while (position <= _text.len())
+    {
+        local at = _text.find(_needle, position);
+        if (at == null || (_maximum != null && replaced >= _maximum))
+            return ret + _text.slice(position);
+        ret += _text.slice(position, at) + _replacement;
+        position = at + _needle.len();
+        replaced += 1;
+    }
+    return ret;
+}
+
 dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/hooks/source_defect_boundaries.nut", true);
+local firstUnfriendlyFactory = hooks["scripts/events/events/enter_unfriendly_town_event"].buildText;
+dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/hooks/source_defect_boundaries.nut", true);
+if (hooks["scripts/events/events/enter_unfriendly_town_event"].buildText != firstUnfriendlyFactory)
+    throw "source defect boundaries initialized twice";
 
 function assertEqual(_actual, _expected)
 {
@@ -130,17 +149,17 @@ assertEqual(unfriendlyTownWrapper(balancedUnfriendlyTownSource), "敵対的な�
 assertEqual(unfriendlyTownOriginalInput, balancedUnfriendlyTownSource);
 assertEqual(unfriendlyTownCalls, 2);
 
-local wrongPipeUnfriendlyTown = ::std.Str.replace(unfriendlyTownSource, " | a tarred doll.", " / a tarred doll.");
+local wrongPipeUnfriendlyTown = replaceText(unfriendlyTownSource, " | a tarred doll.", " / a tarred doll.");
 assertEqual(unfriendlyTownWrapper(wrongPipeUnfriendlyTown), "敵対的な町の表示");
 assertEqual(unfriendlyTownOriginalInput, wrongPipeUnfriendlyTown);
 assertEqual(unfriendlyTownCalls, 3);
 
-local wrongTownTokenUnfriendlyTown = ::std.Str.replace(unfriendlyTownSource, "%townname%", "%townname%%townname%");
+local wrongTownTokenUnfriendlyTown = replaceText(unfriendlyTownSource, "%townname%", "%townname%%townname%");
 assertEqual(unfriendlyTownWrapper(wrongTownTokenUnfriendlyTown), "敵対的な町の表示");
 assertEqual(unfriendlyTownOriginalInput, wrongTownTokenUnfriendlyTown);
 assertEqual(unfriendlyTownCalls, 4);
 
-local invalidUnfriendlyTownTranslation = ::std.Str.replace(unfriendlyTownJapanese, "%townname%", "町");
+local invalidUnfriendlyTownTranslation = replaceText(unfriendlyTownJapanese, "%townname%", "町");
 ::SourceDefectTestTranslations[unfriendlyTownSource] = invalidUnfriendlyTownTranslation;
 assertEqual(unfriendlyTownWrapper(unfriendlyTownSource), "敵対的な町の表示");
 assertEqual(unfriendlyTownOriginalInput, invalidUnfriendlyTownTranslation);
@@ -167,7 +186,7 @@ assertEqual(greenskinsCalls, 1);
 assertEqual(greenskinsWrapper.call(greenskinsI, greenskinsSource), "greenskins rendered");
 assertEqual(greenskinsOriginalInput, greenskinsSource);
 assertEqual(greenskinsCalls, 2);
-local greenskinsWrongTokens = ::std.Str.replace(greenskinsSource, "%nobleman%", "%nobleman%%nobleman%");
+local greenskinsWrongTokens = replaceText(greenskinsSource, "%nobleman%", "%nobleman%%nobleman%");
 assertEqual(greenskinsWrapper.call(greenskinsJ, greenskinsWrongTokens), "greenskins rendered");
 assertEqual(greenskinsOriginalInput, greenskinsWrongTokens);
 assertEqual(greenskinsCalls, 3);
@@ -183,7 +202,7 @@ local malformedActiveScreen = { m = { ActiveScreen = "J" } };
 assertEqual(greenskinsWrapper.call(malformedActiveScreen, greenskinsSource), "greenskins rendered");
 assertEqual(greenskinsOriginalInput, greenskinsSource);
 assertEqual(greenskinsCalls, 6);
-local greenskinsWrongNewlines = ::std.Str.replace(greenskinsSource, "\n\n", "\n");
+local greenskinsWrongNewlines = replaceText(greenskinsSource, "\n\n", "\n");
 assertEqual(greenskinsWrapper.call(greenskinsJ, greenskinsWrongNewlines), "greenskins rendered");
 assertEqual(greenskinsOriginalInput, greenskinsWrongNewlines);
 assertEqual(greenskinsCalls, 7);
@@ -207,7 +226,7 @@ assertEqual(graveCalls, 1);
 assertEqual(graveWrapper.call(graveE, graveSource), "grave rendered");
 assertEqual(graveOriginalInput, graveSource);
 assertEqual(graveCalls, 2);
-local graveWrongSpeech = ::std.Str.replace(graveSource, "%SPEECH_ON%", "", 1);
+local graveWrongSpeech = replaceText(graveSource, "%SPEECH_ON%", "", 1);
 assertEqual(graveWrapper.call(graveF, graveWrongSpeech), "grave rendered");
 assertEqual(graveOriginalInput, graveWrongSpeech);
 assertEqual(graveCalls, 3);
@@ -218,7 +237,7 @@ local graveMalformedActiveScreen = { m = { ActiveScreen = ["F"] } };
 assertEqual(graveWrapper.call(graveMalformedActiveScreen, graveSource), "grave rendered");
 assertEqual(graveOriginalInput, graveSource);
 assertEqual(graveCalls, 5);
-local graveWrongNewlines = ::std.Str.replace(graveSource, "\n\n", "\n", 1);
+local graveWrongNewlines = replaceText(graveSource, "\n\n", "\n", 1);
 assertEqual(graveWrapper.call(graveF, graveWrongNewlines), "grave rendered");
 assertEqual(graveOriginalInput, graveWrongNewlines);
 assertEqual(graveCalls, 6);
@@ -228,16 +247,11 @@ local englishSource = function () {
     sourceCalls += 1;
     return "English source with %name's face and h%name%.";
 };
-// Modern Hooks tree-hook composition for this snapshot: Rosetta registered
-// first and therefore becomes the inner wrapper; this MOD registered later and
-// becomes the outer wrapper. The Rosetta fixture deliberately returns the
-// reviewed Japanese string with the two installed source defects preserved.
-local rosettaWrapper = @(__original) function () {
-    __original();
-    return "鷲に%name's faceを引き裂かれた。h%name%は剣の刃を握った。%randomtown%はそのまま。";
-};
-local rosettaInner = rosettaWrapper(englishSource);
-local wrapper = hooks["scripts/skills/backgrounds/legend_ranger_commander_background"].onBuildDescription(rosettaInner);
+// The JP-owned exact runtime entry translates the returned source template;
+// the class boundary then repairs only the two installed placeholder defects.
+::SourceDefectTestTranslations["English source with %name's face and h%name%."] <-
+    "鷲に%name's faceを引き裂かれた。h%name%は剣の刃を握った。%randomtown%はそのまま。";
+local wrapper = hooks["scripts/skills/backgrounds/legend_ranger_commander_background"].onBuildDescription(englishSource);
 assertEqual(wrapper(), "鷲に%name%の顔を引き裂かれた。%name%は剣の刃を握った。%randomtown%はそのまま。");
 assertEqual(sourceCalls, 1);
 
@@ -451,7 +465,7 @@ assertSourceFailClosed(source.slice(0, source.len() - 2) + "X" + source.slice(so
 assertSourceFailClosed(source.slice(0, middleAt) + "{" + source.slice(middleAt));
 assertSourceFailClosed(source.slice(0, middleAt) + "|" + source.slice(middleAt));
 assertSourceFailClosed(source.slice(0, middleAt) + "\n" + source.slice(middleAt));
-assertSourceFailClosed(::std.Str.replace(source, "event_05.png", "event_99.png", 1));
+assertSourceFailClosed(replaceText(source, "event_05.png", "event_99.png", 1));
 assertSourceFailClosed(source.slice(0, middleAt) + "%SPEECH_ON%" + source.slice(middleAt));
 
 local orderedTokens = testExtractPercentTokens(source);
@@ -491,9 +505,9 @@ assertTranslationFailClosed(null, source);
 assertTranslationFailClosed(driftTranslation + "}", driftTranslation + "}");
 assertTranslationFailClosed(driftTranslation + "|", driftTranslation + "|");
 assertTranslationFailClosed(driftTranslation + "\n", driftTranslation + "\n");
-local wrongImageTranslation = ::std.Str.replace(driftTranslation, "event_05.png", "event_99.png", 1);
+local wrongImageTranslation = replaceText(driftTranslation, "event_05.png", "event_99.png", 1);
 assertTranslationFailClosed(wrongImageTranslation, wrongImageTranslation);
-local missingTokenTranslation = ::std.Str.replace(driftTranslation, orderedTokens[0], "", 1);
+local missingTokenTranslation = replaceText(driftTranslation, orderedTokens[0], "", 1);
 assertTranslationFailClosed(missingTokenTranslation, missingTokenTranslation);
 ::SourceDefectTestTranslations[source] = driftTranslation;
 
@@ -511,7 +525,7 @@ local compositionWrapper = hooks[compositionFixture.Path].buildText(function (_t
         throw "native composition received unbalanced braces";
     }
     if (testCountOccurrences(_text, "|") != 2) throw "native composition pipe signature changed";
-    local substituted = ::std.Str.replace(_text, "%companyname%", "黒旗団");
+    local substituted = replaceText(_text, "%companyname%", "黒旗団");
     if (substituted.find("黒旗団") == null) throw "dynamic company substitution failed";
     selectedVariants += 1;
     return "選択済み変種:黒旗団";

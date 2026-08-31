@@ -133,6 +133,20 @@ class TranslationReviewTrancheTests(unittest.TestCase):
         self.assertEqual(len(errors["count_mismatches"]), 3)
 
 
+class BoundManifestCheckTests(unittest.TestCase):
+    def test_manifest_checks_always_return_a_qa_result(self) -> None:
+        repo = Path(__file__).resolve().parents[1]
+        checks = (
+            MODULE.check_runtime_reachability_map(repo),
+            MODULE.check_package_source_manifest(repo, repo / "src"),
+            MODULE.check_external_composition_contract(repo),
+        )
+        for check in checks:
+            self.assertIsInstance(check, dict)
+            self.assertEqual(check.get("status"), "PASS", check)
+            self.assertIsInstance(check.get("detail"), dict)
+
+
 class ActorTitleRegistryTests(unittest.TestCase):
     def test_cross_layer_longest_first_registry_is_accepted(self) -> None:
         squirrel = '''

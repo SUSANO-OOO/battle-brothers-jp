@@ -1,5 +1,3 @@
-dofile(getenv("STDLIB_DIR") + "load.nut", true);
-
 local groupNames = {
     Agile = "敏捷",
     Tenacious = "不屈",
@@ -23,7 +21,8 @@ local groupNames = {
     ["Murdered by his fellow brothers"] = "同じ傭兵団の仲間たちに殺された",
     ["The Lone Wolf"] = "一匹狼",
     ["Weeds"] = "雑草",
-    ["Brigands have stolen the %s from his lordship. He wants it back."] = "盗賊が領主の%sを盗んだ。領主は取り戻すことを望んでいる。"
+    ["Brigands have stolen the %s from his lordship. He wants it back."] = "盗賊が領主の%sを盗んだ。領主は取り戻すことを望んでいる。",
+    ["Dame Roderick"] = "デイム・Roderick"
 };
 
 ::Const <- {
@@ -32,16 +31,6 @@ local groupNames = {
             getHighlightLightBackgroundValue = @() "#123456"
         },
         getColorized = @(_text, _color) "[color=" + _color + "]" + _text + "[/color]"
-    }
-};
-
-::Rosetta <- {
-    _ = function (_text) {
-        if (typeof _text == "string" && _text.len() > 5 && _text.slice(0, 5) == "Dame ")
-        {
-            return "デイム・" + _text.slice(5);
-        }
-        return _text in groupNames ? groupNames[_text] : _text;
     }
 };
 
@@ -95,7 +84,16 @@ local function registerHook(_target, _callback)
     }
 };
 
+dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/runtime/core.nut", true);
+local runtimePairs = [];
+foreach (english, japanese in groupNames) runtimePairs.push({en = english, ja = japanese});
+::BattleBrothersJP.Runtime.add({module = "test", version = "1"}, runtimePairs);
+
 dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/hooks/ui_boundaries.nut", true);
+local firstAmbitionFactory = hooks["scripts/ambitions/ambition"].getUIText;
+dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/hooks/ui_boundaries.nut", true);
+if (hooks["scripts/ambitions/ambition"].getUIText != firstAmbitionFactory)
+    throw "UI boundaries initialized twice";
 
 function assertEqual(_actual, _expected)
 {
@@ -178,12 +176,12 @@ local wrongColorState = {
 };
 assertEqual(returnItemDescriptionWrapper.call(wrongColorState), wrongColorState.m.Description);
 local returnItemTemplate = "Brigands have stolen the %s from his lordship. He wants it back.";
-local savedReturnItemTranslation = groupNames[returnItemTemplate];
-groupNames[returnItemTemplate] = "盗賊が品を盗んだ。";
+local savedReturnItemTranslation = ::BattleBrothersJP.Runtime.Exact[returnItemTemplate];
+::BattleBrothersJP.Runtime.Exact[returnItemTemplate] = "盗賊が品を盗んだ。";
 assertEqual(returnItemDescriptionWrapper.call(returnItemState), returnItemState.m.Description);
-groupNames[returnItemTemplate] = "盗賊が%sと%sを盗んだ。";
+::BattleBrothersJP.Runtime.Exact[returnItemTemplate] = "盗賊が%sと%sを盗んだ。";
 assertEqual(returnItemDescriptionWrapper.call(returnItemState), returnItemState.m.Description);
-groupNames[returnItemTemplate] = savedReturnItemTranslation;
+::BattleBrothersJP.Runtime.Exact[returnItemTemplate] = savedReturnItemTranslation;
 local duplicateMarkerState = {
     m = {
         Type = "contract.return_item",
@@ -373,14 +371,14 @@ assertEqual(arenaMalformedResult[0], 5);
 assertEqual(arenaMalformedResult[1].text, " The arena master");
 assertEqual(arenaMalformedResult[2].text, 17);
 assertEqual(arenaMalformedResult[3].text, "No matching fragment");
-local savedArenaTranslation = groupNames[" The arena master"];
-delete groupNames[" The arena master"];
+local savedArenaTranslation = ::BattleBrothersJP.Runtime.Exact[" The arena master"];
+delete ::BattleBrothersJP.Runtime.Exact[" The arena master"];
 local arenaUnregisteredSource = [{id = 1, type = "description", text = "Prefix The arena master suffix"}];
 local arenaUnregisteredWrapper = hooks["scripts/contracts/contracts/arena_contract"].getUIContent(function () { return arenaUnregisteredSource; });
 local arenaUnregisteredResult = arenaUnregisteredWrapper();
 assertEqual(arenaUnregisteredResult[0].text, "Prefix The arena master suffix");
 if (arenaUnregisteredResult != arenaUnregisteredSource) throw "unregistered arena mapping should return original array";
-groupNames[" The arena master"] <- savedArenaTranslation;
+::BattleBrothersJP.Runtime.Exact[" The arena master"] <- savedArenaTranslation;
 
 local relationSource = [
     {id = 1, type = "title", text = "Relations", icon = "title"},
@@ -617,33 +615,56 @@ if (eventListUnknownWrapper() != eventListUnknownSource) throw "unmatched event 
 local eventListNullWrapper = hooks["scripts/events/event"].getUIList(function () { return null; });
 assertEqual(eventListNullWrapper(), null);
 
+local adaptiveReturned = null;
 local adaptiveOriginal = function (_actor) {
-    return [{
+    adaptiveReturned = [{
         id = 3,
         type = "hint",
         icon = "ui/tooltips/positive.png",
         text = "Activating this Perk will randomly grant one of the following Perk Groups:\n[color=#0b0084]Agile, Tenacious, or Martyr[/color]"
     }];
+    return adaptiveReturned;
 };
 
+local settlementReturned = null;
 local settlementOriginal = function () {
-    return {
+    settlementReturned = {
         Title = "Hohenburg",
         SubTitle = "a fortified settlement",
         Assets = 17
     };
+    return settlementReturned;
 };
 local settlementWrapper = hooks["scripts/entity/world/settlement"].getUIInformation(settlementOriginal);
 local settlementResult = settlementWrapper();
 assertEqual(settlementResult.Title, "ホーエンブルク");
 assertEqual(settlementResult.SubTitle, "堅固な城塞都市");
 assertEqual(settlementResult.Assets, 17);
+assertEqual(settlementReturned.Title, "Hohenburg");
+assertEqual(settlementReturned.SubTitle, "a fortified settlement");
+if (settlementResult == settlementReturned) throw "settlement DTO was not cloned";
+local settlementScalarCalls = 0;
+local settlementScalarWrapper = hooks["scripts/entity/world/settlement"].getUIInformation(function () {
+    settlementScalarCalls += 1;
+    return "unchanged";
+});
+assertEqual(settlementScalarWrapper(), "unchanged");
+assertEqual(settlementScalarCalls, 1);
+
+local campScalarCalls = 0;
+local campScalarWrapper = hooks["scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module"].queryLoad(function () {
+    campScalarCalls += 1;
+    return 29;
+});
+assertEqual(campScalarWrapper(), 29);
+assertEqual(campScalarCalls, 1);
 
 local portOriginalCalls = 0;
 local portSourceSettlement = { Name = "Hohenburg" };
+local portReturned = null;
 local portOriginal = function () {
     portOriginalCalls += 1;
-    return {
+    portReturned = {
         Title = "Harbor",
         SubTitle = "A harbor that allows you to book passage by ship to other parts of the continent",
         HeaderImage = "ui/header.png",
@@ -671,6 +692,7 @@ local portOriginal = function () {
             "malformed entry"
         ]
     };
+    return portReturned;
 };
 local portWrapper = hooks["scripts/entity/world/settlements/buildings/port_building"].getUITravelRoster(portOriginal);
 local portResult = portWrapper();
@@ -696,6 +718,12 @@ assertEqual(portResult.Roster[1].BackgroundText, "Standalone description");
 assertEqual(portResult.Roster[2].ListName, "Sail to Hohenburg");
 assertEqual(portResult.Roster[2].Name, 9);
 assertEqual(portResult.Roster[3], "malformed entry");
+assertEqual(portReturned.Title, "Harbor");
+assertEqual(portReturned.Roster[0].Name, "Hohenburg");
+assertEqual(portReturned.Roster[0].ListName, "Sail to Hohenburg");
+assertEqual(portReturned.Roster[0].BackgroundText, "a fortified settlement<br><br>既に翻訳済みの船便説明");
+if (portResult == portReturned || portResult.Roster == portReturned.Roster
+    || portResult.Roster[0] == portReturned.Roster[0]) throw "port DTO was not cloned";
 local portNullWrapper = hooks["scripts/entity/world/settlements/buildings/port_building"].getUITravelRoster(function () {
     return null;
 });
@@ -725,6 +753,10 @@ assertEqual(
     adaptiveResult[0].text,
     "このパークを有効化すると、以下のパークグループからランダムに1つ獲得する：\n[color=#0b0084]敏捷、不屈、または 殉教者[/color]"
 );
+assertEqual(adaptiveReturned[0].text,
+    "Activating this Perk will randomly grant one of the following Perk Groups:\n[color=#0b0084]Agile, Tenacious, or Martyr[/color]");
+if (adaptiveResult == adaptiveReturned || adaptiveResult[0] == adaptiveReturned[0])
+    throw "adaptive DTO was not cloned";
 
 local singleOriginal = function (_actor) {
     return [{
@@ -753,6 +785,8 @@ local barterWrapper = hooks["scripts/skills/perks/perk_legend_barter_greed"].get
 local barterResult = barterWrapper();
 assertEqual(barterResult[0].text, "近接防御 [color=%positive%]+7[/color]");
 assertUnchanged(barterResult[0], barterShape);
+assertEqual(barterEntry.text, "[color=%positive%]+7[/color] Melee Defense");
+if (barterResult[0] == barterEntry) throw "metric tooltip entry was not cloned";
 
 local perfectOriginal = function () {
     return [{

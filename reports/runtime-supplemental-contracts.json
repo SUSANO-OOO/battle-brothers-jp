@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "canonical_ledger_sha256": "895874C835B51FF61BE8B44D3B6DA7446BB0E8A3D3BE329CD179D1A73A6B393A",
+  "translation_units_sha256": "D409513A08715EB129B39BB82348144848B889337E48039C91FD41A8E8E2BF11",
+  "source_audit": "work/review_batches/literal_reachability_audit_001.json",
+  "source_audit_sha256": "6BD64E08ED9DAA0034889AF9CEFA517F1349C3C435C084998B2981726010C3CD",
+  "contracts": [
+    {
+      "translation_unit": "unit:884D300DA8A8AD49E51C814D",
+      "review_status": "REVIEWED",
+      "module": "legends",
+      "canonical_english": "Crafting",
+      "canonical_japanese": "製作",
+      "runtime_en": "Crafting <value:val_tag>",
+      "runtime_ja": "製作 <value>",
+      "samples": [
+        {
+          "english": "Crafting [color=#8f1e1e]15%[/color]",
+          "japanese": "製作 [color=#8f1e1e]15%[/color]"
+        }
+      ],
+      "notes": "Legends concatenates a colored progress value after the reviewed literal before the final background-tooltip display boundary."
+    },
+    {
+      "translation_unit": "unit:44A4E3DBF3F21D9A682865FE",
+      "review_status": "REVIEWED",
+      "module": "legends",
+      "mode": "canonical_literal",
+      "notes": "The exact independently reviewed ranger-commander template is emitted from canonical data, then its two installed-source placeholder defects are normalized only by the exact class display boundary."
+    }
+  ]
+}

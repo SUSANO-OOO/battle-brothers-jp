@@ -2,7 +2,20 @@
 // These wrappers only translate returned display strings. They do not mutate
 // gameplay state, balance values, save data, or source objects.
 
+if ("UIBoundariesInstalled" in ::BattleBrothersJP) return;
+::BattleBrothersJP.UIBoundariesInstalled <- true;
+
 local mod = ::BattleBrothersJP.Mod;
+local legendsEnabled = !("ModuleStatus" in ::BattleBrothersJP)
+    || ::BattleBrothersJP.ModuleStatus.legends.Enabled;
+local dlcDesertEnabled = !("ModuleStatus" in ::BattleBrothersJP)
+    || ::BattleBrothersJP.ModuleStatus.dlc_desert.Enabled;
+
+local function safeTranslate(_value)
+{
+    try { return ::BattleBrothersJP.Runtime.translate(_value); }
+    catch (jpError) { return _value; }
+}
 
 // A reviewed actor title can be either the full generated Hedge Knight name or
 // the suffix of a named brother. Replace only the exact token at conservative
@@ -15,7 +28,7 @@ local function translateWithActorTitleFragments(_text, _fragments)
     // Full-value Rosetta patterns have priority over literal fragments. This
     // preserves reviewed punctuation/word-order contracts such as Dame plus a
     // generated actor name while leaving bare, capture-requiring sources raw.
-    local translatedText = ::Rosetta._(_text);
+    local translatedText = safeTranslate(_text);
     foreach (pair in _fragments)
     {
         local english = pair.english;
@@ -90,8 +103,8 @@ local function translateCorpseTileTooltip(_entries)
             || !("type" in entry) || entry.type != "description"
             || !("text" in entry) || typeof entry.text != "string") continue;
         local suffix = " was slain here.";
-        if (!::std.Str.endswith(entry.text, suffix)) continue;
-        local rawName = ::std.Str.cutsuffix(entry.text, suffix);
+        if (!::BattleBrothersJP.Runtime.Str.endsWith(entry.text, suffix)) continue;
+        local rawName = ::BattleBrothersJP.Runtime.Str.cutSuffix(entry.text, suffix);
         local translatedName = translateReviewedActorName(rawName);
         if (translatedName == rawName) continue;
 
@@ -167,7 +180,7 @@ local function translateReturnItemDescription(_contract, _description)
 
     local sourceTemplate = _description.slice(0, markerAt) + "%s"
         + _description.slice(markerAt + rawMarker.len());
-    local translatedTemplate = ::Rosetta._(sourceTemplate);
+    local translatedTemplate = safeTranslate(sourceTemplate);
     if (translatedTemplate == sourceTemplate) return null;
 
     local slotAt = translatedTemplate.find("%s");
@@ -175,7 +188,7 @@ local function translateReturnItemDescription(_contract, _description)
     local withoutSlot = translatedTemplate.slice(0, slotAt) + translatedTemplate.slice(slotAt + 2);
     if (withoutSlot.find("%") != null) return null;
 
-    local translatedItem = ::Rosetta._(rawItem);
+    local translatedItem = safeTranslate(rawItem);
     if (translatedItem == rawItem) return null;
     return ::format(translatedTemplate, ::Const.UI.getColorized(translatedItem, highlight));
 }
@@ -273,10 +286,10 @@ local function translateRelationChangeTooltip(_entries, _elementId)
 
         foreach (rule in relationDisplayRules)
         {
-            if (entry.icon != rule.Icon || !::std.Str.startswith(entry.text, rule.Prefix)) continue;
+            if (entry.icon != rule.Icon || !::BattleBrothersJP.Runtime.Str.startsWith(entry.text, rule.Prefix)) continue;
             local rawItem = entry.text.slice(rule.Prefix.len());
             if (rawItem.len() == 0 || !(rawItem in rule.Items)) continue;
-            local translatedItem = ::Rosetta._(rawItem);
+            local translatedItem = safeTranslate(rawItem);
             if (translatedItem == rawItem) continue;
 
             if (copied == null) copied = _entries.slice(0);
@@ -310,7 +323,7 @@ local function translateObituaryDTO(_data)
             // skill.getKilledString() is a persisted obituary input. It must
             // remain raw at its source; translate any exact reviewed cause only
             // on this cloned final display DTO.
-            translatedCause = ::Rosetta._(fallen.KilledBy);
+            translatedCause = safeTranslate(fallen.KilledBy);
             translatedCause = translateGenericActorTitleText(translatedCause);
         }
 
@@ -339,17 +352,23 @@ local function translateMetricSuffix(_entries, _icon, _englishSuffix, _japaneseL
 {
     if (typeof _entries != "array") return _entries;
 
-    foreach (entry in _entries)
+    local copied = null;
+    foreach (i, entry in _entries)
     {
         if (typeof entry != "table" || !("text" in entry) || !("icon" in entry)) continue;
         if (entry.icon != _icon || typeof entry.text != "string") continue;
-        if (!::std.Str.endswith(entry.text, _englishSuffix)) continue;
+        if (!::BattleBrothersJP.Runtime.Str.endsWith(entry.text, _englishSuffix)) continue;
 
-        local leadingValue = ::std.Str.cutsuffix(entry.text, _englishSuffix);
-        entry.text = _japaneseLabel + " " + leadingValue;
+        local leadingValue = ::BattleBrothersJP.Runtime.Str.cutSuffix(entry.text, _englishSuffix);
+        local translated = _japaneseLabel + " " + leadingValue;
+        if (translated == entry.text) continue;
+        if (copied == null) copied = _entries.slice(0);
+        local copiedEntry = clone entry;
+        copiedEntry.text = translated;
+        copied[i] = copiedEntry;
     }
 
-    return _entries;
+    return copied != null ? copied : _entries;
 }
 
 // Legends Adaptive constructs a colored list after a prefix, so neither the
@@ -365,12 +384,12 @@ local function translateAdaptiveHintText(_text)
     local englishPrefix = null;
     local japanesePrefix = null;
 
-    if (::std.Str.startswith(_text, englishSingle))
+    if (::BattleBrothersJP.Runtime.Str.startsWith(_text, englishSingle))
     {
         englishPrefix = englishSingle;
         japanesePrefix = "このパークを有効化すると、以下のパークグループを獲得する：\n";
     }
-    else if (::std.Str.startswith(_text, englishRandom))
+    else if (::BattleBrothersJP.Runtime.Str.startsWith(_text, englishRandom))
     {
         englishPrefix = englishRandom;
         japanesePrefix = "このパークを有効化すると、以下のパークグループからランダムに1つ獲得する：\n";
@@ -384,12 +403,12 @@ local function translateAdaptiveHintText(_text)
     local colorClose = "[/color]";
     local colorStart = _text.find(colorOpen);
     if (colorStart == null || colorStart != englishPrefix.len()) return _text;
-    if (!::std.Str.endswith(_text, colorClose)) return _text;
+    if (!::BattleBrothersJP.Runtime.Str.endsWith(_text, colorClose)) return _text;
 
     local innerStart = colorStart + colorOpen.len();
     local inner = _text.slice(innerStart, -colorClose.len());
     local names = [];
-    local lastPair = ::std.Str.split(", or ", inner);
+    local lastPair = ::BattleBrothersJP.Runtime.Str.split(", or ", inner);
 
     if (lastPair.len() == 1)
     {
@@ -397,7 +416,7 @@ local function translateAdaptiveHintText(_text)
     }
     else if (lastPair.len() == 2)
     {
-        names.extend(::std.Str.split(", ", lastPair[0]));
+        names.extend(::BattleBrothersJP.Runtime.Str.split(", ", lastPair[0]));
         names.push(lastPair[1]);
     }
     else
@@ -406,7 +425,7 @@ local function translateAdaptiveHintText(_text)
     }
 
     local translatedNames = [];
-    foreach (name in names) translatedNames.push(::Rosetta._(name));
+    foreach (name in names) translatedNames.push(safeTranslate(name));
 
     local translatedList;
     if (translatedNames.len() == 1)
@@ -415,7 +434,7 @@ local function translateAdaptiveHintText(_text)
     }
     else
     {
-        translatedList = ::std.Str.join("、", translatedNames.slice(0, -1));
+        translatedList = ::BattleBrothersJP.Runtime.Str.join("、", translatedNames.slice(0, -1));
         translatedList += "、または " + translatedNames.top();
     }
 
@@ -427,7 +446,7 @@ local function translateAdaptiveHintText(_text)
 // implementation, including subclasses that override getUIText().
 mod.hookTree("scripts/ambitions/ambition", function (q) {
     q.getUIText = @(__original) function () {
-        return ::Rosetta._(__original());
+        return safeTranslate(__original());
     }
 });
 
@@ -440,7 +459,7 @@ mod.hookTree("scripts/contracts/contract", function (q) {
         local ret = __original();
         if (typeof ret != "string") return ret;
         local formatted = translateReturnItemDescription(this, ret);
-        return formatted != null ? formatted : ::Rosetta._(ret);
+        return formatted != null ? formatted : safeTranslate(ret);
     }
 });
 
@@ -452,7 +471,7 @@ mod.hook("scripts/ui/global/data_helper", function (q) {
         local ret = __original(_contract);
         if (typeof ret == "table" && "title" in ret && typeof ret.title == "string")
         {
-            ret.title = ::Rosetta._(ret.title);
+            ret.title = safeTranslate(ret.title);
         }
         return ret;
     }
@@ -485,23 +504,26 @@ mod.hook("scripts/ui/global/data_helper", function (q) {
 // Legends exposes a separate roster-description DTO outside data_helper.
 // Translate only each returned Brothers[].Name field; terrain modifiers,
 // sorting data, backgrounds, and the actor objects themselves remain untouched.
-mod.hook("scripts/states/world/asset_manager", function (q) {
-    q.getRosterDescription = @(__original) function () {
-        return translateRosterDescriptionDTO(__original());
-    }
-});
+if (legendsEnabled)
+{
+    mod.hook("scripts/states/world/asset_manager", function (q) {
+        q.getRosterDescription = @(__original) function () {
+            return translateRosterDescriptionDTO(__original());
+        }
+    });
+}
 
 // Installed Legends inserts this exact English fragment after its Task screen
 // has been assembled. It is therefore not visible as an independent Rosetta
 // literal. Work on a display-only clone returned by getUIContent(); never edit
 // ActiveScreen, Screens, Task.start, flags, options, or persisted contract data.
-mod.hook("scripts/contracts/contracts/arena_contract", function (q) {
+if (dlcDesertEnabled) mod.hook("scripts/contracts/contracts/arena_contract", function (q) {
     q.getUIContent = @(__original) function () {
         local ret = __original();
         if (typeof ret != "array") return ret;
 
         local englishFragment = " The arena master";
-        local japaneseFragment = ::Rosetta._(englishFragment);
+        local japaneseFragment = safeTranslate(englishFragment);
         if (japaneseFragment == englishFragment) return ret;
 
         local copied = ret.slice(0);
@@ -513,7 +535,7 @@ mod.hook("scripts/contracts/contracts/arena_contract", function (q) {
                 || entry.text.find(englishFragment) == null) continue;
 
             local copiedEntry = clone entry;
-            copiedEntry.text = ::std.Str.replace(entry.text, englishFragment, japaneseFragment);
+            copiedEntry.text = ::BattleBrothersJP.Runtime.Str.replace(entry.text, englishFragment, japaneseFragment);
             copied[i] = copiedEntry;
         }
         return copied;
@@ -563,17 +585,33 @@ mod.hook("scripts/events/event", function (q) {
     }
 });
 
+local function translateTitleDTO(_data)
+{
+    if (typeof _data != "table") return _data;
+    local copied = null;
+    foreach (field in ["Title", "SubTitle"])
+    {
+        if (!(field in _data) || typeof _data[field] != "string") continue;
+        local translated = safeTranslate(_data[field]);
+        if (translated == _data[field]) continue;
+        if (copied == null) copied = clone _data;
+        copied[field] = translated;
+    }
+    return copied != null ? copied : _data;
+}
+
 // Legends camp crafting sends Title/SubTitle directly to its JS module through
 // queryLoad(). Translate only those two UI fields at the Squirrel/JS boundary.
-mod.hook("scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module", function (q) {
-    q.queryLoad = @(__original) function () {
-        local ret = __original();
-        if (ret == null) return ret;
-        if ("Title" in ret && ret.Title != null) ret.Title = ::Rosetta._(ret.Title);
-        if ("SubTitle" in ret && ret.SubTitle != null) ret.SubTitle = ::Rosetta._(ret.SubTitle);
-        return ret;
-    }
-});
+if (legendsEnabled)
+{
+    mod.hook("scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module", function (q) {
+        q.queryLoad = @(__original) function () {
+            local ret = __original();
+            try { return translateTitleDTO(ret); }
+            catch (jpError) { return ret; }
+        }
+    });
+}
 
 // world_entity.getName() intentionally stays source-language because the
 // installed game and Legends also use it for identity, unique-name selection,
@@ -582,12 +620,75 @@ mod.hook("scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_modu
 mod.hook("scripts/entity/world/settlement", function (q) {
     q.getUIInformation = @(__original) function () {
         local ret = __original();
-        if (ret == null) return ret;
-        if ("Title" in ret && ret.Title != null) ret.Title = ::Rosetta._(ret.Title);
-        if ("SubTitle" in ret && ret.SubTitle != null) ret.SubTitle = ::Rosetta._(ret.SubTitle);
-        return ret;
+        try { return translateTitleDTO(ret); }
+        catch (jpError) { return ret; }
     }
 });
+
+local function translatePortRosterEntry(_entry)
+{
+    if (typeof _entry != "table") return _entry;
+    local copied = null;
+    local rawName = "Name" in _entry && typeof _entry.Name == "string" ? _entry.Name : null;
+    if (rawName != null)
+    {
+        local translatedName = safeTranslate(rawName);
+        if (translatedName != rawName)
+        {
+            copied = clone _entry;
+            copied.Name = translatedName;
+        }
+
+        if ("ListName" in _entry && typeof _entry.ListName == "string")
+        {
+            local exactEnglishListName = "Sail to " + rawName;
+            local translatedListName = _entry.ListName == exactEnglishListName
+                ? "船で" + translatedName + "へ向かう"
+                : safeTranslate(_entry.ListName);
+            if (translatedListName != _entry.ListName)
+            {
+                if (copied == null) copied = clone _entry;
+                copied.ListName = translatedListName;
+            }
+        }
+    }
+
+    if ("BackgroundText" in _entry && typeof _entry.BackgroundText == "string")
+    {
+        local separator = "<br><br>";
+        local separatorAt = _entry.BackgroundText.find(separator);
+        local translatedBackground = separatorAt == null
+            ? safeTranslate(_entry.BackgroundText)
+            : safeTranslate(_entry.BackgroundText.slice(0, separatorAt))
+                + separator + _entry.BackgroundText.slice(separatorAt + separator.len());
+        if (translatedBackground != _entry.BackgroundText)
+        {
+            if (copied == null) copied = clone _entry;
+            copied.BackgroundText = translatedBackground;
+        }
+    }
+    return copied != null ? copied : _entry;
+}
+
+local function translatePortRosterDTO(_data)
+{
+    if (typeof _data != "table") return _data;
+    local copied = translateTitleDTO(_data);
+    if (!("Roster" in _data) || typeof _data.Roster != "array") return copied;
+
+    local copiedRoster = null;
+    foreach (i, entry in _data.Roster)
+    {
+        local translatedEntry = translatePortRosterEntry(entry);
+        if (translatedEntry == entry) continue;
+        if (copiedRoster == null) copiedRoster = _data.Roster.slice(0);
+        copiedRoster[i] = translatedEntry;
+    }
+    if (copiedRoster == null) return copied;
+    if (copied == _data) copied = clone _data;
+    copied.Roster = copiedRoster;
+    return copied;
+}
 
 // The port building does not use settlement.getUIInformation(). It assembles a
 // separate travel-dialog DTO from semantic settlement names, so translate only
@@ -596,46 +697,8 @@ mod.hook("scripts/entity/world/settlement", function (q) {
 mod.hook("scripts/entity/world/settlements/buildings/port_building", function (q) {
     q.getUITravelRoster = @(__original) function () {
         local ret = __original();
-        if (typeof ret != "table") return ret;
-
-        if ("Title" in ret && typeof ret.Title == "string") ret.Title = ::Rosetta._(ret.Title);
-        if ("SubTitle" in ret && typeof ret.SubTitle == "string") ret.SubTitle = ::Rosetta._(ret.SubTitle);
-        if (!("Roster" in ret) || typeof ret.Roster != "array") return ret;
-
-        foreach (entry in ret.Roster)
-        {
-            if (typeof entry != "table") continue;
-
-            local rawName = "Name" in entry && typeof entry.Name == "string" ? entry.Name : null;
-            if (rawName != null)
-            {
-                local translatedName = ::Rosetta._(rawName);
-                entry.Name = translatedName;
-
-                if ("ListName" in entry && typeof entry.ListName == "string")
-                {
-                    local exactEnglishListName = "Sail to " + rawName;
-                    entry.ListName = entry.ListName == exactEnglishListName
-                        ? "船で" + translatedName + "へ向かう"
-                        : ::Rosetta._(entry.ListName);
-                }
-            }
-
-            if ("BackgroundText" in entry && typeof entry.BackgroundText == "string")
-            {
-                // getRandomDescription() has already passed through the global
-                // template boundary. Only the settlement-description prefix is
-                // a raw direct getter; preserve the rendered suffix byte-for-byte.
-                local separator = "<br><br>";
-                local separatorAt = entry.BackgroundText.find(separator);
-                entry.BackgroundText = separatorAt == null
-                    ? ::Rosetta._(entry.BackgroundText)
-                    : ::Rosetta._(entry.BackgroundText.slice(0, separatorAt))
-                        + separator + entry.BackgroundText.slice(separatorAt + separator.len());
-            }
-        }
-
-        return ret;
+        try { return translatePortRosterDTO(ret); }
+        catch (jpError) { return ret; }
     }
 });
 
@@ -646,9 +709,9 @@ local function translateGeneratedArmorName(_name)
 {
     if (typeof _name != "string") return _name;
     if (_name == "Play") return "戯れ";
-    if (::std.Str.endswith(_name, " Play"))
+    if (::BattleBrothersJP.Runtime.Str.endsWith(_name, " Play"))
     {
-        return ::std.Str.cutsuffix(_name, " Play") + " 戯れ";
+        return ::BattleBrothersJP.Runtime.Str.cutSuffix(_name, " Play") + " 戯れ";
     }
     return _name;
 }
@@ -658,60 +721,83 @@ local generatedArmorNameHook = @(__original) function (...) {
     return translateGeneratedArmorName(__original.acall(vargv));
 };
 
-mod.hook("scripts/items/legend_armor/legend_named_armor", function (q) {
-    q.getName = generatedArmorNameHook;
-});
-mod.hook("scripts/items/legend_armor/legend_named_armor_upgrade", function (q) {
-    q.getName = generatedArmorNameHook;
-});
-mod.hook("scripts/items/legend_helmets/legend_named_helmet", function (q) {
-    q.getName = generatedArmorNameHook;
-});
-mod.hook("scripts/items/legend_helmets/legend_named_helmet_upgrade", function (q) {
-    q.getName = generatedArmorNameHook;
-});
+if (legendsEnabled)
+{
+    mod.hook("scripts/items/legend_armor/legend_named_armor", function (q) {
+        q.getName = generatedArmorNameHook;
+    });
+    mod.hook("scripts/items/legend_armor/legend_named_armor_upgrade", function (q) {
+        q.getName = generatedArmorNameHook;
+    });
+    mod.hook("scripts/items/legend_helmets/legend_named_helmet", function (q) {
+        q.getName = generatedArmorNameHook;
+    });
+    mod.hook("scripts/items/legend_helmets/legend_named_helmet_upgrade", function (q) {
+        q.getName = generatedArmorNameHook;
+    });
+}
 
 // Legends Adaptive returns a completed dynamic sentence that cannot be
 // represented safely as one global literal/pattern rule.
-mod.hook("scripts/skills/perks/perk_legend_adaptive", function (q) {
+if (legendsEnabled) mod.hook("scripts/skills/perks/perk_legend_adaptive", function (q) {
     q.getUnactivatedPerkTooltipHints = @(__original) function (_actor = null) {
         local ret = __original(_actor);
-        if (typeof ret != "array") return ret;
-        foreach (entry in ret) {
-            if (typeof entry == "table" && "text" in entry) {
-                entry.text = translateAdaptiveHintText(entry.text);
+        try
+        {
+            if (typeof ret != "array") return ret;
+            local copied = null;
+            foreach (i, entry in ret)
+            {
+                if (typeof entry != "table" || !("text" in entry)) continue;
+                local translated = translateAdaptiveHintText(entry.text);
+                if (translated == entry.text) continue;
+                if (copied == null) copied = ret.slice(0);
+                local copiedEntry = clone entry;
+                copiedEntry.text = translated;
+                copied[i] = copiedEntry;
             }
+            return copied != null ? copied : ret;
         }
-        return ret;
+        catch (jpError) { return ret; }
     }
 });
 
 // These class-scoped wrappers disambiguate identical generated suffix shapes
 // without installing competing global Rosetta patterns.
-mod.hook("scripts/skills/perks/perk_legend_barter_greed", function (q) {
+if (legendsEnabled) mod.hook("scripts/skills/perks/perk_legend_barter_greed", function (q) {
     q.getTooltip = @(__original) function () {
         local ret = __original();
-        translateMetricSuffix(ret, "ui/icons/melee_defense.png", " Melee Defense", "近接防御");
-        translateMetricSuffix(ret, "ui/icons/ranged_defense.png", " Ranged Defense", "射撃防御");
-        return ret;
+        try
+        {
+            local translated = translateMetricSuffix(ret, "ui/icons/melee_defense.png", " Melee Defense", "近接防御");
+            return translateMetricSuffix(translated, "ui/icons/ranged_defense.png", " Ranged Defense", "射撃防御");
+        }
+        catch (jpError) { return ret; }
     }
 });
 
-mod.hook("scripts/skills/perks/perk_legend_perfect_fit", function (q) {
+if (legendsEnabled) mod.hook("scripts/skills/perks/perk_legend_perfect_fit", function (q) {
     q.getTooltip = @(__original) function () {
-        return translateMetricSuffix(__original(), "ui/icons/initiative.png", " Initiative", "先制値");
+        local ret = __original();
+        try { return translateMetricSuffix(ret, "ui/icons/initiative.png", " Initiative", "先制値"); }
+        catch (jpError) { return ret; }
     }
 
     q.getUnactivatedPerkTooltipHints = @(__original) function (_actor = null) {
-        return translateMetricSuffix(__original(_actor), "ui/icons/initiative.png", " Initiative", "先制値");
+        local ret = __original(_actor);
+        try { return translateMetricSuffix(ret, "ui/icons/initiative.png", " Initiative", "先制値"); }
+        catch (jpError) { return ret; }
     }
 });
 
-mod.hook("scripts/skills/perks/perk_legend_small_target", function (q) {
+if (legendsEnabled) mod.hook("scripts/skills/perks/perk_legend_small_target", function (q) {
     q.getTooltip = @(__original) function () {
         local ret = __original();
-        translateMetricSuffix(ret, "ui/icons/melee_defense.png", " Melee Defense", "近接防御");
-        translateMetricSuffix(ret, "ui/icons/ranged_defense.png", " Ranged Defense", "射撃防御");
-        return ret;
+        try
+        {
+            local translated = translateMetricSuffix(ret, "ui/icons/melee_defense.png", " Melee Defense", "近接防御");
+            return translateMetricSuffix(translated, "ui/icons/ranged_defense.png", " Ranged Defense", "射撃防御");
+        }
+        catch (jpError) { return ret; }
     }
 });

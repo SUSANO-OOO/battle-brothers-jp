@@ -1,7 +1,7 @@
 {
-  "schema_version": 1,
-  "generated_at_utc": "2026-08-31T02:53:40.759365+00:00",
+  "schema_version": 2,
   "generator": "tools/generate_runtime_translations.py",
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
   "canonical_ledger_sha256": "895874C835B51FF61BE8B44D3B6DA7446BB0E8A3D3BE329CD179D1A73A6B393A",
   "translation_units_sha256": "D409513A08715EB129B39BB82348144848B889337E48039C91FD41A8E8E2BF11",
   "reviewed_emitted_unit_count": 6403,
@@ -12,11 +12,23 @@
     "vanilla": 4631
   },
   "reviewed_runtime_pattern_pairs_by_module": {
-    "legends": 58,
+    "legends": 59,
     "vanilla": 64
   },
-  "reviewed_runtime_pattern_samples": 146,
+  "reviewed_supplemental_literal_pairs_by_module": {
+    "legends": 1,
+    "vanilla": 0
+  },
+  "reviewed_runtime_pattern_samples": 147,
+  "reviewed_supplemental_runtime_contracts": 2,
+  "supplemental_runtime_contracts_sha256": "62121CF3AACD8B3F8A0EF0E82A6F6C9F97A1860ADFD79168EC076A34969ED11A",
   "reviewed_literal_javascript_pairs": 85,
+  "reviewed_literal_javascript_pairs_by_module": {
+    "vanilla_ui": 77,
+    "legends": 0,
+    "msu": 8,
+    "modern_hooks": 0
+  },
   "reviewed_actor_title_display_fragments": 396,
   "reviewed_actor_title_unit_ids_sha256": "8A7C31F5C50179AADDD4C4674E8869055101A66658606D780BA3337FDE485644",
   "reviewed_generic_actor_title_display_fragments": 2,
@@ -26,12 +38,20 @@
   "reviewed_boundary_hook_units": 14,
   "boundary_hook_unit_ids_sha256": "E51A397993E97E58C8E369C692D6A5E7F2B62811E1D4327273A812546D7CDF69",
   "runtime_pattern_policy": "RAW_EXTRACTOR_HINTS_ARE_NOT_EMITTED",
+  "squirrel_runtime": "BattleBrothersJP.Runtime/v1",
+  "runtime_pattern_anchor_policy": "LONGEST_LITERAL_ASCII_WORD; BUILD_TIME_COMPILED_PARTS",
+  "external_rosetta_required": false,
+  "external_stdlib_required": false,
   "static_reachability": "PAIR_EMITTED_ONLY; CALL_PATH_AUDIT_REMAINS_REQUIRED",
   "runtime_qa": "NOT_TESTED",
   "outputs": {
-    "src/battle_brothers_jp/translations/reviewed_literals.nut": "DD281BF7C7DA32F2607FC089082A5ECE9DDA894C1CF968A82846BE55E93ADC59",
-    "src/ui/mods/mod_battle_brothers_jp/generated_strings.js": "216D1C20328E21648BA43E810D71E14DF7C1CD44F6BB5A8F5049B2D4CA66312F",
-    "tests/squirrel/test_reviewed_runtime_patterns.nut": "3CD2ACE7DDCD799241408604A96EC8B1966D6A3C56480C54405BCF6C224A2094",
-    "tests/squirrel/test_runtime_pattern_collisions.nut": "B79BE5D9A370CBA2E503C3E23CB1A0379CAC8ECA3A89FFE01C3B4BDFE105B816"
+    "src/battle_brothers_jp/translations/reviewed_literals.nut": "A80CE4136568D119E5EE56CE19B791CE3792D00A92F9002DD2BC21D99DD8603C",
+    "src/ui/mods/mod_battle_brothers_jp/generated_strings.js": "8BEC85028A71F35DEA0FF58EB5D5C32A2BE52EB21A5279E0EC64DA2AE21709DB",
+    "src/ui/mods/mod_battle_brothers_jp/generated_strings_legends.js": "70642716F2F72E50168F11D5D242B4F6BE0633D029E067E9AC226FD162A3FA73",
+    "src/ui/mods/mod_battle_brothers_jp/generated_strings_msu.js": "9B9BFF1F24013E0EF3BA529374C670553A7E6973C976709C46B8A33E07E6D9B9",
+    "src/ui/mods/mod_battle_brothers_jp/generated_strings_modern_hooks.js": "70642716F2F72E50168F11D5D242B4F6BE0633D029E067E9AC226FD162A3FA73",
+    "tests/squirrel/test_reviewed_runtime_patterns.nut": "305479B4705F5AD887D2E1A98E381635E6A2C23D25E758A7CBCDF74CB798A1F8",
+    "tests/squirrel/test_runtime_pattern_collisions.nut": "8C4FBE8D7DE353E043A735A47C36842BDF9FA1115839DAD063052843FAE08202",
+    "tests/squirrel/test_namespaced_runtime_exact_corpus.nut": "483A0EC48BA95765FBF83090A851B9FEFFB5BAA3D025553D4DF19F0579B17331"
   }
 }

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -30,7 +32,7 @@ class RuntimeGenerationTests(unittest.TestCase):
         }
         squirrel, javascript, emitted, pending, boundary = MODULE.reviewed_literal_units(units, ledger)
         self.assertEqual(squirrel["vanilla"], [{"en": "Save", "ja": "保存"}])
-        self.assertEqual(javascript, {"Save": "保存"})
+        self.assertEqual(javascript, {"vanilla_ui": {"Save": "保存"}})
         self.assertEqual(emitted, ["literal"])
         self.assertEqual(pending, ["pattern"])
         self.assertEqual(boundary, [])
@@ -148,6 +150,112 @@ class RuntimeGenerationTests(unittest.TestCase):
         self.assertEqual(squirrel, {"vanilla": [{"en": "Retreat", "ja": "撤退"}]})
         self.assertEqual(emitted, ["shared"])
 
+    def test_javascript_literals_fail_closed_by_optional_module(self) -> None:
+        ledger = {"entries": [
+            {"stable_key": "v", "module": "vanilla_ui", "channel": "javascript"},
+            {"stable_key": "m", "module": "msu", "channel": "javascript"},
+            {"stable_key": "s-v", "module": "vanilla_ui", "channel": "javascript"},
+            {"stable_key": "s-m", "module": "msu", "channel": "javascript"},
+        ]}
+        units = {"units": [
+            {"translation_unit": "vanilla", "english": "New Campaign", "japanese": "新しい戦役", "mode": "literal", "status": "TRANSLATED", "review_status": "REVIEWED", "occurrences": ["v"]},
+            {"translation_unit": "msu", "english": "Mod Settings", "japanese": "MOD設定", "mode": "literal", "status": "TRANSLATED", "review_status": "REVIEWED", "occurrences": ["m"]},
+            {"translation_unit": "shared", "english": "Apply", "japanese": "適用", "mode": "literal", "status": "TRANSLATED", "review_status": "REVIEWED", "occurrences": ["s-v", "s-m"]},
+        ]}
+        _, javascript, emitted, _, _ = MODULE.reviewed_literal_units(units, ledger)
+        self.assertEqual(javascript, {
+            "msu": {"Mod Settings": "MOD設定"},
+            "vanilla_ui": {"Apply": "適用", "New Campaign": "新しい戦役"},
+        })
+        self.assertEqual(emitted, ["vanilla", "msu", "shared"])
+
+    def test_supplemental_canonical_literal_uses_reviewed_unit_text(self) -> None:
+        units = {"units": [{
+            "translation_unit": "ranger",
+            "english": "Malformed %name's face",
+            "japanese": "不正な%name's face",
+            "modules": ["legends"],
+            "status": "TRANSLATED",
+            "review_status": "REVIEWED",
+        }]}
+        payload = {
+            "schema_version": 1,
+            "canonical_ledger_sha256": "ledger",
+            "translation_units_sha256": "units",
+            "contracts": [{
+                "translation_unit": "ranger",
+                "review_status": "REVIEWED",
+                "module": "legends",
+                "mode": "canonical_literal",
+            }],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "contracts.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            pairs, emitted, samples, _ = MODULE.supplemental_runtime_patterns(
+                path, units, "ledger", "units"
+            )
+        self.assertEqual(pairs, {
+            "legends": [{
+                "en": "Malformed %name's face",
+                "ja": "不正な%name's face",
+                "mode": "literal",
+            }]
+        })
+        self.assertEqual(emitted, ["ranger"])
+        self.assertEqual(samples, [])
+
+    def test_runtime_pattern_rejects_unsupported_capture_type(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Unsupported runtime capture type"):
+            MODULE.compile_runtime_pattern("Damage <value:float>")
+
+    def test_runtime_pattern_rejects_duplicate_capture_name(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Duplicate runtime capture name"):
+            MODULE.compile_runtime_pattern("<value:int> / <value:int>")
+
+    def test_runtime_pattern_rejects_multiple_unbounded_string_captures(self) -> None:
+        with self.assertRaisesRegex(ValueError, "more than one unbounded string capture"):
+            MODULE.compile_runtime_pattern("begin <first:str> X <second:str> end")
+
+    def test_runtime_replacement_rejects_unsupported_flag(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Invalid runtime replacement capture"):
+            MODULE.compile_runtime_replacement("<value:q>", {"value"})
+
+    def test_runtime_replacement_rejects_missing_capture_reference(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Invalid runtime replacement capture"):
+            MODULE.compile_runtime_replacement("<missing>", {"value"})
+
+    def test_supplemental_pattern_requires_a_capture(self) -> None:
+        units = {"units": [{
+            "translation_unit": "captureless",
+            "english": "Crafting",
+            "japanese": "製作",
+            "modules": ["legends"],
+            "status": "TRANSLATED",
+            "review_status": "REVIEWED",
+        }]}
+        payload = {
+            "schema_version": 1,
+            "canonical_ledger_sha256": "ledger",
+            "translation_units_sha256": "units",
+            "contracts": [{
+                "translation_unit": "captureless",
+                "review_status": "REVIEWED",
+                "module": "legends",
+                "mode": "pattern",
+                "canonical_english": "Crafting",
+                "canonical_japanese": "製作",
+                "runtime_en": "Crafting",
+                "runtime_ja": "製作",
+                "samples": [],
+            }],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "contracts.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "at least one capture"):
+                MODULE.supplemental_runtime_patterns(path, units, "ledger", "units")
+
     def test_squirrel_quoting_is_json_compatible(self) -> None:
         self.assertEqual(MODULE.quoted('A "quoted" line\n'), '"A \\"quoted\\" line\\n"')
 
@@ -207,7 +315,7 @@ class RuntimeGenerationTests(unittest.TestCase):
         }
         generic_titles = {"the Old Guard": "古参兵"}
         squirrel = MODULE.render_squirrel({}, titles, generic_titles)
-        javascript = MODULE.render_javascript({}, titles, generic_titles)
+        javascript = MODULE.render_javascript_base({}, titles, generic_titles)
         self.assertIn("::BattleBrothersJP.ActorTitleDisplayFragments <- [", squirrel)
         self.assertIn('english = "the Lone Wolf"', squirrel)
         self.assertIn('japanese = "一匹狼"', squirrel)

@@ -2,6 +2,12 @@
 (function ($) {
     "use strict";
 
+    window.BattleBrothersJP = window.BattleBrothersJP || {};
+    if (window.BattleBrothersJP.uiBoundariesInstalled === true) {
+        return;
+    }
+    window.BattleBrothersJP.uiBoundariesInstalled = true;
+
     var strings = window.BattleBrothersJPStrings || {};
     // The full title registry is reserved for Squirrel fields with proven
     // actor provenance. This global renderer uses only explicit opt-ins so an
@@ -48,51 +54,41 @@
         return translateReviewedActorName(exact);
     }
 
-    window.BattleBrothersJP = window.BattleBrothersJP || {};
     window.BattleBrothersJP.translate = translate;
 
-    function translateFirstArgument(method) {
+    function safeTranslate(value) {
+        try {
+            return translate(value);
+        } catch (jpError) {
+            return value;
+        }
+    }
+
+    function translateArguments(method, indexes) {
         var original = $.fn[method];
         if (typeof original !== "function") {
             return;
         }
         $.fn[method] = function () {
             var args = Array.prototype.slice.call(arguments);
-            if (args.length > 0) {
-                args[0] = translate(args[0]);
-            }
+            indexes.forEach(function (index) {
+                if (index < args.length) {
+                    args[index] = safeTranslate(args[index]);
+                }
+            });
             return original.apply(this, args);
         };
     }
 
-    var originalCreateTextButton = $.fn.createTextButton;
-    $.fn.createTextButton = function () {
-        var args = Array.prototype.slice.call(arguments);
-        args[0] = translate(args[0]);
-        return originalCreateTextButton.apply(this, args);
-    };
-
-    var originalCreateDialog = $.fn.createDialog;
-    $.fn.createDialog = function () {
-        var args = Array.prototype.slice.call(arguments);
-        args[0] = translate(args[0]);
-        args[1] = translate(args[1]);
-        return originalCreateDialog.apply(this, args);
-    };
-
-    var originalCreatePopupDialog = $.fn.createPopupDialog;
-    $.fn.createPopupDialog = function () {
-        var args = Array.prototype.slice.call(arguments);
-        args[0] = translate(args[0]);
-        args[1] = translate(args[1]);
-        return originalCreatePopupDialog.apply(this, args);
-    };
+    translateArguments("createTextButton", [0]);
+    translateArguments("createDialog", [0, 1]);
+    translateArguments("createPopupDialog", [0, 1]);
 
     // Exact-string display boundaries used by Vanilla, Legends, and MSU.
     // Getter calls and non-string values pass through unchanged.
-    translateFirstArgument("html");
-    translateFirstArgument("text");
-    translateFirstArgument("append");
+    translateArguments("html", [0]);
+    translateArguments("text", [0]);
+    translateArguments("append", [0]);
 
     // jQuery HTML constructor calls, e.g. $("<div>Visible label</div>"), do
     // not pass through $.fn.html(). Translate only exact reviewed strings.
@@ -101,7 +97,7 @@
         $.fn.init = function () {
             var args = Array.prototype.slice.call(arguments);
             if (args.length > 0) {
-                args[0] = translate(args[0]);
+                args[0] = safeTranslate(args[0]);
             }
             return originalInit.apply(this, args);
         };

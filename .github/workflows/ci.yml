@@ -27,6 +27,9 @@ jobs:
       - name: JavaScript syntax
         run: |
           node --check src/ui/mods/mod_battle_brothers_jp/generated_strings.js
+          node --check src/ui/mods/mod_battle_brothers_jp/generated_strings_legends.js
+          node --check src/ui/mods/mod_battle_brothers_jp/generated_strings_msu.js
+          node --check src/ui/mods/mod_battle_brothers_jp/generated_strings_modern_hooks.js
           node --check src/ui/mods/mod_battle_brothers_jp/main.js
 
 # Deliberately excluded from hosted CI: proprietary installed-source scanning,

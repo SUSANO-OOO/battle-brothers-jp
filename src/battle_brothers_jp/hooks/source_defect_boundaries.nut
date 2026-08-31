@@ -4,7 +4,26 @@
 // temporary template/final player-facing return. They do not write event or
 // background state, actor data, save data, or gameplay values.
 
+if ("SourceDefectBoundariesInstalled" in ::BattleBrothersJP) return;
+::BattleBrothersJP.SourceDefectBoundariesInstalled <- true;
+
 local mod = ::BattleBrothersJP.Mod;
+local legendsEnabled = !("ModuleStatus" in ::BattleBrothersJP)
+    || ::BattleBrothersJP.ModuleStatus.legends.Enabled;
+local dlcUnholdEnabled = !("ModuleStatus" in ::BattleBrothersJP)
+    || ::BattleBrothersJP.ModuleStatus.dlc_unhold.Enabled;
+local dlcWildmenEnabled = !("ModuleStatus" in ::BattleBrothersJP)
+    || ::BattleBrothersJP.ModuleStatus.dlc_wildmen.Enabled;
+local dlcDesertEnabled = !("ModuleStatus" in ::BattleBrothersJP)
+    || ::BattleBrothersJP.ModuleStatus.dlc_desert.Enabled;
+local dlcPaladinsEnabled = !("ModuleStatus" in ::BattleBrothersJP)
+    || ::BattleBrothersJP.ModuleStatus.dlc_paladins.Enabled;
+
+local function safeTranslate(_value)
+{
+    try { return ::BattleBrothersJP.Runtime.translate(_value); }
+    catch (jpError) { return _value; }
+}
 
 // Vanilla 1.5.2-3 has one extra closing variant brace in the B1 prose of the
 // Kraken cult entrance event. Hook the exact event class and normalize only
@@ -13,17 +32,17 @@ local mod = ::BattleBrothersJP.Mod;
 local krakenB1Prefix = "[img]gfx/ui/events/event_120.png[/img]{She turns to her tomes and stares at them as though they were gravestones.";
 local krakenB1Suffix = "but that many tales is a little suspicious.}}";
 
-mod.hook("scripts/events/events/dlc2/location/kraken_cult_enter_event", function (q) {
+if (dlcUnholdEnabled) mod.hook("scripts/events/events/dlc2/location/kraken_cult_enter_event", function (q) {
     q.buildText = @(__original) function (_text) {
         local ret = __original(_text);
         if (typeof _text != "string" || typeof ret != "string") return ret;
-        if (!::std.Str.startswith(_text, krakenB1Prefix)
-            || !::std.Str.endswith(_text, krakenB1Suffix)) return ret;
+        if (!::BattleBrothersJP.Runtime.Str.startsWith(_text, krakenB1Prefix)
+            || !::BattleBrothersJP.Runtime.Str.endsWith(_text, krakenB1Suffix)) return ret;
 
         // The native template consumer removes the balanced variant braces;
         // the installed unmatched second close survives as one raw trailing
         // brace. Remove exactly that final display byte if it is present.
-        if (::std.Str.endswith(ret, "}")) return ret.slice(0, ret.len() - 1);
+        if (::BattleBrothersJP.Runtime.Str.endsWith(ret, "}")) return ret.slice(0, ret.len() - 1);
         return ret;
     }
 });
@@ -66,14 +85,14 @@ local function countOccurrences(_text, _needle)
     return count;
 }
 
-mod.hook("scripts/events/events/dlc4/barbarian_tells_story_event", function (q) {
+if (dlcWildmenEnabled) mod.hook("scripts/events/events/dlc4/barbarian_tells_story_event", function (q) {
     q.buildText = @(__original) function (_text) {
         if (typeof _text != "string"
-            || !::std.Str.startswith(_text, barbarianStoryPrefix)
-            || !::std.Str.endswith(_text, barbarianStorySuffix)
+            || !::BattleBrothersJP.Runtime.Str.startsWith(_text, barbarianStoryPrefix)
+            || !::BattleBrothersJP.Runtime.Str.endsWith(_text, barbarianStorySuffix)
             || !hasExactBraceSignature(_text, 2, 1)) return __original(_text);
 
-        local translated = ::Rosetta._(_text);
+        local translated = safeTranslate(_text);
         if (typeof translated != "string") return __original(_text);
         if (!hasExactBraceSignature(translated, 2, 1)) return __original(translated);
         return __original(translated + "}");
@@ -92,14 +111,14 @@ local unfriendlyTownSuffix = "They stand around it, making sure you can't see wh
 mod.hook("scripts/events/events/enter_unfriendly_town_event", function (q) {
     q.buildText = @(__original) function (_text) {
         if (typeof _text != "string"
-            || !::std.Str.startswith(_text, unfriendlyTownPrefix)
-            || !::std.Str.endswith(_text, unfriendlyTownSuffix)
+            || !::BattleBrothersJP.Runtime.Str.startsWith(_text, unfriendlyTownPrefix)
+            || !::BattleBrothersJP.Runtime.Str.endsWith(_text, unfriendlyTownSuffix)
             || !hasExactBraceSignature(_text, 3, 2)
             || countOccurrences(_text, " | ") != 7
             || countOccurrences(_text, "%townname%") != 1
             || countOccurrences(_text, "\n") != 0) return __original(_text);
 
-        local translated = ::Rosetta._(_text);
+        local translated = safeTranslate(_text);
         if (typeof translated != "string") return __original(_text);
         if (!hasExactBraceSignature(translated, 3, 2)
             || countOccurrences(translated, " | ") != 7
@@ -294,7 +313,7 @@ local function hasExactOrderedPercentTokens(_text, _tokens)
 local function hasExactMissingOuterVariantStructure(_text, _target)
 {
     return hasExactBraceSignature(_text, 2, 1)
-        && ::std.Str.startswith(_text, _target.ImagePrefix)
+        && ::BattleBrothersJP.Runtime.Str.startsWith(_text, _target.ImagePrefix)
         && countOccurrences(_text, "[img]") == 1
         && countOccurrences(_text, "[/img]") == 1
         && countOccurrences(_text, "|") == _target.Pipes
@@ -306,8 +325,8 @@ local function isExactInstalledMissingOuterVariantSource(_text, _target)
 {
     return typeof _text == "string"
         && _text == _target.Source
-        && ::std.Str.startswith(_text, _target.Prefix)
-        && ::std.Str.endswith(_text, _target.Suffix)
+        && ::BattleBrothersJP.Runtime.Str.startsWith(_text, _target.Prefix)
+        && ::BattleBrothersJP.Runtime.Str.endsWith(_text, _target.Suffix)
         && hasExactMissingOuterVariantStructure(_text, _target);
 }
 
@@ -323,7 +342,7 @@ local function installMissingOuterVariantBoundary(_q, _screenTargets)
         if (screenID != null && screenID in _screenTargets) {
             local target = _screenTargets[screenID];
             if (isExactInstalledMissingOuterVariantSource(_text, target)) {
-                local translated = ::Rosetta._(_text);
+                local translated = safeTranslate(_text);
                 if (typeof translated == "string") {
                     originalInput = translated;
                     if (hasExactMissingOuterVariantStructure(translated, target)) {
@@ -336,31 +355,31 @@ local function installMissingOuterVariantBoundary(_q, _screenTargets)
     }
 }
 
-mod.hook("scripts/events/events/dlc8/anatomist_bummed_at_mutations_event", function (q) {
+if (dlcPaladinsEnabled) mod.hook("scripts/events/events/dlc8/anatomist_bummed_at_mutations_event", function (q) {
     installMissingOuterVariantBoundary(q, missingOuterVariantTargets["scripts/events/events/dlc8/anatomist_bummed_at_mutations_event"]);
 });
-mod.hook("scripts/events/events/dlc8/bad_reputation_event", function (q) {
+if (dlcPaladinsEnabled) mod.hook("scripts/events/events/dlc8/bad_reputation_event", function (q) {
     installMissingOuterVariantBoundary(q, missingOuterVariantTargets["scripts/events/events/dlc8/bad_reputation_event"]);
 });
-mod.hook("scripts/events/events/dlc8/anatomist_ok_with_mutations_event", function (q) {
+if (dlcPaladinsEnabled) mod.hook("scripts/events/events/dlc8/anatomist_ok_with_mutations_event", function (q) {
     installMissingOuterVariantBoundary(q, missingOuterVariantTargets["scripts/events/events/dlc8/anatomist_ok_with_mutations_event"]);
 });
-mod.hook("scripts/events/events/dlc8/captured_oathbringer_event", function (q) {
+if (dlcPaladinsEnabled) mod.hook("scripts/events/events/dlc8/captured_oathbringer_event", function (q) {
     installMissingOuterVariantBoundary(q, missingOuterVariantTargets["scripts/events/events/dlc8/captured_oathbringer_event"]);
 });
-mod.hook("scripts/events/events/dlc6/crisis/holywar_crucified_1_event", function (q) {
+if (dlcDesertEnabled) mod.hook("scripts/events/events/dlc6/crisis/holywar_crucified_1_event", function (q) {
     installMissingOuterVariantBoundary(q, missingOuterVariantTargets["scripts/events/events/dlc6/crisis/holywar_crucified_1_event"]);
 });
-mod.hook("scripts/events/events/dlc8/oathtakers_skull_cracked_event", function (q) {
+if (dlcPaladinsEnabled) mod.hook("scripts/events/events/dlc8/oathtakers_skull_cracked_event", function (q) {
     installMissingOuterVariantBoundary(q, missingOuterVariantTargets["scripts/events/events/dlc8/oathtakers_skull_cracked_event"]);
 });
-mod.hook("scripts/events/events/dlc8/oathtaker_happy_with_company_event", function (q) {
+if (dlcPaladinsEnabled) mod.hook("scripts/events/events/dlc8/oathtaker_happy_with_company_event", function (q) {
     installMissingOuterVariantBoundary(q, missingOuterVariantTargets["scripts/events/events/dlc8/oathtaker_happy_with_company_event"]);
 });
-mod.hook("scripts/events/events/dlc8/oathtakers_skull_event", function (q) {
+if (dlcPaladinsEnabled) mod.hook("scripts/events/events/dlc8/oathtakers_skull_event", function (q) {
     installMissingOuterVariantBoundary(q, missingOuterVariantTargets["scripts/events/events/dlc8/oathtakers_skull_event"]);
 });
-mod.hook("scripts/events/events/dlc8/anatomist_old_patient_event", function (q) {
+if (dlcPaladinsEnabled) mod.hook("scripts/events/events/dlc8/anatomist_old_patient_event", function (q) {
     installMissingOuterVariantBoundary(q, missingOuterVariantTargets["scripts/events/events/dlc8/anatomist_old_patient_event"]);
 });
 
@@ -380,8 +399,8 @@ mod.hook("scripts/events/events/crisis/greenskins_investigation_event", function
             && "ActiveScreen" in this.m && typeof this.m.ActiveScreen == "table"
             && "ID" in this.m.ActiveScreen ? this.m.ActiveScreen.ID : null;
         if (screenID != "J" || typeof _text != "string"
-            || !::std.Str.startswith(_text, greenskinsCopiedPrefix)
-            || !::std.Str.endswith(_text, greenskinsCopiedSuffix)
+            || !::BattleBrothersJP.Runtime.Str.startsWith(_text, greenskinsCopiedPrefix)
+            || !::BattleBrothersJP.Runtime.Str.endsWith(_text, greenskinsCopiedSuffix)
             || !hasExactBraceSignature(_text, 0, 0)
             || countOccurrences(_text, "%nobleman%") != 1
             || countOccurrences(_text, "%SPEECH_ON%") != 1
@@ -406,8 +425,8 @@ mod.hook("scripts/events/events/graverobber_heist_event", function (q) {
             && "ActiveScreen" in this.m && typeof this.m.ActiveScreen == "table"
             && "ID" in this.m.ActiveScreen ? this.m.ActiveScreen.ID : null;
         if (screenID != "F" || typeof _text != "string"
-            || !::std.Str.startswith(_text, graveChoicePrefix)
-            || !::std.Str.endswith(_text, graveChoiceSuffix)
+            || !::BattleBrothersJP.Runtime.Str.startsWith(_text, graveChoicePrefix)
+            || !::BattleBrothersJP.Runtime.Str.endsWith(_text, graveChoiceSuffix)
             || !hasExactBraceSignature(_text, 0, 0)
             || countOccurrences(_text, "%graverobber%") != 1
             || countOccurrences(_text, "%SPEECH_ON%") != 3
@@ -418,21 +437,21 @@ mod.hook("scripts/events/events/graverobber_heist_event", function (q) {
     }
 });
 
-// Use hookTree rather than a normal exact hook. Modern Hooks finalizes normal
-// hooks before tree hooks regardless of registration time; Rosetta translates
-// onBuildDescription through a tree hook. Registering this tree hook later in
-// the same Late bucket makes this repair the outer wrapper in the real chain.
-mod.hookTree("scripts/skills/backgrounds/legend_ranger_commander_background", function (q) {
+// Use hookTree rather than a normal exact hook so subclass overrides are
+// reached. Translate the returned display template with the JP-owned runtime,
+// then normalize only the two independently reviewed source defects.
+if (legendsEnabled) mod.hookTree("scripts/skills/backgrounds/legend_ranger_commander_background", function (q) {
     q.onBuildDescription = @(__original) function () {
         local ret = __original();
         if (typeof ret != "string") return ret;
 
         // Installed Legends 19.4.20 contains one missing closing percent and
-        // one stray leading 'h'. The outer wrapper receives Rosetta's reviewed
-        // Japanese template, then makes both occurrences valid %name% tokens
-        // before character_background.buildDescription() performs substitution.
-        ret = ::std.Str.replace(ret, "%name's face", "%name%の顔");
-        ret = ::std.Str.replace(ret, "h%name%", "%name%");
+        // one stray leading 'h'. The reviewed Japanese runtime entry retains
+        // that source signature, then this display-only return repairs both
+        // tokens before character_background performs name substitution.
+        ret = safeTranslate(ret);
+        ret = ::BattleBrothersJP.Runtime.Str.replace(ret, "%name's face", "%name%の顔");
+        ret = ::BattleBrothersJP.Runtime.Str.replace(ret, "h%name%", "%name%");
         return ret;
     }
 });

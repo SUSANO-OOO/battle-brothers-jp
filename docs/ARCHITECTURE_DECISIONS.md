@@ -1,12 +1,12 @@
 # Architecture Decisions
 
-Status: `ACCEPTED / IMPLEMENTATION_AND_INDEPENDENT_REVIEW_PENDING`
+Status: `ACCEPTED / IMPLEMENTED_STATIC-QA-PASS / INDEPENDENT-REVIEW-PASS / RUNTIME-NOT-TESTED`
 Decision date: 2026-08-31
 Goal: `docs/GOAL.md`
 Public evidence: `docs/PUBLIC_ECOSYSTEM_AUDIT.md`
 Verified source: `BBJP-CF88150E7B355ECD32D9`
 
-このdocumentはFinal Producer Directive後のarchitecture source-of-truthである。既存`docs/ARCHITECTURE.md`はcurrent Rosetta-based vertical sliceを記録したparity/referenceであり、下記migrationの実装・検証が完了するまで削除しない。
+このdocumentはFinal Producer Directive後のarchitecture decision source-of-truthである。`docs/ARCHITECTURE.md`はcurrent namespaced implementationを記録し、旧Rosetta vertical sliceはgenerated parity baseline/historical QA evidenceとして保持する。
 
 ## Decision summary
 
@@ -26,6 +26,7 @@ Rosetta/stdlibはJPのexternal dependencyにしない。canonical reviewed ledge
 
 - Modern Hooks actual API has cheap MOD presence checks and queued registration; absent optional targets need not berequirements。
 - Official Legends is a split overhaul with its own DLC/MSU/Assets requirements. Those requirements do not apply to a Vanilla installation。
+- Actual installed DLC archives contain their registration scripts while player-facing content scripts are distributed in the base data archive and extracted into the canonical Vanilla module. The reviewed dictionary is therefore common/inert data; only DLC-specific display hooks and Legends composition are independently presence-gated。
 - Battle Brothers MOD convention is an unexpanded correctly rooted ZIP in`data`。
 - Core/Add-on separation reduces one module's churn domain, but creates package version mismatch, install-order confusion, duplicate runtime risk, and support burden。
 
@@ -39,7 +40,7 @@ Runtime layout:
 preload / common runtime
         |
         +-- Vanilla/common reviewed data (always)
-        +-- owned DLC data (only when relevant source exists)
+        +-- base-archive reviewed data + independently gated DLC display hooks
         +-- Legends data/hooks (only when mod_legends is present)
         +-- MSU/Jimmy UI data/hooks (only when target is present)
         +-- JS/CSS/font (registered once)
@@ -122,13 +123,13 @@ preload / common runtime
 ### Actual source evidence
 
 - Audited Rosetta `0.5.0` commit `dde98e99fd95ed0e7474a4328555144b4e913678` and stdlib `2.6` commit `3dfaa3ae85462aeb0f5892d3475102ce5a1bd50e` are BSD-2-Clause。
-- Current generated corpus has 4,489 Vanilla + 1,525 Legends + 25 MSU literal Squirrel pairs, 122 deterministic generated reviewed pattern rules, one manually reviewed context pattern rule, 85 JS pairs, and audited boundary-only units. Effective pattern parity scope is therefore 123 rules. Canonical ledger is the source-of-truth; generated files are disposable。
-- Current project references `::Rosetta`/`::std` across runtime and harnesses, but actual runtime needs only exact lookup、a bounded capture subset、translation dispatch、and small string helpers。
+- Current generated corpus has 4,631 Vanilla + 1,525 Legends + 25 MSU literal Squirrel pairs, 123 independently reviewed bounded pattern rules, 147 positive samples, 85 JS pairs, and 14 audited boundary-only units. Canonical ledger is the source-of-truth; generated files are disposable。
+- The pre-migration project referenced `::Rosetta`/`::std`; current runtime implements only exact lookup, the audited bounded capture subset, translation dispatch, and small namespaced string helpers。
 - Rosetta broad getters caused concrete item/background/world/actor identity and save-semantic hazards, already mitigated by downstream display-only guards。
 
 ### Selected design
 
-Create `::BattleBrothersJP.Runtime` (final internal name may be shortened only within the same namespace) with:
+Implement `::BattleBrothersJP.Runtime/v1` with:
 
 - exact English → reviewed Japanese hash map; exact lookup has first priority;
 - reviewed pattern registry supporting only capture types actually present in the 123-rule effective corpus (`int`, `word`, `str`, `tag`, `int_tag`, `val_tag`, `str_tag`) and replacement `:t`; bare `val` is not currently emitted and is not migration scope;
@@ -151,7 +152,7 @@ Create `::BattleBrothersJP.Runtime` (final internal name may be shortened only w
 - Compatibility: no duplicate Rosetta/stdlib registration when other MODs install them independently。
 - User install: no Rosetta/stdlib download。
 - Maintenance: supported capture semantics are small and project-owned; update diff stays deterministic。
-- Performance: literal O(1) average lookup; only anchored candidate patterns run; unknown string is bounded and passes through。
+- Performance: literal O(1) average lookup; only anchored candidate patterns run; unknown string is bounded and passes through。To prevent future-update backtracking blowups, generator, registration, and matcher reject more than one unbounded `str` capture per rule; the frozen 123-rule corpus already satisfies this contract。
 - Migration cost: generator, 4 runtime/hook files, preload, and Squirrel harnesses require systematic API rename/adaptation. Canonical translation rows remain untouched。
 
 ### Test strategy
@@ -258,10 +259,10 @@ Canonical reviewed ledger、source evidence、review evidence、context split、
 
 ### Migration sequence
 
-1. Gate A/Bとfinal Vanilla literal classificationをgreenにしてcanonical checkpointを取る。
-2. current generated expected-output corpusをfreezeし、新namespaced runtimeのparity fixtureにする。
-3. preload/runtime/generatorを移行し、Rosetta/stdlib external dependencyを削除する。
-4. all composition、adversarial、performance、license QAを独立reviewする。
+1. `COMPLETE`: Gate A/Bとfinal Vanilla literal classificationをgreenにしてcanonical checkpointを取る。
+2. `COMPLETE`: generated expected-output corpusをfreezeし、namespaced runtime parity fixtureにする。
+3. `COMPLETE`: preload/runtime/generatorを移行し、Rosetta/stdlib external dependencyを削除する。
+4. `RETEST`: composition、adversarial、performance、atomic registration、matcher bounds、copy/fallback、license/package QAを独立reviewする。
 5. reviewed Vanilla pattern families、Legends translation、public latest deltaを新runtimeへだけ追加する。
 
 この順序はaccepted translationを守り、同じfeatureを旧/new runtimeへ二重実装する時間を避ける。
@@ -316,15 +317,15 @@ mutation前に拒否する。詳細contractは`docs/TRANSLATION_PIPELINE.md`を�
   branch/loop/switch dominance、foreach/catch shadowing、legacy batch拒否を検証。
 - Current canonical 48,158 occurrences / 31,607 units integrity PASS、canonical hash不変、actual user environment write 0。
 
-## Release claims not yet authorized
+## Implementation result and release claims
 
-Architecture decisionはacceptedだが、次はまだPASSではない:
+Namespaced runtime、external Rosetta/stdlib dependency removal、optional profiles、exact corpus parity、collision、composition、adversarial、performance、package source binding、22-entry development ZIPはlocal static/full QAと独立再reviewをPASSした。Runtime/package両reviewのopen P0/P1/P2は0で、canonical reviewed 6,417 unitsとledger hashは不変である。Review report SHA-256は`FC4933924F7D9CFD0CCF0AC4F5F389E29FC8F19C572BE5CDBA4252693A6C9286`。
 
-- namespaced runtime implementation/parity/performance
-- Rosetta/stdlib dependency removal from actual artifact
-- Vanilla-only/Legends composition runtime
+次はまだPASSではない:
+
+- fully isolated Vanilla-only/Legends game composition runtime
 - fully isolated game boot/render/save testing
 - Legends `19.4.21` support
 - release ZIP/RC status
 
-これらは実行後にのみ`docs/ARCHITECTURE.md`、dependency graph、compatibility matrix、README、artifact manifest、`PROJECT_STATE.md`へ反映する。
+Real game runtimeを実施していないため`RUNTIME_VERIFIED`とはしない。coverage gate未達のdevelopment artifactをrelease/RCとも呼ばない。

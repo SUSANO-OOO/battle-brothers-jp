@@ -14,7 +14,6 @@ import hashlib
 import json
 import re
 from collections import defaultdict
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -27,7 +26,19 @@ MODULES = {
     "modern_hooks": ("mod_modern_hooks", "0.6.0"),
 }
 MODULE_PRIORITY = {name: index for index, name in enumerate(("vanilla", "legends", "msu", "modern_hooks", "legends_assets"))}
+JAVASCRIPT_MODULE_PROFILES = {
+    "vanilla_ui": "vanilla",
+    "legends": "legends",
+    "msu": "msu",
+    "modern_hooks": "modern_hooks",
+}
+JAVASCRIPT_MODULE_PRIORITY = {
+    name: index
+    for index, name in enumerate(("vanilla_ui", "legends", "msu", "modern_hooks"))
+}
 RUNTIME_CAPTURE = re.compile(r"<([A-Za-z_][A-Za-z0-9_]*):([A-Za-z_]+)>")
+RUNTIME_ANCHOR_WORD = re.compile(r"[A-Za-z][A-Za-z0-9_-]*")
+RUNTIME_CAPTURE_TYPES = {"int", "val", "word", "str", "tag", "int_tag", "val_tag", "str_tag"}
 ACTOR_TITLE_CONTEXT = re.compile(r"(?:^|\.)titles(?:\.|$)", re.IGNORECASE)
 ACTOR_TITLE_CONST = re.compile(r"(?:^|[:.])Const\.Strings\.[^.]*Titles(?:\.|$)")
 ACTOR_TITLE_DISPLAY_STRATEGY = "ACTOR_TITLE_DISPLAY_FRAGMENT"
@@ -50,6 +61,81 @@ def runtime_pattern_signature(value: str) -> str:
     return RUNTIME_CAPTURE.sub(lambda match: f"<:{match.group(2)}>", value)
 
 
+def runtime_pattern_anchor(value: str) -> str:
+    """Choose one deterministic literal word present in every matching input."""
+    literal = RUNTIME_CAPTURE.sub(" ", value)
+    words = [word.lower() for word in RUNTIME_ANCHOR_WORD.findall(literal)]
+    if not words:
+        raise ValueError(f"Runtime pattern has no literal anchor word: {value!r}")
+    return sorted(set(words), key=lambda word: (-len(word), word))[0]
+
+
+def compile_runtime_pattern(value: str) -> tuple[list[Any], set[str]]:
+    """Compile a reviewed Rosetta-style source pattern during the build."""
+    parts: list[Any] = []
+    names: set[str] = set()
+    bare_string_captures = 0
+    position = 0
+    for match in RUNTIME_CAPTURE.finditer(value):
+        if match.start() > position:
+            parts.append(value[position : match.start()])
+        name, subtype = match.groups()
+        if subtype not in RUNTIME_CAPTURE_TYPES:
+            raise ValueError(f"Unsupported runtime capture type {subtype!r}: {value!r}")
+        if name in names:
+            raise ValueError(f"Duplicate runtime capture name {name!r}: {value!r}")
+        if subtype == "str":
+            bare_string_captures += 1
+            if bare_string_captures > 1:
+                raise ValueError(
+                    f"Runtime pattern has more than one unbounded string capture: {value!r}"
+                )
+        names.add(name)
+        parts.append({"name": name, "sub": subtype})
+        position = match.end()
+    if position < len(value):
+        parts.append(value[position:])
+    if not parts and value:
+        parts.append(value)
+    return parts, names
+
+
+def compile_runtime_replacement(value: str, capture_names: set[str]) -> list[Any]:
+    """Compile and validate a replacement; literal angle markup is rejected."""
+    parts: list[Any] = []
+    position = 0
+    while position < len(value):
+        opening = value.find("<", position)
+        if opening < 0:
+            parts.append(value[position:])
+            break
+        closing = value.find(">", opening + 1)
+        if closing < 0:
+            raise ValueError(f"Unclosed runtime replacement capture: {value!r}")
+        if opening > position:
+            parts.append(value[position:opening])
+        body = value[opening + 1 : closing]
+        name, separator, flags = body.partition(":")
+        if not name or name not in capture_names or (separator and flags != "t"):
+            raise ValueError(f"Invalid runtime replacement capture <{body}>: {value!r}")
+        parts.append({"name": name, "flags": flags if separator else None})
+        position = closing + 1
+    return parts
+
+
+def squirrel_parts(parts: list[Any]) -> str:
+    rendered: list[str] = []
+    for part in parts:
+        if isinstance(part, str):
+            rendered.append(quoted(part))
+        elif "sub" in part:
+            rendered.append(f"{{ name = {quoted(part['name'])}, sub = {quoted(part['sub'])} }}")
+        else:
+            flags = "null" if part.get("flags") is None else quoted(part["flags"])
+            rendered.append(f"{{ name = {quoted(part['name'])}, flags = {flags} }}")
+    return "[" + ", ".join(rendered) + "]"
+
+
 def actor_title_sort_key(pair: tuple[str, str]) -> tuple[int, str, str]:
     """Put longer English titles first so prefixes cannot shadow full titles."""
     english, japanese = pair
@@ -58,10 +144,10 @@ def actor_title_sort_key(pair: tuple[str, str]) -> tuple[int, str, str]:
 
 def reviewed_literal_units(
     units_payload: dict[str, Any], ledger: dict[str, Any]
-) -> tuple[dict[str, list[dict[str, str]]], dict[str, str], list[str], list[str], list[str]]:
+) -> tuple[dict[str, list[dict[str, str]]], dict[str, dict[str, str]], list[str], list[str], list[str]]:
     occurrences = {entry["stable_key"]: entry for entry in ledger["entries"]}
     squirrel_by_module: dict[str, dict[str, str]] = defaultdict(dict)
-    javascript: dict[str, str] = {}
+    javascript_by_module: dict[str, dict[str, str]] = defaultdict(dict)
     emitted_ids: list[str] = []
     pending_pattern_ids: list[str] = []
     boundary_hook_ids: list[str] = []
@@ -94,7 +180,7 @@ def reviewed_literal_units(
             raise ValueError(f"Reviewed unit has empty Japanese: {unit_id}")
         used = False
         squirrel_modules: set[str] = set()
-        has_javascript = False
+        javascript_modules: set[str] = set()
         for stable_key in unit["occurrences"]:
             occurrence = occurrences[stable_key]
             channel = occurrence["channel"]
@@ -105,15 +191,21 @@ def reviewed_literal_units(
                 squirrel_modules.add(module)
                 used = True
             elif channel == "javascript" and strategy != "ROSETTA_LITERAL":
-                has_javascript = True
+                if module not in JAVASCRIPT_MODULE_PROFILES:
+                    raise ValueError(f"No JavaScript runtime profile for reviewed unit: {module}")
+                javascript_modules.add(module)
                 used = True
         if squirrel_modules:
             module = min(squirrel_modules, key=lambda name: (MODULE_PRIORITY.get(name, 999), name))
             previous = squirrel_by_module[module].setdefault(unit["english"], japanese)
             if previous != japanese:
                 raise ValueError(f"Conflicting Squirrel literal translation: {unit['english']!r}")
-        if has_javascript:
-            previous = javascript.setdefault(unit["english"], japanese)
+        if javascript_modules:
+            module = min(
+                javascript_modules,
+                key=lambda name: (JAVASCRIPT_MODULE_PRIORITY.get(name, 999), name),
+            )
+            previous = javascript_by_module[module].setdefault(unit["english"], japanese)
             if previous != japanese:
                 raise ValueError(f"Conflicting JavaScript literal translation: {unit['english']!r}")
         if used:
@@ -123,7 +215,11 @@ def reviewed_literal_units(
         module: [{"en": english, "ja": pairs[english]} for english in sorted(pairs)]
         for module, pairs in sorted(squirrel_by_module.items())
     }
-    return normalized, dict(sorted(javascript.items())), emitted_ids, pending_pattern_ids, boundary_hook_ids
+    normalized_javascript = {
+        module: dict(sorted(pairs.items()))
+        for module, pairs in sorted(javascript_by_module.items())
+    }
+    return normalized, normalized_javascript, emitted_ids, pending_pattern_ids, boundary_hook_ids
 
 
 def is_actor_title_occurrence(occurrence: dict[str, Any]) -> bool:
@@ -272,6 +368,90 @@ def reviewed_pattern_units(
     return normalized, emitted, pending, boundaries, samples
 
 
+def supplemental_runtime_patterns(
+    path: Path,
+    units_payload: dict[str, Any],
+    ledger_sha256: str,
+    units_sha256: str,
+) -> tuple[dict[str, list[dict[str, Any]]], list[str], list[dict[str, str]], dict[str, Any]]:
+    """Load small reviewed display contracts not expressible in the ledger schema.
+
+    This preserves independently audited exact/pattern display contracts that
+    are unsafe to infer from the generic ledger schema.
+    """
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("schema_version") != 1:
+        raise ValueError("Unsupported supplemental runtime contract schema")
+    if payload.get("canonical_ledger_sha256") != ledger_sha256:
+        raise ValueError("Supplemental runtime contracts target a different canonical ledger")
+    if payload.get("translation_units_sha256") != units_sha256:
+        raise ValueError("Supplemental runtime contracts target different translation units")
+    unit_index = {unit["translation_unit"]: unit for unit in units_payload["units"]}
+    by_module: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    emitted: list[str] = []
+    samples: list[dict[str, str]] = []
+    runtime_keys: dict[str, str] = {}
+    for contract in payload.get("contracts", []):
+        unit_id = contract.get("translation_unit")
+        contract_mode = contract.get("mode", "pattern")
+        if contract.get("review_status") != "REVIEWED" or unit_id not in unit_index:
+            raise ValueError(f"Supplemental runtime contract is not canonical-reviewed: {unit_id}")
+        unit = unit_index[unit_id]
+        if (
+            unit.get("status") != "TRANSLATED"
+            or unit.get("review_status") != "REVIEWED"
+            or (
+                contract_mode != "canonical_literal"
+                and (
+                    unit.get("english") != contract.get("canonical_english")
+                    or unit.get("japanese") != contract.get("canonical_japanese")
+                )
+            )
+        ):
+            raise ValueError(f"Supplemental runtime contract drifted from canonical unit: {unit_id}")
+        module = contract.get("module")
+        if module not in MODULES or module not in unit.get("modules", []):
+            raise ValueError(f"Supplemental runtime contract has invalid module: {unit_id}")
+        runtime_en = unit.get("english") if contract_mode == "canonical_literal" else contract.get("runtime_en")
+        runtime_ja = unit.get("japanese") if contract_mode == "canonical_literal" else contract.get("runtime_ja")
+        if not isinstance(runtime_en, str) or not isinstance(runtime_ja, str):
+            raise ValueError(f"Supplemental runtime contract has invalid text: {unit_id}")
+        mode = "literal" if contract_mode == "canonical_literal" else contract_mode
+        if mode not in {"literal", "pattern"}:
+            raise ValueError(f"Supplemental runtime contract has invalid mode: {unit_id}")
+        if mode == "pattern":
+            pattern_parts, capture_names = compile_runtime_pattern(runtime_en)
+            if not capture_names:
+                raise ValueError(
+                    f"Supplemental runtime pattern must contain at least one capture: {unit_id}"
+                )
+            compile_runtime_replacement(runtime_ja, capture_names)
+            runtime_pattern_anchor(runtime_en)
+        elif RUNTIME_CAPTURE.search(runtime_en) or RUNTIME_CAPTURE.search(runtime_ja):
+            raise ValueError(f"Supplemental literal contract contains runtime captures: {unit_id}")
+        previous = runtime_keys.setdefault(runtime_en, runtime_ja)
+        if previous != runtime_ja:
+            raise ValueError(f"Conflicting supplemental runtime pattern: {runtime_en!r}")
+        if previous == runtime_ja and not any(pair["en"] == runtime_en for pair in by_module[module]):
+            by_module[module].append({"en": runtime_en, "ja": runtime_ja, "mode": mode})
+        emitted.append(unit_id)
+        for sample in contract.get("samples", []):
+            if not isinstance(sample.get("english"), str) or not isinstance(sample.get("japanese"), str):
+                raise ValueError(f"Supplemental runtime sample is invalid: {unit_id}")
+            samples.append(
+                {
+                    "translation_unit": unit_id,
+                    "english": sample["english"],
+                    "japanese": sample["japanese"],
+                }
+            )
+    normalized = {
+        module: sorted(pairs, key=lambda pair: (pair["en"], pair["ja"]))
+        for module, pairs in sorted(by_module.items())
+    }
+    return normalized, emitted, samples, payload
+
+
 def render_squirrel(
     squirrel_by_module: dict[str, list[dict[str, str]]],
     actor_titles: dict[str, str],
@@ -284,20 +464,34 @@ def render_squirrel(
     ]
     for module, pairs in squirrel_by_module.items():
         mod_id, version = MODULES[module]
+        enabled = (
+            f'!("ModuleStatus" in ::BattleBrothersJP) '
+            f'|| ::BattleBrothersJP.ModuleStatus.{module}.Enabled'
+        )
         lines.extend(
             [
-                "::Rosetta.add({",
-                f"    mod = {{id = {quoted(mod_id)}, version = {quoted(version)}}}",
-                "    author = ::BattleBrothersJP.Author",
-                '    lang = "ja"',
+                "::BattleBrothersJP.Runtime.add({",
+                f"    module = {quoted(mod_id)}",
+                f"    version = {quoted(version)}",
+                f"    enabled = {enabled}",
                 "}, [",
             ]
         )
         for pair in pairs:
+            compiled_lines: list[str] = []
+            if pair.get("mode") == "pattern":
+                pattern_parts, capture_names = compile_runtime_pattern(pair["en"])
+                replacement_parts = compile_runtime_replacement(pair["ja"], capture_names)
+                compiled_lines = [
+                    '        mode = "pattern"',
+                    f"        anchor = {quoted(runtime_pattern_anchor(pair['en']))}",
+                    f"        parts = {squirrel_parts(pattern_parts)}",
+                    f"        replacement = {squirrel_parts(replacement_parts)}",
+                ]
             lines.extend(
                 [
                     "    {",
-                    *(['        mode = "pattern"'] if pair.get("mode") == "pattern" else []),
+                    *compiled_lines,
                     f"        en = {quoted(pair['en'])}",
                     f"        ja = {quoted(pair['ja'])}",
                     "    }",
@@ -342,14 +536,9 @@ def render_squirrel(
 
 def render_pattern_harness(samples: list[dict[str, str]]) -> str:
     lines = [
-        'dofile(getenv("STDLIB_DIR") + "load.nut", true);',
-        'dofile(getenv("ROSETTA_DIR") + "mocks.nut", true);',
-        'dofile(getenv("ROSETTA_DIR") + "scripts/!mods_preload/!rosetta.nut", true);',
-        "",
-        '::BattleBrothersJP <- { Author = "SUSANO-OOO" }',
+        '::BattleBrothersJP <- { Author = "SUSANO-OOO" };',
+        'dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/runtime/core.nut", true);',
         'dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/translations/reviewed_literals.nut", true);',
-        'dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/translations/context_patterns.nut", true);',
-        '::Rosetta.activate("ja");',
         "",
         "function assertPattern(_actual, _expected, _unit) {",
         '    if (_actual != _expected) throw "Pattern " + _unit + " expected \'" + _expected + "\', got \'" + _actual + "\'";',
@@ -358,7 +547,7 @@ def render_pattern_harness(samples: list[dict[str, str]]) -> str:
     ]
     for sample in samples:
         lines.append(
-            f"assertPattern(::Rosetta.translate({quoted(sample['english'])}), {quoted(sample['japanese'])}, {quoted(sample['translation_unit'])});"
+            f"assertPattern(::BattleBrothersJP.Runtime.translate({quoted(sample['english'])}), {quoted(sample['japanese'])}, {quoted(sample['translation_unit'])});"
         )
     lines.extend(["", 'print("REVIEWED_RUNTIME_PATTERNS_OK\\n");', ""])
     return "\n".join(lines)
@@ -366,26 +555,13 @@ def render_pattern_harness(samples: list[dict[str, str]]) -> str:
 
 def render_pattern_collision_harness(samples: list[dict[str, str]]) -> str:
     lines = [
-        'dofile(getenv("STDLIB_DIR") + "load.nut", true);',
-        'dofile(getenv("ROSETTA_DIR") + "mocks.nut", true);',
-        'dofile(getenv("ROSETTA_DIR") + "scripts/!mods_preload/!rosetta.nut", true);',
-        "",
-        '::BattleBrothersJP <- { Author = "SUSANO-OOO" }',
+        '::BattleBrothersJP <- { Author = "SUSANO-OOO" };',
+        'dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/runtime/core.nut", true);',
         'dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/translations/reviewed_literals.nut", true);',
-        'dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/translations/context_patterns.nut", true);',
-        '::Rosetta.activate("ja");',
         "",
         "local issueCount = 0;",
         "function auditPattern(_english, _expected, _unit) {",
-        "    local matches = [];",
-        '    foreach (_, rules in ::Rosetta.maps["ja"].rules) {',
-        "        foreach (rule in rules) {",
-        "            local captures = ::Rosetta.matchParts(_english, rule.parts);",
-        "            if (!captures) continue;",
-        "            local output = ::Rosetta.useRule(rule, _english, captures);",
-        "            if (output != null) matches.push({en = rule.en, output = output});",
-        "        }",
-        "    }",
+        "    local matches = ::BattleBrothersJP.Runtime.debugMatchOutputs(_english);",
         "    if (matches.len() != 1 || matches[0].output != _expected) {",
         "        issueCount++;",
         '        print("PATTERN_AUDIT|" + _unit + "|matches=" + matches.len() + "|expected=" + _expected + "\\n");',
@@ -409,7 +585,32 @@ def render_pattern_collision_harness(samples: list[dict[str, str]]) -> str:
     return "\n".join(lines)
 
 
-def render_javascript(
+def render_exact_harness(squirrel_by_module: dict[str, list[dict[str, str]]]) -> str:
+    exact: dict[str, str] = {}
+    for pairs in squirrel_by_module.values():
+        for pair in pairs:
+            previous = exact.setdefault(pair["en"], pair["ja"])
+            if previous != pair["ja"]:
+                raise ValueError(f"Conflicting exact parity sample: {pair['en']!r}")
+    lines = [
+        '::BattleBrothersJP <- { Author = "SUSANO-OOO" };',
+        'dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/runtime/core.nut", true);',
+        'dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/translations/reviewed_literals.nut", true);',
+        "",
+        "function assertExact(_actual, _expected, _english) {",
+        '    if (_actual != _expected) throw "Exact expected \'" + _expected + "\' for \'" + _english + "\', got \'" + _actual + "\'";',
+        "}",
+        "",
+    ]
+    for english, japanese in sorted(exact.items()):
+        lines.append(
+            f"assertExact(::BattleBrothersJP.Runtime.translate({quoted(english)}), {quoted(japanese)}, {quoted(english)});"
+        )
+    lines.extend(["", 'print("NAMESPACED_RUNTIME_EXACT_CORPUS_OK\\n");', ""])
+    return "\n".join(lines)
+
+
+def render_javascript_base(
     pairs: dict[str, str], actor_titles: dict[str, str], generic_actor_titles: dict[str, str]
 ) -> str:
     payload = json.dumps(pairs, ensure_ascii=False, indent=4, sort_keys=True)
@@ -432,6 +633,21 @@ def render_javascript(
     )
 
 
+def render_javascript_extension(pairs: dict[str, str]) -> str:
+    payload = json.dumps(pairs, ensure_ascii=False, indent=4, sort_keys=True)
+    return (
+        "/* Generated by tools/generate_runtime_translations.py. Do not edit by hand. */\n"
+        "(function () {\n"
+        '    "use strict";\n'
+        "    window.BattleBrothersJPStrings = window.BattleBrothersJPStrings || {};\n"
+        f"    var moduleStrings = {payload};\n"
+        "    Object.keys(moduleStrings).forEach(function (english) {\n"
+        "        window.BattleBrothersJPStrings[english] = moduleStrings[english];\n"
+        "    });\n"
+        "}());\n"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ledger", default="work/ledger/translation-ledger.json")
@@ -445,9 +661,13 @@ def main() -> int:
         if work not in path.parents:
             raise SystemExit(f"ERROR: canonical ledger input must remain below ignored work/: {path}")
 
-    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
-    units_payload = json.loads(units_path.read_text(encoding="utf-8"))
-    literal_squirrel, javascript, literal_emitted_ids, _, literal_boundary_ids = reviewed_literal_units(units_payload, ledger)
+    ledger_bytes = ledger_path.read_bytes()
+    units_bytes = units_path.read_bytes()
+    ledger_sha256 = sha256_bytes(ledger_bytes)
+    units_sha256 = sha256_bytes(units_bytes)
+    ledger = json.loads(ledger_bytes.decode("utf-8"))
+    units_payload = json.loads(units_bytes.decode("utf-8"))
+    literal_squirrel, javascript_by_module, literal_emitted_ids, _, literal_boundary_ids = reviewed_literal_units(units_payload, ledger)
     actor_titles, actor_title_unit_ids = reviewed_actor_title_fragments(units_payload, ledger)
     generic_actor_titles, generic_actor_title_unit_ids = reviewed_generic_actor_title_fragments(
         units_payload, ledger
@@ -466,6 +686,30 @@ def main() -> int:
             + ", ".join(sorted(missing_actor_title_strategy_ids))
         )
     pattern_squirrel, pattern_emitted_ids, pending_ids, pattern_boundary_ids, pattern_samples = reviewed_pattern_units(units_payload, ledger)
+    supplemental_path = repo / "reports" / "runtime-supplemental-contracts.json"
+    supplemental_squirrel, supplemental_ids, supplemental_samples, supplemental_payload = supplemental_runtime_patterns(
+        supplemental_path, units_payload, ledger_sha256, units_sha256
+    )
+    supplemental_seen: dict[str, str] = {
+        pair["en"]: pair["ja"]
+        for pairs in pattern_squirrel.values()
+        for pair in pairs
+    }
+    for module, pairs in supplemental_squirrel.items():
+        destination = pattern_squirrel.setdefault(module, [])
+        for pair in pairs:
+            previous = supplemental_seen.setdefault(pair["en"], pair["ja"])
+            if previous != pair["ja"]:
+                raise ValueError(f"Supplemental runtime pattern conflicts with canonical pattern: {pair['en']!r}")
+            if not any(existing["en"] == pair["en"] for existing in destination):
+                destination.append(pair)
+        destination.sort(key=lambda pair: (pair["en"], pair["ja"]))
+    boundary_ids = [*literal_boundary_ids, *pattern_boundary_ids]
+    pattern_emitted_ids.extend(
+        unit_id for unit_id in supplemental_ids if unit_id not in set(boundary_ids)
+    )
+    pattern_samples.extend(supplemental_samples)
+    pattern_samples.sort(key=lambda sample: (sample["translation_unit"], sample["english"], sample["japanese"]))
     squirrel: dict[str, list[dict[str, Any]]] = {}
     for module in sorted(set(literal_squirrel) | set(pattern_squirrel)):
         squirrel[module] = sorted(
@@ -473,39 +717,72 @@ def main() -> int:
             key=lambda pair: (pair.get("mode", "literal"), pair["en"], pair["ja"]),
         )
     emitted_ids = [*literal_emitted_ids, *pattern_emitted_ids]
-    boundary_ids = [*literal_boundary_ids, *pattern_boundary_ids]
 
     squirrel_path = repo / "src" / "battle_brothers_jp" / "translations" / "reviewed_literals.nut"
-    javascript_path = repo / "src" / "ui" / "mods" / "mod_battle_brothers_jp" / "generated_strings.js"
+    javascript_root = repo / "src" / "ui" / "mods" / "mod_battle_brothers_jp"
+    javascript_paths = {
+        "vanilla_ui": javascript_root / "generated_strings.js",
+        "legends": javascript_root / "generated_strings_legends.js",
+        "msu": javascript_root / "generated_strings_msu.js",
+        "modern_hooks": javascript_root / "generated_strings_modern_hooks.js",
+    }
     pattern_harness_path = repo / "tests" / "squirrel" / "test_reviewed_runtime_patterns.nut"
     collision_harness_path = repo / "tests" / "squirrel" / "test_runtime_pattern_collisions.nut"
+    exact_harness_path = repo / "tests" / "squirrel" / "test_namespaced_runtime_exact_corpus.nut"
     squirrel_path.parent.mkdir(parents=True, exist_ok=True)
-    javascript_path.parent.mkdir(parents=True, exist_ok=True)
+    javascript_root.mkdir(parents=True, exist_ok=True)
     squirrel_text = render_squirrel(squirrel, actor_titles, generic_actor_titles)
-    javascript_text = render_javascript(javascript, actor_titles, generic_actor_titles)
+    javascript_texts = {
+        "vanilla_ui": render_javascript_base(
+            javascript_by_module.get("vanilla_ui", {}), actor_titles, generic_actor_titles
+        )
+    }
+    for module in ("legends", "msu", "modern_hooks"):
+        javascript_texts[module] = render_javascript_extension(
+            javascript_by_module.get(module, {})
+        )
     pattern_harness_text = render_pattern_harness(pattern_samples)
     collision_harness_text = render_pattern_collision_harness(pattern_samples)
+    exact_harness_text = render_exact_harness({
+        module: [pair for pair in pairs if pair.get("mode", "literal") == "literal"]
+        for module, pairs in squirrel.items()
+    })
     squirrel_path.write_text(squirrel_text, encoding="utf-8", newline="\n")
-    javascript_path.write_text(javascript_text, encoding="utf-8", newline="\n")
+    for module, path in javascript_paths.items():
+        path.write_text(javascript_texts[module], encoding="utf-8", newline="\n")
     pattern_harness_path.write_text(pattern_harness_text, encoding="utf-8", newline="\n")
     collision_harness_path.write_text(collision_harness_text, encoding="utf-8", newline="\n")
+    exact_harness_path.write_text(exact_harness_text, encoding="utf-8", newline="\n")
 
     manifest = {
-        "schema_version": 1,
-        "generated_at_utc": datetime.now(tz=timezone.utc).isoformat(),
+        "schema_version": 2,
         "generator": "tools/generate_runtime_translations.py",
-        "canonical_ledger_sha256": sha256_bytes(ledger_path.read_bytes()),
-        "translation_units_sha256": sha256_bytes(units_path.read_bytes()),
+        "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+        "canonical_ledger_sha256": ledger_sha256,
+        "translation_units_sha256": units_sha256,
         "reviewed_emitted_unit_count": len(set(emitted_ids)),
         "reviewed_emitted_unit_ids_sha256": stable_list_hash(list(set(emitted_ids))),
         "reviewed_literal_squirrel_pairs_by_module": {
             module: len(pairs) for module, pairs in literal_squirrel.items()
         },
         "reviewed_runtime_pattern_pairs_by_module": {
-            module: len(pairs) for module, pairs in pattern_squirrel.items()
+            module: sum(1 for pair in pairs if pair.get("mode", "pattern") == "pattern")
+            for module, pairs in pattern_squirrel.items()
+        },
+        "reviewed_supplemental_literal_pairs_by_module": {
+            module: sum(1 for pair in pairs if pair.get("mode") == "literal")
+            for module, pairs in pattern_squirrel.items()
         },
         "reviewed_runtime_pattern_samples": len(pattern_samples),
-        "reviewed_literal_javascript_pairs": len(javascript),
+        "reviewed_supplemental_runtime_contracts": len(supplemental_payload.get("contracts", [])),
+        "supplemental_runtime_contracts_sha256": sha256_bytes(supplemental_path.read_bytes()),
+        "reviewed_literal_javascript_pairs": sum(
+            len(pairs) for pairs in javascript_by_module.values()
+        ),
+        "reviewed_literal_javascript_pairs_by_module": {
+            module: len(javascript_by_module.get(module, {}))
+            for module in JAVASCRIPT_MODULE_PROFILES
+        },
         "reviewed_actor_title_display_fragments": len(actor_titles),
         "reviewed_actor_title_unit_ids_sha256": stable_list_hash(list(set(actor_title_unit_ids))),
         "reviewed_generic_actor_title_display_fragments": len(generic_actor_titles),
@@ -517,13 +794,23 @@ def main() -> int:
         "reviewed_boundary_hook_units": len(set(boundary_ids)),
         "boundary_hook_unit_ids_sha256": stable_list_hash(list(set(boundary_ids))),
         "runtime_pattern_policy": "RAW_EXTRACTOR_HINTS_ARE_NOT_EMITTED",
+        "squirrel_runtime": "BattleBrothersJP.Runtime/v1",
+        "runtime_pattern_anchor_policy": "LONGEST_LITERAL_ASCII_WORD; BUILD_TIME_COMPILED_PARTS",
+        "external_rosetta_required": False,
+        "external_stdlib_required": False,
         "static_reachability": "PAIR_EMITTED_ONLY; CALL_PATH_AUDIT_REMAINS_REQUIRED",
         "runtime_qa": "NOT_TESTED",
         "outputs": {
             squirrel_path.relative_to(repo).as_posix(): sha256_bytes(squirrel_text.encode("utf-8")),
-            javascript_path.relative_to(repo).as_posix(): sha256_bytes(javascript_text.encode("utf-8")),
+            **{
+                javascript_paths[module].relative_to(repo).as_posix(): sha256_bytes(
+                    javascript_texts[module].encode("utf-8")
+                )
+                for module in javascript_paths
+            },
             pattern_harness_path.relative_to(repo).as_posix(): sha256_bytes(pattern_harness_text.encode("utf-8")),
             collision_harness_path.relative_to(repo).as_posix(): sha256_bytes(collision_harness_text.encode("utf-8")),
+            exact_harness_path.relative_to(repo).as_posix(): sha256_bytes(exact_harness_text.encode("utf-8")),
         },
     }
     manifest_path = repo / "reports" / "runtime-translation-manifest.json"

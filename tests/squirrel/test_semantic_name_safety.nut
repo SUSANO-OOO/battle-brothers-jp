@@ -1,14 +1,7 @@
 local hooks = {};
 local methodShapes = {
     ["scripts/items/item"] = ["getName"],
-    ["scripts/items/accessory/legend_accessory_dog"] = ["onActorDied"],
-    ["scripts/items/accessory/wardog_item"] = ["onActorDied"],
-    ["scripts/skills/actives/unleash_wardog"] = ["onUse"],
-    ["scripts/entity/tactical/actor"] = ["getName", "getNameOnly", "getTitle", "getKilledName"],
-    ["scripts/skills/perks/perk_legend_specialist_poacher"] = ["onAnySkillUsed", "onTargetHit"],
-    ["scripts/skills/backgrounds/character_background"] = ["getNameOnly"],
-    ["scripts/skills/traits/legend_intensive_training_trait"] = ["getTooltip"],
-    ["scripts/entity/world/world_entity"] = ["getName", "updateStrength", "onDeserialize"],
+    ["scripts/entity/world/world_entity"] = ["updateStrength", "onDeserialize"],
     ["scripts/entity/world/location"] = ["onInit"],
     ["scripts/entity/world/party"] = ["onInit"]
 };
@@ -22,6 +15,7 @@ local function registerHook(_target, _callback)
 }
 
 ::BattleBrothersJP <- {
+    DisplayGetterScopeDepth = 0,
     ActorTitleDisplayFragments = [
         {english = "the Holy Avenger", japanese = "聖なる復讐者"},
         {english = "the White Death", japanese = "白き死"},
@@ -43,10 +37,8 @@ local function registerHook(_target, _callback)
     }
 };
 
-::Rosetta <- {
-    active = "ja",
+::BattleBrothersJP.Runtime <- {
     translate = function (_text) {
-        if (this.active == null) return _text;
         local translated = {
             ["Broad Head Arrows"] = "幅広鏃の矢",
             ["Donkey"] = "ロバ",
@@ -58,7 +50,10 @@ local function registerHook(_target, _callback)
         return _text in translated ? translated[_text] : _text;
     }
 };
-::Rosetta._ <- ::Rosetta.translate;
+
+::buildTextFromTemplate <- function (_text, _vars) {
+    return {Text = _text, Vars = _vars};
+};
 
 local generateNameCalls = 0;
 local generateNameReceiver = null;
@@ -75,37 +70,41 @@ local throwFromGenerateName = false;
     generateNameCalls += 1;
     generateNameReceiver = this;
     if (throwFromGenerateName) throw "generate-name-sentinel";
-    return ::Rosetta.translate(_list[0]);
+    return ::buildTextFromTemplate(_list[0], []).Text;
 };
 
 dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/hooks/semantic_name_safety.nut", true);
+local firstItemNameFactory = hooks["scripts/items/item"].getName;
+dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/hooks/semantic_name_safety.nut", true);
+if (hooks["scripts/items/item"].getName != firstItemNameFactory)
+    throw "semantic name safety initialized twice";
+dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/hooks/event_variable_boundaries.nut", true);
+local firstTemplateBoundary = ::buildTextFromTemplate;
+dofile(getenv("BBJP_ROOT") + "src/battle_brothers_jp/hooks/event_variable_boundaries.nut", true);
+if (::buildTextFromTemplate != firstTemplateBoundary)
+    throw "event variable boundary initialized twice";
 
 function assertEqual(_actual, _expected)
 {
     if (_actual != _expected) throw "Expected '" + _expected + "', got '" + _actual + "'";
 }
 
-// Ordinary item display remains localized, while the two audited semantic
-// consumers see raw values and restore their nested scope on return.
+local function getDisplayName(_getter, _item)
+{
+    ::BattleBrothersJP.DisplayGetterScopeDepth += 1;
+    local result = _getter.call(_item);
+    ::BattleBrothersJP.DisplayGetterScopeDepth -= 1;
+    return result;
+}
+
+// Ordinary item identity is raw; only a finite display scope localizes it.
 local itemGetter = hooks["scripts/items/item"].getName(function () {
-    return ::Rosetta.translate(this.m.Name);
+    return this.m.Name;
 });
 local arrowItem = {m = {Name = "Broad Head Arrows"}};
 arrowItem.getName <- itemGetter;
-assertEqual(arrowItem.getName(), "幅広鏃の矢");
-
-local poacherHit = hooks["scripts/skills/perks/perk_legend_specialist_poacher"].onTargetHit(function () {
-    assertEqual(::BattleBrothersJP.SemanticNameScopes.Item, 2);
-    return arrowItem.getName();
-});
-local poacherUse = hooks["scripts/skills/perks/perk_legend_specialist_poacher"].onAnySkillUsed(function () {
-    assertEqual(::BattleBrothersJP.SemanticNameScopes.Item, 1);
-    local ret = poacherHit();
-    assertEqual(::BattleBrothersJP.SemanticNameScopes.Item, 1);
-    return ret;
-});
-assertEqual(poacherUse(), "Broad Head Arrows");
-assertEqual(::BattleBrothersJP.SemanticNameScopes.Item, 0);
+assertEqual(arrowItem.getName(), "Broad Head Arrows");
+assertEqual(getDisplayName(itemGetter, arrowItem), "幅広鏃の矢");
 
 // HedgeKnightTitles is both player-facing content and a generated actor name
 // list. Only that exact list is raw during generation; other lists delegate.
@@ -113,7 +112,6 @@ local worldNameReceiver = ::Const.World.Common;
 assertEqual(::Const.World.Common.generateName.call(worldNameReceiver, ::Const.Strings.HedgeKnightTitles), "The Lone Wolf");
 assertEqual(generateNameCalls, 1);
 if (generateNameReceiver != worldNameReceiver) throw "generateName receiver changed";
-assertEqual(::Rosetta.active, "ja");
 assertEqual(::Const.World.Common.generateName.call(worldNameReceiver, ["Hohenburg"]), "ホーエンブルク");
 assertEqual(generateNameCalls, 2);
 throwFromGenerateName = true;
@@ -129,25 +127,18 @@ catch (error)
 throwFromGenerateName = false;
 if (!generateNameErrorCaught) throw "generateName did not rethrow the original exception";
 assertEqual(generateNameCalls, 3);
-assertEqual(::Rosetta.active, "ja");
+assertEqual(::BattleBrothersJP.SemanticNameScopes.RawTemplate, 0);
 
-// Rosetta's installed actor hooks would translate at the getter. The safety
-// wrapper must make every actor identity getter raw for every caller, because
-// the installed snapshot has unbounded persistent/semantic consumers.
-local actorNameGetter = hooks["scripts/entity/tactical/actor"].getName(function () {
-    local name = ::Rosetta.translate(this.m.Name);
-    local title = ::Rosetta.translate(this.m.Title);
+// The new runtime deliberately does not hook actor identity getters. Their
+// complete unbounded semantic/save surface therefore stays raw by construction.
+local actorNameGetter = function () {
+    local name = this.m.Name;
+    local title = this.m.Title;
     return title.len() == 0 ? name : name + " " + title;
-});
-local actorNameOnlyGetter = hooks["scripts/entity/tactical/actor"].getNameOnly(function () {
-    return ::Rosetta.translate(this.m.Name);
-});
-local actorTitleGetter = hooks["scripts/entity/tactical/actor"].getTitle(function () {
-    return ::Rosetta.translate(this.m.Title);
-});
-local actorKilledNameGetter = hooks["scripts/entity/tactical/actor"].getKilledName(function () {
-    return ::Rosetta.translate(this.m.Name);
-});
+};
+local actorNameOnlyGetter = function () { return this.m.Name; };
+local actorTitleGetter = function () { return this.m.Title; };
+local actorKilledNameGetter = function () { return this.m.Name; };
 local titledActor = {m = {Name = "Aldric", Title = "The Lone Wolf"}};
 titledActor.getName <- actorNameGetter;
 titledActor.getNameOnly <- actorNameOnlyGetter;
@@ -174,7 +165,6 @@ assertEqual(farmer.getTitle(), "Weeds");
 assertEqual(titledActor.m.Name, "Aldric");
 assertEqual(titledActor.m.Title, "The Lone Wolf");
 assertEqual(farmer.m.Title, "Weeds");
-assertEqual(::Rosetta.active, "ja");
 
 // Representative unscoped semantic paths all receive raw identity without a
 // per-consumer wrapper: contract flags, mood history, named items, corpse
@@ -197,12 +187,13 @@ assertEqual(resurrected.m.Name, "Wiederganger Aldric The Lone Wolf");
 // Item state derived from an actor remains raw, but the generic item display
 // getter translates only the reviewed title fragment on its return value.
 local namedItemDisplay = hooks["scripts/items/item"].getName(function () {
-    return ::Rosetta.translate(this.m.Name);
+    return this.m.Name;
 });
-assertEqual(namedItemDisplay.call(namedItem), "Aldric 一匹狼's Relic");
+assertEqual(namedItemDisplay.call(namedItem), "Aldric The Lone Wolf's Relic");
+assertEqual(getDisplayName(namedItemDisplay, namedItem), "Aldric 一匹狼's Relic");
 assertEqual(namedItem.m.Name, "Aldric The Lone Wolf's Relic");
 local weedsItem = {m = {Name = "Asta Weeds' Sickle"}};
-assertEqual(namedItemDisplay.call(weedsItem), "Asta 雑草' Sickle");
+assertEqual(getDisplayName(namedItemDisplay, weedsItem), "Asta 雑草' Sickle");
 assertEqual(weedsItem.m.Name, "Asta Weeds' Sickle");
 local collisionItem = {m = {Name = "WolfgangThe Lone Wolfish Relic"}};
 assertEqual(namedItemDisplay.call(collisionItem), "WolfgangThe Lone Wolfish Relic");
@@ -219,89 +210,27 @@ local prefixTitleItems = [
 ];
 foreach (fixture in prefixTitleItems)
 {
-    assertEqual(namedItemDisplay.call(fixture[0]), fixture[1]);
+    assertEqual(getDisplayName(namedItemDisplay, fixture[0]), fixture[1]);
 }
 
-// Any failing original must leave Rosetta active exactly as it was.
-local failingActorGetter = hooks["scripts/entity/tactical/actor"].getName(function () {
-    assertEqual(::Rosetta.active, null);
-    throw "actor-getter-sentinel";
-});
-local actorErrorCaught = false;
-try
-{
-    failingActorGetter.call(titledActor);
-}
-catch (error)
-{
-    actorErrorCaught = error == "actor-getter-sentinel";
-}
-if (!actorErrorCaught) throw "actor getter did not rethrow the original exception";
-assertEqual(::Rosetta.active, "ja");
-
-// Dog names remain localized in inventory but raw when copied into a tactical
-// entity by each installed dog consumer.
+// Dog item identity is also raw without wrapping gameplay callbacks.
 local dogItem = {m = {Name = "Warrior the Warhound"}};
 dogItem.getName <- itemGetter;
-assertEqual(dogItem.getName(), "戦犬のウォリアー");
-local unleashed = {Name = null};
-local unleash = hooks["scripts/skills/actives/unleash_wardog"].onUse(function (_user, _tile) {
-    unleashed.Name = dogItem.getName();
-    return _user + _tile;
-});
-assertEqual(unleash("user", "tile"), "usertile");
-assertEqual(unleashed.Name, "Warrior the Warhound");
-local wardogCorpse = {Name = null};
-local wardogDeath = hooks["scripts/items/accessory/wardog_item"].onActorDied(function (_killer) {
-    wardogCorpse.Name = dogItem.getName();
-    return _killer;
-});
-assertEqual(wardogDeath("killer"), "killer");
-assertEqual(wardogCorpse.Name, "Warrior the Warhound");
-local legendDogCorpse = {Name = null};
-local legendDogDeath = hooks["scripts/items/accessory/legend_accessory_dog"].onActorDied(function (_killer) {
-    legendDogCorpse.Name = dogItem.getName();
-    return _killer;
-});
-assertEqual(legendDogDeath("legend-killer"), "legend-killer");
-assertEqual(legendDogCorpse.Name, "Warrior the Warhound");
+assertEqual(dogItem.getName(), "Warrior the Warhound");
+assertEqual(getDisplayName(itemGetter, dogItem), "戦犬のウォリアー");
 assertEqual(dogItem.m.Name, "Warrior the Warhound");
-assertEqual(dogItem.getName(), "戦犬のウォリアー");
-assertEqual(::BattleBrothersJP.SemanticNameScopes.Item, 0);
+assertEqual(dogItem.getName(), "Warrior the Warhound");
+assertEqual(getDisplayName(itemGetter, dogItem), "戦犬のウォリアー");
 
-local failingDog = hooks["scripts/skills/actives/unleash_wardog"].onUse(function (...) {
-    assertEqual(dogItem.getName(), "Warrior the Warhound");
-    throw "dog-sentinel";
-});
-local dogErrorCaught = false;
-try
-{
-    failingDog();
-}
-catch (error)
-{
-    dogErrorCaught = error == "dog-sentinel";
-}
-if (!dogErrorCaught) throw "dog scope did not rethrow the original exception";
-assertEqual(::BattleBrothersJP.SemanticNameScopes.Item, 0);
-assertEqual(::Rosetta.active, "ja");
-
-// Background display remains localized except for the exact installed matcher.
-local backgroundGetter = hooks["scripts/skills/backgrounds/character_background"].getNameOnly(function () {
-    return ::Rosetta.translate("Donkey");
-});
-assertEqual(backgroundGetter(), "ロバ");
-local training = hooks["scripts/skills/traits/legend_intensive_training_trait"].getTooltip(function () {
-    return backgroundGetter() == "Donkey" ? "donkey-branch" : "wrong-branch";
-});
-assertEqual(training(), "donkey-branch");
-assertEqual(::BattleBrothersJP.SemanticNameScopes.Background, 0);
+// No background identity getter is installed. The original matcher therefore
+// receives the raw source value; final skill/UI wrappers localize its display.
+local backgroundGetter = function () { return "Donkey"; };
+assertEqual(backgroundGetter(), "Donkey");
+assertEqual(backgroundGetter() == "Donkey" ? "donkey-branch" : "wrong-branch", "donkey-branch");
 
 // World identity remains raw globally, with labels localized after the exact
 // display-producing lifecycle methods complete.
-local worldGetter = hooks["scripts/entity/world/world_entity"].getName(function () {
-    return ::Rosetta.translate(this.m.Name);
-});
+local worldGetter = function () { return this.m.Name; };
 local settlement = {
     m = {Name = "Hohenburg"},
     label = {Text = null},
@@ -325,7 +254,35 @@ settlement.label.Text = null;
 assertEqual(partyInit.call(settlement), 23);
 assertEqual(settlement.label.Text, "ホーエンブルク");
 
-assertEqual(::BattleBrothersJP.SemanticNameScopes.Item, 0);
-assertEqual(::BattleBrothersJP.SemanticNameScopes.Background, 0);
-assertEqual(::Rosetta.active, "ja");
+// Unknown MOD label shapes and JP-only post-processing failures pass through
+// after the original lifecycle method has run exactly once.
+local malformedOriginalCalls = 0;
+local malformedUpdate = hooks["scripts/entity/world/world_entity"].updateStrength(function () {
+    malformedOriginalCalls += 1;
+    return 31;
+});
+local nullLabelEntity = {
+    hasLabel = function (_name) { return true; },
+    getLabel = function (_name) { return null; },
+    getName = function () { return "Hohenburg"; }
+};
+assertEqual(malformedUpdate.call(nullLabelEntity), 31);
+assertEqual(malformedOriginalCalls, 1);
+local missingTextEntity = {
+    hasLabel = function (_name) { return true; },
+    getLabel = function (_name) { return {}; },
+    getName = function () { return "Hohenburg"; }
+};
+assertEqual(malformedUpdate.call(missingTextEntity), 31);
+assertEqual(malformedOriginalCalls, 2);
+local throwingPostprocessEntity = {
+    label = {Text = "Hohenburg"},
+    hasLabel = function (_name) { return true; },
+    getLabel = function (_name) { return this.label; },
+    getName = function () { throw "UNKNOWN_MOD_GET_NAME_FAILURE"; }
+};
+assertEqual(malformedUpdate.call(throwingPostprocessEntity), 31);
+assertEqual(malformedOriginalCalls, 3);
+
+assertEqual(::BattleBrothersJP.SemanticNameScopes.RawTemplate, 0);
 print("SEMANTIC_NAME_SAFETY_TEST_OK\n");

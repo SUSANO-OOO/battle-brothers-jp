@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
   "source_audit": "work/review_batches/literal_reachability_audit_001.json",
   "source_audit_sha256": "6BD64E08ED9DAA0034889AF9CEFA517F1349C3C435C084998B2981726010C3CD",
@@ -9,6 +9,15 @@
     "REACHABLE_JS": 32,
     "NEEDS_BOUNDARY_HOOK": 64,
     "UNRESOLVED": 0
+  },
+  "initial_classification_phase": "PRE_MIGRATION_ROSETTA_BASELINE",
+  "current_runtime": {
+    "name": "BattleBrothersJP.Runtime/v1",
+    "reachability_map": "reports/runtime-reachability-map.json",
+    "pre_migration_rosetta_units_mapped": 181,
+    "pre_migration_rosetta_occurrences_mapped": 307,
+    "unresolved": 0,
+    "runtime_game_qa": "NOT_TESTED"
   },
   "remediation": {
     "JQUERY_HTML_CONSTRUCTOR_UNITS": {
@@ -24,7 +33,7 @@
     "BACKGROUND_CRAFTING_UNIT": {
       "units": 1,
       "status": "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED",
-      "implementation": "src/battle_brothers_jp/translations/context_patterns.nut matches Crafting plus val_tag"
+      "implementation": "canonical-reviewed supplemental pattern is generated into src/battle_brothers_jp/translations/reviewed_literals.nut and evaluated by BattleBrothersJP.Runtime/v1"
     },
     "ADAPTIVE_TOOLTIP_PREFIX_UNITS": {
       "units": 2,

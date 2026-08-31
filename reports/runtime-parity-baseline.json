@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-08-31",
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "source_commit": "b69b82fc024bfc5e9ee401b9662182019f7688e6",
+  "canonical_ledger_sha256": "895874C835B51FF61BE8B44D3B6DA7446BB0E8A3D3BE329CD179D1A73A6B393A",
+  "translation_units_sha256": "D409513A08715EB129B39BB82348144848B889337E48039C91FD41A8E8E2BF11",
+  "reviewed_emitted_unit_count": 6403,
+  "literal_pairs_by_module": {
+    "vanilla": 4631,
+    "legends": 1525,
+    "msu": 25
+  },
+  "unique_generated_pattern_rules": 122,
+  "manual_context_pattern_rules": 1,
+  "pattern_samples": 146,
+  "javascript_pairs": 85,
+  "actor_title_fragments": 396,
+  "generic_actor_title_fragments": 2,
+  "boundary_hook_units": 14,
+  "outputs": {
+    "src/battle_brothers_jp/translations/reviewed_literals.nut": "DD281BF7C7DA32F2607FC089082A5ECE9DDA894C1CF968A82846BE55E93ADC59",
+    "src/battle_brothers_jp/translations/context_patterns.nut": "7CA6EC1AE9DC7FFCDDC9A3C3BAD16EBEA27238B787F1728911E0973A6974B56D",
+    "src/ui/mods/mod_battle_brothers_jp/generated_strings.js": "216D1C20328E21648BA43E810D71E14DF7C1CD44F6BB5A8F5049B2D4CA66312F",
+    "tests/squirrel/test_reviewed_runtime_patterns.nut": "3CD2ACE7DDCD799241408604A96EC8B1966D6A3C56480C54405BCF6C224A2094",
+    "tests/squirrel/test_runtime_pattern_collisions.nut": "B79BE5D9A370CBA2E503C3E23CB1A0379CAC8ECA3A89FFE01C3B4BDFE105B816",
+    "reports/runtime-translation-manifest.json": "7B54768CF9476E2639E90BA1125A5B8240A6A58190E80A3059165E5B74DDC273"
+  },
+  "purpose": "Freeze the reviewed Rosetta-based expected-output corpus before deterministic migration to the JP-namespaced runtime. This is parity evidence, not a release or runtime-game PASS."
+}

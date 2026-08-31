@@ -1,17 +1,20 @@
-// Rosetta 0.5.0 translates event/contract templates before the engine inserts
+// Translate event/contract templates before the engine inserts
 // %variables%. Legends adds several English display words only during that
 // later substitution, so global literal rules cannot reach them. Translate a
 // cloned variable list at this exact display boundary and leave caller-owned
 // data, PronounTable, internal keys, IDs, and source templates untouched.
 
+if ("EventVariableBoundariesInstalled" in ::BattleBrothersJP) return;
+::BattleBrothersJP.EventVariableBoundariesInstalled <- true;
+
 local mod = ::BattleBrothersJP.Mod;
-local rosettaBuildTextFromTemplate = ::buildTextFromTemplate;
+local originalBuildTextFromTemplate = ::buildTextFromTemplate;
 
 local function translateReviewedActorNameDisplay(_text)
 {
     if (typeof _text != "string") return _text;
 
-    local translatedText = ::Rosetta._(_text);
+    local translatedText = ::BattleBrothersJP.Runtime.translate(_text);
     // Template variables are heterogeneous (items, settlements, factions,
     // prose, and actor names). Only explicit identity-sensitive opt-ins may be
     // fragment-rewritten without actor provenance; all other values receive
@@ -57,9 +60,13 @@ local pronounDisplayValues = {
     ["were they"] = { ["were they"] = "その者は", ["was he"] = "彼は", ["was she"] = "彼女は" }
 };
 
-::buildTextFromTemplate = function (_text, _vars)
+local function prepareDisplayTemplate(_text, _vars)
 {
-    if (typeof _vars != "array") return rosettaBuildTextFromTemplate(_text, _vars);
+    if (typeof _vars != "array")
+        return {
+            Text = ::BattleBrothersJP.Runtime.translate(_text)
+            Vars = _vars
+        };
 
     // return_item supplies both the raw title-case item identity and a
     // lowercase derivative. The derivative cannot match an exact reviewed
@@ -131,7 +138,7 @@ local pronounDisplayValues = {
             }
             else if (key == "itemlower" && rawItemMatches == 1 && rawItem.tolower() == value)
             {
-                local translatedItem = ::Rosetta._(rawItem);
+                local translatedItem = ::BattleBrothersJP.Runtime.translate(rawItem);
                 if (translatedItem != rawItem) copiedPair[1] = translatedItem;
             }
             else
@@ -140,12 +147,38 @@ local pronounDisplayValues = {
                 // therefore safe to translate settlement/item/skill/faction
                 // display values here without changing the caller's save,
                 // identity, pronoun table, or gameplay data.
-                copiedPair[1] = translateReviewedActorNameDisplay(::Rosetta._(value));
+                copiedPair[1] = translateReviewedActorNameDisplay(::BattleBrothersJP.Runtime.translate(value));
             }
         }
 
         displayVars.push(copiedPair);
     }
 
-    return rosettaBuildTextFromTemplate(_text, displayVars);
+    return {
+        Text = ::BattleBrothersJP.Runtime.translate(_text)
+        Vars = displayVars
+    };
+}
+
+::buildTextFromTemplate = function (_text, _vars)
+{
+    // The exact generated-name scope is semantic/persistent, not display.
+    if ("SemanticNameScopes" in ::BattleBrothersJP
+        && ::BattleBrothersJP.SemanticNameScopes.RawTemplate > 0)
+    {
+        return originalBuildTextFromTemplate(_text, _vars);
+    }
+
+    local prepared = null;
+    try
+    {
+        prepared = prepareDisplayTemplate(_text, _vars);
+    }
+    catch (jpError)
+    {
+        // JP-only processing failure must not suppress or rerun original game
+        // behavior. The original is called exactly once below with raw input.
+        prepared = { Text = _text, Vars = _vars };
+    }
+    return originalBuildTextFromTemplate(prepared.Text, prepared.Vars);
 }

@@ -24,13 +24,13 @@
     {"id": "mod_Jimmys_Tooltips_legends", "version": "1.0.5", "classification": "KNOWN_ACTIVE_BUNDLED", "framework": false},
     {"id": "mod_legends_load_order_fix", "version": "19.4.20", "classification": "KNOWN_ACTIVE_INTERNAL", "framework": false},
     {"id": "mod_legends_compat_check", "version": "19.4.20", "classification": "KNOWN_ACTIVE_INTERNAL", "framework": false},
-    {"id": "mod_rosetta", "version": "0.5.0", "classification": "PROPOSED_DEPENDENCY_NOT_INSTALLED", "framework": true},
-    {"id": "stdlib", "version": ">=2.5", "classification": "TRANSITIVE_DEPENDENCY_NOT_INSTALLED", "framework": true},
+    {"id": "mod_rosetta", "version": "0.5.0", "classification": "OPTIONAL_COEXISTENCE_NOT_INSTALLED_NOT_REQUIRED_BY_JP", "framework": true},
+    {"id": "stdlib", "version": ">=2.5", "classification": "FRAMEWORK_REFERENCE_NOT_INSTALLED_NOT_REQUIRED_BY_JP", "framework": true},
     {"id": "mod_tooltip_extension", "version": "unknown", "classification": "INCOMPATIBLE_NOT_PRESENT", "framework": false},
     {"id": "mod_prepare_carefully", "version": "unknown", "classification": "OPTIONAL_NOT_PRESENT", "framework": false},
     {"id": "mod_upd", "version": "unknown", "classification": "OPTIONAL_NOT_PRESENT", "framework": false},
     {"id": "mod_reforged", "version": "unknown", "classification": "OPTIONAL_NOT_PRESENT", "framework": false},
-    {"id": "mod_battle_brothers_jp", "version": "0.1.0-dev", "classification": "PROJECT_UNBUILT", "framework": false}
+    {"id": "mod_battle_brothers_jp", "version": "0.1.0-dev", "classification": "DEVELOPMENT_ARTIFACT_STATIC_QA_PASS_NOT_RELEASE", "framework": false}
   ],
   "relations": [
     {"from": "mod_msu", "type": "requirement", "to": "vanilla", "condition": ">=1.5.0-13", "evidence": "MSU scripts/!mods_preload/msu.nut:2"},
@@ -71,16 +71,10 @@
     {"from": "mod_rosetta", "type": "queue_after", "to": "mod_msu", "condition": "Late boundary and MSU UI hooks", "evidence": "Rosetta 0.5.0 rosetta/hooks.nut:42"},
     {"from": "mod_rosetta", "type": "queue_after", "to": "mod_upd", "condition": "optional compatibility hook", "evidence": "Rosetta 0.5.0 rosetta/hooks.nut:249"},
     {"from": "mod_rosetta", "type": "queue_before", "to": "mod_reforged", "condition": "optional compatibility hook", "evidence": "Rosetta 0.5.0 rosetta/hooks.nut:249"},
-    {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "vanilla", "condition": "=1.5.2-3", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:11-19"},
-    {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "mod_legends", "condition": "=19.4.20", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:11-19"},
-    {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "mod_legends_assets", "condition": "=19.4.3", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:11-19"},
-    {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "mod_msu", "condition": "=1.9.0", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:11-19"},
-    {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "mod_modern_hooks", "condition": ">=0.6.0", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:11-19"},
-    {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "mod_rosetta", "condition": "=0.5.0", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:11-19"},
-    {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "stdlib", "condition": ">=2.5", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:11-19"},
-    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_rosetta", "condition": "explicit > relation in shared QueueBucket.Late", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:22-47; Rosetta 0.5.0 rosetta/hooks.nut:42-246"},
-    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_msu", "condition": "explicit > relation in QueueBucket.Late", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:22-47"},
-    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_legends", "condition": "explicit > relation in QueueBucket.Late", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:22-47"}
+    {"from": "mod_battle_brothers_jp", "type": "requirement", "to": "mod_modern_hooks", "condition": ">=0.6.0", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:13"},
+    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_rosetta", "condition": "optional coexistence relation in two QueueBucket.Late callbacks; never a requirement", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:103-117"},
+    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_msu", "condition": "optional relation in QueueBucket.Late", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:113-117"},
+    {"from": "mod_battle_brothers_jp", "type": "queue_after", "to": "mod_legends", "condition": "optional relation in QueueBucket.Late", "evidence": "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:103-111"}
   ],
   "runtime_evidence": {
     "source": "read-only user log.html captured in reports/source-snapshot.json",

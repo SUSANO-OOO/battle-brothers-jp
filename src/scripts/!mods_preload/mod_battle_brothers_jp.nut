@@ -4,48 +4,113 @@ local def = ::BattleBrothersJP <- {
     Version = "0.1.0-dev"
     Snapshot = "BBJP-CF88150E7B355ECD32D9"
     Author = "SUSANO-OOO"
-}
+};
 
 local mod = def.Mod <- ::Hooks.register(def.ID, def.Version, def.Name);
 
-// Exact content versions prevent a source update from silently using stale copy.
-mod.require(
-    "vanilla = 1.5.2-3",
-    "mod_legends = 19.4.20",
-    "mod_legends_assets = 19.4.3",
-    "mod_msu = 1.9.0",
-    "mod_modern_hooks >= 0.6.0",
-    "mod_rosetta = 0.5.0",
-    "stdlib >= 2.5"
-);
+// The JP runtime needs only Modern Hooks. Legends, Assets, MSU, legacy
+// mod_hooks, Rosetta, stdlib, and DLC are optional composition partners.
+mod.require("mod_modern_hooks >= 0.6.0");
 
-// Rosetta installs its getter/template hooks in QueueBucket.Late. Queue order
-// relations are only meaningful inside the same bucket, so this callback must
-// also be Late for >mod_rosetta to make our boundary wrappers outermost.
-mod.queue(">mod_rosetta", ">mod_msu", ">mod_legends", function () {
+local function detectProfile(_id, _verifiedVersion)
+{
+    local present = ::Hooks.hasMod(_id);
+    local actual = present ? ::Hooks.getMod(_id).getVersionString() : null;
+    return {
+        Present = present
+        ActualVersion = actual
+        VerifiedVersion = _verifiedVersion
+        Verified = present && actual == _verifiedVersion
+        Enabled = present && actual == _verifiedVersion
+    };
+}
+
+// Normal: no source scan or network access; only registered MOD metadata.
+mod.queue(function () {
+    def.ModuleStatus <- {
+        vanilla = detectProfile("vanilla", "1.5.2-3")
+        dlc_lindwurm = detectProfile("dlc_lindwurm", "1.0.0")
+        dlc_unhold = detectProfile("dlc_unhold", "1.0.0")
+        dlc_wildmen = detectProfile("dlc_wildmen", "1.0.0")
+        dlc_desert = detectProfile("dlc_desert", "1.0.0")
+        dlc_paladins = detectProfile("dlc_paladins", "1.0.0")
+        legends = detectProfile("mod_legends", "19.4.20")
+        legends_assets = detectProfile("mod_legends_assets", "19.4.3")
+        msu = detectProfile("mod_msu", "1.9.0")
+        modern_hooks = detectProfile("mod_modern_hooks", "0.6.0")
+        legacy_hooks = detectProfile("mod_hooks", "21.1")
+        legends_events_fix = detectProfile("mod_events_delayed_fix_legends", "0.7")
+        legends_jimmys_tooltips = detectProfile("mod_Jimmys_Tooltips_legends", "1.0.5")
+        legends_load_order_fix = detectProfile("mod_legends_load_order_fix", "19.4.20")
+        legends_compat_check = detectProfile("mod_legends_compat_check", "19.4.20")
+    };
+
+    // Unknown base/framework versions fail closed to original English without
+    // blocking startup. Each DLC remains independently optional for Core.
+    local supportedBase = def.ModuleStatus.vanilla.Verified
+        && def.ModuleStatus.modern_hooks.Verified;
+    def.ModuleStatus.vanilla.Enabled = supportedBase;
+    def.ModuleStatus.dlc_lindwurm.Enabled = supportedBase
+        && def.ModuleStatus.dlc_lindwurm.Verified;
+    def.ModuleStatus.dlc_unhold.Enabled = supportedBase
+        && def.ModuleStatus.dlc_unhold.Verified;
+    def.ModuleStatus.dlc_wildmen.Enabled = supportedBase
+        && def.ModuleStatus.dlc_wildmen.Verified;
+    def.ModuleStatus.dlc_desert.Enabled = supportedBase
+        && def.ModuleStatus.dlc_desert.Verified;
+    def.ModuleStatus.dlc_paladins.Enabled = supportedBase
+        && def.ModuleStatus.dlc_paladins.Verified;
+    def.ModuleStatus.msu.Enabled = supportedBase && def.ModuleStatus.msu.Verified;
+
+    // Legends 19.4.20's actual registration requires this full composition.
+    // A mismatch disables only the Legends partition and leaves source English.
+    def.ModuleStatus.legends.Enabled = supportedBase
+        && def.ModuleStatus.legends.Verified
+        && def.ModuleStatus.legends_assets.Verified
+        && def.ModuleStatus.msu.Enabled
+        && def.ModuleStatus.legacy_hooks.Verified
+        && def.ModuleStatus.dlc_lindwurm.Enabled
+        && def.ModuleStatus.dlc_unhold.Enabled
+        && def.ModuleStatus.dlc_wildmen.Enabled
+        && def.ModuleStatus.dlc_desert.Enabled
+        && def.ModuleStatus.dlc_paladins.Enabled
+        && def.ModuleStatus.legends_events_fix.Verified
+        && def.ModuleStatus.legends_load_order_fix.Verified
+        && def.ModuleStatus.legends_compat_check.Verified;
+
+    ::include("battle_brothers_jp/runtime/core");
     ::include("battle_brothers_jp/translations/reviewed_literals");
-    ::include("battle_brothers_jp/translations/context_patterns");
 
-    // Rosetta 0.5.0's Japanese autodetection is explicitly marked non-working.
-    ::Rosetta.activate("ja");
+    // Each optional JS dictionary is activated only for its exact verified
+    // profile. Unknown MODs and changed versions therefore keep English even
+    // when they happen to reuse one of the reviewed labels.
+    if (def.ModuleStatus.vanilla.Enabled)
+    {
+        ::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/generated_strings.js");
+        if (def.ModuleStatus.legends.Enabled)
+            ::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/generated_strings_legends.js");
+        if (def.ModuleStatus.msu.Enabled)
+            ::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/generated_strings_msu.js");
+        if (def.ModuleStatus.modern_hooks.Enabled)
+            ::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/generated_strings_modern_hooks.js");
+        ::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/main.js");
+        ::Hooks.registerCSS("ui/mods/mod_battle_brothers_jp/main.css");
+    }
+}, ::Hooks.QueueBucket.Normal);
 
-    // Preserve source-language item/background/world names for code that uses
-    // getters as gameplay, identity, uniqueness, or persistence data.
+// Optional relations affect only ordering, never dependency status. Each
+// Legends-only target in these files is internally guarded by ModuleStatus.
+mod.queue(">mod_legends", ">mod_rosetta", function () {
+    if (!def.ModuleStatus.vanilla.Enabled) return;
+    ::include("battle_brothers_jp/hooks/runtime_display_boundaries");
     ::include("battle_brothers_jp/hooks/semantic_name_safety");
-
-    // Translate display-only values inserted after Rosetta's template pass.
     ::include("battle_brothers_jp/hooks/event_variable_boundaries");
-
-    // Normalize independently reviewed player-facing placeholder/brace defects
-    // in the exact installed snapshot at their narrow final-display boundaries.
     ::include("battle_brothers_jp/hooks/source_defect_boundaries");
-
-    // Translation-only boundary hooks for player-facing strings that Rosetta
-    // 0.5.0 does not intercept in the supported snapshot.
     ::include("battle_brothers_jp/hooks/ui_boundaries");
+}, ::Hooks.QueueBucket.Late);
 
-    // Modern Hooks loads these before non-root screens are instantiated.
-    ::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/generated_strings.js");
-    ::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/main.js");
-    ::Hooks.registerCSS("ui/mods/mod_battle_brothers_jp/main.css");
+// MSU UI is referenced only after an exact optional profile match.
+mod.queue(">mod_msu", ">mod_rosetta", function () {
+    if (def.ModuleStatus.msu.Enabled)
+        ::include("battle_brothers_jp/hooks/msu_display_boundaries");
 }, ::Hooks.QueueBucket.Late);

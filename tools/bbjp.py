@@ -425,6 +425,9 @@ def build_command(args: argparse.Namespace) -> int:
         command.append("--allow-incomplete")
     if args.snapshot_report:
         command.extend(["--snapshot-report", args.snapshot_report])
+    for option, value in (("--sq", args.sq), ("--node", args.node), ("--qa-report", args.qa_report)):
+        if value:
+            command.extend([option, value])
     return run_project_script("build_mod.py", command)
 
 
@@ -504,6 +507,9 @@ def build_parser() -> argparse.ArgumentParser:
     build_command_parser.add_argument("--output", default="dist/mod_battle_brothers_jp.zip")
     build_command_parser.add_argument("--allow-incomplete", action="store_true")
     build_command_parser.add_argument("--snapshot-report")
+    build_command_parser.add_argument("--sq")
+    build_command_parser.add_argument("--node")
+    build_command_parser.add_argument("--qa-report")
     build_command_parser.set_defaults(handler=build_command)
 
     qa_parser = subparsers.add_parser("qa", help="Run static/local MOD QA")

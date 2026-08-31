@@ -2,21 +2,23 @@
 
 Target snapshot: `BBJP-CF88150E7B355ECD32D9`
 
-| Component | State | Translation scope | Compatibility action |
+| Component | Public status | JP requirement | Translation behavior |
 |---|---|---|---|
-| Vanilla `1.5.2-3` | `KNOWN_ACTIVE` | Full player-facing Squirrel + JS/UI | exact source pin; Rosetta + JS overlay |
-| Five official DLCs `1.0.0` | `KNOWN_ACTIVE` | Full player-facing content | included in Vanilla ledger; required transitively by Legends |
-| Legends `19.4.20` | `KNOWN_ACTIVE` | Full player-facing Squirrel + custom JS/UI | exact source pin; load translation after Legends registration |
-| Legends Assets `19.4.3` | `KNOWN_ACTIVE` | friendly name only; remaining archive is resource content | exact dependency pin; no asset copying |
-| MSU `1.9.0` | `FRAMEWORK` | player-facing settings/registry UI; internal diagnostics excluded with reasons | Rosetta MSU boundary + JS audit |
-| Modern Hooks `0.6.0` | `FRAMEWORK` | player-visible framework errors only; IDs/debug/internal copy excluded | minimum version; JS/CSS registration provider |
-| mod_hooks `21.1` | `FRAMEWORK` | no independent content module | consumed by bundled compatibility code |
-| Events/Ambitions Delayed Fix `0.7` | `KNOWN_ACTIVE_BUNDLED` | no new player-facing copy detected beyond hooked Vanilla flow | retain graph edge; no gameplay hook copied |
-| Jimmy's Tooltips `1.0.5` | `KNOWN_ACTIVE_BUNDLED` | setting labels/tooltips | translate through Rosetta/MSU path |
-| Legends load-order-fix / compat-check `19.4.20` | `KNOWN_ACTIVE_INTERNAL` | no standalone player copy | preserve queue graph; no localization hook |
-| Existing Japanese MOD | `KNOWN_INACTIVE / NOT_PRESENT` | none | new MOD has no hidden dependency |
-| Rosetta `0.5.0` | `PROPOSED_DEPENDENCY_NOT_INSTALLED` | Squirrel translation runtime | required for RC architecture; needs stdlib `>=2.5` |
-| stdlib `>=2.5` | `TRANSITIVE_DEPENDENCY_NOT_INSTALLED` | no translation content | external dependency of Rosetta |
-| Future added MOD | `LOAD_STATE_UNKNOWN` until scan | none until dependency audit | graph first, extraction second |
+| Vanilla `1.5.2-3` | `VERIFIED_STATIC` | required base game | reviewed Core exact/pattern/display tranche enabled; release coverage is not met |
+| Five official DLCs `1.0.0` | `VERIFIED_STATIC` when owned | optional for Vanilla JP | each DLC enabled independently; an unowned DLC does not block startup |
+| Legends `19.4.20` | `VERIFIED_STATIC` | optional | reviewed tranche enabled only with its audited Assets/MSU/DLC/framework composition |
+| Legends Assets `19.4.3` | `VERIFIED_STATIC` | optional; required by Legends itself | no third-party assets copied |
+| MSU `1.9.0` | `VERIFIED_STATIC` | optional | reviewed MSU/Jimmy display module enabled only on exact profile |
+| Modern Hooks `0.6.0` | `HARD_DEPENDENCY` | required (`>=0.6.0`) | loader, hooks, JS/CSS registration |
+| legacy mod_hooks `21.1` | `UNVERIFIED_COMPATIBLE` for JP Core | optional | namespace preserved; needed by installed Legends composition |
+| Events/Ambitions Delayed Fix `0.7` | `VERIFIED_STATIC` bundled Legends component | optional | no independent player-facing scope detected |
+| Jimmy's Tooltips `1.0.5` | `VERIFIED_STATIC` bundled Legends component | optional | reviewed UI strings through conditional MSU/Legends boundaries |
+| Rosetta `0.5.0` | `UNVERIFIED_COMPATIBLE` when used by another MOD | not required | JP registers no `::Rosetta`; an active old JP language pack is a known conflict |
+| stdlib `>=2.5` | `UNVERIFIED_COMPATIBLE` when used by another MOD | not required | JP registers no `::std` |
+| Legends `19.4.21` | `UNSUPPORTED` for current artifact | optional | semantic delta audited; changed/revalidated scope remains English until closed |
+| Future/unknown MOD | `UNVERIFIED_MOD` | never auto-required | no runtime source scan or guess translation; unknown text passes through |
+| Existing Japanese MOD | `KNOWN_CONFLICT` if active | must be removed by user | new MOD has no hidden dependency on it |
 
-`data` presence aloneではactive判定していない。runtime registrationがあるものだけを`KNOWN_ACTIVE`/`FRAMEWORK`とし、projectでまだ導入されていないdependencyは明確に`NOT_INSTALLED`とした。
+`VERIFIED_STATIC` means repository-owned syntax, contracts, mock composition, source fingerprints, and archive QA passed. It does not mean a real game boot/render/save test was performed. Runtime state remains `NOT_TESTED`.
+
+Different version numbers do not by themselves crash/block the entire JP MOD. Current sensitive partitions require their verified profile; a mismatch disables that partition and preserves original English. The packaged machine-readable contract is `battle_brothers_jp/compatibility.json`.

@@ -55,6 +55,11 @@ JS_GENERIC_ACTOR_TITLE_BLOCK_RE = re.compile(
     re.S,
 )
 DISTRIBUTABLE_ROOTS = {"scripts", "battle_brothers_jp", "ui", "gfx"}
+KNOWN_LICENSE_HASHES = {
+    "battle_brothers_jp/licenses/rosetta-BSD-2-Clause.txt": "4EEFDB99E20B7A53493FE81AD23E4B239C1B80AFBBBAFF86D10A7676C79A6F26",
+    "battle_brothers_jp/licenses/THIRD_PARTY_NOTICES.md": "BBDBCD6D0A3EE28D35C8C130BFFE43B2501AC463D1C4641AC9F4731D68DDFC6B",
+    "gfx/fonts/battle_brothers_jp/OFL.txt": "BABCFE66C8A098B2FA279BC724A3A342F8124F77CE18941FBCC1BBB39823CDED",
+}
 
 
 def result(name: str, passed: bool, detail: Any) -> dict[str, Any]:
@@ -292,21 +297,31 @@ def check_registration(src: Path) -> dict[str, Any]:
     preload = src / "scripts" / "!mods_preload" / "mod_battle_brothers_jp.nut"
     required = {
         'ID = "mod_battle_brothers_jp"': "mod id",
-        '"vanilla = 1.5.2-3"': "vanilla pin",
-        '"mod_legends = 19.4.20"': "Legends pin",
-        '"mod_legends_assets = 19.4.3"': "Legends Assets pin",
-        '"mod_rosetta = 0.5.0"': "Rosetta pin",
-        '"stdlib >= 2.5"': "stdlib requirement",
-        '">mod_rosetta"': "queue after Rosetta",
-        '::Hooks.QueueBucket.Late': "same Late queue bucket as Rosetta hooks",
-        '">mod_legends"': "queue after Legends",
-        '::Rosetta.activate("ja")': "explicit Japanese activation",
+        'mod.require("mod_modern_hooks >= 0.6.0")': "sole hard dependency",
+        'detectProfile("vanilla", "1.5.2-3")': "verified Vanilla profile",
+        'detectProfile("dlc_lindwurm", "1.0.0")': "optional Lindwurm DLC profile",
+        'detectProfile("dlc_unhold", "1.0.0")': "optional Unhold DLC profile",
+        'detectProfile("dlc_wildmen", "1.0.0")': "optional Wildmen DLC profile",
+        'detectProfile("dlc_desert", "1.0.0")': "optional Desert DLC profile",
+        'detectProfile("dlc_paladins", "1.0.0")': "optional Paladins DLC profile",
+        'detectProfile("mod_legends", "19.4.20")': "optional Legends profile",
+        'detectProfile("mod_legends_assets", "19.4.3")': "optional Legends Assets profile",
+        'detectProfile("mod_msu", "1.9.0")': "optional MSU profile",
+        'detectProfile("mod_hooks", "21.1")': "verified Legends legacy-hooks profile",
+        'detectProfile("mod_events_delayed_fix_legends", "0.7")': "verified Legends event-fix profile",
+        '::Hooks.QueueBucket.Normal': "runtime data queue",
+        '::Hooks.QueueBucket.Late': "display boundary queue",
+        '::include("battle_brothers_jp/runtime/core")': "namespaced runtime include",
+        '::include("battle_brothers_jp/hooks/runtime_display_boundaries")': "common display boundaries",
         '::include("battle_brothers_jp/hooks/semantic_name_safety")': "semantic name safety hooks",
         '::include("battle_brothers_jp/hooks/event_variable_boundaries")': "event-variable boundary hooks",
         '::include("battle_brothers_jp/hooks/ui_boundaries")': "UI-boundary hooks",
         '::include("battle_brothers_jp/translations/reviewed_literals")': "reviewed translation include",
-        '::include("battle_brothers_jp/translations/context_patterns")': "context pattern include",
+        '::include("battle_brothers_jp/hooks/msu_display_boundaries")': "optional MSU boundary include",
         '::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/generated_strings.js")': "generated JS strings",
+        '::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/generated_strings_legends.js")': "optional Legends JS strings",
+        '::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/generated_strings_msu.js")': "optional MSU JS strings",
+        '::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/generated_strings_modern_hooks.js")': "optional Modern Hooks JS strings",
         '::Hooks.registerJS("ui/mods/mod_battle_brothers_jp/main.js")': "JS registration",
         '::Hooks.registerCSS("ui/mods/mod_battle_brothers_jp/main.css")': "CSS registration",
     }
@@ -314,7 +329,28 @@ def check_registration(src: Path) -> dict[str, Any]:
         return result("preload_registration_dependency_queue", False, {"missing": [str(preload)]})
     text = preload.read_text(encoding="utf-8")
     missing = [description for token, description in required.items() if token not in text]
-    return result("preload_registration_dependency_queue", not missing, {"missing": missing})
+    unresolved_js = [
+        path
+        for path in re.findall(r'::Hooks\.registerJS\("([^"]+)"\)', text)
+        if not (src / path).is_file()
+    ]
+    forbidden = [
+        token
+        for token in (
+            '"mod_rosetta =', '"stdlib ', '::Rosetta.activate',
+            'translations/context_patterns', '"mod_legends =', '"mod_msu =',
+        )
+        if token in text
+    ]
+    return result(
+        "preload_registration_dependency_queue",
+        not missing and not forbidden and not unresolved_js,
+        {
+            "missing": missing,
+            "forbidden_dependency_tokens": forbidden,
+            "unresolved_js_registrations": unresolved_js,
+        },
+    )
 
 
 def check_reachability(repo: Path, src: Path) -> dict[str, Any]:
@@ -334,15 +370,21 @@ def check_reachability(repo: Path, src: Path) -> dict[str, Any]:
     non_reachable = [entry.get("english") for entry in entries if entry.get("status") != "STATICALLY_REACHABLE"]
     duplicate_manifest = sorted(value for value, count in Counter(entry.get("english") for entry in entries).items() if count > 1)
 
-    rosetta_pairs, parse_errors = extract_pairs(src)
-    registered_rosetta = {pair["en"] for pair in rosetta_pairs}
-    manifest_rosetta = {entry["english"] for entry in entries if entry.get("channel") == "rosetta"}
-
-    js_path = src / "ui" / "mods" / "mod_battle_brothers_jp" / "generated_strings.js"
-    js_pairs = {
-        decode_squirrel_string(match.group("en")): decode_squirrel_string(match.group("ja"))
-        for match in JS_PAIR_RE.finditer(js_path.read_text(encoding="utf-8"))
+    runtime_pairs, parse_errors = extract_pairs(src)
+    registered_runtime = {pair["en"] for pair in runtime_pairs}
+    manifest_runtime = {
+        entry["english"]
+        for entry in entries
+        if str(entry.get("channel", "")).startswith("bbjp_runtime")
     }
+
+    js_root = src / "ui" / "mods" / "mod_battle_brothers_jp"
+    js_pairs = {}
+    for js_path in sorted(js_root.glob("generated_strings*.js")):
+        js_pairs.update({
+            decode_squirrel_string(match.group("en")): decode_squirrel_string(match.group("ja"))
+            for match in JS_PAIR_RE.finditer(js_path.read_text(encoding="utf-8"))
+        })
     manifest_js = {entry["english"] for entry in entries if str(entry.get("channel", "")).startswith("js_")}
 
     hook_source = "\n".join(
@@ -353,7 +395,7 @@ def check_reachability(repo: Path, src: Path) -> dict[str, Any]:
     boundary_tokens = {
         "bbjp_ambition_get_ui_text": 'hookTree("scripts/ambitions/ambition"',
         "bbjp_legends_camp_query_load": 'hook("scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module"',
-        "bbjp_create_text_button": "$.fn.createTextButton = function",
+        "bbjp_create_text_button": 'translateArguments("createTextButton", [0])',
     }
     combined_boundary_source = hook_source + "\n" + main_js
     used_boundary_ids = {entry["boundary_id"] for entry in entries}
@@ -367,8 +409,8 @@ def check_reachability(repo: Path, src: Path) -> dict[str, Any]:
         "non_reachable": non_reachable,
         "duplicate_manifest_keys": duplicate_manifest,
         "pair_parse_errors": parse_errors,
-        "rosetta_missing_from_manifest": [],
-        "rosetta_missing_from_source": sorted(manifest_rosetta - registered_rosetta),
+        "runtime_missing_from_manifest": [],
+        "runtime_missing_from_source": sorted(manifest_runtime - registered_runtime),
         "js_missing_from_manifest": [],
         "js_missing_from_source": sorted(manifest_js - set(js_pairs)),
         "missing_boundary_implementations": missing_boundaries,
@@ -380,9 +422,9 @@ def check_reachability(repo: Path, src: Path) -> dict[str, Any]:
         {
             "manifest_status": manifest.get("status"),
             "entries": len(entries),
-            "rosetta_entries": len(manifest_rosetta),
+            "runtime_entries": len(manifest_runtime),
             "js_entries": len(manifest_js),
-            "additional_reviewed_rosetta_pairs": len(registered_rosetta - manifest_rosetta),
+            "additional_reviewed_runtime_pairs": len(registered_runtime - manifest_runtime),
             "additional_reviewed_js_pairs": len(set(js_pairs) - manifest_js),
             "runtime_proof": "NOT_TESTED",
             "errors": errors,
@@ -523,16 +565,32 @@ def check_literal_reachability_remediation(repo: Path, src: Path) -> dict[str, A
         return result("reviewed_literal_static_reachability", False, {"error": "summary missing"})
     payload = json.loads(path.read_text(encoding="utf-8"))
     hook_source = (src / "battle_brothers_jp" / "hooks" / "ui_boundaries.nut").read_text(encoding="utf-8")
+    runtime_hook_source = (src / "battle_brothers_jp" / "hooks" / "runtime_display_boundaries.nut").read_text(encoding="utf-8")
     js_source = (src / "ui" / "mods" / "mod_battle_brothers_jp" / "main.js").read_text(encoding="utf-8")
-    pattern_source = (src / "battle_brothers_jp" / "translations" / "context_patterns.nut").read_text(encoding="utf-8")
+    pattern_source = (src / "battle_brothers_jp" / "translations" / "reviewed_literals.nut").read_text(encoding="utf-8")
+    supplemental = json.loads((repo / "reports" / "runtime-supplemental-contracts.json").read_text(encoding="utf-8"))
     tokens = {
         "jquery_init": "$.fn.init = function" in js_source,
         "killed_string": 'hook("scripts/ui/screens/world/world_obituary_screen"' in hook_source
-        and "translatedCause = ::Rosetta._(fallen.KilledBy)" in hook_source
+        and "local function safeTranslate(_value)" in hook_source
+        and "::BattleBrothersJP.Runtime.translate(_value)" in hook_source
+        and "translatedCause = safeTranslate(fallen.KilledBy)" in hook_source
         and 'hookTree("scripts/skills/skill"' not in hook_source,
-        "crafting_pattern": 'en = "Crafting <value:val_tag>"' in pattern_source,
+        "crafting_pattern": 'en = "Crafting <value:val_tag>"' in pattern_source
+        and any(contract.get("translation_unit") == "unit:884D300DA8A8AD49E51C814D" for contract in supplemental.get("contracts", [])),
         "adaptive_tooltip": 'hook("scripts/skills/perks/perk_legend_adaptive"' in hook_source
         and "translateAdaptiveHintText" in hook_source,
+        "namespaced_runtime_display_routes": all(
+            token in runtime_hook_source
+            for token in (
+                'hookTree("scripts/items/item"',
+                'hookTree("scripts/skills/skill"',
+                'hook("scripts/ui/screens/tooltip/tooltip_events"',
+                'hook("scripts/ui/screens/dialog_screen"',
+                'hook("scripts/events/event"',
+                'hook("scripts/contracts/contract"',
+            )
+        ),
     }
     total = payload.get("audited_reviewed_literal_units")
     counts = payload.get("initial_classification", {})
@@ -550,6 +608,231 @@ def check_literal_reachability_remediation(repo: Path, src: Path) -> dict[str, A
             "implementation_tokens": tokens,
             "runtime_qa": "NOT_TESTED",
         },
+    )
+
+
+def check_runtime_reachability_map(repo: Path) -> dict[str, Any]:
+    path = repo / "reports" / "runtime-reachability-map.json"
+    if not path.is_file():
+        return result("namespaced_runtime_reachability_map", False, {"error": "map missing"})
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        return result("namespaced_runtime_reachability_map", False, {"error": str(error)})
+
+    units = payload.get("units", [])
+    unit_ids = [unit.get("translation_unit") for unit in units]
+    routes = [route for unit in units for route in unit.get("routes", [])]
+    route_files = {route.get("implementation_file") for route in routes}
+    malformed_units = [
+        index for index, unit in enumerate(units)
+        if not unit.get("translation_unit") or not unit.get("english") or not unit.get("routes")
+    ]
+    malformed_routes = [
+        index for index, route in enumerate(routes)
+        if not all(route.get(field) for field in (
+            "stable_key", "module", "source", "context", "pre_migration_boundary",
+            "current_boundary", "implementation_file", "status",
+        ))
+        or route.get("status") != "STATICALLY_REACHABLE_RUNTIME_NOT_TESTED"
+    ]
+    implementation_hash_errors = []
+    for relative, expected in payload.get("implementation_sha256", {}).items():
+        implementation = repo / relative
+        if not implementation.is_file() or sha256_bytes(implementation.read_bytes()) != expected:
+            implementation_hash_errors.append(relative)
+    source_audit = repo / payload.get("source_audit", "")
+    source_audit_status = "NOT_AVAILABLE_IN_REPOSITORY_ONLY_QA"
+    if source_audit.is_file():
+        source_audit_status = (
+            "HASH_MATCH"
+            if sha256_bytes(source_audit.read_bytes()) == payload.get("source_audit_sha256")
+            else "HASH_MISMATCH"
+        )
+
+    errors = {
+        "malformed_unit_indexes": malformed_units,
+        "malformed_route_indexes": malformed_routes,
+        "duplicate_unit_ids": sorted(value for value, count in Counter(unit_ids).items() if count > 1),
+        "implementation_hash_errors": implementation_hash_errors,
+        "route_files_missing_hash": sorted(
+            str(value) for value in route_files
+            if value not in payload.get("implementation_sha256", {})
+        ),
+        "source_audit_hash_mismatch": [] if source_audit_status != "HASH_MISMATCH" else [str(source_audit)],
+    }
+    passed = (
+        payload.get("generator") == "tools/generate_runtime_reachability.py"
+        and payload.get("installed_snapshot_id") == "BBJP-CF88150E7B355ECD32D9"
+        and payload.get("pre_migration_classification") == "REACHABLE_ROSETTA"
+        and payload.get("current_runtime") == "BattleBrothersJP.Runtime/v1"
+        and payload.get("unit_count") == len(units) == 181
+        and payload.get("route_count") == len(routes) == 307
+        and payload.get("unresolved_count") == 0
+        and payload.get("runtime_game_qa") == "NOT_TESTED"
+        and all(not value for value in errors.values())
+    )
+    return result(
+        "namespaced_runtime_reachability_map",
+        passed,
+        {
+            "units": len(units),
+            "routes": len(routes),
+            "source_audit_local_status": source_audit_status,
+            "runtime_game_qa": payload.get("runtime_game_qa"),
+            "errors": errors,
+        },
+    )
+
+
+def check_package_source_manifest(repo: Path, src: Path) -> dict[str, Any]:
+    path = repo / "reports" / "package-source-manifest.json"
+    if not path.is_file():
+        return result("package_source_manifest", False, {"error": "manifest missing"})
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        return result("package_source_manifest", False, {"error": str(error)})
+    actual = {
+        item.relative_to(src).as_posix(): {
+            "sha256": sha256_bytes(item.read_bytes()),
+            "bytes": item.stat().st_size,
+        }
+        for item in sorted(src.rglob("*"))
+        if item.is_file() and item.relative_to(src).parts[0] in DISTRIBUTABLE_ROOTS
+    }
+    compatibility_path = src / "battle_brothers_jp" / "compatibility.json"
+    compatibility = (
+        json.loads(compatibility_path.read_text(encoding="utf-8"))
+        if compatibility_path.is_file() else {}
+    )
+    version = (repo / "VERSION").read_text(encoding="utf-8").strip()
+    snapshot_lock = json.loads(
+        (repo / "reports" / "supported-snapshot-lock.json").read_text(encoding="utf-8")
+    )
+    runtime_manifest = json.loads(
+        (repo / "reports" / "runtime-translation-manifest.json").read_text(encoding="utf-8")
+    )
+    graph = json.loads((repo / "reports" / "mod-dependency-graph.json").read_text(encoding="utf-8"))
+    preload = (src / "scripts" / "!mods_preload" / "mod_battle_brothers_jp.nut").read_text(encoding="utf-8")
+    install_readme = (src / "battle_brothers_jp" / "README_INSTALL_JA.txt").read_text(encoding="utf-8")
+    snapshot_id = snapshot_lock.get("installed_snapshot_id")
+    jp_nodes = [node for node in graph.get("nodes", []) if node.get("id") == "mod_battle_brothers_jp"]
+    expected_graph_classification = (
+        "DEVELOPMENT_ARTIFACT_STATIC_QA_PASS_NOT_RELEASE"
+        if "dev" in version.lower()
+        else "RUNTIME_VERIFIED_BUILD_APPROVED"
+        if compatibility.get("release_state") == "RUNTIME_VERIFIED_BUILD_APPROVED"
+        else "RC_BUILD_APPROVED"
+    )
+    required = {
+        "scripts/!mods_preload/mod_battle_brothers_jp.nut",
+        "battle_brothers_jp/runtime/core.nut",
+        "battle_brothers_jp/README_INSTALL_JA.txt",
+        "battle_brothers_jp/compatibility.json",
+        "battle_brothers_jp/licenses/THIRD_PARTY_NOTICES.md",
+        "battle_brothers_jp/licenses/rosetta-BSD-2-Clause.txt",
+    }
+    errors = {
+        "missing_required": sorted(required - set(actual)),
+        "manifest_missing": sorted(set(actual) - set(payload.get("files", {}))),
+        "manifest_extra": sorted(set(payload.get("files", {})) - set(actual)),
+        "hash_or_size_mismatch": sorted(
+            relative for relative in set(actual) & set(payload.get("files", {}))
+            if actual[relative] != payload["files"][relative]
+        ),
+        "version_mismatch": [] if compatibility.get("version") == version else [compatibility.get("version"), version],
+        "dependency_mismatch": [] if compatibility.get("hard_dependencies") == [
+            {"id": "mod_modern_hooks", "condition": ">=0.6.0"}
+        ] else [compatibility.get("hard_dependencies")],
+        "runtime_network_required": [] if compatibility.get("normal_runtime_network_required") is False else [True],
+        "manifest_schema": [] if payload.get("schema_version") == 1 else [payload.get("schema_version")],
+        "release_state": [] if (
+            ("dev" in version.lower() and compatibility.get("release_state") == "DEVELOPMENT_NOT_RELEASE_CANDIDATE")
+            or ("dev" not in version.lower() and compatibility.get("release_state") in {
+                "RC_BUILD_APPROVED_MANUAL_INSTALL_VERIFICATION_REQUIRED",
+                "RUNTIME_VERIFIED_BUILD_APPROVED",
+            })
+        ) else [compatibility.get("release_state")],
+        "runtime_game_qa": [] if compatibility.get("runtime_game_qa") in {"NOT_TESTED", "PASS"} else [compatibility.get("runtime_game_qa")],
+        "snapshot_id_mismatch": [] if snapshot_id and all(value == snapshot_id for value in (
+            payload.get("installed_snapshot_id"),
+            runtime_manifest.get("installed_snapshot_id"),
+            compatibility.get("installed_snapshot_id"),
+        )) else [{
+            "lock": snapshot_id,
+            "package_manifest": payload.get("installed_snapshot_id"),
+            "runtime_manifest": runtime_manifest.get("installed_snapshot_id"),
+            "compatibility": compatibility.get("installed_snapshot_id"),
+        }],
+        "runtime_qa_mismatch": [] if runtime_manifest.get("runtime_qa") == compatibility.get("runtime_game_qa") else [{
+            "runtime_manifest": runtime_manifest.get("runtime_qa"),
+            "compatibility": compatibility.get("runtime_game_qa"),
+        }],
+        "readme_metadata_mismatch": [] if (
+            install_readme.startswith(f"Battle Brothers 統合日本語化MOD {version}\n")
+            and f"実ゲーム起動QAは現在 {compatibility.get('runtime_game_qa')} です。" in install_readme
+            and (("dev" in version.lower()) == ("これは開発ビルドです" in install_readme))
+        ) else [version, compatibility.get("runtime_game_qa")],
+        "graph_metadata_mismatch": [] if (
+            len(jp_nodes) == 1
+            and jp_nodes[0].get("version") == version
+            and jp_nodes[0].get("classification") == expected_graph_classification
+        ) else jp_nodes,
+        "license_hash_mismatch": sorted(
+            relative for relative, expected in KNOWN_LICENSE_HASHES.items()
+            if relative not in actual or actual[relative]["sha256"] != expected
+        ),
+    }
+    if f'Version = "{version}"' not in preload or f'Snapshot = "{snapshot_id}"' not in preload:
+        errors["preload_version_or_snapshot_mismatch"] = [version, snapshot_id]
+    else:
+        errors["preload_version_or_snapshot_mismatch"] = []
+    passed = (
+        payload.get("generator") == "tools/generate_package_manifest.py"
+        and payload.get("installed_snapshot_id") == "BBJP-CF88150E7B355ECD32D9"
+        and payload.get("file_count") == len(actual)
+        and all(not value for value in errors.values())
+    )
+    return result(
+        "package_source_manifest",
+        passed,
+        {"source_entries": len(actual), "errors": errors},
+    )
+
+
+def check_external_composition_contract(repo: Path) -> dict[str, Any]:
+    path = repo / "reports" / "external-composition-contract.json"
+    if not path.is_file():
+        return result("external_composition_contract", False, {"error": "contract missing"})
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    local_hashes = {}
+    mismatches = []
+    for key, section in (
+        ("modern_hooks_queue_graph", payload.get("modern_hooks_queue_graph", {})),
+        ("rosetta", payload.get("rosetta", {})),
+    ):
+        source = repo / section.get("source", "")
+        if source.is_file():
+            actual = sha256_bytes(source.read_bytes())
+            local_hashes[key] = actual
+            if actual != section.get("sha256"):
+                mismatches.append(key)
+        else:
+            local_hashes[key] = "NOT_AVAILABLE_IN_REPOSITORY_ONLY_QA"
+    passed = (
+        payload.get("installed_snapshot_id") == "BBJP-CF88150E7B355ECD32D9"
+        and payload.get("modern_hooks_queue_graph", {}).get("version") == "0.6.0"
+        and payload.get("rosetta", {}).get("version") == "0.5.0"
+        and payload.get("rosetta", {}).get("active_existing_japanese_pack")
+            == "KNOWN_CONFLICT_REMOVE_OLD_JP_MOD"
+        and payload.get("runtime_game_qa") == "NOT_TESTED"
+        and not mismatches
+    )
+    return result(
+        "external_composition_contract",
+        passed,
+        {"local_source_hashes": local_hashes, "mismatches": mismatches, "runtime_game_qa": "NOT_TESTED"},
     )
 
 
@@ -902,7 +1185,9 @@ def check_legends_event_boundary_audit(repo: Path, src: Path) -> dict[str, Any]:
         "obituary_exact_reviewed_display_clone": all(
             token in ui_source
             for token in (
-                "translatedCause = ::Rosetta._(fallen.KilledBy)",
+                "local function safeTranslate(_value)",
+                "::BattleBrothersJP.Runtime.translate(_value)",
+                "translatedCause = safeTranslate(fallen.KilledBy)",
                 "translatedCause = translateGenericActorTitleText(translatedCause)",
                 "copiedEntry.KilledBy = translatedCause",
             )
@@ -951,7 +1236,8 @@ def check_legends_event_boundary_audit(repo: Path, src: Path) -> dict[str, Any]:
 def check_dependency_graph(repo: Path) -> dict[str, Any]:
     path = repo / "reports" / "mod-dependency-graph.json"
     graph = json.loads(path.read_text(encoding="utf-8"))
-    nodes = {node["id"] for node in graph.get("nodes", [])}
+    node_rows = graph.get("nodes", [])
+    nodes = {node["id"] for node in node_rows}
     relations = graph.get("relations", [])
     allowed_types = {"requirement", "incompatibility", "queue_before", "queue_after"}
     invalid_types = sorted({edge.get("type") for edge in relations if edge.get("type") not in allowed_types})
@@ -962,20 +1248,44 @@ def check_dependency_graph(repo: Path) -> dict[str, Any]:
     ]
     actual_jp = {(edge["type"], edge["to"]) for edge in relations if edge.get("from") == "mod_battle_brothers_jp"}
     expected_jp = {
-        ("requirement", "vanilla"),
-        ("requirement", "mod_legends"),
-        ("requirement", "mod_legends_assets"),
-        ("requirement", "mod_msu"),
         ("requirement", "mod_modern_hooks"),
-        ("requirement", "mod_rosetta"),
-        ("requirement", "stdlib"),
         ("queue_after", "mod_rosetta"),
         ("queue_after", "mod_msu"),
         ("queue_after", "mod_legends"),
     }
     missing_jp = sorted(expected_jp - actual_jp)
     extra_jp = sorted(actual_jp - expected_jp)
-    passed = not invalid_types and not dangling and not missing_jp and not extra_jp
+    expected_evidence = {
+        ("requirement", "mod_modern_hooks"): "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:13",
+        ("queue_after", "mod_rosetta"): "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:103-117",
+        ("queue_after", "mod_msu"): "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:113-117",
+        ("queue_after", "mod_legends"): "src/scripts/!mods_preload/mod_battle_brothers_jp.nut:103-111",
+    }
+    jp_edges = {
+        (edge["type"], edge["to"]): edge
+        for edge in relations if edge.get("from") == "mod_battle_brothers_jp"
+    }
+    stale_evidence = sorted(
+        key for key, expected in expected_evidence.items()
+        if key not in jp_edges or jp_edges[key].get("evidence") != expected
+    )
+    jp_nodes = [node for node in node_rows if node.get("id") == "mod_battle_brothers_jp"]
+    project_version = (repo / "VERSION").read_text(encoding="utf-8").strip()
+    allowed_jp_classifications = (
+        {"DEVELOPMENT_ARTIFACT_STATIC_QA_PASS_NOT_RELEASE"}
+        if "dev" in project_version.lower()
+        else {"RC_BUILD_APPROVED", "RUNTIME_VERIFIED_BUILD_APPROVED"}
+    )
+    node_errors = [] if (
+        len(jp_nodes) == 1
+        and jp_nodes[0].get("version") == project_version
+        and jp_nodes[0].get("classification") in allowed_jp_classifications
+    ) else jp_nodes
+    passed = (
+        len(nodes) == 22 and len(relations) == 42
+        and not invalid_types and not dangling and not missing_jp and not extra_jp
+        and not stale_evidence and not node_errors
+    )
     return result(
         "dependency_graph_semantics",
         passed,
@@ -988,12 +1298,26 @@ def check_dependency_graph(repo: Path) -> dict[str, Any]:
             "jp_relation_count": len(actual_jp),
             "missing_jp_relations": missing_jp,
             "extra_jp_relations": extra_jp,
+            "stale_jp_evidence": stale_evidence,
+            "jp_node_errors": node_errors,
         },
     )
 
 
 def check_scope(src: Path) -> list[dict[str, Any]]:
     all_text = "\n".join(path.read_text(encoding="utf-8") for path in text_files(src))
+    executable_lines = []
+    for path in text_files(src):
+        if path.suffix.lower() not in {".nut", ".js"}:
+            continue
+        executable_lines.extend(
+            line for line in path.read_text(encoding="utf-8").splitlines()
+            if not line.lstrip().startswith("//")
+        )
+    executable_text = "\n".join(executable_lines)
+    forbidden_runtime_namespaces = sorted(
+        token for token in ("::Rosetta", "::std", "::Rosetta.activate") if token in executable_text
+    )
     forbidden_paths = [
         pattern for pattern in (r"D:\\SteamLibrary", r"Documents\\Battle Brothers", r"ドキュメント\\Battle Brothers")
         if re.search(pattern, all_text, re.I)
@@ -1018,7 +1342,7 @@ def check_scope(src: Path) -> list[dict[str, Any]]:
         "scripts/entity/world/settlement",
         "scripts/entity/world/settlements/buildings/port_building",
         "scripts/entity/world/world_entity",
-        "scripts/entity/tactical/actor",
+        "scripts/entity/tactical/entity",
         "scripts/entity/tactical/player_corpse_stub",
         "scripts/events/event",
         "scripts/events/events/dlc2/location/kraken_cult_enter_event",
@@ -1036,21 +1360,22 @@ def check_scope(src: Path) -> list[dict[str, Any]]:
         "scripts/events/events/crisis/greenskins_investigation_event",
         "scripts/events/events/graverobber_heist_event",
         "scripts/items/item",
-        "scripts/items/accessory/legend_accessory_dog",
-        "scripts/items/accessory/wardog_item",
         "scripts/items/legend_armor/legend_named_armor",
         "scripts/items/legend_armor/legend_named_armor_upgrade",
         "scripts/items/legend_helmets/legend_named_helmet",
         "scripts/items/legend_helmets/legend_named_helmet_upgrade",
-        "scripts/skills/backgrounds/character_background",
         "scripts/skills/backgrounds/legend_ranger_commander_background",
-        "scripts/skills/actives/unleash_wardog",
         "scripts/skills/perks/perk_legend_adaptive",
         "scripts/skills/perks/perk_legend_barter_greed",
         "scripts/skills/perks/perk_legend_perfect_fit",
         "scripts/skills/perks/perk_legend_small_target",
-        "scripts/skills/perks/perk_legend_specialist_poacher",
-        "scripts/skills/traits/legend_intensive_training_trait",
+        "scripts/skills/skill",
+        "scripts/scenarios/scenario_manager",
+        "scripts/scenarios/world/starting_scenario",
+        "scripts/ui/screens/dialog_screen",
+        "scripts/ui/screens/loading/loading_screen",
+        "scripts/ui/screens/tactical/tactical_combat_result_screen",
+        "scripts/ui/screens/tactical/modules/topbar/tactical_screen_topbar_event_log",
         "scripts/ui/screens/world/modules/camp_screen/camp_crafting_dialog_module",
         "scripts/ui/screens/tooltip/tooltip_events",
         "scripts/ui/screens/world/world_obituary_screen",
@@ -1060,6 +1385,11 @@ def check_scope(src: Path) -> list[dict[str, Any]]:
     missing_hooks = sorted(allowed_translation_hooks - set(hook_targets))
     return [
         result("actual_game_path_write_absence", not forbidden_paths and not write_apis, {"paths": forbidden_paths, "write_apis": write_apis}),
+        result(
+            "external_rosetta_stdlib_runtime_absence",
+            not forbidden_runtime_namespaces,
+            {"forbidden_runtime_namespaces": forbidden_runtime_namespaces},
+        ),
         result(
             "translation_only_hook_scope",
             not unexpected_hooks and not missing_hooks,
@@ -1072,8 +1402,16 @@ def check_third_party(src: Path) -> dict[str, Any]:
     binaries = [path.relative_to(src).as_posix() for path in src.rglob("*") if path.is_file() and path.suffix.lower() not in TEXT_SUFFIXES]
     allowed = {"gfx/fonts/battle_brothers_jp/NotoSansCJKjp-Regular.otf"}
     unexpected = sorted(set(binaries) - allowed)
-    license_exists = (src / "gfx/fonts/battle_brothers_jp/OFL.txt").exists()
-    return result("third_party_allowlist_and_license", not unexpected and license_exists, {"unexpected": unexpected, "license": license_exists})
+    licenses = {
+        "font_ofl": (src / "gfx/fonts/battle_brothers_jp/OFL.txt").exists(),
+        "rosetta_bsd": (src / "battle_brothers_jp/licenses/rosetta-BSD-2-Clause.txt").exists(),
+        "third_party_notice": (src / "battle_brothers_jp/licenses/THIRD_PARTY_NOTICES.md").exists(),
+    }
+    return result(
+        "third_party_allowlist_and_license",
+        not unexpected and all(licenses.values()),
+        {"unexpected": unexpected, "licenses": licenses},
+    )
 
 
 def check_font(repo: Path, src: Path) -> dict[str, Any]:
@@ -1122,15 +1460,11 @@ def check_syntax(repo: Path, src: Path, sq: Path | None, node: Path | None) -> l
                 if completed.returncode != 0 or "Error" in completed.stderr:
                     failures.append({"file": path.relative_to(src).as_posix(), "stderr": completed.stderr})
         checks.append(result("squirrel_syntax", not failures, failures))
-        stdlib = repo / "work" / "upstream" / "battle-brothers-stdlib"
-        rosetta = repo / "work" / "upstream" / "battle-brothers-rosetta"
         harness = repo / "tests" / "squirrel" / "test_vertical_slice.nut"
-        if stdlib.exists() and rosetta.exists() and harness.exists():
+        if harness.exists():
             environment = os.environ.copy()
             environment.update(
                 {
-                    "STDLIB_DIR": str(stdlib.resolve()) + os.sep,
-                    "ROSETTA_DIR": str(rosetta.resolve()) + os.sep,
                     "BBJP_ROOT": str(repo.resolve()) + os.sep,
                 }
             )
@@ -1138,14 +1472,14 @@ def check_syntax(repo: Path, src: Path, sq: Path | None, node: Path | None) -> l
                 [str(sq), str(harness)], capture_output=True, text=True, env=environment
             )
             output = completed.stdout + completed.stderr
-            passed = completed.returncode == 0 and "VERTICAL_SLICE_ROSETTA_TEST_OK" in output
+            passed = completed.returncode == 0 and "VERTICAL_SLICE_NAMESPACED_RUNTIME_TEST_OK" in output
             checks.append(
                 result(
                     "optional_target_absence_harness",
                     passed,
                     {
                         "optional_mod_objects_defined": False,
-                        "marker_found": "VERTICAL_SLICE_ROSETTA_TEST_OK" in output,
+                        "marker_found": "VERTICAL_SLICE_NAMESPACED_RUNTIME_TEST_OK" in output,
                         "returncode": completed.returncode,
                         "output_tail": output[-2000:],
                     },
@@ -1259,8 +1593,65 @@ def check_syntax(repo: Path, src: Path, sq: Path | None, node: Path | None) -> l
                         },
                     )
                 )
+            additional_harnesses = (
+                ("namespaced_runtime_harness", "test_namespaced_runtime.nut", "NAMESPACED_RUNTIME_TEST_OK"),
+                ("namespaced_runtime_exact_corpus_harness", "test_namespaced_runtime_exact_corpus.nut", "NAMESPACED_RUNTIME_EXACT_CORPUS_OK"),
+                ("runtime_display_boundary_harness", "test_runtime_display_boundaries.nut", "RUNTIME_DISPLAY_BOUNDARIES_TEST_OK"),
+                ("optional_module_profile_harness", "test_optional_module_profiles.nut", "OPTIONAL_MODULE_PROFILES_TEST_OK"),
+                ("optional_hook_absence_harness", "test_optional_hook_absence.nut", "OPTIONAL_HOOK_ABSENCE_TEST_OK"),
+                ("msu_display_boundary_harness", "test_msu_display_boundaries.nut", "MSU_DISPLAY_BOUNDARIES_TEST_OK"),
+                ("runtime_composition_harness", "test_runtime_composition.nut", "RUNTIME_COMPOSITION_TEST_OK"),
+                ("runtime_performance_harness", "test_runtime_performance.nut", "RUNTIME_PERFORMANCE_TEST_OK"),
+            )
+            for name, filename, marker in additional_harnesses:
+                additional = repo / "tests" / "squirrel" / filename
+                if not additional.exists():
+                    checks.append(result(name, False, {"missing": filename}))
+                    continue
+                completed = subprocess.run(
+                    [str(sq), str(additional)], capture_output=True, text=True, env=environment
+                )
+                output = completed.stdout + completed.stderr
+                checks.append(
+                    result(
+                        name,
+                        completed.returncode == 0 and marker in output,
+                        {
+                            "marker_found": marker in output,
+                            "returncode": completed.returncode,
+                            "output_tail": output[-4000:],
+                        },
+                    )
+                )
+            actual_graph = repo / "work" / "sources" / "modern_hooks" / "modern_hooks" / "queue" / "mod_hooks_queue_graph.nut"
+            actual_graph_harness = repo / "tests" / "squirrel" / "test_actual_modern_hooks_queue_graph.nut"
+            if actual_graph.is_file() and actual_graph_harness.is_file():
+                graph_environment = environment.copy()
+                graph_environment["BBJP_MH_QUEUE_GRAPH"] = str(actual_graph.resolve())
+                completed = subprocess.run(
+                    [str(sq), str(actual_graph_harness)],
+                    capture_output=True,
+                    text=True,
+                    env=graph_environment,
+                )
+                output = completed.stdout + completed.stderr
+                checks.append(result(
+                    "actual_modern_hooks_queue_graph_harness",
+                    completed.returncode == 0 and "ACTUAL_MODERN_HOOKS_QUEUE_GRAPH_OK" in output,
+                    {
+                        "source_sha256": sha256_bytes(actual_graph.read_bytes()),
+                        "marker_found": "ACTUAL_MODERN_HOOKS_QUEUE_GRAPH_OK" in output,
+                        "returncode": completed.returncode,
+                        "output_tail": output[-4000:],
+                    },
+                ))
+            else:
+                checks.append(skipped(
+                    "actual_modern_hooks_queue_graph_harness",
+                    {"reason": "Ignored installed Modern Hooks source unavailable in repository-only QA"},
+                ))
         else:
-            checks.append(skipped("optional_target_absence_harness", {"reason": "Local Rosetta/stdlib test inputs unavailable"}))
+            checks.append(result("optional_target_absence_harness", False, {"reason": "Namespaced runtime vertical-slice harness missing"}))
     if node is None or not node.exists():
         checks.append(result("javascript_syntax", False, {"error": "Node executable not supplied"}))
     else:
@@ -1293,13 +1684,22 @@ def check_archive(src: Path, archive_path: Path | None) -> dict[str, Any]:
         return skipped("archive_structure_and_content", {"reason": "No archive supplied"})
     errors = []
     with zipfile.ZipFile(archive_path) as archive:
-        names = archive.namelist()
+        if archive.comment != b"":
+            errors.append("archive comment is not empty")
+        infos = archive.infolist()
+        names = [info.filename for info in infos]
+        if len(names) != len(set(names)):
+            errors.append("duplicate archive entry names")
+        folded = [name.casefold() for name in names]
+        if len(folded) != len(set(folded)):
+            errors.append("case-colliding archive entry names")
         source_names = {
             path.relative_to(src).as_posix()
             for path in src.rglob("*")
             if path.is_file() and path.relative_to(src).parts[0] in DISTRIBUTABLE_ROOTS
         }
-        for name in names:
+        for info in infos:
+            name = info.filename
             pure = PurePosixPath(name)
             if pure.is_absolute() or ".." in pure.parts or "\\" in name:
                 errors.append(f"unsafe entry: {name}")
@@ -1308,16 +1708,37 @@ def check_archive(src: Path, archive_path: Path | None) -> dict[str, Any]:
             source = src.joinpath(*pure.parts)
             if not source.is_file():
                 errors.append(f"not sourced from src/: {name}")
-            elif sha256_bytes(archive.read(name)) != sha256_bytes(source.read_bytes()):
+            elif sha256_bytes(archive.read(info)) != sha256_bytes(source.read_bytes()):
                 errors.append(f"content mismatch: {name}")
+            mode = (info.external_attr >> 16) & 0o170000
+            if mode == 0o120000:
+                errors.append(f"symlink entry: {name}")
+            if info.flag_bits & 0x1:
+                errors.append(f"encrypted entry: {name}")
+            if info.date_time != (2026, 1, 1, 0, 0, 0):
+                errors.append(f"non-deterministic timestamp: {name}")
+            if info.compress_type != zipfile.ZIP_DEFLATED:
+                errors.append(f"unexpected compression: {name}")
+            if ((info.external_attr >> 16) & 0o177777) != 0o100644:
+                errors.append(f"unexpected mode: {name}")
         required = {
             "scripts/!mods_preload/mod_battle_brothers_jp.nut",
+            "battle_brothers_jp/runtime/core.nut",
             "battle_brothers_jp/translations/reviewed_literals.nut",
-            "battle_brothers_jp/translations/context_patterns.nut",
+            "battle_brothers_jp/hooks/runtime_display_boundaries.nut",
             "battle_brothers_jp/hooks/semantic_name_safety.nut",
             "battle_brothers_jp/hooks/event_variable_boundaries.nut",
+            "battle_brothers_jp/hooks/source_defect_boundaries.nut",
             "battle_brothers_jp/hooks/ui_boundaries.nut",
+            "battle_brothers_jp/hooks/msu_display_boundaries.nut",
+            "battle_brothers_jp/licenses/THIRD_PARTY_NOTICES.md",
+            "battle_brothers_jp/licenses/rosetta-BSD-2-Clause.txt",
+            "battle_brothers_jp/README_INSTALL_JA.txt",
+            "battle_brothers_jp/compatibility.json",
             "ui/mods/mod_battle_brothers_jp/generated_strings.js",
+            "ui/mods/mod_battle_brothers_jp/generated_strings_legends.js",
+            "ui/mods/mod_battle_brothers_jp/generated_strings_msu.js",
+            "ui/mods/mod_battle_brothers_jp/generated_strings_modern_hooks.js",
             "ui/mods/mod_battle_brothers_jp/main.js",
             "ui/mods/mod_battle_brothers_jp/main.css",
             "gfx/fonts/battle_brothers_jp/NotoSansCJKjp-Regular.otf",
@@ -1370,6 +1791,9 @@ def main() -> int:
         check_reachability(repo, src),
         *check_runtime_translation_manifest(repo, src),
         check_literal_reachability_remediation(repo, src),
+        check_runtime_reachability_map(repo),
+        check_package_source_manifest(repo, src),
+        check_external_composition_contract(repo),
         check_ledger_partition(repo),
         check_translation_review_tranches(repo),
         check_supported_snapshot_lock(repo),

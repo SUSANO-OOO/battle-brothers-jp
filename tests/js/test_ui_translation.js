@@ -51,7 +51,13 @@ var context = {
 var sourcePath = path.resolve(__dirname, "../../src/ui/mods/mod_battle_brothers_jp/main.js");
 var stringsPath = path.resolve(__dirname, "../../src/ui/mods/mod_battle_brothers_jp/generated_strings.js");
 vm.runInNewContext(fs.readFileSync(stringsPath, "utf8"), context, { filename: stringsPath });
-vm.runInNewContext(fs.readFileSync(sourcePath, "utf8"), context, { filename: sourcePath });
+var mainSource = fs.readFileSync(sourcePath, "utf8");
+vm.runInNewContext(mainSource, context, { filename: sourcePath });
+var firstHtmlWrapper = jquery.fn.html;
+var firstInitWrapper = jquery.fn.init;
+vm.runInNewContext(mainSource, context, { filename: sourcePath });
+assert.strictEqual(jquery.fn.html, firstHtmlWrapper);
+assert.strictEqual(jquery.fn.init, firstInitWrapper);
 
 var receiver = { id: "control" };
 var callback = function () {};
@@ -95,6 +101,10 @@ assert.strictEqual(jquery.fn.text.call(receiver, "Aldric the Lone Wolf has left"
 assert.strictEqual(calls[12].args[0], "Aldric the Lone Wolf has left");
 
 assert.strictEqual(windowObject.BattleBrothersJP.translate("Retreat"), "撤退");
+assert.strictEqual(windowObject.BattleBrothersJP.translate("Mod Settings"), "Mod Settings");
+var msuStringsPath = path.resolve(__dirname, "../../src/ui/mods/mod_battle_brothers_jp/generated_strings_msu.js");
+vm.runInNewContext(fs.readFileSync(msuStringsPath, "utf8"), context, { filename: msuStringsPath });
+assert.strictEqual(windowObject.BattleBrothersJP.translate("Mod Settings"), "MOD設定");
 assert.strictEqual(windowObject.BattleBrothersJP.translate("InternalIdentifier"), "InternalIdentifier");
 assert.strictEqual(windowObject.BattleBrothersJP.translate("Aldric the Lone Wolf"), "Aldric the Lone Wolf");
 assert.strictEqual(windowObject.BattleBrothersJP.translate("Killed by the Lone Wolf."), "Killed by the Lone Wolf.");
@@ -118,5 +128,53 @@ assert.strictEqual(windowObject.BattleBrothersJP.translate("Blood Vial of the Ho
 assert.strictEqual(windowObject.BattleBrothersJP.translate("Honor and fear of the Old Gods"), "Honor and fear of the Old Gods");
 assert.strictEqual(windowObject.BattleBrothersJP.translate("Dame"), "Dame");
 assert.strictEqual(windowObject.BattleBrothersJP.translate("Dame Roderick"), "Dame Roderick");
+
+// A later MOD may wrap the same method. The composed chain still reaches the
+// JP wrapper and the pre-JP original exactly once.
+var afterCalls = 0;
+var beforeAfterWrapper = jquery.fn.text;
+jquery.fn.text = function () {
+    afterCalls += 1;
+    return beforeAfterWrapper.apply(this, arguments);
+};
+assert.strictEqual(jquery.fn.text.call(receiver, "Retreat"), "text-result");
+assert.strictEqual(afterCalls, 1);
+assert.strictEqual(calls[calls.length - 1].args[0], "撤退");
+
+// JP-only failures preserve the untouched argument; original failures remain
+// observable and are never retried. Missing optional jQuery helpers are safe.
+var failureCalls = { html: 0, text: 0 };
+var failureJQuery = function () {};
+failureJQuery.fn = {
+    html: function (value) {
+        failureCalls.html += 1;
+        return value;
+    },
+    text: function () {
+        failureCalls.text += 1;
+        throw new Error("ORIGINAL_FAILURE");
+    }
+};
+var throwingStrings = new Proxy({}, {
+    getOwnPropertyDescriptor: function () {
+        throw new Error("JP_FAILURE");
+    }
+});
+var failureWindow = {
+    BattleBrothersJPStrings: throwingStrings,
+    BattleBrothersJPGenericActorTitleFragments: {}
+};
+vm.runInNewContext(mainSource, {
+    jQuery: failureJQuery,
+    window: failureWindow,
+    Object: Object,
+    Array: Array,
+    Proxy: Proxy,
+    Error: Error
+}, { filename: sourcePath });
+assert.strictEqual(failureJQuery.fn.html("Raw English"), "Raw English");
+assert.strictEqual(failureCalls.html, 1);
+assert.throws(function () { failureJQuery.fn.text("Raw English"); }, /ORIGINAL_FAILURE/);
+assert.strictEqual(failureCalls.text, 1);
 
 console.log("UI_TRANSLATION_TEST_OK");

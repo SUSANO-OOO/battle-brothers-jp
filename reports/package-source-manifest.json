@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "generator": "tools/generate_package_manifest.py",
+  "installed_snapshot_id": "BBJP-CF88150E7B355ECD32D9",
+  "file_count": 22,
+  "files": {
+    "battle_brothers_jp/README_INSTALL_JA.txt": {
+      "sha256": "22E25C2CF4965FD1B85FA71DD386F132B97CA8052D6FFF4B281A580448A99F49",
+      "bytes": 1146
+    },
+    "battle_brothers_jp/compatibility.json": {
+      "sha256": "00804672FB918384D88F48B40AE4E07DAE834D6901B309479F2E2AAAFF20D2BF",
+      "bytes": 837
+    },
+    "battle_brothers_jp/hooks/event_variable_boundaries.nut": {
+      "sha256": "8576C7B362EDBB53CEB7201BE8CEBC9B42405E71C7916D959A64D7F6709046E9",
+      "bytes": 8475
+    },
+    "battle_brothers_jp/hooks/msu_display_boundaries.nut": {
+      "sha256": "03412EB2F128B7F18E7BF2A9840E8C2E45B5C378D3B63C2332575B56D33CCE18",
+      "bytes": 2933
+    },
+    "battle_brothers_jp/hooks/runtime_display_boundaries.nut": {
+      "sha256": "1EA18D102AC4ED283DB8E3326A2F5F3D8CA51B10A72075AD8561655CB38F3513",
+      "bytes": 8223
+    },
+    "battle_brothers_jp/hooks/semantic_name_safety.nut": {
+      "sha256": "8F5C4BC17FA1AC5BB9A36D14B908D316AC449A463E781CF2A67EC3765BEC1F7D",
+      "bytes": 6803
+    },
+    "battle_brothers_jp/hooks/source_defect_boundaries.nut": {
+      "sha256": "BE115376ABF4EC1477387B45C7D2A1423F34728403EF12713F1C190F229419C8",
+      "bytes": 61894
+    },
+    "battle_brothers_jp/hooks/ui_boundaries.nut": {
+      "sha256": "519B97C693F867D6AD1C0A5539C656F67EB66AC83E25E9767901C5380508438F",
+      "bytes": 32199
+    },
+    "battle_brothers_jp/licenses/THIRD_PARTY_NOTICES.md": {
+      "sha256": "BBDBCD6D0A3EE28D35C8C130BFFE43B2501AC463D1C4641AC9F4731D68DDFC6B",
+      "bytes": 381
+    },
+    "battle_brothers_jp/licenses/rosetta-BSD-2-Clause.txt": {
+      "sha256": "4EEFDB99E20B7A53493FE81AD23E4B239C1B80AFBBBAFF86D10A7676C79A6F26",
+      "bytes": 1330
+    },
+    "battle_brothers_jp/runtime/core.nut": {
+      "sha256": "3D1C23F0721C3BE4B944B9B92AA8A7592BFA4D3492220A93CAE562636DAF9238",
+      "bytes": 15704
+    },
+    "battle_brothers_jp/translations/reviewed_literals.nut": {
+      "sha256": "A80CE4136568D119E5EE56CE19B791CE3792D00A92F9002DD2BC21D99DD8603C",
+      "bytes": 3565821
+    },
+    "gfx/fonts/battle_brothers_jp/NotoSansCJKjp-Regular.otf": {
+      "sha256": "68A3FC98800B2A27B371F2FB79991DAF3633BD89309D4FFAA6946FD587F375B5",
+      "bytes": 16467736
+    },
+    "gfx/fonts/battle_brothers_jp/OFL.txt": {
+      "sha256": "BABCFE66C8A098B2FA279BC724A3A342F8124F77CE18941FBCC1BBB39823CDED",
+      "bytes": 4387
+    },
+    "gfx/fonts/battle_brothers_jp/README.md": {
+      "sha256": "51474ECFC12A7976076A8BED4551BDC4A413030EDD32BABFF4D9F8E3CEFD339F",
+      "bytes": 426
+    },
+    "scripts/!mods_preload/mod_battle_brothers_jp.nut": {
+      "sha256": "0C9BB1FA910CF8A551981D05B28EDA9716929ED6683C0FA798AD9F444E26414B",
+      "bytes": 5730
+    },
+    "ui/mods/mod_battle_brothers_jp/generated_strings.js": {
+      "sha256": "8BEC85028A71F35DEA0FF58EB5D5C32A2BE52EB21A5279E0EC64DA2AE21709DB",
+      "bytes": 25820
+    },
+    "ui/mods/mod_battle_brothers_jp/generated_strings_legends.js": {
+      "sha256": "70642716F2F72E50168F11D5D242B4F6BE0633D029E067E9AC226FD162A3FA73",
+      "bytes": 364
+    },
+    "ui/mods/mod_battle_brothers_jp/generated_strings_modern_hooks.js": {
+      "sha256": "70642716F2F72E50168F11D5D242B4F6BE0633D029E067E9AC226FD162A3FA73",
+      "bytes": 364
+    },
+    "ui/mods/mod_battle_brothers_jp/generated_strings_msu.js": {
+      "sha256": "9B9BFF1F24013E0EF3BA529374C670553A7E6973C976709C46B8A33E07E6D9B9",
+      "bytes": 686
+    },
+    "ui/mods/mod_battle_brothers_jp/main.css": {
+      "sha256": "7109FD5B77F23E8B47FD6E1491243CC23FA04065C9B757377D61382A0BE7C078",
+      "bytes": 826
+    },
+    "ui/mods/mod_battle_brothers_jp/main.js": {
+      "sha256": "9AC769489F254518BFEFA0D8B748005373BA7853FF9ECE22E659A844A9FDBEFD",
+      "bytes": 4141
+    }
+  }
+}

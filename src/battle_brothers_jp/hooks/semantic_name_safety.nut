@@ -1,52 +1,20 @@
-// Rosetta 0.5.0 translates several name getters at their source. The pinned
-// game/Legends snapshot consumes those getters through a broad, open-ended set
-// of gameplay, identity, uniqueness, and persisted-data paths. Actor identity
-// getters therefore stay source-language globally, like world-entity names.
-// Localization is restored only at finite display boundaries in
-// ui_boundaries.nut, event_variable_boundaries.nut, and the final JS renderer.
+// Keep identity-bearing values raw and localize only reviewed display returns.
+// Unlike the former Rosetta integration, the JP runtime never wraps actor or
+// world getName() families. Their unbounded gameplay/save consumers therefore
+// receive the original source value without a global-language toggle.
+
+if ("SemanticNameSafetyInstalled" in ::BattleBrothersJP) return;
+::BattleBrothersJP.SemanticNameSafetyInstalled <- true;
 
 local mod = ::BattleBrothersJP.Mod;
 local scopes = ::BattleBrothersJP.SemanticNameScopes <- {
-    Item = 0
-    Background = 0
+    RawTemplate = 0
 };
 
-local function callWithRosettaDisabled(_original, _self, _arguments)
+local function safeTranslate(_value)
 {
-    local activeLanguage = ::Rosetta.active;
-    ::Rosetta.active = null;
-
-    try
-    {
-        _arguments.insert(0, _self);
-        local result = _original.acall(_arguments);
-        ::Rosetta.active = activeLanguage;
-        return result;
-    }
-    catch (error)
-    {
-        ::Rosetta.active = activeLanguage;
-        throw error;
-    }
-}
-
-local function makeSemanticScopeWrapper(_scopeName)
-{
-    return @(__original) function (...) {
-        scopes[_scopeName] += 1;
-        try
-        {
-            vargv.insert(0, this);
-            local result = __original.acall(vargv);
-            scopes[_scopeName] -= 1;
-            return result;
-        }
-        catch (error)
-        {
-            scopes[_scopeName] -= 1;
-            throw error;
-        }
-    }
+    try { return ::BattleBrothersJP.Runtime.translate(_value); }
+    catch (jpError) { return _value; }
 }
 
 local function translateReviewedActorNameDisplay(_text)
@@ -56,7 +24,7 @@ local function translateReviewedActorNameDisplay(_text)
     // Apply reviewed anchored full-value rules first (for example Dame plus a
     // generated name), then handle literal title fragments embedded in a raw
     // identity. Bare sources that require captures remain unchanged.
-    local translatedText = ::Rosetta._(_text);
+    local translatedText = safeTranslate(_text);
     foreach (pair in ::BattleBrothersJP.ActorTitleDisplayFragments)
     {
         local english = pair.english;
@@ -92,94 +60,42 @@ local function translateReviewedActorNameDisplay(_text)
     return translatedText;
 }
 
-// Item display names stay translated. Only audited consumers that use an item
-// display name as an English matcher or copy it into a persistent/runtime
-// identity receive the raw source name.
+// Item identity is raw by default. Translate only while a finite UI producer
+// has raised DisplayGetterScopeDepth; gameplay consumers need no compensation
+// wrappers because they never observe the localized value.
 mod.hookTree("scripts/items/item", function (q) {
     q.getName = @(__original) function (...) {
-        if (scopes.Item == 0)
-        {
-            vargv.insert(0, this);
-            return translateReviewedActorNameDisplay(__original.acall(vargv));
-        }
-        return callWithRosettaDisabled(__original, this, vargv);
+        vargv.insert(0, this);
+        local rawName = __original.acall(vargv);
+        local displayScope = "DisplayGetterScopeDepth" in ::BattleBrothersJP
+            && ::BattleBrothersJP.DisplayGetterScopeDepth > 0;
+        return displayScope ? translateReviewedActorNameDisplay(rawName) : rawName;
     }
 });
 
-mod.hook("scripts/skills/perks/perk_legend_specialist_poacher", function (q) {
-    q.onAnySkillUsed = makeSemanticScopeWrapper("Item");
-    q.onTargetHit = makeSemanticScopeWrapper("Item");
-});
-
-// Legends copies the item name into the spawned tactical dog in these exact
-// methods. Keep that identity raw while the accessory/inventory label remains
-// localized everywhere else.
-mod.hook("scripts/skills/actives/unleash_wardog", function (q) {
-    q.onUse = makeSemanticScopeWrapper("Item");
-});
-
-mod.hook("scripts/items/accessory/wardog_item", function (q) {
-    q.onActorDied = makeSemanticScopeWrapper("Item");
-});
-
-mod.hook("scripts/items/accessory/legend_accessory_dog", function (q) {
-    q.onActorDied = makeSemanticScopeWrapper("Item");
-});
-
-// HedgeKnightTitles doubles as player-facing actor titles and as a complete
-// generated troop name list. Rosetta's buildTextFromTemplate wrapper would
-// otherwise localize the selected name before Legends stores/serializes it.
-// Disable Rosetta only for this exact list reference and preserve the final
-// installed generator, receiver, RNG, arguments, and return value.
+// HedgeKnightTitles doubles as player-facing actor titles and a generated
+// troop-name list. The JP buildTextFromTemplate display hook would otherwise
+// localize the selected value before Legends persists it. Bypass JP template
+// processing only for this exact list, without changing any global language.
 local generateWorldName = ::Const.World.Common.generateName;
 ::Const.World.Common.generateName = function (_list) {
     if (_list != ::Const.Strings.HedgeKnightTitles)
     {
         return generateWorldName.call(this, _list);
     }
-    return callWithRosettaDisabled(generateWorldName, this, [_list]);
+    scopes.RawTemplate += 1;
+    try
+    {
+        local result = generateWorldName.call(this, _list);
+        scopes.RawTemplate -= 1;
+        return result;
+    }
+    catch (error)
+    {
+        scopes.RawTemplate -= 1;
+        throw error;
+    }
 };
-
-// Actor name getters have an unbounded semantic surface in the installed
-// snapshot. Contracts persist getName() in flags, mood history coalesces and
-// serializes strings containing it, named equipment copies it into m.Name,
-// corpses copy it into resurrection identity, and mods may add more consumers.
-// Keep the complete family raw globally; display-only boundaries translate
-// reviewed title fragments without mutating actor, item, corpse, or save state.
-mod.hookTree("scripts/entity/tactical/actor", function (q) {
-    q.getName = @(__original) function (...) {
-        return callWithRosettaDisabled(__original, this, vargv);
-    }
-
-    q.getNameOnly = @(__original) function (...) {
-        return callWithRosettaDisabled(__original, this, vargv);
-    }
-
-    q.getTitle = @(__original) function (...) {
-        return callWithRosettaDisabled(__original, this, vargv);
-    }
-
-    q.getKilledName = @(__original) function (...) {
-        return callWithRosettaDisabled(__original, this, vargv);
-    }
-});
-
-// Background display names stay translated. This exact tooltip method is the
-// sole installed consumer that compares getNameOnly() with raw "Donkey".
-mod.hook("scripts/skills/backgrounds/character_background", function (q) {
-    q.getNameOnly = @(__original) function (...) {
-        if (scopes.Background == 0)
-        {
-            vargv.insert(0, this);
-            return __original.acall(vargv);
-        }
-        return callWithRosettaDisabled(__original, this, vargv);
-    }
-});
-
-mod.hook("scripts/skills/traits/legend_intensive_training_trait", function (q) {
-    q.getTooltip = makeSemanticScopeWrapper("Background");
-});
 
 // World getName() has a broad and open-ended semantic surface: Vanilla and
 // Legends feed it into save flags, faction names, contract objectives, unique
@@ -190,36 +106,42 @@ local function translateWorldNameLabel(_entity)
 {
     if (!_entity.hasLabel("name")) return;
     local label = _entity.getLabel("name");
-    if (typeof label.Text != "string") return;
+    if (typeof label != "table" || !("Text" in label) || typeof label.Text != "string") return;
 
     local rawName = _entity.getName();
     if (typeof rawName == "string" && label.Text.len() >= rawName.len() && label.Text.slice(0, rawName.len()) == rawName)
     {
         // Preserve updateStrength()'s exact computed suffix, e.g. " (4)".
-        label.Text = ::Rosetta._(rawName) + label.Text.slice(rawName.len());
+        label.Text = safeTranslate(rawName) + label.Text.slice(rawName.len());
     }
     else
     {
-        label.Text = ::Rosetta._(label.Text);
+        label.Text = safeTranslate(label.Text);
     }
 }
 
-mod.hook("scripts/entity/world/world_entity", function (q) {
-    q.getName = @(__original) function (...) {
-        return callWithRosettaDisabled(__original, this, vargv);
-    }
+// This is JP-only post-processing after the original lifecycle method has
+// already completed. Unknown MODs may provide an unusual label/getName shape;
+// such a mismatch must preserve the original result instead of breaking the
+// hook chain. Exceptions from the original lifecycle method remain untouched.
+local function safelyTranslateWorldNameLabel(_entity)
+{
+    try { translateWorldNameLabel(_entity); }
+    catch (jpError) {}
+}
 
+mod.hook("scripts/entity/world/world_entity", function (q) {
     q.updateStrength = @(__original) function (...) {
         vargv.insert(0, this);
         local result = __original.acall(vargv);
-        translateWorldNameLabel(this);
+        safelyTranslateWorldNameLabel(this);
         return result;
     }
 
     q.onDeserialize = @(__original) function (...) {
         vargv.insert(0, this);
         local result = __original.acall(vargv);
-        translateWorldNameLabel(this);
+        safelyTranslateWorldNameLabel(this);
         return result;
     }
 });
@@ -227,7 +149,7 @@ mod.hook("scripts/entity/world/world_entity", function (q) {
 local initializeTranslatedWorldLabel = @(__original) function (...) {
     vargv.insert(0, this);
     local result = __original.acall(vargv);
-    translateWorldNameLabel(this);
+    safelyTranslateWorldNameLabel(this);
     return result;
 };
 

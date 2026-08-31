@@ -10,23 +10,27 @@
         {english = "The Lone Wolf", japanese = "一匹狼"},
         {english = "Weeds", japanese = "雑草"}
     ],
-    Mod = {}
-};
-
-::Rosetta <- {
-    _ = function (_text) {
-        local translations = {
-            Hohenburg = "ホーエンブルク",
-            ["The Lone Wolf"] = "一匹狼",
-            ["Weeds"] = "雑草",
-            ["Amber Wristguards"] = "琥珀の腕甲",
-            ["Dame Roderick"] = "デイム・Roderick"
-        };
-        return _text in translations ? translations[_text] : _text;
+    Mod = {},
+    Runtime = {
+        ThrowOn = null,
+        translate = function (_text) {
+            if (_text == ::BattleBrothersJP.Runtime.ThrowOn) throw "JP_PROCESSING_FAILURE";
+            local translations = {
+                Hohenburg = "ホーエンブルク",
+                ["The Lone Wolf"] = "一匹狼",
+                ["Weeds"] = "雑草",
+                ["Amber Wristguards"] = "琥珀の腕甲",
+                ["Dame Roderick"] = "デイム・Roderick"
+            };
+            return typeof _text == "string" && _text in translations ? translations[_text] : _text;
+        }
     }
 };
 
+::OriginalCalls <- 0;
 ::buildTextFromTemplate <- function (_text, _vars) {
+    ::OriginalCalls += 1;
+    if (_text == "ORIGINAL_FAILURE") throw "ORIGINAL_FAILURE";
     return { Text = _text, Vars = _vars };
 };
 
@@ -187,5 +191,29 @@ local commanderVars = [["commander", "Dame Roderick"]];
 local commanderRendered = ::buildTextFromTemplate("Defeat %commander%.", commanderVars);
 assertEqual(findValue(commanderRendered.Vars, "commander"), "デイム・Roderick");
 assertEqual(findValue(commanderVars, "commander"), "Dame Roderick");
+
+// JP-only failure falls back to the raw arguments and calls the original once.
+local callsBeforeJPFailure = ::OriginalCalls;
+::BattleBrothersJP.Runtime.ThrowOn = "JP_FAILURE";
+local jpFailureVars = [["home", "Hohenburg"]];
+local jpFailure = ::buildTextFromTemplate("JP_FAILURE", jpFailureVars);
+assertEqual(jpFailure.Text, "JP_FAILURE");
+assertEqual(findValue(jpFailure.Vars, "home"), "Hohenburg");
+assertEqual(::OriginalCalls, callsBeforeJPFailure + 1);
+::BattleBrothersJP.Runtime.ThrowOn = null;
+
+// Original exceptions remain observable and the original is never retried.
+local callsBeforeOriginalFailure = ::OriginalCalls;
+local sawOriginalFailure = false;
+try
+{
+    ::buildTextFromTemplate("ORIGINAL_FAILURE", []);
+}
+catch (error)
+{
+    sawOriginalFailure = error == "ORIGINAL_FAILURE";
+}
+assertEqual(sawOriginalFailure, true);
+assertEqual(::OriginalCalls, callsBeforeOriginalFailure + 1);
 
 print("EVENT_VARIABLE_BOUNDARIES_TEST_OK\n");
