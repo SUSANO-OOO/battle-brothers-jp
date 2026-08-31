@@ -1,6 +1,6 @@
 # Project State
 
-Updated: 2026-08-31 11:54 (Asia/Tokyo)
+Updated: 2026-08-31 12:00 (Asia/Tokyo)
 
 ## Project Goal
 
@@ -14,7 +14,7 @@ Phase 7 — 6,417 canonical units independently reviewed. The final 357-unit Van
 
 ## Current commit
 
-Current working tree is based on `6ec7707d31dd5106b16164f8d1f1aa39a89d2699` on `codex/integrated-jp-mod`. The reviewed-6,417 content/Goal/public-architecture checkpoint is locally green and pending the checkpoint commit plus GitHub read-back.
+Fully checked reviewed-6,417 content/Goal/public-architecture checkpoint: `2e49a5b765e4335964cc2db6662f2874db25ecff` on `codex/integrated-jp-mod`. GitHub read-back confirmed the same SHA; this state-only bookkeeping update is one commit newer.
 
 ## Installed snapshot ID
 
@@ -163,7 +163,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Blockers
 
-- GitHub: [SUSANO-OOO/battle-brothers-jp](https://github.com/SUSANO-OOO/battle-brothers-jp) is a user-authorized free PUBLIC repository. `main` is the default branch; `main` and `codex/integrated-jp-mod` both read back at `6ec7707d31dd5106b16164f8d1f1aa39a89d2699`. Repository-only GitHub Actions passed on both branches. No force push or history rewrite was used.
+- GitHub: [SUSANO-OOO/battle-brothers-jp](https://github.com/SUSANO-OOO/battle-brothers-jp) is a user-authorized free PUBLIC repository. `codex/integrated-jp-mod` reads back at the green checkpoint `2e49a5b765e4335964cc2db6662f2874db25ecff`; `main` remains intentionally unchanged at `6ec7707d31dd5106b16164f8d1f1aa39a89d2699`. Hosted CI for the new checkpoint is not yet reported here. No force push or history rewrite was used.
 - Runtime migration: current implementation still requires absent Rosetta/stdlib, so it is not the selected public architecture. It must be replaced and parity-reviewed before artifact readiness; neither dependency will be auto-installed or required from the public user.
 - Runtime QA: fully isolated game + Documents/config/save/log environment is not yet proven safe. The real environment remains untouched.
 - Release coverage: 25,190 unique units remain untranslated.
@@ -184,7 +184,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Next exact action
 
-Commit and push the green reviewed-6,417/Goal/public-architecture checkpoint, then implement the onPrepareVariables/replacement-key parser-role classifier root-cause fix with all-occurrence fail-closed regression coverage. After that, migrate canonical reviewed data into the selected JP-namespaced runtime and implement the reviewed 572 Vanilla event patterns through the 11 audited grouped display families without retranslation.
+Implement the onPrepareVariables/replacement-key parser-role classifier root-cause fix with all-occurrence fail-closed regression coverage. After that, migrate canonical reviewed data into the selected JP-namespaced runtime and implement the reviewed 572 Vanilla event patterns through the 11 audited grouped display families without retranslation.
 
 ## Artifact state
 
