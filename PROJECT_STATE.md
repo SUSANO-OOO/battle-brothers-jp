@@ -1,6 +1,6 @@
 # Project State
 
-Updated: 2026-08-31 12:00 (Asia/Tokyo)
+Updated: 2026-08-31 12:04 (Asia/Tokyo)
 
 ## Project Goal
 
@@ -14,7 +14,7 @@ Phase 7 — 6,417 canonical units independently reviewed. The final 357-unit Van
 
 ## Current commit
 
-Fully checked reviewed-6,417 content/Goal/public-architecture checkpoint: `2e49a5b765e4335964cc2db6662f2874db25ecff` on `codex/integrated-jp-mod`. GitHub read-back confirmed the same SHA; this state-only bookkeeping update is one commit newer.
+Fully checked reviewed-6,417 content/Goal/public-architecture checkpoint: `2e49a5b765e4335964cc2db6662f2874db25ecff` on `codex/integrated-jp-mod`. GitHub read-back and repository-static CI succeeded for that checkpoint and its state-only child `32f35b920765504ca81c4a05bc0964777a5c3e19`; this bookkeeping record may be one state-only commit newer.
 
 ## Installed snapshot ID
 
@@ -163,7 +163,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Blockers
 
-- GitHub: [SUSANO-OOO/battle-brothers-jp](https://github.com/SUSANO-OOO/battle-brothers-jp) is a user-authorized free PUBLIC repository. `codex/integrated-jp-mod` reads back at the green checkpoint `2e49a5b765e4335964cc2db6662f2874db25ecff`; `main` remains intentionally unchanged at `6ec7707d31dd5106b16164f8d1f1aa39a89d2699`. Hosted CI for the new checkpoint is not yet reported here. No force push or history rewrite was used.
+- GitHub: [SUSANO-OOO/battle-brothers-jp](https://github.com/SUSANO-OOO/battle-brothers-jp) is a user-authorized free PUBLIC repository. `codex/integrated-jp-mod` read back at `32f35b920765504ca81c4a05bc0964777a5c3e19` before this state-only update; hosted `repository-static-tests` succeeded for both the content checkpoint `2e49a5b...` and state child `32f35b9...`. `main` remains intentionally unchanged at `6ec7707d31dd5106b16164f8d1f1aa39a89d2699`. No force push or history rewrite was used.
 - Runtime migration: current implementation still requires absent Rosetta/stdlib, so it is not the selected public architecture. It must be replaced and parity-reviewed before artifact readiness; neither dependency will be auto-installed or required from the public user.
 - Runtime QA: fully isolated game + Documents/config/save/log environment is not yet proven safe. The real environment remains untouched.
 - Release coverage: 25,190 unique units remain untranslated.
