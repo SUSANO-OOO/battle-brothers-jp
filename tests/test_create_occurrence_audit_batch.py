@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -88,6 +89,48 @@ class OccurrenceAuditBatchTests(unittest.TestCase):
         self.assertEqual(payload["candidate_units"], 0)
         self.assertEqual(payload["occurrence_count"], 0)
         self.assertEqual(payload["already_resolved_candidates"][0]["stable_key"], "internal")
+
+    def test_strict_audit_emits_complete_role_evidence_for_every_occurrence(self) -> None:
+        review = {
+            "batch_id": "review:test",
+            "review_metadata": {"excluded_entries": [{"translation_unit": "unit:test"}]},
+        }
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "event.nut").write_text(
+                'function f(_vars) { _vars.push(["key", "visible value"]); }',
+                encoding="utf-8",
+            )
+            ledger = {
+                "module_roots": {"vanilla": str(root)},
+                "entries": [
+                    {"stable_key": "key", "module": "vanilla", "source": "event.nut",
+                     "context": "onPrepareVariables._vars.push()", "channel": "squirrel",
+                     "mode": "literal", "english": "key", "translation_unit": "unit:test"},
+                    {"stable_key": "value", "module": "vanilla", "source": "event.nut",
+                     "context": "onPrepareVariables._vars.push()", "channel": "squirrel",
+                     "mode": "literal", "english": "visible value",
+                     "translation_unit": "unit:test"},
+                ],
+            }
+            units = {"units": [{
+                "translation_unit": "unit:test", "english": "shared", "status": "UNTRANSLATED",
+                "occurrences": ["key", "value"],
+            }]}
+            payload = MODULE.build_audit_batch(
+                review, ledger, units, require_role_evidence=True
+            )
+        self.assertEqual(payload["occurrence_count"], 2)
+        self.assertTrue(
+            all(
+                item["occurrence_evidence"]["source_sha256"]
+                and item["occurrence_evidence"]["evidence_fingerprint"]
+                for item in payload["findings"]
+            )
+        )
+        self.assertTrue(
+            all(item["role_metadata_verified"] is False for item in payload["findings"])
+        )
 
 
 if __name__ == "__main__":

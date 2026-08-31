@@ -21,6 +21,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
+TOOLS_ROOT = Path(__file__).resolve().parent
+if str(TOOLS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TOOLS_ROOT))
+
+from squirrel_literal_roles import (  # noqa: E402 - local tool import after path guard
+    ANALYZER_VERSION,
+    REQUIRED_ROLE_FIELDS,
+    ROLE_LOCALIZATION_CANDIDATE,
+    analyze_squirrel_literals,
+    role_metadata_for_entry,
+)
+
 
 ROSETTA_COMMIT = "dde98e99fd95ed0e7474a4328555144b4e913678"
 PLACEHOLDER_PATTERNS = {
@@ -99,8 +111,9 @@ def make_entry(
     channel: str,
     source_code: list[str] | None = None,
     mode: str = "literal",
+    role_metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    return {
+    entry = {
         "stable_key": stable_key(module, source, context, english, channel),
         "module": module,
         "source": source,
@@ -115,6 +128,33 @@ def make_entry(
         "source_code": source_code or [],
         "notes": [],
     }
+    if role_metadata is not None:
+        missing = [field for field in REQUIRED_ROLE_FIELDS if field not in role_metadata]
+        if missing:
+            raise ValueError(f"role metadata is incomplete: {missing}")
+        entry.update({field: role_metadata[field] for field in REQUIRED_ROLE_FIELDS})
+    return entry
+
+
+def lexical_role_metadata(
+    *, source_sha256: str, start: int, end: int, line: int
+) -> dict[str, Any]:
+    """Record an exact lexical location without claiming a structural role."""
+    return {
+        "role_analyzer_version": ANALYZER_VERSION,
+        "literal_role": ROLE_LOCALIZATION_CANDIDATE,
+        "role_confidence": "EXACT_LITERAL_MANUAL_REVIEW_REQUIRED",
+        "role_match_count": 1,
+        "role_failure_code": "NON_SQUIRREL_CHANNEL",
+        "consumer_family": None,
+        "callee": None,
+        "argument_index": None,
+        "container_index": None,
+        "source_span_start": start,
+        "source_span_end": end,
+        "source_line": line,
+        "source_sha256": source_sha256,
+    }
 
 
 def extract_squirrel(
@@ -128,22 +168,36 @@ def extract_squirrel(
         if rosetta.FILES_SKIP_RE.search(str(path)):
             continue
         try:
-            code = path.read_text(encoding="utf-8")
+            code = path.read_bytes().decode("utf-8")
+            source_sha256 = sha256_text(code)
+            role_analysis = analyze_squirrel_literals(code, source_sha256)
             rosetta.SEEN.clear()
+            file_entries = []
             for pair in rosetta.extract(code, filename=str(path)):
                 if not isinstance(pair, dict) or not pair.get("en"):
                     continue
-                entries.append(
+                english = str(pair["en"])
+                context = str(pair.get("_context", ""))
+                mode = str(pair.get("mode", "literal"))
+                file_entries.append(
                     make_entry(
                         module=module,
                         source=relative,
-                        context=str(pair.get("_context", "")),
-                        english=str(pair["en"]),
+                        context=context,
+                        english=english,
                         channel="squirrel",
                         source_code=[str(line) for line in pair.get("_code", [])],
-                        mode=str(pair.get("mode", "literal")),
+                        mode=mode,
+                        role_metadata=role_metadata_for_entry(
+                            role_analysis,
+                            english=english,
+                            context=context,
+                            mode=mode,
+                            source_sha256=source_sha256,
+                        ),
                     )
                 )
+            entries.extend(file_entries)
         except Exception as error:  # use a broad lexical fallback and preserve evidence
             fallback = fallback_squirrel_strings(module, root, path, code, error)
             if fallback:
@@ -251,6 +305,8 @@ def fallback_squirrel_strings(
 ) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
     relative = path.relative_to(root).as_posix()
+    source_sha256 = sha256_text(code)
+    role_analysis = analyze_squirrel_literals(code, source_sha256)
     lines = code.splitlines()
     previous_offset = 0
     line = 1
@@ -271,6 +327,18 @@ def fallback_squirrel_strings(
             english=english,
             channel="squirrel_fallback",
             source_code=[context_line],
+            role_metadata={
+                **lexical_role_metadata(
+                    source_sha256=source_sha256,
+                    start=len(code[:start].encode("utf-8")),
+                    end=len(code[:end].encode("utf-8")),
+                    line=line,
+                ),
+                "literal_role": "UNKNOWN_STRUCTURED_TEMPLATE_ROLE",
+                "role_confidence": "PARSER_FALLBACK_REVIEW_REQUIRED",
+                "role_match_count": 0,
+                "role_failure_code": "PARSER_FALLBACK",
+            },
         )
         entry["notes"] = ["ROSETTA_PARSER_FALLBACK", repr(error)]
         entries.append(entry)
@@ -321,7 +389,8 @@ def extract_javascript(module: str, root: Path) -> list[dict[str, Any]]:
         if "extern" in relative_parts or path.name.lower().endswith(".min.js"):
             # Bundled UI libraries are runtime dependencies, not game copy.
             continue
-        code = path.read_text(encoding="utf-8", errors="replace")
+        code = path.read_bytes().decode("utf-8")
+        source_sha256 = sha256_text(code)
         lines = code.splitlines()
         previous_offset = 0
         line = 1
@@ -342,6 +411,12 @@ def extract_javascript(module: str, root: Path) -> list[dict[str, Any]]:
                     english=english,
                     channel="javascript",
                     source_code=[context_line],
+                    role_metadata=lexical_role_metadata(
+                        source_sha256=source_sha256,
+                        start=len(code[:start].encode("utf-8")),
+                        end=len(code[:end].encode("utf-8")),
+                        line=line,
+                    ),
                 )
             )
     return entries

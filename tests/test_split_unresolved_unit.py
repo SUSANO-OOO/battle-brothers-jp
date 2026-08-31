@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -76,7 +77,9 @@ class SplitUnresolvedUnitTests(unittest.TestCase):
         }
 
     def test_mixed_unit_is_partitioned_without_false_translation(self) -> None:
-        result = MODULE.apply_splits(self.plan, self.ledger, self.units)
+        result = MODULE.apply_splits(
+            self.plan, self.ledger, self.units, enforce_role_evidence=False
+        )
         self.assertEqual(result["excluded_occurrences"], 1)
         self.assertEqual(len(self.units["units"]), 1)
         self.assertEqual(self.units["units"][0]["status"], "UNTRANSLATED")
@@ -87,6 +90,44 @@ class SplitUnresolvedUnitTests(unittest.TestCase):
     def test_incomplete_partition_is_rejected(self) -> None:
         self.plan["splits"][0]["variants"].pop()
         with self.assertRaisesRegex(ValueError, "at least two variants"):
+            MODULE.apply_splits(
+                self.plan, self.ledger, self.units, enforce_role_evidence=False
+            )
+
+    def test_source_bound_split_rejects_role_evidence_drift(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / "event.nut"
+            code = ('function f(_vars) { local label = "shared"; '
+                    '_vars.push(["shared", value]); }')
+            source.write_text(code, encoding="utf-8")
+            self.ledger["module_roots"] = {"vanilla": str(root), "legends": str(root)}
+            for occurrence, context in zip(
+                self.ledger["entries"], ["onPrepareVariables._vars.push()", "Text"]
+            ):
+                occurrence.update(
+                    source="event.nut", context=context, channel="squirrel",
+                    mode="literal", english="shared",
+                )
+            enriched = [
+                MODULE.enrich_occurrence_role(item, self.ledger["module_roots"])
+                for item in self.ledger["entries"]
+            ]
+            self.plan["splits"][0]["variants"][0]["occurrence_evidence"] = [
+                MODULE.occurrence_evidence(enriched[0])
+            ]
+            self.plan["splits"][0]["variants"][1].update(
+                occurrence_evidence=[MODULE.occurrence_evidence(enriched[1])],
+                role_gate_after_review=MODULE.GATE_MANUAL_REVIEW,
+            )
+            self.plan.update(schema_version=2, role_evidence_required=True)
+            source.write_text(code.replace("value", "other"), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "evidence drift"):
+                MODULE.apply_splits(self.plan, self.ledger, self.units)
+
+    def test_role_gated_plan_without_evidence_is_rejected_by_default(self) -> None:
+        self.plan.update(schema_version=2, role_evidence_required=True)
+        with self.assertRaisesRegex(ValueError, "mandatory role evidence"):
             MODULE.apply_splits(self.plan, self.ledger, self.units)
 
 

@@ -6,17 +6,41 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+TOOLS_ROOT = Path(__file__).resolve().parent
+if str(TOOLS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TOOLS_ROOT))
+
+from squirrel_literal_roles import (  # noqa: E402
+    enrich_occurrence_role,
+    occurrence_evidence,
+    source_binding_key_proof,
+)
+from ledger_integrity import canonical_indexes, validate_unit_membership  # noqa: E402
 
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest().upper()
 
 
-def validate_batch(batch: dict[str, Any], units: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+def validate_batch(
+    batch: dict[str, Any],
+    units: dict[str, dict[str, Any]],
+    occurrence_index: dict[str, dict[str, Any]] | None = None,
+    module_roots: dict[str, str] | None = None,
+    *,
+    enforce_role_evidence: bool = True,
+) -> list[dict[str, Any]]:
+    if enforce_role_evidence and (
+        batch.get("schema_version") != 2
+        or batch.get("role_evidence_required") is not True
+    ):
+        raise ValueError("Exclusion batch must require schema-v2 source-bound role evidence")
     entries = batch.get("entries")
     if not isinstance(entries, list) or not entries:
         raise ValueError("Batch must contain a non-empty entries list")
@@ -27,6 +51,7 @@ def validate_batch(batch: dict[str, Any], units: dict[str, dict[str, Any]]) -> l
         raise ValueError(f"Duplicate translation units in batch: {duplicates}")
 
     validated = []
+    analysis_cache: dict[str, tuple[str, str, dict[str, Any]]] = {}
     for index, entry in enumerate(entries):
         unit_id = entry.get("translation_unit")
         if unit_id not in units:
@@ -43,6 +68,39 @@ def validate_batch(batch: dict[str, Any], units: dict[str, dict[str, Any]]) -> l
             raise ValueError(
                 f"Entry {index} exclusion scope does not cover the whole unit; split contexts first: {unit_id}"
             )
+        evidence = entry.get("occurrence_evidence", [])
+        if enforce_role_evidence and not evidence:
+            raise ValueError(f"Entry {index} is missing mandatory exclusion evidence: {unit_id}")
+        if entry.get("requires_parser_proven_binding") is True and not evidence:
+            raise ValueError(f"Entry {index} parser-key exclusion requires evidence: {unit_id}")
+        if evidence:
+            if occurrence_index is None or not module_roots:
+                raise ValueError(f"Entry {index} exclusion evidence requires source indexes: {unit_id}")
+            evidence_index = {
+                item.get("stable_key"): item for item in evidence if isinstance(item, dict)
+            }
+            if len(evidence_index) != len(evidence) or set(evidence_index) != set(stable_keys):
+                raise ValueError(f"Entry {index} exclusion evidence must exactly cover unit: {unit_id}")
+            validate_unit_membership(unit_id, unit, occurrence_index)
+            enriched_occurrences = []
+            for stable_key in stable_keys:
+                current = occurrence_index.get(stable_key)
+                if current is None:
+                    raise ValueError(f"Entry {index} missing canonical occurrence: {stable_key}")
+                enriched = enrich_occurrence_role(
+                    current,
+                    module_roots,
+                    analysis_cache,
+                    force_reanalysis=True,
+                )
+                if evidence_index[stable_key] != occurrence_evidence(enriched):
+                    raise ValueError(f"Entry {index} exclusion source/role evidence drift: {stable_key}")
+                enriched_occurrences.append(enriched)
+            if entry.get("requires_parser_proven_binding") is True and any(
+                not source_binding_key_proof(occurrence, module_roots, analysis_cache)
+                for occurrence in enriched_occurrences
+            ):
+                raise ValueError(f"Entry {index} exclusion is not parser-proven binding keys: {unit_id}")
         if entry.get("review_status") != "NOT_APPLICABLE":
             raise ValueError(f"Entry {index} must have review_status NOT_APPLICABLE: {unit_id}")
         reason = entry.get("reason")
@@ -64,8 +122,7 @@ def apply_entries(
     ledger: dict[str, Any],
     units_payload: dict[str, Any],
 ) -> Counter[str]:
-    unit_index = {unit["translation_unit"]: unit for unit in units_payload["units"]}
-    occurrence_index = {entry["stable_key"]: entry for entry in ledger["entries"]}
+    occurrence_index, unit_index = canonical_indexes(ledger, units_payload)
     remove_ids: set[str] = set()
     reason_counts: Counter[str] = Counter()
 
@@ -171,7 +228,10 @@ def main() -> int:
     ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
     units_payload = json.loads(units_path.read_text(encoding="utf-8"))
     unit_index = {unit["translation_unit"]: unit for unit in units_payload["units"]}
-    validated = validate_batch(batch, unit_index)
+    occurrence_index = {entry["stable_key"]: entry for entry in ledger["entries"]}
+    validated = validate_batch(
+        batch, unit_index, occurrence_index, ledger.get("module_roots", {})
+    )
 
     if args.dry_run:
         print(
@@ -190,6 +250,9 @@ def main() -> int:
         )
         return 0
 
+    validated = validate_batch(
+        batch, unit_index, occurrence_index, ledger.get("module_roots", {})
+    )
     reason_counts = apply_entries(validated, ledger, units_payload)
     applied_at = datetime.now(tz=timezone.utc).isoformat()
     metadata = {"batch_id": batch.get("batch_id"), "applied_at_utc": applied_at}

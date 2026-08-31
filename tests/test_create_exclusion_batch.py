@@ -141,6 +141,25 @@ class CreateExclusionBatchTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Unverified"):
             MODULE.build_batch(audit, {"units": []}, "batch:test")
 
+    def test_template_key_exclusion_requires_verified_parser_role(self) -> None:
+        audit = {"findings": [{
+            "translation_unit": "unit:key", "stable_key": "key",
+            "classification": "RESOLVED_EXCLUSION",
+            "candidate_classification": "template_variable_key",
+            "reason": "Machine key.", "source_evidence": {"verified": True},
+            "role_metadata_verified": True,
+            "occurrence_evidence": {
+                "stable_key": "key", "evidence_fingerprint": "A" * 64,
+                "literal_role": "LOCALIZATION_CANDIDATE",
+                "role_confidence": "EXACT_LITERAL_MANUAL_REVIEW_REQUIRED",
+            },
+        }]}
+        units = {"units": [{
+            "translation_unit": "unit:key", "english": "key", "occurrences": ["key"],
+        }]}
+        with self.assertRaisesRegex(ValueError, "parser-proven"):
+            MODULE.build_batch(audit, units, "batch:key")
+
 
 if __name__ == "__main__":
     unittest.main()

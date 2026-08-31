@@ -1,6 +1,6 @@
 # Project State
 
-Updated: 2026-08-31 12:04 (Asia/Tokyo)
+Updated: 2026-08-31 14:20 (Asia/Tokyo)
 
 ## Project Goal
 
@@ -10,11 +10,11 @@ Battle Brothersを日本語で遊びたい一般ユーザー向けに、game/sav
 
 ## Current phase
 
-Phase 7 — 6,417 canonical units independently reviewed. The final 357-unit Vanilla-events literal tranche is closed: 140 direct display units plus two exact context-split display units are reviewed, while 217 internal replacement-key units covering 363 occurrences are resolved exclusions. Gate A's 9-class/18-screen display boundary and Gate B's transaction-lifetime Win32 preimage guard both passed independent review; authorized canonical application and Full QA are complete. The public ecosystem audit/ADR also passed independent re-review after its six findings were fixed. The next bounded root task is the onPrepareVariables/replacement-key classifier root-cause implementation, followed by the selected namespaced runtime migration and reviewed Vanilla pattern families. Legends event prose drafts remain outside canonical data.
+Phase 7 — 6,417 canonical units independently reviewed. The final Vanilla literal tranche, Gate A/B, and public ecosystem ADR are closed. The onPrepareVariables/replacement-key root cause is now fixed by the independently reviewed `bbjp-squirrel-role-v2` source-bound all-occurrence classifier; no canonical translation/exclusion state was rebuilt. The active implementation phase is the selected JP-namespaced runtime migration, followed by the already reviewed 572 Vanilla event patterns through 11 grouped display families. Legends drafts remain outside canonical data.
 
 ## Current commit
 
-Fully checked reviewed-6,417 content/Goal/public-architecture checkpoint: `2e49a5b765e4335964cc2db6662f2874db25ecff` on `codex/integrated-jp-mod`. GitHub read-back and repository-static CI succeeded for that checkpoint and its state-only child `32f35b920765504ca81c4a05bc0964777a5c3e19`; this bookkeeping record may be one state-only commit newer.
+Pre-classifier HEAD: `c042f2f07b63c3ac7dde98869f52657eeef54f1b` on `codex/integrated-jp-mod`, with successful GitHub read-back and hosted CI. The reviewed classifier checkpoint is being committed from this cleanly tested working tree; its final SHA/read-back will replace this line in the next state sync.
 
 ## Installed snapshot ID
 
@@ -122,6 +122,7 @@ Snapshot basis SHA-256: `CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E
 - Closed Gate B after independent retained-handle adversarial review (`E73B0608...`): existing writers are rejected before claim, new writers are blocked through commit, external/preimage bytes survive failure, and production dry-run made zero canonical writes. The authorized application created two reviewed display units and resolved 363 internal-key occurrences across 217 removed units.
 - Adopted 140 independently reviewed display translations from the final 357-unit Vanilla event literal tranche. Full QA then caught one accidental Devanagari word; an independent one-unit correction (`A8724DED...`) changed only ` मैदान` to `試合場`, preserved all tokens/tags/newlines, and returned required missing glyphs to zero.
 - Graph-first `scan`, `extract`, `diff`, `coverage`, `validate`, `build`, `qa`, and `update` commands are exposed through `tools/bbjp.py`; `update` deliberately stops before extraction when installed fingerprints changed.
+- Implemented and independently approved `bbjp-squirrel-role-v2`: exact raw-byte/source-span role proof, all-occurrence unit gates, schema-v2 evidence, final source reproof, fresh-ledger-only classification, and canonical identity/membership invariants. The review closed all P0/P1/P2 findings without changing the 6,417 reviewed units.
 - Deterministic development-only ZIPs are built below `work/qa`; none is a release artifact.
 - Glossary/style/lore foundation written; category review remains.
 
@@ -148,14 +149,15 @@ Snapshot basis SHA-256: `CF88150E7B355ECD32D92BC0F6D425F1654AD86A448681088B5094E
 ## Last green tests
 
 - Public ecosystem/profile consistency: `11/11 PASS`; independent re-review is `18/18 PASS` after all six findings, including the fingerprint mutation false-green, were closed (`B5675353...`).
-- Project Python unit tests: `111 PASS, 1 SKIP` (112 discovered) after final metadata sync; the only skip is symlink creation unavailable under the current Windows privilege, while the separate Win32 junction escape check passed in independent Gate B review.
+- Project Python unit tests: `161 PASS, 1 SKIP` after classifier integration; the only skip is symlink creation unavailable under the current Windows privilege, while the separate Win32 junction escape check passed in independent Gate B review.
 - Rosetta official Python extractor suite: `102 PASS, 1 XFAIL`.
 - Vertical Slice Squirrel syntax: preload and translation files compile with Squirrel `3.0.7`.
 - Vertical Slice Rosetta harness: Japanese literals and `%dragonslayer%` token preservation PASS.
 - JS syntax and button/dialog/popup wrapper behavior: PASS (`UI_TRANSLATION_TEST_OK`).
 - Last fully green Vertical Slice static MOD QA: all 17 checks PASS in `reports/qa-vertical-slice.json`.
 - Latest Full archive QA is `32/32 PASS` for reviewed-6,417 in `reports/qa-reviewed-6417-boundary015.json` (`SHA-256 A3A28C9D04A41ABEBCF49D6F567C02AECBCA0BB280EE7D4D68461EF2C467BA31`).
-- Post-state-edit validation: project Python `111 PASS, 1 SKIP`, JavaScript UI harness PASS, py_compile PASS, production apply counts/canonical partition/exact source-archive parity/Squirrel harnesses PASS, and `git diff --check` PASS.
+- Classifier focused suite: `86/86 PASS`; independent adversarial review PASS with open P0/P1/P2 `0`. CRLF, source/placeholder/membership drift, duplicate identity, control-flow dominance, shadowing, and legacy evidence-free mutation are covered.
+- Post-classifier validation: project Python `161 PASS, 1 SKIP`, changed-tool py_compile PASS, strict current-canonical schema-v2 10-unit dry-run PASS, and `git diff --check` PASS.
 - Font static QA for the current generated tranche: 2,574 required non-ASCII code points, missing 0; known Devanagari/mojibake marker count is 0.
 - Current generation contains 6,403 emitted units plus 14 exact boundary-accounting units; pending reviewed runtime patterns are 0. The 13-entry development ZIP matches repository-owned source 13/13. Runtime game QA remains `NOT_TESTED`.
 
@@ -174,7 +176,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 - Translate and independently review the two player-facing `Barrage` context units; the achievement identifier is already excluded.
 - Complete Vanilla, Legends, MSU/Jimmy UI, and remaining framework player-facing translations.
 - Consolidate the first 150 Legends-event occurrence drafts into unique translation units. Preserve all source contexts; repair four placeholder-order drafts and independently audit three source-only replacement-key candidates instead of treating them as display translations.
-- Apply the onPrepareVariables/replacement-key root-cause classifier to both Vanilla and Legends. Certain internal keys may be excluded only by proven assignment/use semantics; unknown or mixed values go to `REVIEW_REQUIRED`.
+- Use the completed source-bound classifier for every new Vanilla/Legends batch. Proven internal keys may be excluded; unknown, mixed, unsupported-flow, and stale evidence remain `REVIEW_REQUIRED`.
 - Resolve the audited Legends `19.4.21` semantic delta before claiming public-latest support: three background description translations, one review item, and five boundary revalidations remain outside current verified status.
 - Manually audit all conservative exclusions and all 601 fallback candidates.
 - Complete high-risk category, terminology, lore, placeholder/pattern, JS call-site, and UI layout passes.
@@ -184,7 +186,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Next exact action
 
-Implement the onPrepareVariables/replacement-key parser-role classifier root-cause fix with all-occurrence fail-closed regression coverage. After that, migrate canonical reviewed data into the selected JP-namespaced runtime and implement the reviewed 572 Vanilla event patterns through the 11 audited grouped display families without retranslation.
+Freeze the current generated expected-output corpus, then migrate canonical reviewed data into the selected `::BattleBrothersJP.Runtime` exact/bounded-pattern runtime. Prove parity, composition, adversarial behavior, idempotence, performance, and Rosetta/stdlib external-dependency removal before adding the reviewed 572 Vanilla event patterns without retranslation.
 
 ## Artifact state
 

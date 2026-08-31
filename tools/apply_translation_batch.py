@@ -7,10 +7,26 @@ import argparse
 import hashlib
 import json
 import re
+import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+TOOLS_ROOT = Path(__file__).resolve().parent
+if str(TOOLS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TOOLS_ROOT))
+
+from squirrel_literal_roles import (  # noqa: E402
+    GATE_AUTO_EXCLUDE,
+    GATE_MANUAL_REVIEW,
+    GATE_REVIEW_REQUIRED,
+    enrich_occurrence_role,
+    occurrence_evidence,
+    occurrence_role_gate,
+    source_structural_proof,
+)
+from ledger_integrity import canonical_indexes, validate_unit_membership  # noqa: E402
 
 
 TOKEN_PATTERNS = {
@@ -57,7 +73,19 @@ def normalize_notes(value: Any) -> list[str]:
     raise ValueError("notes must be a string, a list of strings, or null")
 
 
-def validate_batch(batch: dict[str, Any], units: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+def validate_batch(
+    batch: dict[str, Any],
+    units: dict[str, dict[str, Any]],
+    occurrence_index: dict[str, dict[str, Any]] | None = None,
+    module_roots: dict[str, str] | None = None,
+    *,
+    enforce_role_evidence: bool = True,
+) -> list[dict[str, Any]]:
+    if enforce_role_evidence and (
+        batch.get("schema_version") != 2
+        or batch.get("role_evidence_required") is not True
+    ):
+        raise ValueError("Translation batch must require schema-v2 source-bound role evidence")
     entries = batch.get("entries")
     if not isinstance(entries, list) or not entries:
         raise ValueError("Batch must contain a non-empty entries list")
@@ -68,11 +96,15 @@ def validate_batch(batch: dict[str, Any], units: dict[str, dict[str, Any]]) -> l
         raise ValueError(f"Duplicate translation units in batch: {duplicates}")
 
     validated = []
+    analysis_cache: dict[str, tuple[str, str, dict[str, Any]]] = {}
     for index, entry in enumerate(entries):
         unit_id = entry.get("translation_unit")
         if unit_id not in units:
             raise ValueError(f"Entry {index} references unknown translation unit: {unit_id}")
         unit = units[unit_id]
+        stored_gate = unit.get("role_gate")
+        if stored_gate in {GATE_AUTO_EXCLUDE, GATE_REVIEW_REQUIRED}:
+            raise ValueError(f"Entry {index} unit role gate blocks generic translation: {unit_id}")
         if entry.get("english") != unit["english"]:
             raise ValueError(f"Entry {index} English/source mismatch: {unit_id}")
         japanese = entry.get("japanese")
@@ -86,6 +118,53 @@ def validate_batch(batch: dict[str, Any], units: dict[str, dict[str, Any]]) -> l
                 f"Entry {index} Japanese placeholder/tag/newline signature mismatch: {unit_id}; "
                 f"expected={unit['placeholder_signature']}, actual={japanese_signature}"
             )
+        evidence = entry.get("occurrence_evidence")
+        if enforce_role_evidence and evidence is None:
+            raise ValueError(f"Entry {index} is missing mandatory occurrence evidence: {unit_id}")
+        if evidence is not None:
+            if occurrence_index is None or not module_roots:
+                raise ValueError(
+                    f"Entry {index} occurrence evidence requires canonical/source indexes: {unit_id}"
+                )
+            if not isinstance(evidence, list) or not evidence:
+                raise ValueError(f"Entry {index} occurrence evidence is empty: {unit_id}")
+            evidence_index = {
+                item.get("stable_key"): item for item in evidence if isinstance(item, dict)
+            }
+            if len(evidence_index) != len(evidence) or set(evidence_index) != set(unit["occurrences"]):
+                raise ValueError(
+                    f"Entry {index} occurrence evidence must exactly cover the unit: {unit_id}"
+                )
+            validate_unit_membership(unit_id, unit, occurrence_index)
+            current_occurrences = []
+            for stable_key in unit["occurrences"]:
+                current = occurrence_index.get(stable_key)
+                if current is None:
+                    raise ValueError(
+                        f"Entry {index} occurrence evidence references missing canonical occurrence: {stable_key}"
+                    )
+                enriched = enrich_occurrence_role(
+                    current,
+                    module_roots,
+                    analysis_cache,
+                    force_reanalysis=True,
+                )
+                expected_evidence = occurrence_evidence(enriched)
+                if evidence_index[stable_key] != expected_evidence:
+                    raise ValueError(
+                        f"Entry {index} occurrence/source role evidence drift: {stable_key}"
+                    )
+                current_occurrences.append(enriched)
+            current_gate = occurrence_role_gate(
+                current_occurrences,
+                lambda occurrence: source_structural_proof(
+                    occurrence, module_roots, analysis_cache
+                ),
+            )
+            if current_gate != GATE_MANUAL_REVIEW or entry.get("unit_role_gate") != current_gate:
+                raise ValueError(
+                    f"Entry {index} generic translation blocked by role gate {current_gate}: {unit_id}"
+                )
         review_status = entry.get("review_status")
         if review_status not in {"DRAFT_INDEPENDENT_REVIEW_REQUIRED", "REVIEWED"}:
             raise ValueError(f"Entry {index} has invalid review_status: {review_status}")
@@ -207,9 +286,8 @@ def main() -> int:
         batch["entries"] = reviewed_entries
     ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
     units_payload = json.loads(units_path.read_text(encoding="utf-8"))
-    unit_index = {unit["translation_unit"]: unit for unit in units_payload["units"]}
-    occurrence_index = {entry["stable_key"]: entry for entry in ledger["entries"]}
-    validated = validate_batch(batch, unit_index)
+    occurrence_index, unit_index = canonical_indexes(ledger, units_payload)
+    validated = validate_batch(batch, unit_index, occurrence_index, ledger.get("module_roots", {}))
 
     if args.dry_run:
         print(
@@ -227,6 +305,8 @@ def main() -> int:
         )
         return 0
 
+    # Re-read and revalidate source-bound evidence immediately before mutation.
+    validated = validate_batch(batch, unit_index, occurrence_index, ledger.get("module_roots", {}))
     for entry in validated:
         unit = unit_index[entry["translation_unit"]]
         unit["japanese"] = entry["japanese"]

@@ -61,6 +61,40 @@ class CreateContextSplitPlanTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "exactly cover"):
             MODULE.build_plan(audit, units, "plan:mixed")
 
+    def test_role_gated_split_requires_verified_proven_internal_partition(self) -> None:
+        evidence = {
+            "evidence_fingerprint": "A" * 64,
+            "literal_role": MODULE.ROLE_BINDING_KEY,
+            "role_confidence": MODULE.PARSER_PROVEN,
+        }
+        audit = {"findings": [
+            {"translation_unit": "unit:mixed", "stable_key": "key",
+             "classification": "RESOLVED_EXCLUSION", "candidate_classification": "INTERNAL_KEY",
+             "reason": "Machine key.", "source_evidence": {"verified": True},
+             "unit_role_gate": MODULE.GATE_REVIEW_REQUIRED,
+             "role_metadata_verified": True, "occurrence_evidence": evidence},
+            {"translation_unit": "unit:mixed", "stable_key": "visible",
+             "classification": "PLAYER_FACING_REVIEW_REQUIRED", "reason": "Displayed.",
+             "source_evidence": {"verified": True},
+             "unit_role_gate": MODULE.GATE_REVIEW_REQUIRED,
+             "role_metadata_verified": True,
+             "occurrence_evidence": {**evidence, "evidence_fingerprint": "B" * 64,
+                                     "literal_role": "LOCALIZATION_CANDIDATE"}},
+        ]}
+        units = {"units": [{
+            "translation_unit": "unit:mixed", "english": "Shared", "status": "UNTRANSLATED",
+            "review_status": "NOT_REVIEWED", "occurrences": ["key", "visible"],
+            "role_gate": MODULE.GATE_REVIEW_REQUIRED,
+        }]}
+        plan = MODULE.build_plan(audit, units, "plan:strict")
+        self.assertEqual(
+            plan["splits"][0]["variants"][1]["role_gate_after_review"],
+            MODULE.GATE_MANUAL_REVIEW,
+        )
+        audit["findings"][0]["role_metadata_verified"] = False
+        with self.assertRaisesRegex(ValueError, "unverified role"):
+            MODULE.build_plan(audit, units, "plan:strict")
+
 
 if __name__ == "__main__":
     unittest.main()

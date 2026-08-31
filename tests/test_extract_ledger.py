@@ -1,5 +1,7 @@
 import importlib.util
 import tempfile
+import hashlib
+import re
 import unittest
 from pathlib import Path
 
@@ -100,6 +102,37 @@ class JavascriptExtractionTests(unittest.TestCase):
 
         self.assertEqual([entry["english"] for entry in entries], ["Visible Name"])
         self.assertIn("ROSETTA_PARSER_FALLBACK", entries[0]["notes"])
+        self.assertEqual(entries[0]["role_failure_code"], "PARSER_FALLBACK")
+        self.assertEqual(
+            entries[0]["literal_role"], "UNKNOWN_STRUCTURED_TEMPLATE_ROLE"
+        )
+
+    def test_squirrel_extraction_hashes_raw_crlf_bytes(self):
+        class FakeRosetta:
+            FILES_SKIP_RE = re.compile(r"$^")
+            SEEN = set()
+
+            @staticmethod
+            def extract(code, filename):
+                yield {
+                    "en": "key",
+                    "_context": "onPrepareVariables._vars.push()",
+                    "_code": [],
+                    "mode": "literal",
+                }
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            raw = b'function f(_vars) {\r\n  _vars.push(["key", value]);\r\n}\r\n'
+            (root / "event.nut").write_bytes(raw)
+            entries, failures, warnings = EXTRACT_LEDGER.extract_squirrel(
+                "sample", root, FakeRosetta()
+            )
+        self.assertFalse(failures)
+        self.assertFalse(warnings)
+        self.assertEqual(
+            entries[0]["source_sha256"], hashlib.sha256(raw).hexdigest().upper()
+        )
 
 
 if __name__ == "__main__":

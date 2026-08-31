@@ -7,10 +7,25 @@ import argparse
 import hashlib
 import json
 import re
+import sys
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+TOOLS_ROOT = Path(__file__).resolve().parent
+if str(TOOLS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TOOLS_ROOT))
+
+from squirrel_literal_roles import (  # noqa: E402
+    GATE_AUTO_EXCLUDE,
+    GATE_MANUAL_REVIEW,
+    GATE_REVIEW_REQUIRED,
+    ROLE_SUBSTITUTION_VALUE,
+    occurrence_role_gate,
+    role_summary,
+    source_structural_proof,
+)
 
 
 PATHISH = re.compile(
@@ -63,6 +78,110 @@ def unit_key(entry: dict[str, Any]) -> str:
     return f"unit:{sha256_text(basis)[:24]}"
 
 
+def require_fresh_extraction(ledger: dict[str, Any]) -> None:
+    """Refuse destructive rebuilds of translated or previously classified state."""
+    if ledger.get("classification") is not None:
+        raise ValueError("classification rebuild requires a fresh extracted ledger")
+    for entry in ledger.get("entries", []):
+        if (
+            entry.get("status") != "UNTRANSLATED"
+            or entry.get("review_status") != "NOT_REVIEWED"
+            or bool(entry.get("japanese"))
+            or "translation_unit" in entry
+        ):
+            raise ValueError(
+                "classification rebuild refuses translated, excluded, or unit-bound canonical state"
+            )
+
+
+def classify_entries(
+    entries: list[dict[str, Any]], module_roots: dict[str, str]
+) -> tuple[list[dict[str, Any]], Counter[str]]:
+    """Classify complete global units; no representative may decide a unit role."""
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    analysis_cache: dict[str, tuple[str, str, dict[str, Any]]] = {}
+    for entry in entries:
+        entry.pop("translation_unit", None)
+        grouped[unit_key(entry)].append(entry)
+
+    units = []
+    reason_counts: Counter[str] = Counter()
+    for key, occurrences in grouped.items():
+        role_gate = occurrence_role_gate(
+            occurrences,
+            lambda occurrence: source_structural_proof(
+                occurrence, module_roots, analysis_cache
+            ),
+        )
+        heuristic_reasons = [exclusion_reason(entry) for entry in occurrences]
+        unit_diagnostics: list[str] = []
+
+        if role_gate == GATE_AUTO_EXCLUDE:
+            reason = "INTERNAL_TEMPLATE_VARIABLE_KEY"
+            for entry in occurrences:
+                entry["status"] = "RESOLVED_EXCLUSION"
+                entry["review_status"] = "NOT_APPLICABLE"
+                entry["notes"] = list(dict.fromkeys([*entry.get("notes", []), reason]))
+                reason_counts[reason] += 1
+            continue
+
+        if role_gate == GATE_REVIEW_REQUIRED:
+            effective_gate = GATE_REVIEW_REQUIRED
+            unit_diagnostics.append("STRUCTURAL_ROLE_REVIEW_REQUIRED")
+        elif any(
+            entry.get("literal_role") == ROLE_SUBSTITUTION_VALUE
+            for entry in occurrences
+        ):
+            # A parser-proven pair index 1 is data substituted into displayed
+            # text.  Its shape may resemble a path or engine token, but it may
+            # never be auto-excluded by legacy lexical heuristics.
+            effective_gate = GATE_MANUAL_REVIEW
+            unit_diagnostics.append("TEMPLATE_SUBSTITUTION_VALUE_TRANSLATION_REVIEW")
+        elif all(reason is not None for reason in heuristic_reasons):
+            for entry, reason in zip(occurrences, heuristic_reasons):
+                assert reason is not None
+                entry["status"] = "RESOLVED_EXCLUSION"
+                entry["review_status"] = "NOT_APPLICABLE"
+                entry["notes"] = list(dict.fromkeys([*entry.get("notes", []), reason]))
+                reason_counts[reason] += 1
+            continue
+        elif any(reason is not None for reason in heuristic_reasons):
+            effective_gate = GATE_REVIEW_REQUIRED
+            unit_diagnostics.append("MIXED_HEURISTIC_CONTEXT_REVIEW_REQUIRED")
+        else:
+            effective_gate = GATE_MANUAL_REVIEW
+
+        for entry in occurrences:
+            entry["status"] = "UNTRANSLATED"
+            entry["review_status"] = "NOT_REVIEWED"
+            entry["translation_unit"] = key
+            if unit_diagnostics:
+                entry["notes"] = list(
+                    dict.fromkeys([*entry.get("notes", []), *unit_diagnostics])
+                )
+        first = occurrences[0]
+        units.append(
+            {
+                "translation_unit": key,
+                "english": first["english"],
+                "japanese": "",
+                "mode": first["mode"],
+                "placeholder_signature": first["placeholder_signature"],
+                "status": "UNTRANSLATED",
+                "review_status": "NOT_REVIEWED",
+                "occurrence_count": len(occurrences),
+                "modules": sorted({entry["module"] for entry in occurrences}),
+                "occurrences": [entry["stable_key"] for entry in occurrences],
+                "role_gate": effective_gate,
+                "role_summary": role_summary(occurrences),
+                "classification_diagnostics": unit_diagnostics,
+                "notes": [],
+            }
+        )
+    units.sort(key=lambda unit: (unit["modules"], unit["english"]))
+    return units, reason_counts
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ledger", default="work/ledger/translation-ledger.json")
@@ -83,49 +202,12 @@ def main() -> int:
     snapshot_lock = json.loads(
         (repo / "reports" / "supported-snapshot-lock.json").read_text(encoding="utf-8")
     )
-    previous_reasons = set(ledger.get("classification", {}).get("resolved_exclusion_reasons", {}))
-    reason_counts: Counter[str] = Counter()
-    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    for entry in ledger["entries"]:
-        entry["notes"] = [note for note in entry.get("notes", []) if note not in previous_reasons]
-        if entry.get("status") == "RESOLVED_EXCLUSION":
-            entry["status"] = "UNTRANSLATED"
-            entry["review_status"] = "NOT_REVIEWED"
-        entry.pop("translation_unit", None)
-        reason = exclusion_reason(entry)
-        if reason is not None:
-            entry["status"] = "RESOLVED_EXCLUSION"
-            entry["review_status"] = "NOT_APPLICABLE"
-            entry["notes"].append(reason)
-            reason_counts[reason] += 1
-            continue
-        key = unit_key(entry)
-        entry["translation_unit"] = key
-        grouped[key].append(entry)
-
-    units = []
-    for key, occurrences in grouped.items():
-        first = occurrences[0]
-        units.append(
-            {
-                "translation_unit": key,
-                "english": first["english"],
-                "japanese": "",
-                "mode": first["mode"],
-                "placeholder_signature": first["placeholder_signature"],
-                "status": "UNTRANSLATED",
-                "review_status": "NOT_REVIEWED",
-                "occurrence_count": len(occurrences),
-                "modules": sorted({entry["module"] for entry in occurrences}),
-                "occurrences": [entry["stable_key"] for entry in occurrences],
-                "notes": [],
-            }
-        )
-    units.sort(key=lambda unit: (unit["modules"], unit["english"]))
+    require_fresh_extraction(ledger)
+    units, reason_counts = classify_entries(ledger["entries"], ledger.get("module_roots", {}))
 
     ledger["classified_at_utc"] = datetime.now(tz=timezone.utc).isoformat()
     ledger["classification"] = {
-        "method": "conservative call-site heuristics",
+        "method": "parser-bound all-occurrence roles plus conservative call-site heuristics",
         "resolved_exclusion_reasons": dict(sorted(reason_counts.items())),
         "manual_review_required_for_all_remaining_units": True,
     }

@@ -266,6 +266,56 @@ Canonical reviewed ledger、source evidence、review evidence、context split、
 
 この順序はaccepted translationを守り、同じfeatureを旧/new runtimeへ二重実装する時間を避ける。
 
+## ADR-007 — Source-bound replacement-key classification
+
+### Options considered
+
+1. `onPrepareVariables` context名やpath-looking textによるheuristic exclusion
+2. unitの代表occurrenceだけをsource確認して全occurrenceへ適用
+3. raw-byte sourceにbindしたstructural roleを全occurrenceへ要求
+
+### Actual source evidence
+
+- VanillaとLegendsは`_vars.push([key,value])`と
+  `buildTextFromTemplate(..., vars)`のkey/valueを同じliteral channelへ抽出する。
+- global deduplication後は同じEnglish unitがkey、display value、general proseを
+  cross-moduleで共有し得るため、context名や代表1件では安全に分類できない。
+- 実source probeではVanilla tavern `item`とLegends faction `regionname`は
+  binding keyとして一意に証明できる一方、pair index 1のpath-shaped valueは
+  display candidateであり、legacy path heuristicへ渡してはいけない。
+
+### Selected design
+
+`bbjp-squirrel-role-v2`のfail-closed lexical/structural analyzerとschema-v2
+all-occurrence evidenceを採用する。SHA-256、UTF-8 byte span、callee/arity/argument
+position、lexical function/block、unshadowed parameter、unique def/useをbindする。
+canonical stable key、unit occurrence、translation-unit membershipの重複/driftも
+mutation前に拒否する。詳細contractは`docs/TRANSLATION_PIPELINE.md`を参照。
+
+### Rejected alternatives
+
+- Heuristic-only: internal keyをplayer-facing proseとしてdraftし、逆にdisplay valueを
+  internalとして消す両方向のriskがある。
+- Representative-only: Vanilla/Legends mixed unitとcontext splitを誤分類する。
+- Complete Squirrel CFG/parser: false-negativeを減らせるがcurrent Goalに不要な実装量。
+  unsupported flowをreviewへ送る方が安全で早い。
+
+### Impact
+
+- Quality/safety: proven binding keyだけをexcludeし、不確実なtextはEnglish/manual review。
+- Compatibility: source drift、unknown MOD syntax、malformed inputはfail-closed。
+- Maintenance: analyzer semantics変更時はversion bumpでstale evidenceを失効。
+- Performance: sourceは1 operationにつきabsolute pathごとに1回parseし、game runtimeでは実行しない。
+- Migration: current canonical 6,417 reviewed unitsは再分類・再翻訳しない。旧batchはreview済み本文を保ったままschema-v2 evidenceを再生成する。
+
+### Test evidence
+
+- Independent implementation review: PASS、open P0/P1/P2 0。
+- Focused: 86/86 PASS。Full Python suite: 161 PASS、symlink privilege 1 SKIP。
+- CRLF raw-byte hash/span、source/placeholder/membership drift、duplicate identity、
+  branch/loop/switch dominance、foreach/catch shadowing、legacy batch拒否を検証。
+- Current canonical 48,158 occurrences / 31,607 units integrity PASS、canonical hash不変、actual user environment write 0。
+
 ## Release claims not yet authorized
 
 Architecture decisionはacceptedだが、次はまだPASSではない:

@@ -6,8 +6,24 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Any
+
+TOOLS_ROOT = Path(__file__).resolve().parent
+if str(TOOLS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TOOLS_ROOT))
+
+from squirrel_literal_roles import (  # noqa: E402
+    GATE_AUTO_EXCLUDE,
+    GATE_MANUAL_REVIEW,
+    GATE_REVIEW_REQUIRED,
+    enrich_occurrence_role,
+    occurrence_evidence,
+    occurrence_role_gate,
+    source_structural_proof,
+)
+from ledger_integrity import canonical_indexes, unique_occurrence_index  # noqa: E402
 
 
 def assigned_unit_ids(payload: dict[str, Any]) -> set[str]:
@@ -35,19 +51,42 @@ def select_entries(
     mode: str | None,
     limit: int,
     excluded_unit_ids: set[str] | None = None,
+    require_role_evidence: bool = False,
 ) -> list[dict[str, Any]]:
-    occurrence_index = {entry["stable_key"]: entry for entry in ledger["entries"]}
+    if require_role_evidence:
+        occurrence_index, _ = canonical_indexes(ledger, units_payload)
+    else:
+        occurrence_index = unique_occurrence_index(ledger["entries"])
     selected = []
+    analysis_cache: dict[str, tuple[str, str, dict[str, Any]]] = {}
     excluded_unit_ids = excluded_unit_ids or set()
     for unit in units_payload["units"]:
         if unit.get("status") != "UNTRANSLATED":
             continue
         if unit.get("translation_unit") in excluded_unit_ids:
             continue
-        candidates = [occurrence_index[key] for key in unit["occurrences"]]
+        all_occurrences = [occurrence_index[key] for key in unit["occurrences"]]
+        if require_role_evidence:
+            module_roots = ledger.get("module_roots", {})
+            if not module_roots:
+                raise ValueError("strict category selection requires module source roots")
+            all_occurrences = [
+                enrich_occurrence_role(occurrence, module_roots, analysis_cache)
+                for occurrence in all_occurrences
+            ]
+            role_gate = occurrence_role_gate(
+                all_occurrences,
+                lambda occurrence: source_structural_proof(
+                    occurrence, module_roots, analysis_cache
+                ),
+            )
+        else:
+            role_gate = unit.get("role_gate", GATE_MANUAL_REVIEW)
+        if role_gate in {GATE_AUTO_EXCLUDE, GATE_REVIEW_REQUIRED}:
+            continue
         candidates = [
             occurrence
-            for occurrence in candidates
+            for occurrence in all_occurrences
             if (module is None or occurrence["module"] == module)
             and (source_pattern is None or source_pattern.search(occurrence["source"]))
             and (channel is None or occurrence["channel"] == channel)
@@ -71,6 +110,16 @@ def select_entries(
                 "mode": occurrence["mode"],
                 "source_code": occurrence.get("source_code", []),
                 "placeholder_signature": unit["placeholder_signature"],
+                "unit_role_gate": role_gate,
+                "occurrence_evidence": [
+                    occurrence_evidence(item)
+                    for item in sorted(
+                        all_occurrences,
+                        key=lambda item: (
+                            item["module"], item["source"], item["context"], item["stable_key"]
+                        ),
+                    )
+                ],
                 "review_status": "DRAFT_INDEPENDENT_REVIEW_REQUIRED",
                 "notes": [],
             }
@@ -125,11 +174,13 @@ def main() -> int:
         mode=args.mode,
         limit=args.limit,
         excluded_unit_ids=excluded_unit_ids,
+        require_role_evidence=True,
     )
     if not entries:
         raise SystemExit("ERROR: no untranslated units matched the category filter")
     payload = {
-        "schema_version": 1,
+        "schema_version": 2,
+        "role_evidence_required": True,
         "batch_id": args.batch_id,
         "installed_snapshot_id": json.loads((repo / "reports" / "translation-coverage.json").read_text(encoding="utf-8"))["installed_snapshot_id"],
         "filters": {

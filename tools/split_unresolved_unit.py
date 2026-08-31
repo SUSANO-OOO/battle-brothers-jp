@@ -12,6 +12,23 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+TOOLS_ROOT = Path(__file__).resolve().parent
+if str(TOOLS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TOOLS_ROOT))
+
+from squirrel_literal_roles import (  # noqa: E402
+    GATE_MANUAL_REVIEW,
+    enrich_occurrence_role,
+    occurrence_evidence,
+    role_summary,
+    source_binding_key_proof,
+)
+from ledger_integrity import (  # noqa: E402
+    canonical_indexes,
+    unique_occurrence_index,
+    unique_unit_index,
+)
+
 
 def variant_id(original_id: str, stable_keys: list[str], resolution: str) -> str:
     basis = "\x1f".join((original_id, resolution, *sorted(stable_keys)))
@@ -22,13 +39,24 @@ def apply_splits(
     plan: dict[str, Any],
     ledger: dict[str, Any],
     units_payload: dict[str, Any],
+    *,
+    enforce_role_evidence: bool = True,
 ) -> dict[str, Any]:
-    unit_index = {unit["translation_unit"]: unit for unit in units_payload["units"]}
-    occurrence_index = {entry["stable_key"]: entry for entry in ledger["entries"]}
+    if enforce_role_evidence and (
+        plan.get("schema_version") != 2
+        or plan.get("role_evidence_required") is not True
+    ):
+        raise ValueError("Split plan must require schema-v2 source-bound role evidence")
+    if enforce_role_evidence:
+        occurrence_index, unit_index = canonical_indexes(ledger, units_payload)
+    else:
+        occurrence_index = unique_occurrence_index(ledger["entries"])
+        unit_index = unique_unit_index(units_payload["units"])
     created: list[dict[str, Any]] = []
     removed: set[str] = set()
     reason_counts: Counter[str] = Counter()
     excluded_occurrences = 0
+    analysis_cache: dict[str, tuple[str, str, dict[str, Any]]] = {}
 
     for split in plan.get("splits", []):
         original_id = split.get("original_unit")
@@ -58,6 +86,42 @@ def apply_splits(
                 notes = [notes]
             if not isinstance(notes, list) or not all(isinstance(note, str) for note in notes):
                 raise ValueError(f"Invalid notes in split: {original_id}")
+            reviewed_evidence = variant.get("occurrence_evidence", [])
+            if enforce_role_evidence and not reviewed_evidence:
+                raise ValueError(f"Split variant is missing mandatory role evidence: {original_id}")
+            enriched_occurrences = occurrences
+            if reviewed_evidence:
+                if not isinstance(reviewed_evidence, list):
+                    raise ValueError(f"Invalid role evidence in split: {original_id}")
+                evidence_index = {
+                    item.get("stable_key"): item
+                    for item in reviewed_evidence
+                    if isinstance(item, dict)
+                }
+                if len(evidence_index) != len(reviewed_evidence) or set(evidence_index) != set(stable_keys):
+                    raise ValueError(f"Role evidence must exactly cover split variant: {original_id}")
+                module_roots = ledger.get("module_roots", {})
+                if not module_roots:
+                    raise ValueError(f"Role-evidence split requires module source roots: {original_id}")
+                enriched_occurrences = [
+                    enrich_occurrence_role(
+                        occurrence,
+                        module_roots,
+                        analysis_cache,
+                        force_reanalysis=True,
+                    )
+                    for occurrence in occurrences
+                ]
+                for enriched in enriched_occurrences:
+                    if evidence_index[enriched["stable_key"]] != occurrence_evidence(enriched):
+                        raise ValueError(
+                            f"Role/source evidence drift in split {original_id}: {enriched['stable_key']}"
+                        )
+                if resolution == "RESOLVED_EXCLUSION" and any(
+                    not source_binding_key_proof(enriched, module_roots, analysis_cache)
+                    for enriched in enriched_occurrences
+                ):
+                    raise ValueError(f"Excluded split variant is not proven binding keys: {original_id}")
 
             if resolution == "UNTRANSLATED":
                 if variant.get("review_status") != "NOT_REVIEWED":
@@ -83,6 +147,10 @@ def apply_splits(
                         "occurrences": stable_keys,
                         "notes": list(notes),
                         "split_from": original_id,
+                        "role_gate": variant.get(
+                            "role_gate_after_review", GATE_MANUAL_REVIEW
+                        ),
+                        "role_summary": role_summary(enriched_occurrences),
                     }
                 )
             elif resolution == "RESOLVED_EXCLUSION":

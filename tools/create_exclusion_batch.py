@@ -5,9 +5,24 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
+
+TOOLS_ROOT = Path(__file__).resolve().parent
+if str(TOOLS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TOOLS_ROOT))
+
+from squirrel_literal_roles import PARSER_PROVEN, ROLE_BINDING_KEY  # noqa: E402
+from ledger_integrity import unique_unit_index  # noqa: E402
+
+
+TEMPLATE_KEY_REASONS = {
+    "INTERNAL_TEMPLATE_VARIABLE_KEY",
+    "INTERNAL_REPLACEMENT_KEY",
+    "template_variable_key",
+}
 
 
 def exclusion_reason_code(finding: dict[str, Any]) -> str | None:
@@ -23,9 +38,13 @@ def exclusion_reason_code(finding: dict[str, Any]) -> str | None:
 
 
 def build_batch(
-    audit: dict[str, Any], units_payload: dict[str, Any], batch_id: str
+    audit: dict[str, Any],
+    units_payload: dict[str, Any],
+    batch_id: str,
+    *,
+    require_role_evidence: bool = False,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    unit_index = {unit["translation_unit"]: unit for unit in units_payload["units"]}
+    unit_index = unique_unit_index(units_payload["units"])
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for finding in audit.get("findings", []):
         if finding.get("classification") == "RESOLVED_EXCLUSION":
@@ -40,6 +59,8 @@ def build_batch(
             raise ValueError(f"Audit references unknown unit: {unit_id}")
         unit = unit_index[unit_id]
         stable_keys = sorted(finding["stable_key"] for finding in findings)
+        if len(stable_keys) != len(set(stable_keys)):
+            raise ValueError(f"Duplicate audited occurrence for whole unit: {unit_id}")
         expected = set(unit["occurrences"])
         if set(stable_keys) != expected:
             skipped_partial.append(
@@ -61,6 +82,25 @@ def build_batch(
             else "MULTIPLE_RESOLVED_EXCLUSION_REASONS"
         )
         notes = list(dict.fromkeys(finding["reason"] for finding in findings))
+        role_evidence = [finding.get("occurrence_evidence") for finding in findings]
+        strict_role_evidence = any(item is not None for item in role_evidence)
+        if strict_role_evidence:
+            if any(
+                finding.get("role_metadata_verified") is not True
+                or not isinstance(finding.get("occurrence_evidence"), dict)
+                or not finding["occurrence_evidence"].get("evidence_fingerprint")
+                for finding in findings
+            ):
+                raise ValueError(f"Whole-unit exclusion has unverified role evidence: {unit_id}")
+        elif require_role_evidence:
+            raise ValueError(f"Whole-unit exclusion is missing role evidence: {unit_id}")
+        requires_parser_key = bool(set(sorted_reason_codes) & TEMPLATE_KEY_REASONS)
+        if requires_parser_key and strict_role_evidence and any(
+            finding["occurrence_evidence"].get("literal_role") != ROLE_BINDING_KEY
+            or finding["occurrence_evidence"].get("role_confidence") != PARSER_PROVEN
+            for finding in findings
+        ):
+            raise ValueError(f"Template-key exclusion lacks parser-proven keys: {unit_id}")
         entries.append(
             {
                 "translation_unit": unit_id,
@@ -70,13 +110,20 @@ def build_batch(
                 "reason_codes": sorted_reason_codes,
                 "stable_keys": stable_keys,
                 "notes": notes,
+                "unit_role_gate": findings[0].get("unit_role_gate"),
+                "requires_parser_proven_binding": requires_parser_key,
+                "occurrence_evidence": sorted(
+                    role_evidence,
+                    key=lambda item: item.get("stable_key", "") if isinstance(item, dict) else "",
+                ) if strict_role_evidence else [],
             }
         )
     if not entries:
         raise ValueError("Audit produced no whole-unit exclusions")
     return (
         {
-            "schema_version": 1,
+            "schema_version": 2 if require_role_evidence else 1,
+            "role_evidence_required": require_role_evidence,
             "batch_id": batch_id,
             "source_audit_id": audit.get("audit_id"),
             "entries": entries,
@@ -102,7 +149,9 @@ def main() -> int:
 
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
     units_payload = json.loads(units_path.read_text(encoding="utf-8"))
-    batch, skipped_partial = build_batch(audit, units_payload, args.batch_id)
+    batch, skipped_partial = build_batch(
+        audit, units_payload, args.batch_id, require_role_evidence=True
+    )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(batch, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(
