@@ -8,7 +8,7 @@ Phase 7 — 6,275 canonical units independently reviewed. Vanilla events 010 and
 
 ## Current commit
 
-Latest committed checkpoint before this working milestone: `106fb90b4bf1df83fccf670a878fd0c37c0272e0` on `codex/integrated-jp-mod`. The fully checked 6,275-unit changes are prepared for a grouped checkpoint commit; no remote commit is claimed yet.
+Fully checked 6,275-unit content checkpoint: `d476e9d70fbb1d2ad802d83e69c25cbabb9de51a` on `codex/integrated-jp-mod`. GitHub read-back confirmed the same commit on remote `main` and `codex/integrated-jp-mod`; this state bookkeeping update may be one commit newer.
 
 ## Installed snapshot ID
 
@@ -147,7 +147,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Blockers
 
-- GitHub: authenticated API identity is `SUSANO-OOO` and repository absence was verified. The user has now authorized GitHub use; PRIVATE creation/push/read-back to the exact directed repository `SUSANO-OOO/battle-brothers-jp` is the next external action.
+- GitHub: [SUSANO-OOO/battle-brothers-jp](https://github.com/SUSANO-OOO/battle-brothers-jp) was created as a user-authorized free PUBLIC repository. `main` is the default branch; `main` and `codex/integrated-jp-mod` both read back at `d476e9d70fbb1d2ad802d83e69c25cbabb9de51a`. No force push or history rewrite was used.
 - Runtime dependencies: Rosetta `0.5.0` and stdlib `>=2.5` are not installed in the user's current game. The project will not install them automatically.
 - Runtime QA: fully isolated game + Documents/config/save/log environment is not yet proven safe. The real environment remains untouched.
 - Release coverage: 25,547 unique units remain untranslated.
@@ -165,7 +165,7 @@ Rosetta's full upstream Squirrel `test.nut` is **not green** under BBbuilder's s
 
 ## Next exact action
 
-Create/push/read back the authorized PRIVATE GitHub repository after the 6,275-unit checkpoint commit. In parallel, finish and independently review the genuine-Japanese v2 draft for the final 357 Vanilla-event literals; do not promote the rejected English-dominant or generic-placeholder drafts. Then independently review the audited 572 player-facing pattern drafts plus one Kraken exclusion and implement only the 11 grouped final-display families.
+Finish and independently review the genuine-Japanese v2 draft for the final 357 Vanilla-event literals; do not promote the rejected English-dominant or generic-placeholder drafts. Then independently review the audited 572 player-facing pattern drafts plus one Kraken exclusion and implement only the 11 grouped final-display families. Push only grouped green checkpoints to the established GitHub repository.
 
 ## Artifact state
 
